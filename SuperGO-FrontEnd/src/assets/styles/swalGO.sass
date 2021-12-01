@@ -1,0 +1,52 @@
+
+/**********************************SWEET ALERT **********************************/
+$sans-serif: Roboto, "AvenirNextLTPro-Medium", sans-serif
+$color-verde:#6E18B8
+$color-rojo:#C0392B
+$color-gris:#ddd
+
+.swal2
+    width: 30% !important
+
+.swal2-myIcon
+    font-size:4.75rem!important
+
+.swal2-confirm.swal2-styled 
+        background-color: $color-verde !important
+        border: 1px solid $color-verde !important
+        @extend .swal2 
+
+.swal2-popup
+    font: size 14px
+
+.swal-deny.swal2-styled 
+        @extend .swal2
+
+.error-icon
+    color:$color-rojo
+    @extend .swal2-myIcon
+
+.ok-icon
+    color:$color-verde
+    @extend .swal2-myIcon
+
+.info-icon
+    color:$color-gris
+    @extend .swal2-myIcon
+
+.titModal
+    border-bottom: 2px solid $color-verde!important
+    font-size: 19px!important
+    margin: auto!important
+    margin-top: -10px!important
+    font-family: $sans-serif 'AvenirNextLTPro-Medium'!important
+    text-align: left
+
+.tableInfoDel  
+    text-align: left
+    display: inline-block
+    tr
+        &:nth-child(2n+1) 
+            td
+                 background-color: $color-gris
+

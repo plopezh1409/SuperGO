@@ -1,0 +1,326 @@
+$sans-serif: Roboto, "AvenirNextLTPro-Medium", sans-serif
+$gray: #676666
+$purple: #6E18B8
+$white: white
+.toastConfig
+  color: $white
+  margin-top: 70px !important
+.successToast
+  background-color: $purple
+  @extend .toastConfig
+.errorToast
+  background-color: #dc3545
+  @extend .toastConfig
+.warningToast
+  background-color: #ffc107
+  @extend .toastConfig
+.infoToast
+  background-color: #14899b
+  @extend .toastConfig
+
+  .color
+    .mat-simple-snackbar-action
+      color: $white
+      border-left: solid #ffffff46 1px
+*
+  scrollbar-width: thin
+  scrollbar-color: #676666
+
+  &::-webkit-scrollbar
+    width: 12px
+
+  &::-webkit-scrollbar-thumb
+    background-color: #676666
+    border-radius: 20px
+    border: 3px solid transparent
+html, body
+  height: 100%
+body
+  margin: 0
+  font-family: $sans-serif
+
+.fade-in
+  animation: fadeIn ease 1s
+  -webkit-animation: fadeIn ease 1s
+  -moz-animation: fadeIn ease 1s
+  -o-animation: fadeIn ease 1s
+  -ms-animation: fadeIn ease 1s
+
+@keyframes fadeIn
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+.fade-out
+  visibility: hidden
+  opacity: 0
+  transition: visibility 0s 0.5s, opacity 0.5s linear
+
+.object
+  transition: all 0.5s ease
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+
+.move-up
+  transform: translate(0, -245px)
+  -webkit-transform: translate(0, -245px)
+  -o-transform: translate(0, -245px)
+  -moz-transform: translate(0, -245px)
+
+.mod-whidth
+  animation: modWidth ease 1s
+  -webkit-animation: modWidth ease 1s
+  -moz-animation: modWidth ease 1s
+  -o-animation: modWidth ease 1s
+  -ms-animation: modWidth ease 1s
+
+@keyframes modWidth
+  0%
+    height: 319px
+
+  100%
+    height: 0px
+
+.contain
+  width: 98%
+  margin-left: auto
+  margin-right: auto
+  padding-right: 1%
+  padding-left: 1%
+
+.row
+  display: flex
+  flex-wrap: wrap
+
+.cards
+  display: flex
+  flex-wrap: wrap
+  padding-right: 0.75px
+  padding-left: 0.75px
+
+
+.card
+  position: relative
+  display: flex
+  flex-direction: column
+  min-width: 0
+  word-wrap: break-word
+  background-color: #fff
+  background-clip: border-box
+  border: 1px solid rgba(0,0,0,.125)
+  border-radius: .25rem
+  padding: 10px
+
+.card-hover-z
+  position: relative
+  display: flex
+  flex-direction: column
+  min-width: 0
+  word-wrap: break-word
+  background-color: #fff
+  background-clip: border-box
+  border: 1px solid rgba(0,0,0,.125)
+  border-radius: .25rem
+  padding: 10px
+
+.card-hover-z:hover
+  transform: scale(1.05)
+
+.card-title
+  margin-bottom: .5rem
+  word-wrap: break-word
+.card-body
+  flex: 1 1 auto
+  padding: 1rem 1rem
+  word-wrap: break-word
+
+.mt-10
+  margin-top: 10px !important
+
+.mb-10
+  margin-bottom: 10px !important
+.ml-10
+  margin-left: 10px !important
+.mr-10
+  margin-right: 10px !important
+
+.shadow
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important
+
+.pe-auto
+  cursor: pointer
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px)
+  .cardPer
+    width: 200px
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 900px)
+  .cardPer
+    width: 200px
+
+@media only screen and (max-width: 320px)
+  .cardPer
+    width: 200px
+
+.cardPer > div:hover > mat-icon
+  color: $white !important
+.cardPer
+  width: 130px
+  background-color: $white
+  border-radius: 4px
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1)
+  cursor: pointer
+  margin-right: 10px
+  min-height: 130px
+  height: auto
+  display: flex
+  justify-content: center
+  color: #333333
+
+.cardPer:hover
+  box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.2)
+  background-color: $purple !important
+  color: $white
+  transition: 1s
+.divIconInit
+  text-align: center
+  width: 100%
+.iconPersInit
+  font-size: 60px !important
+  width: 100% !important
+  height: 70px !important
+  color: $purple !important
+  margin-top: 35px
+
+.descricao
+  padding-left: 1%
+  padding-right: 1%
+.mat-ink-bar
+  background-color: $purple !important
+.subtitle
+  color: $gray
+
+.subtitles
+  height: 25px
+  border-bottom: solid $purple 1px
+  background-color: $purple
+  width: 100%
+  padding-top: 5px
+  margin-bottom: 15px
+  border-radius: 10px 10px 0px 0px
+  color: $white
+
+.contForm
+  background-color: #fff
+
+.ctrlDiv
+  width: 100% !important
+
+.mat-form-field-appearance-outline .mat-form-field-outline
+  color: $purple
+
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline-thick
+  color: $purple
+
+.mat-form-field
+  width: 90%
+  height: 91px
+
+.mat-input-element
+  caret-color: $purple !important
+
+.textbox__button-search
+  text-align: end
+  margin-bottom: -10px
+  margin-top: -19px
+
+.mat-ico
+  color: $purple
+  background-color: transparent
+
+.btnSearchIcon
+  border: none
+  outline: solid $purple 1px
+  color: $purple
+  border-radius: 4px
+  background-color: transparent
+  position: relative
+  z-index: 1
+
+.btnSearchIcon:hover
+  outline: none
+  background-color: $purple
+  color: $white
+
+  .mat-form-field-wrapper
+    padding-bottom: 17px
+
+.btnPrimary-outline
+  border: none
+  outline: solid $purple 1px
+  color: $purple
+  border-radius: 3px
+  background-color: transparent
+  margin-bottom: 10px
+  margin-top: 10px
+  font-size: 22px
+  cursor: pointer
+
+.btnPrimary-outline:hover
+  color: $white
+  background-color: $purple
+
+.btnPrimary
+  border: none
+  background-color: $purple
+  border-radius: 3px
+  color: $white
+  margin-right: 10%
+  margin-bottom: 10px
+  margin-top: 10px
+  font-size: 16px
+  cursor: pointer
+  outline: none
+
+.btnPrimary:hover
+  background-color: #591496
+  transform: scale(1.05)
+.flex
+  display: flex
+.colorSub
+  color: #6A6F8C
+.p-5
+  padding: 5px !important
+.p-10
+  padding: 10px !important
+.pl-10
+  padding-left: 10px !important
+.pr-10
+  padding-right: 10px !important
+.pt-10
+  padding-top: 10px !important
+.pb-10
+  padding-bottom: 10px !important
+
+.text-justify
+ text-align: justify
+
+.justify-start
+  justify-content: start
+.justify-center
+  justify-content: center
+.justify-end
+  justify-content: end
+.text-center
+  text-align: center
+.text-start
+  text-align: start
+.width-100
+  width: 100% !important
+.toolClass
+  background-color: #006237
+  font-size: 18px
+  font-family: $sans-serif
+  margin-top: -10px !important

@@ -1,0 +1,36 @@
+<div [ngClass]="{'mod-whidth flexHeight': !showImage}" [ngStyle]="{'height':(showImage)?'200px':'0px'}" class="divSearch">
+    <div id="logoSearch" [ngClass]="{'fade-out ': !showImage, 'fade-in':showImage,logo:true}">
+        <img alt="Google" src="assets/image/logoSearch.png" width="400px" height="280px" >
+    </div>
+
+    <div id="barSearch" class="bar" [ngClass]="{'object rocket move-up ': !showImage}">
+        <a href="#" class="botonIconSearch" [ngClass]="{'iconHolderPrinc': placeHolderInput}">
+            <mat-icon>
+                search
+            </mat-icon>
+        </a>
+        <label for="inputSearch" style="display: none;"></label>
+        <input class="searchbar" type="text" title="Search" name="inputSearch"  [(ngModel)]="inputSearch" id="inputSearch" #searchInput
+            (keyup)="onKey(searchInput)" [ngClass]="{'inputHolderPrinc': placeHolderInput}">
+        <a class="closeSearch" *ngIf="placeHolderInput" [ngClass]="{'aHolderPrinc': placeHolderInput}" #close (click)="clean(close)">    
+            <mat-icon>
+                close
+            </mat-icon>
+        </a>
+    </div>
+
+    <div class="divSecondSearch" *ngIf="placeHolderInput" [ngClass]="{'object rocket move-up ': !showImage}">
+        <div id="" class="bar barSearch2" *ngFor="let petition of copyPetitions;let i = index"
+            (click)="redirect(petition.subcategories)" (KeyDown)="redirect(petition.subcategories)" [ngClass]="{'inputFinal': i == copyPetitions.length-1}">
+            <mat-icon class="iconResult">{{petition.subcategories.image}}</mat-icon>
+            <div class="inputResult">{{petition.categories.name | titlecase}} /{{petition.subcategories.name |
+                titlecase}}</div>
+        </div>
+        <div id="" class="bar barSearch2" style="border-bottom: 1px solid #bfbfbf !important;
+        border-radius: 0px 0px 10px 10px !important;
+        padding-bottom: 4px;justify-content: center;cursor: default;" *ngIf="copyPetitions.length == 0">
+            <div class="inputResult">Sin Coincidencias Modulos</div>
+        </div>
+    </div>
+
+</div>

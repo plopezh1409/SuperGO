@@ -1,0 +1,19 @@
+<app-progress [overlay]="showLoad"></app-progress>
+
+<div *ngIf="isAuth">
+    <app-encabezado [showLogo]="showLogo"></app-encabezado>
+    <div class="ruta" style="margin-top: 80px;
+            position: relative;
+            width: 400px;
+            margin-bottom: 40px;">
+        <lib-mat-breadcrumb id="crumb" symbol=" > " bgColor="transparent" lastLinkColor="#B91F27" fontColor="#6E18B8">
+        </lib-mat-breadcrumb>
+    </div>
+    <app-search [showImage]="inpImage" [boolImg]="boolImg"></app-search>
+</div>
+<div>
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="isAuth">
+    <app-pie-de-pagina></app-pie-de-pagina>
+</div>

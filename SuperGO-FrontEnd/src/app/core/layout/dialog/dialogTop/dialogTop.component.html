@@ -1,0 +1,42 @@
+<app-progress [overlay]="showLoad"></app-progress>
+<div  class="dvClose">    
+    <button mat-dialog-close (click)="cerrarDialogo()">
+        X
+    </button>
+</div>
+<h1 mat-dialog-title class="titModal"> {{data.title}} </h1>
+<div mat-dialog-content>
+    <div *ngFor="let mod of modules;let modIndex = index">
+        <ng-container *ngIf="mod.module.operation.length>0;else showModule">
+            <div class="ml-10" *ngFor="let operation of mod.module.operation;let opeIndex = index">
+                <div class="btnPrimary-outline dialogCards" *ngIf="operation.name" (click)="addTop(modIndex,opeIndex)" (KeyDown)="addTop(modIndex,opeIndex)" 
+                    [ngClass]="{'selectedTop': modules[modIndex].module.operation[opeIndex].active}">
+                    <mat-icon>{{operation.image}}</mat-icon>
+                    <div>
+                        {{operation.name | titlecase}}
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showModule>
+            <div class="ml-10">
+                <div class="btnPrimary-outline dialogCards" *ngIf="mod.module.name" (click)="addTop(modIndex,-1)" (KeyDown)="addTop(modIndex,-1)"                  
+                [ngClass]="{'selectedTop': modules[modIndex].module.active}">
+                    <mat-icon>{{mod.module.image}}</mat-icon>
+                    <div>
+                        {{mod.module.name | titlecase}}
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        
+    </div>    
+</div>
+<div mat-dialog-actions class="btn-cerrar-wrap">    
+    <button class="btnPrimary" mat-button mat-raised-button (click)="btnAccept()"> Aceptar </button>
+</div>
+
+
+
+
+

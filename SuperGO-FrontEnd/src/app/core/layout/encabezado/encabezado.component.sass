@@ -1,0 +1,910 @@
+$sans-serif: "AvenirNextLTPro-Medium", Roboto, sans-serif
+header
+	position: fixed
+	position: -webkit-fixed
+	top: 0
+	z-index: 1
+	background-color: #00B300
+.header
+	display: flex
+	position: fixed
+	justify-content: space-between
+	align-items: center
+	border-bottom: 2px solid var(--main-color)
+	background-color: #00B300
+	width: 100%
+	z-index: 3 !important
+	& > div
+		width: 33%
+.headerLogo
+	text-align: center
+	width: 20% !important
+.headerMenu
+	padding: 0px 15px
+	width: 30% !important
+	height: 33px !important
+	display: inline-flex
+	padding-top: 5px !important
+	a
+		img
+			width: 21px
+.headerUser
+	justify-content: flex-end
+	padding: 0px 5px 0px 0px
+	display: flex
+	align-items: center
+	width: 30% !important
+img#imgLogo
+	padding: 4px 0px 0px 0px
+	height: 42px
+div
+	&.pic
+		display: block
+		position: relative
+		width: 38px
+		height: 38px
+		margin: 0 0 0 10px
+		background: #FFFFFF no-repeat center center
+		border: solid 2px #666666
+		border-radius: 50%
+		background-size: 80%
+.user-menu
+	margin: 23px 4px 0px 4px
+	a
+		img
+			width: 10px
+.name
+	color: #fff
+	font-size: 12px
+	line-height: 17px
+	text-align: right
+.fecha
+	font-size: 11px
+	line-height: 15px
+	padding: 0px 6px
+.titulo
+	padding: 46px 15px 10px 15px
+	background-color: #fafafa
+	font-size: 24px
+	color: #43413B
+	font-weight: 800
+	text-align: left
+	line-height: 10px
+	.ruta
+		position: relative
+		z-index: 5
+		font-size: 12px
+		white-space: nowrap
+		text-overflow: ellipsis
+		background-color: transparent !important
+		padding: 1px 0px 0px 0px
+		a
+			color: #7E7E7E
+			text-decoration: none
+.ruta
+	a
+		&::after
+			content: "/ "
+			display: inline-block
+			width: 0.4rem
+			height: 0.4rem
+			margin-left: 5px
+			cursor: pointer
+.ver
+	display: block
+	display: block
+.MenuUser
+	width: 250px
+	position: absolute
+	right: 4px
+	top: 50px
+	width: 250px
+	position: absolute
+	right: 4px
+	&:after
+		content: ""
+		border-top: 2px solid transparent
+		border-bottom: 10px solid #ffffff
+		border-left: 10px solid transparent
+		border-right: 10px solid transparent
+		left: 59%
+		position: absolute
+		top: 2px
+		z-index: 28
+		content: ""
+		border-top: 2px solid transparent
+		border-bottom: 11px solid #ffffff
+		border-left: 13px solid transparent
+		border-right: 16px solid transparent
+		left: 59%
+		position: absolute
+		top: 7px
+		z-index: 28
+.MenuUser1
+	background-color: #ffffff
+	box-shadow: 2px -3px 13px 2px rgba(154, 150, 150, 0.5)
+	z-index: 9
+	border-radius: 10px
+	margin-top: 12px
+	font-size: 14px
+	display: none
+	background-color: #ffffff
+	box-shadow: 2px -3px 13px 2px rgba(154, 150, 150, 0.5)
+	z-index: 9
+	border-radius: 10px
+	margin-top: 20px
+	font-size: 14px
+	a
+		&:last-child
+			border-bottom: 0px
+			border-bottom: 0px
+.titConfig
+	color: #333333
+	font-family: $sans-serif 'Avenir_Next_Demi_Bold'
+	padding: 10px 0px 10px 20px
+	border-bottom: 1px solid #ebebeb
+	color: #333333
+	font-family: $sans-serif 'Avenir_Next_Demi_Bold'
+	padding: 10px 0px 10px 20px
+	border-bottom: 1px solid #ebebeb
+a
+	&.selMenu
+		width: 100%
+		color: #cbcbcb
+		font-family: $sans-serif 'Avenir_Next_Demi_Bold'
+		display: flex
+		align-items: center
+		justify-content: space-between
+		margin: auto
+		text-decoration: none
+		width: 100%
+		color: #cbcbcb
+		font-family: $sans-serif 'Avenir_Next_Demi_Bold'
+		display: flex
+		align-items: center
+		justify-content: space-between
+		border-bottom: 1px solid#6E18B8
+		margin: auto
+		div
+			padding: 5px 15px
+			align-items: center
+			display: flex
+			padding: 5px 15px
+			align-items: center
+			display: flex
+			&:nth-child(1)
+				width: 77%
+				width: 77%
+			&:nth-child(2)
+				width: 23%
+				width: 23%
+		&:hover
+			background-color: var(--main-color__light)
+			color: #333333
+			border-bottom: 1px solid var(--main-color__light)
+			border-radius: 10px
+			background-color: #c4d6c4
+			color: #333333
+			border-bottom: 1px solid #c4d6c4
+			div
+				border-bottom: 1px solid var(--main-color__light)
+				border-bottom: 0px solid #c4d6c4
+			.imgConfig
+				-webkit-filter: contrast(200%)
+				filter: contrast(2%) brightness(0%)
+				-webkit-filter: contrast(200%)
+				filter: contrast(2%) brightness(0%)
+.imgConfig
+	width: 20px
+	width: 20px
+.ocultar
+	display: none
+.verLogOut
+	display: block
+//=============================================================================================================================================== 
+	.user-menu
+		a
+			img
+				width: 10px
+//MENU 
+	#effect
+		position: fixed
+		width: 320px
+		background-color: #ffffff
+		z-index: 999
+		top: 49px
+		bottom: 0px !important
+		-webkit-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+		-moz-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+		box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+		height: 100% !important
+		overflow: auto
+	OPCIONES 
+		.l-navegacion
+			li
+				list-style-type: none
+				background-color: #fff
+				color: #efefef
+				padding: 0px
+				margin: 0px 0px 0px 0px
+				-webkit-transition: all 0.25s ease-in-out
+				-moz-transition: all 0.25s ease-in-out
+				-o-transition: all 0.25s ease-in-out
+				transition: all 0.25s ease-in-out
+				cursor: pointer
+				border-bottom: solid 1px #f1f1f1
+#menuPrincipal
+	background-color: #ffffff
+	margin-bottom: 65px
+.header-usuario
+	width: 100%
+	height: 100px
+div#foto
+	float: left
+	justify-content: center
+	text-align: center !important
+	height: 100% !important
+	display: flex
+	align-items: center
+	width: 126px
+	display: none !important
+
+div#inf-usuario
+	width: 53%
+	display: inline-block
+	padding: 27px 2px 20px 0px
+	font-size: 20px
+	color: #333333
+	line-height: 18px
+	margin-left: 32px !important
+	span
+		color: #4c4c4c
+		font-size: 12px
+		font-family: $sans-serif Arial, Helvetica, sans-serif
+img
+	&.imgLogo
+		width: 53px
+#buscador
+	height: 30px
+	width: 285px
+	border-bottom: 1px solid #f1f1f1
+	position: relative
+	.w87
+		width: 89%
+		margin: auto
+		margin-left: 25px
+		position: relative
+//MENU BUSCADOR
+input[type="text"], input[type="date"], input[type="number"], input[type="password"], select, .dk-selected,input[type="time"], input[type="search"]
+	background-color: #fff
+	color: #2e2925
+	border: 0px
+	padding: 0px
+	border-radius: 0px
+	position: relative
+	font-size: 14px
+	padding: 0px 0px
+	height: 29px
+	width: 100%
+	border: 1px solid #bfbfbf
+	font-family: $sans-serif 'Avenir_Next_Regular'
+	text-indent: 10px
+input[type="search"]
+	width: 200px
+.w87
+	width: 90%
+	margin: auto
+	position: relative
+input
+	&.buscar
+		background-image: url(../../../../assets/image/lupa.svg)
+		background-size: 16px
+		background-repeat: no-repeat
+		background-color: transparent
+		width: 17px
+		height: 17px
+		border: 0px
+		cursor: pointer
+		position: absolute
+		right: 2%
+		bottom: 6px
+.flecha::before,.flecha::after
+	content: " "
+	display: inline-block
+	vertical-align: middle
+.flecha
+	&::after
+		width: 0.4rem
+		height: 0.4rem
+		border-right: 2px solid#6E18B8
+		border-top: 2px solid#6E18B8
+		-webkit-transform: rotate(45deg)
+		transform: rotate(45deg)
+		margin-left: -0.5rem
+		cursor: pointer
+#menu
+	padding: 0
+	margin: 0
+	border: 0
+	width: 320px
+	a
+		width: 100%
+		display: flex
+		justify-content: space-between
+		align-items: center
+	ul
+		li
+			a
+				div
+					color: #979797
+					padding: 12px 15px
+					line-height: 0px
+					justify-content: start
+			ul
+				display: none
+				position: absolute
+				left: 0
+				width: 320px
+				left: 100%
+				li
+					ul
+						display: none
+						position: absolute
+						left: 0
+						width: 320px
+						left: 100%
+			.flecha
+				&::after
+					width: 0.4rem
+					height: 0.4rem
+					border-left: 0px solid #31415f
+					border-bottom: 2px solid #31415f
+					border-right: 2px solid #31415f
+					border-top: 0px solid #31415f
+					-webkit-transform: rotate(45deg)
+					transform: rotate(45deg)
+					margin-left: -0.5rem
+					cursor: pointer
+		&.nivel1
+			li
+				&:hover
+					background-color: #F0F0F0
+				ul
+					&.nivel2
+						margin-top: 0px
+						top: 198px
+						left: 320px
+						bottom: 0px
+						position: fixed
+						background-color: #F0F0F0
+						-webkit-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+						-moz-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+						box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+						margin-top: 0px
+						left: 0px
+						position: initial
+						background-color: #c4d6c4
+						li
+							margin-top: 0px
+							background: #F0F0F0
+							border-bottom: 1px solid #f3f8f3
+							a
+								div
+									color: #979797
+									font-family: $sans-serif 'Avenir_Next_Regular'
+							&:hover
+								background: #c4d6c4
+								a
+									div
+										color: #6E18B8
+							ul
+								&.nivel3
+									margin-top: 0px
+									top: 198px
+									left: 640px
+									bottom: 0px
+									position: fixed
+									background-color: #c4d6c4
+									-webkit-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+									-moz-box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+									box-shadow: 0px 2px 28px 0px rgba(59,59,59,0.09)
+									margin-top: 0px
+									left: 0px
+									position: initial
+									background-color: #c4d6c4
+									li
+										margin-top: 0px
+										background: #c4d6c4
+										border-bottom: 1px solid #ebf1eb
+										a
+											div
+												color: #979797
+												font-family: $sans-serif 'Avenir_Next_Regular'
+										&:hover
+											background: #9fc19f
+											a
+												div
+													color: #6E18B8
+		ul
+			li
+				float: none
+				float: none
+			ul
+				li
+					float: none
+	li
+		&:hover
+			background: #f6f6f6
+	& > ul
+		&.normal
+			& > li
+				&:hover
+					& > ul
+						display: block !important
+						& > li
+							&:hover
+								& > ul
+									display: block !important
+#menu ul, li
+	list-style: none
+	margin: 0
+	padding: 0
+#menu ul, #menu li
+	width: 100%
+	display: table
+	position: relative
+#menu ul.nivel1 li:hover a div, #menu ul li.in a div
+	color: #6E18B8
+#menu:after, #menu ul:after
+	content: ''
+	display: block
+	clear: both
+
+	//********************************************* 
+	.svgIcono
+		line-height: 15px
+		justify-self: auto
+	.titHome
+		border-left: 5px solid#6E18B8
+		padding: 10px
+		margin: auto
+		text-align: left
+		color: #676666
+		font-family: $sans-serif 'Avenir_Next_Regular'
+		font-size: 17px
+		margin-left: 2%
+.mat-button
+	display: block
+	min-width: 0px
+	padding: 0px
+	z-index: 18
+.mat-icon-button
+	display: block
+	width: 10%
+	height: 10%
+	z-index: 20
+.mat-sidenav-content
+	height: 100%
+	width: 100%
+.mat-drawer-content
+	height: 100%
+.mat-drawer-container
+	position: fixed !important
+	display: contents !important
+	height: 100%
+	width: 100%
+//********************************************* 
+.four
+	display: flex
+	width: 100%
+	margin-left: 15px
+	margin-right: 15px
+	border-bottom: solid #ccc 1px !important
+
+.labelMain
+	line-height: 30px
+	margin: 0 0 0 5px
+
+.titHome
+	strong		
+		font-size: 24px
+
+.grey
+	display: block
+	position: initial
+	background-color: #FFF
+	padding-bottom: 10px
+	width: 100%
+	z-index: 2
+	margin-left: -15px !important
+	padding-left: 50px !important
+	padding-top: 15px
+
+::ng-deep
+	.mat-bread-crumb-list-item
+		font-size: 15px !important
+		//color: #09673E !important 
+.subNav
+	width: 100%
+	display: flex
+	align-items: center
+.space
+	padding-left: 42%
+.back
+	width: 80px
+	img
+		height: 35px
+	&:hover
+		transform: translate(-8px)
+		box-shadow: 0 10px 14px rgba(0, 0, 0, 0.100)
+
+@mixin respond-medium
+	@media screen and (max-width: 780px)
+		@content
+
+@mixin respond-small
+	@media screen and (max-width: 780px)
+		@content
+
+@include respond-small
+	.titHome
+		line-height: 1.5em
+		text-align: center
+		padding: 20px
+		font-size: 23px
+		strong
+			font-size: 30px
+
+@include respond-medium
+	#menu
+		ul
+			li
+				ul
+					display: none
+					position: relative
+					left: 0
+					z-index: 598
+					width: 320px
+					left: 0%
+				.flecha
+					&::after
+						width: 0.4rem
+						height: 0.4rem
+						border-left: 0px solid #31415f
+						border-bottom: 2px solid #31415f
+						border-right: 2px solid #31415f
+						border-top: 0px solid #31415f
+						-webkit-transform: rotate(45deg)
+						transform: rotate(45deg)
+						margin-left: -0.5rem
+						cursor: pointer
+			ul
+				li
+					float: none
+			&.nivel1
+				li
+					ul
+						&.nivel2
+							margin-top: 0px
+							left: 0px
+							position: initial
+							background-color: #c4d6c4
+							li
+								ul
+									&.nivel3
+										margin-top: 0px
+										left: 0px
+										position: initial
+										background-color: #c4d6c4
+	#menu ul li .flecha::before,.flecha::after
+		content: " "
+		display: inline-block
+		vertical-align: middle
+	ul
+		&.nivel1
+			li
+				&.in
+					.rotar
+						&::after
+							-webkit-transform: rotate(225deg)
+							transform: rotate(225deg)
+	#menu1
+		ul
+			&.Nivel2
+				margin-bottom: -18px
+
+.span2
+	display: inline-block !important
+.span1
+	display: none !important
+.br2
+	display: inline-block !important
+.br1
+	display: none !important
+.goTitle
+	margin-left: 10px !important
+	color: #fff
+
+@media only screen and ( max-width: 1043px )
+	.titHome
+		strong		
+			font-size: 20px	
+
+@media only screen and ( max-width: 896px )
+	.titHome
+		strong		
+			font-size: 17px	
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) 
+	.headerLogo
+		display: none !important
+		padding: none !important
+
+	.goTitle
+		font-size: 23px !important
+		padding-left: 10px !important
+		color: #333333 !important
+
+	.headerMenu
+		width: 100% !important
+
+	.headerUser
+		display: none !important
+
+	.titHome
+		width: 100%
+		text-align: start
+		padding: 0px
+
+	.span1
+		display: inline-block !important
+
+	.span2
+		display: none !important
+	.br1
+		display: inline-block !important
+
+	.br2
+		display: none !important
+
+	div#foto
+		display: flex !important
+
+	div#inf-usuario
+		margin-left: 0px !important
+
+	.bar
+		width: 90% !important
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 900px)
+	.formSearch
+		width: 90% !important
+
+	.bar
+		width: 90%	!important
+
+@media only screen and (max-width: 320px)
+	.headerLogo
+		display: none !important
+		padding: none !important
+
+	.goTitle
+		font-size: 23px !important
+		padding-left: 10px !important
+		color: #333333 !important
+
+	.headerMenu
+		width: 100% !important
+
+	.headerUser
+		display: none !important
+
+	.span1
+		display: inline-block !important
+
+	.span2
+		display: none !important
+	.br1
+		display: inline-block !important
+
+	.br2
+		display: none !important
+
+	div#foto
+		display: flex !important
+
+	div#inf-usuario
+		margin-left: 0px !important
+
+	.formSearch
+		width: 90% !important
+
+	.bar
+		width: 90% !important
+
+.mat-drawer
+	top: 0px !important
+
+.titulo
+	height: 30px !important
+
+.header-usuario
+	border-bottom: 2px solid #7f7f7f !important
+
+.header-usuario
+	position: relative
+	z-index: 2
+	background-repeat: no-repeat
+	background-size: contain
+	background-attachment: scroll !important
+	background-position: center center !important
+
+.header-usuario:after
+	content: ' '
+	display: block
+	position: absolute
+	left: 0
+	top: 0
+	width: 100%
+	height: 100%
+	z-index: 1
+	opacity: 0.2
+	background-image: url('../../../../assets/image/logo1.jpg')
+	background-repeat: no-repeat
+	background-size: contain
+	z-index: auto
+	background-attachment: scroll !important
+	background-position: center center !important
+
+.pic2
+	display: block
+	position: relative
+	width: 50px
+	height: 50px
+	margin: 0 0 0 10px
+	background: #FFFFFF no-repeat center center
+	border: solid 2px #666666
+	border-radius: 50%
+	background-size: 80%
+	z-index: 2
+
+.textoImagnProfile
+	position: absolute
+	top: 51px
+	right: -34px
+	width: 120px !important
+	font-size: 12px
+	color: #4c4c4c
+	font-weight: bold
+
+.btnHeader
+	color: #6E18B8
+	border-color: #6E18B8 1px
+	background-color: #00B300
+	border: none
+	cursor: pointer !important
+	margin-top: 6px
+
+.inputSearch
+	padding: 10px
+	font-size: 17px
+	border: 1px solid grey
+	float: left
+	width: 80%
+	background: #f1f1f1
+	border-radius: 4px 0px 0px 4px !important
+	outline: none
+	height: 100% !important
+
+.btnSearch
+	float: left
+	width: 20%
+	background: #09673E
+	color: white
+	font-size: 17px
+	border: 1px solid grey
+	border-left: none
+	cursor: pointer
+	border-radius: 0px 4px 4px 0px !important
+	height: 43px !important
+
+.btnSearch:hover
+	background: white
+	color: #09673E
+
+.btnSearch:after
+	content: ""
+	clear: both
+	display: table
+
+.contenedorPrincipal
+	width: 97% !important
+	padding: 10px
+	justify-content: center !important
+	display: flex
+	text-align: center
+
+.formSearch
+	width: 100%
+	display: flex
+	height: 41px
+
+.shadow-sm
+	box-shadow: 0 10px 6px -6px #777
+
+.ruta
+	margin-top: 10px
+	background-color: white !important
+	position: relative
+	z-index: 999
+
+.imgLogoSearch
+	width: 100%
+
+.grid
+	height: 23px
+	position: relative
+	bottom: 4px
+
+.signbutton
+	background-color: #4885ed
+	color: #fff
+	border: none
+	border-radius: 3px
+	padding: 7px 10px
+	position: relative
+	bottom: 7px
+	font-weight: bold
+
+.logo
+	margin-top: 100px
+	margin-bottom: 20px
+	text-align: center
+
+.bar
+	margin: 0 auto
+	width: 500px
+	border-radius: 30px
+	border: 1px solid #dcdcdc
+	display: flex
+	border-left: none
+	border-radius: 0px 15px 15px 0px !important
+
+.searchbar
+	height: 37px !important
+	border: none
+	width: 500px
+	font-size: 16px
+	outline: none
+	border-left: none !important
+	border-radius: 0px 17px 17px 0px !important
+
+.voice
+	height: 20px
+	position: relative
+	top: 5px
+	left: 10px
+
+.buttons
+	margin-top: 30px
+
+.buttona
+	background-color: #f5f5f5
+	border: none
+	color: #707070
+	font-size: 15px
+	padding: 10px 20px
+	margin: 5px
+	border-radius: 4px
+	outline: none
+
+.botonIconSearch
+	background-color: white
+	border: 1px solid #bfbfbf
+	border-right: none
+	background: white !important
+	border-radius: 17px 0px 0px 17px !important
+	padding-left: 4px
+	padding-top: 7px
+	font-size: 0px
+	color: #707070

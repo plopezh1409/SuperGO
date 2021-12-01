@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/fonts'
+@import 'assets/styles/configMaterial'
+@import 'assets/styles/principal'
+@import 'assets/styles/swalGO'
+
+$sans-serif: Roboto, "AvenirNextLTPro-Medium", sans-serif
+
+.toastConfig
+    color: white
+    margin-top: 70px !important
+.success
+    background-color: rgba(0,99,65,1)
+    @extend .toastConfig
+.error
+    background-color: #dc3545
+    @extend .toastConfig
+.info
+    background-color: #14899b
+    @extend .toastConfig
+
+.mat-simple-snackbar-action
+    color: white
+    border-left: solid #ffffff46 1px

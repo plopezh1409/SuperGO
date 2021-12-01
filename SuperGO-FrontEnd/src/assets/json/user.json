@@ -1,0 +1,142 @@
+{
+    "employee": "785320",
+    "name": "JOEL CADENA SALAS ",
+    "modules": [
+        {
+            "role": {
+                "id": "100",
+                "name": "OPERADOR"
+            },
+            "module": {
+                "id": "1",
+                "name": "Captura",
+                "url": "/solicitud",
+                "image": "assignment-24px",
+                "operation": [
+                    {
+                        "id": "1",
+                        "name": "SPEI GENERAL",
+                        "url": "/solicitud/general/generico/1/Spei",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "2",
+                        "name": "MISMO BANCO",
+                        "url": "/solicitud/general/generico/2/Mismo Banco",
+                        "image": "account_balance"
+                    },
+                    {
+                        "id": "3",
+                        "name": "IPAB",
+                        "url": "/solicitud/general/3/IPAB",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "4",
+                        "name": "CATS",
+                        "url": "/solicitud/general/4/CATS",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "8",
+                        "name": "SPEI PAGO DE CAJA",
+                        "url": "/solicitud/general/generico/8/SpeiCaja",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "9",
+                        "name": "SIC",
+                        "url": "/solicitud/general/9/SIC",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "10",
+                        "name": "SPID",
+                        "url": "/solicitud/general/10/SPID",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "5",
+                        "name": "ACH",
+                        "url": "/solicitud/general/5/ACH",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "6",
+                        "name": "SPEI PROSA",
+                        "url": "/solicitud/general/generico/6/SpeiProsa",
+                        "image": "account_box"
+                    },
+                    {
+                        "id": "7",
+                        "name": "SPEI EGLOBAL",
+                        "url": "/solicitud/general/generico/7/SpeiEGlobal",
+                        "image": "account_box"
+                    }
+                ]
+            }
+        },
+        {
+            "role": {
+                "id": "100",
+                "name": "OPERADOR"
+            },
+            "module": {
+                "id": "2",
+                "name": "Bitacora",
+                "url": "/binnacle/6",
+                "image": "table_view",
+                "operation": [
+                    {
+                        "id": "",
+                        "name": "",
+                        "url": "",
+                        "image": ""
+                    }
+                ]
+            }
+        }
+    ],
+    "direction": {
+        "id": "1",
+        "name": "BIG"
+    },
+    "country": {
+        "id": "1",
+        "name": "MEXICO"
+    },
+    "company": "ELEKTRA",
+    "status": "1",
+    "top": [
+        {
+            "id": "113",
+            "name": "Bitacora",
+            "url": "/binnacle/6",
+            "image": "table_view"
+        },
+        {
+            "id": "57",
+            "name": "SPEI GENERAL",
+            "url": "/solicitud/general/generico/1/Spei",
+            "image": "account_box"
+        },
+        {
+            "id": "59",
+            "name": "CATS",
+            "url": "/solicitud/general/generico/1/Spei",
+            "image": "account_balance"
+        },
+        {
+            "id": "85",
+            "name": "IPAB",
+            "url": "/solicitud/general/4/IPAB",
+            "image": "account_box"
+        },
+        {
+            "id": "120",
+            "name": "MISMO BANCO",
+            "url": "/solicitud/general/generico/2/Mismo Banco",
+            "image": "account_balance"
+        }
+    ]
+}

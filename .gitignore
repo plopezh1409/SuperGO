@@ -1,18 +1,25 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+# Ignoring directories from Frontend 
+node_modules/
+node/
 
-# Other files and folders
-.settings/
+# Both the directory itself and its contents will be ignored from Backend
+.metadata/
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# Compiled class file
+*.class
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar

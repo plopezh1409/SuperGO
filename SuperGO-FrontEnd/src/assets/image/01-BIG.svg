@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-_01-BIG">
+      <rect width="24" height="24"/>
+    </clipPath>
+  </defs>
+  <g id="_01-BIG" data-name="01-BIG" clip-path="url(#clip-_01-BIG)">
+    <rect width="24" height="24" fill="#FFF"/>
+    <g id="_01-BIG-2" data-name="01-BIG" transform="translate(-0.1)">
+      <path id="Trazado_1" data-name="Trazado 1" d="M10.9,9.4h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_2" data-name="Trazado 2" d="M12.4,9.4h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_3" data-name="Trazado 3" d="M12.4,10.8h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_4" data-name="Trazado 4" d="M10.9,10.8h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_5" data-name="Trazado 5" d="M12.4,12.2h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_6" data-name="Trazado 6" d="M10.9,12.2h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_7" data-name="Trazado 7" d="M10.9,13.6h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_8" data-name="Trazado 8" d="M12.4,13.6h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_9" data-name="Trazado 9" d="M6.5,12.2h.7v.7H6.5Z" fill="green"/>
+      <path id="Trazado_10" data-name="Trazado 10" d="M7.9,12.2h.7v.7H7.9Z" fill="green"/>
+      <path id="Trazado_11" data-name="Trazado 11" d="M6.5,13.6h.7v.7H6.5Z" fill="green"/>
+      <path id="Trazado_12" data-name="Trazado 12" d="M7.9,13.6h.7v.7H7.9Z" fill="green"/>
+      <path id="Trazado_13" data-name="Trazado 13" d="M16.8,12.2h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_14" data-name="Trazado 14" d="M15.4,12.2h.7v.7h-.7v-.7Z" fill="green"/>
+      <path id="Trazado_15" data-name="Trazado 15" d="M16.8,10.8h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_16" data-name="Trazado 16" d="M15.4,10.8h.7v.7h-.7v-.7Z" fill="green"/>
+      <path id="Trazado_17" data-name="Trazado 17" d="M15.4,13.6h.7v.7h-.7v-.7Z" fill="green"/>
+      <path id="Trazado_18" data-name="Trazado 18" d="M16.8,13.6h.7v.7h-.7Z" fill="green"/>
+      <path id="Trazado_19" data-name="Trazado 19" d="M21.3,16.7a2.721,2.721,0,0,0-2.7,2.5l-3.9,1.6a2.767,2.767,0,0,0-2.3-2.2V16.1h7.4v-.7H19V8.9H14.8V7.5H12.5V5.4a2.653,2.653,0,0,0,2.3-2.2l3.9,1.6a2.721,2.721,0,0,0,2.7,2.5,2.7,2.7,0,1,0,0-5.4,2.59,2.59,0,0,0-2.6,2.2L14.9,2.5A3.08,3.08,0,0,0,12,0,2.721,2.721,0,0,0,9.3,2.5L5.4,4.1A2.881,2.881,0,0,0,2.7,1.9,2.754,2.754,0,0,0,0,4.6,2.689,2.689,0,0,0,2.7,7.3,2.721,2.721,0,0,0,5.4,4.8L9.3,3.2a2.767,2.767,0,0,0,2.3,2.2V7.5H9.3v2.8H5.1v5.1H4.3v.7h7.4v2.5a2.653,2.653,0,0,0-2.3,2.2L5.5,19.2a2.721,2.721,0,0,0-2.7-2.5,2.7,2.7,0,0,0,0,5.4,2.59,2.59,0,0,0,2.6-2.2l3.9,1.6a2.708,2.708,0,0,0,5.4,0l3.9-1.6a2.676,2.676,0,1,0,2.7-3.2Zm0-14.1a2,2,0,1,1-2,2A2.006,2.006,0,0,1,21.3,2.6ZM2.7,6.6a2,2,0,1,1,2-2A2.006,2.006,0,0,1,2.7,6.6Zm6.6,8.8H5.8V11H9.3Zm-6.6,6a2,2,0,1,1,2-2A2.006,2.006,0,0,1,2.7,21.4Zm12-11.8h3.5v5.8H14.7V9.6ZM10,2.7a2,2,0,1,1,2,2A2.006,2.006,0,0,1,10,2.7Zm0,12.7V8.2h4v7.3H10Zm2,7.9a2,2,0,1,1,2-2A2.006,2.006,0,0,1,12,23.3Zm9.3-1.9a2,2,0,1,1,2-2A2.006,2.006,0,0,1,21.3,21.4Z" fill="green"/>
+    </g>
+  </g>
+</svg>

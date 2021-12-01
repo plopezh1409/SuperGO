@@ -1,0 +1,36 @@
+<div class="contain fade-in" *ngIf="init">
+  <div class="mb-10 titleUsados"> Favoritos </div>
+  <div class="row confRow">
+
+    <div class="cards cardsT">
+
+      <div class="cardPer mr-10 mt-10" *ngFor="let top of cardsTop;let i = index">
+        <div class="divIconInit">
+          <div class="deletCa" (click)="deleteTarget(i)" (KeyDown)="deleteTarget(i)">
+            <mat-icon class="editCard">
+              clear
+            </mat-icon>
+          </div>
+          <mat-icon class="iconPersInit" (click)="redirect(top)" (KeyDown)="redirect(top)">{{top.image}}</mat-icon>
+          <span class="descricao">
+            {{top.name}}
+          </span>
+        </div>
+      </div>
+      <div *ngFor="let item of cardsTopRes">
+
+        <div class="card mr-10 mt-10 addCard" (click)="addTarget()" (KeyDown)="addTarget()" *ngIf=" cardsTop.length < 5">
+          <div class="divIconInit">
+            <mat-icon class="iconPersInit">
+              add
+            </mat-icon>
+            <span class="descricao colorSub">
+              Añadir Favorito
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

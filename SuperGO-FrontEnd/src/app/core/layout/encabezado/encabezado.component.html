@@ -1,0 +1,93 @@
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
+    <div class="header shadow-sm">
+        <div class="headerMenu ">
+            <div style="border-right: solid #6E18B8;
+            padding-top: 0px !important;
+            margin-top: -5px !important;cursor:pointer">
+                <button mat-icon-button class="btnHeader" (click)="snav.toggle()">
+                    <mat-icon>
+                        menu
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="titHome">
+                <strong class="goTitle"></strong>
+            </div>
+        </div>
+        <div class="headerLogo" *ngIf="showLogo">
+            <a [routerLink]="['/inicio']">
+                <img src="assets/image/GOrecorte.png" id="imgLogo" width="76px" height="25px" alt="">
+            </a>
+        </div>
+        <div class="headerUser">
+            <div class="name">
+                <strong>
+                    {{ nombreEmpleado | titlecase }}
+                </strong>
+                {{ (role == null || role.length <= 0)? '' : '- ' + role | titlecase }} <br>
+                    {{ pais | titlecase }} |
+                    {{ direccion | titlecase}}
+            </div>
+            <div class="pic" style="background-image: url('{{ foto }}'), url('assets/image/person_gray.svg');"></div>
+        </div>
+    </div>
+    <mat-sidenav-container id="prin"  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
+            fixedTopGap="56">
+            <div class="header-usuario">
+                <div id="foto">
+                    <div class="pic2" style="background-image: url('{{ foto }}'), url('assets/image/person_gray.svg');">
+                        <div class="textoImagnProfile">{{ pais | titlecase }} |
+                            {{ direccion | titlecase}}</div>
+                    </div>
+                </div>
+
+                <div id="inf-usuario" style="z-index: 2;position: relative">
+                    <span class="span1"> 
+                        Bienvenido
+                    </span><br />
+                    <span class="span2">
+                        Portal
+                    </span>
+                    <div class="br1">
+                        {{ nombreEmpleado | titlecase }}
+                    </div>
+                    <br />
+                    <div class="br2">
+                        Menu Principal
+                    </div>
+                </div>
+            </div>
+            <mat-nav-list #sidenav>
+                <div id="menu">
+                    <ul class="l-navegacion nivel1">
+                        <li><a routerLink="/" (click)="changeRole(null,snav)">
+                                <div class="four">
+                                    <img class="svgIcono" src="assets/image/home-24px.svg" alt="" width="25px" height="25px" />
+                                    <h4 class="labelMain"> Inicio </h4>
+                                </div>
+                            </a>
+                        </li>
+                        <ng-container *ngIf="listaMenu.length>0">
+                            <li *ngFor="let menu of  listaMenu">
+                                <a [routerLink]="menu.url" (click)="changeRole(menu,snav)">
+                                    <div class="four">
+                                        <img class="svgIcono" [src]="'assets/image/'+ menu.image+'.svg'" alt="" width="25px" height="25px" />
+                                        <h4 class="labelMain"> {{menu.name}} </h4>
+                                    </div>
+                                </a>
+                            </li>
+                        </ng-container>
+                        <li style="cursor:pointer"><a (click)="changeRole(null,snav)" (click)="logout()">
+                                <div class="four">
+                                    <mat-icon class="power-icon"> power_settings_new</mat-icon>
+                                    <h4 class="labelMain"> Cerrar sesión </h4>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </mat-nav-list>
+        </mat-sidenav>
+    </mat-sidenav-container>
+</div>

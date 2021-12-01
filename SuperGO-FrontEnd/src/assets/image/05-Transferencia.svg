@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-_05-Transferencia">
+      <rect width="24" height="24"/>
+    </clipPath>
+  </defs>
+  <g id="_05-Transferencia" data-name="05-Transferencia" clip-path="url(#clip-_05-Transferencia)">
+    <rect width="24" height="24" fill="#FFF"/>
+    <g id="transfer_2_" data-name="transfer (2)" transform="translate(-6.294)">
+      <g id="Grupo_9" data-name="Grupo 9" transform="translate(6.294)">
+        <path id="Trazado_37" data-name="Trazado 37" d="M8.379,10.975h7A1.989,1.989,0,0,0,17.364,8.99v-7A1.989,1.989,0,0,0,15.379,0h-7A1.989,1.989,0,0,0,6.394,1.985v7A1.984,1.984,0,0,0,8.379,10.975ZM7.6,1.985a.78.78,0,0,1,.778-.778h7a.78.78,0,0,1,.778.778v7a.78.78,0,0,1-.778.778h-7A.78.78,0,0,1,7.6,8.985v-7Z" transform="translate(-6.389)" fill="green"/>
+        <path id="Trazado_38" data-name="Trazado 38" d="M266.9,24.074l-3.9-3.9a.6.6,0,1,0-.852.852l2.867,2.867H256.6a.606.606,0,1,0,0,1.212h8.414l-2.867,2.867a.6.6,0,0,0,.857.852l3.9-3.9A.611.611,0,0,0,266.9,24.074Z" transform="translate(-243.693 -19.015)" fill="green"/>
+        <path id="Trazado_39" data-name="Trazado 39" d="M269.069,273.485v-7a1.989,1.989,0,0,0-1.985-1.985h-7a1.989,1.989,0,0,0-1.985,1.985v7a1.989,1.989,0,0,0,1.985,1.985h7A1.99,1.99,0,0,0,269.069,273.485Zm-1.207,0a.78.78,0,0,1-.778.778h-7a.78.78,0,0,1-.778-.778v-7a.78.78,0,0,1,.778-.778h7a.78.78,0,0,1,.778.778v7Z" transform="translate(-245.69 -251.47)" fill="green"/>
+        <path id="Trazado_40" data-name="Trazado 40" d="M10.792,293.4a.609.609,0,0,0,.429-.177.6.6,0,0,0,0-.852l-2.867-2.867h8.414a.606.606,0,1,0,0-1.212H8.353l2.867-2.867a.6.6,0,0,0-.852-.852l-3.9,3.9a.6.6,0,0,0,0,.852l3.9,3.9A.583.583,0,0,0,10.792,293.4Z" transform="translate(-6.294 -270.39)" fill="green"/>
+      </g>
+    </g>
+  </g>
+</svg>
