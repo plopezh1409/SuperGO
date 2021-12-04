@@ -1,12 +1,18 @@
 mi catalogo 
+fdgtdftr
 
-<form *ngIf="reactiveForm.principalForm"  [formGroup]="reactiveForm.principalForm" (ngSubmit)="onSubmit()">
+<form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
+    (ngSubmit)="onSubmit()" (change) = "reactiveForm.onFormChange()">
     <div>
-        <ng-container *ngFor="let container of containers">
-            <app-container [container]="container" [formGroup]="reactiveForm.getFormGroup(container.idContainer)"> </app-container>
-        </ng-container>
+        <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
+                'dvPrincipalContent row': alignContent === 'vertical'}">
+            <ng-container  *ngFor="let container of containers; let i = index">
+                <div [formGroupName]="container.idContainer">
+                    <app-container [container]="container" [alignContent]="alignContent"
+                        [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                    </app-container>
+                </div>
+            </ng-container>
+        </div>
     </div>
-
-
-
 </form>

@@ -11,7 +11,7 @@ export class FormCatService{
 
     getForm():Observable<any>
     {
-        return this.httpClient.get('./assets/json/sociedades.json');
+        return this.httpClient.get('assets/json/jsonSociedades.json');
     }
 
 }

@@ -94,7 +94,7 @@ export class EncabezadoComponent implements OnInit {
    
   ngOnInit(): void {       
     this.usuarioStorage = this.authService.usuario;       
-    this.loadHeader();    
+    //this.loadHeader();    
     this.loadModules();    
   }  
 
@@ -132,7 +132,8 @@ export class EncabezadoComponent implements OnInit {
     this.location.back();
   }
   
-  loadModules(){    
+  loadModules(){  
+    console.log("loadModules")  ;
     this.listaMenu=[];
     if(this.usuarioStorage.modules!=undefined && this.usuarioStorage.modules.length>0)
     { 
@@ -143,14 +144,15 @@ export class EncabezadoComponent implements OnInit {
         }        
       });
     }
-    this.listaMenu.push({url:"Catalogos",image:"assets/image/table_chart-24px.svg", name:"Catálogos"});
+
+    this.listaMenu.push({url:"catalogos",image:"assets/image/table_chart-24px.svg", name:"Catalogos"});
   }
 
   changeRole(module:any, snav:any)
   {
     this.role = '';
     snav.close();    
-    if(module!=null)
+    /*if(module!=null)
     {
       let findRole = this.usuarioStorage.modules.filter((m:any) => Number(m.module.id) === Number(module.id));      
         if(findRole && findRole.length>0)
@@ -159,6 +161,6 @@ export class EncabezadoComponent implements OnInit {
           this.usuarioStorage.selectedModule = findRole[0];
           this.role = findRole[0].role.name;
         }              
-    }
+    }*/
   } 
 }

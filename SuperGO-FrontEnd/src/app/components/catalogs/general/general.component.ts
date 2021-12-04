@@ -12,21 +12,26 @@ export class GeneralComponent implements OnInit {
   formCatService:FormCatService;
   reactiveForm:ReactiveForm;
   containers:Container[];
+  maxNumControls=4;
+  alignContent='horizontal';
 
 
   constructor(private injector:Injector) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
-    this.reactiveForm= new ReactiveForm();
+    this.reactiveForm = new ReactiveForm();
     this.containers=[];
   }
 
   ngOnInit(): void {
+    console.log("GeneralComponent ngOnInit");
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
+      this.alignContent = this.containers.filter(elem=> elem.controls.length>this.maxNumControls).length>0?'horizontal': 'vertical';     
       this.reactiveForm.setContainers(this.containers);
     });
   }
 
   onSubmit()
+  {}
 
 }

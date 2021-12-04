@@ -24,6 +24,8 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ProgressComponent } from './progress/progress.component';
 import { SearchComponent } from "./search/search.component";
 import { TestComponent } from './test/test.component';
+import { MaskDirective } from "./directives/mask.directive";
+import { MaskTextDirective } from "./directives/mask-text.directive";
 
 @NgModule({    
     declarations:[
@@ -33,7 +35,9 @@ import { TestComponent } from './test/test.component';
         PaginaNoEncontradaComponent,
         ProgressComponent,
         SearchComponent,
-        TestComponent
+        TestComponent,
+        MaskDirective,
+        MaskTextDirective
     ],
     imports:[
         CommonModule,  
@@ -63,6 +67,8 @@ import { TestComponent } from './test/test.component';
         SweetAlert2Module,
         SearchComponent,
         TestComponent,  
+        MaskDirective,
+        MaskTextDirective
     ],
     providers:[
     ]

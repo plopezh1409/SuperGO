@@ -25,7 +25,8 @@
             {
               "minlength": "8"
             }
-          ]
+          ],
+          "validations":[]
         },
         {
           "ky": "rfc",

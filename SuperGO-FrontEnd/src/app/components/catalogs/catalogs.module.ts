@@ -11,10 +11,14 @@ import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 @NgModule({
   declarations: [
     GeneralComponent,
-    TablaCatalogoComponent
+    TablaCatalogoComponent,
+    CatalogsComponent
   ],
   imports: [
-    CommonModule
+    CatalogsRoutingModule,
+    CommonModule,
+    SharedModule,
+    ReactiveFormModule
   ]
 })
 export class CatalogsModule { }
