@@ -1,93 +1,95 @@
-{"response":[
-  {
-    "idContainer": "15",
-    "name": "SOCIEDADES",
-    "order": "1",
-    "column": "1",
-    "controls": [
-      {
-        "ky": "razonSocial",
-        "label": "RAZÓN SOCIAL",
-        "controlType": "textbox",
-        "order": "1",
-        "column": "0",
-        "attributes": [
-          {
-            "type": "text"
-          },
-          {
-            "placeholder": "Seguros occidente"
-          },
-          {
-            "maxlength": "50"
-          },
-          {
-            "minlength": "8"
-          }
-        ]
-      },
-      {
-        "ky": "rfc",
-        "label": "RFC",
-        "controlType": "textbox",
-        "order": "2",
-        "column": "0",
-        "attributes": [
-          {
-            "type": "text"
-          },
-          {
-            "placeholder": "SGO99091698"
-          },
-          {
-            "maxlength": "11"
-          },
-          {
-            "minlength": "11"
-          }
-        ],
-        "validations": [
-          {
-            "validate": "^([A-ZÑ&]{3,4}) ?(?:- ?)?(\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01])) ?(?:- ?)?([A-Z\\d]{2})([A\\d])$",
-            "type": "2"
-          }
-        ]
-      },
-      {
-        "ky": "tipoDeSociedad",
-        "label": "TIPO DE SOCIEDAD",
-        "controlType": "dropdown",
-        "order": "3",
-        "column": "0",
-        "attributes": [],
-        "validations": [],
-        "idControl": "1",
-        "content": {
-          "idContent": "11",
-          "name": "TIPOSDESOCIEDAD",
-          "type": "3",
-          "contentList": [
+{
+  "response": [
+    {
+      "idContainer": "15",
+      "name": "SOCIEDADES",
+      "order": "1",
+      "column": "1",
+      "controls": [
+        {
+          "ky": "razonSocial",
+          "label": "RAZÓN SOCIAL",
+          "controlType": "textbox",
+          "order": "1",
+          "column": "0",
+          "attributes": [
             {
-              "ky": "1",
-              "value": "INTERNA"
+              "type": "text"
             },
             {
-              "ky": "2",
-              "value": "EXTERNA"
-            }
-          ],
-          "options": [
-            {
-              "ky": "1",
-              "value": "INTERNA"
+              "placeholder": "Seguros occidente"
             },
             {
-              "ky": "2",
-              "value": "EXTERNA"
+              "maxlength": "50"
+            },
+            {
+              "minlength": "8"
             }
           ]
+        },
+        {
+          "ky": "rfc",
+          "label": "RFC",
+          "controlType": "textbox",
+          "order": "2",
+          "column": "0",
+          "attributes": [
+            {
+              "type": "text"
+            },
+            {
+              "placeholder": "SGO99091698"
+            },
+            {
+              "maxlength": "11"
+            },
+            {
+              "minlength": "11"
+            }
+          ],
+          "validations": [
+            {
+              "validate": "^([A-ZÑ&]{3,4}) ?(?:- ?)?(\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01])) ?(?:- ?)?([A-Z\\d]{2})([A\\d])$",
+              "type": "2"
+            }
+          ]
+        },
+        {
+          "ky": "tipoDeSociedad",
+          "label": "TIPO DE SOCIEDAD",
+          "controlType": "dropdown",
+          "order": "3",
+          "column": "0",
+          "attributes": [],
+          "validations": [],
+          "idControl": "1",
+          "content": {
+            "idContent": "11",
+            "name": "TIPOSDESOCIEDAD",
+            "type": "3",
+            "contentList": [
+              {
+                "ky": "1",
+                "value": "INTERNA"
+              },
+              {
+                "ky": "2",
+                "value": "EXTERNA"
+              }
+            ],
+            "options": [
+              {
+                "ky": "1",
+                "value": "INTERNA"
+              },
+              {
+                "ky": "2",
+                "value": "EXTERNA"
+              }
+            ]
+          }
         }
-      }
-    ]
-  }
-]}
+      ]
+    }
+  ]
+}
