@@ -1,0 +1,68 @@
+<div [ngClass]="{'dvHorizontal': alignContent === 'horizontal','dvVertical': alignContent === 'vertical'}">
+  <div class="subtitles" *ngIf="container.name!= '' ">
+    {{container.name}}
+  </div>
+  <div class="subtitles" *ngIf="container.name== '' ">
+  </div>
+  <div  [ngClass]="{'dvContHorizontal': alignContent === 'horizontal','dvContVertical': alignContent === 'vertical'}">  
+      <div class="ctrlDiv" *ngFor="let ctrl of container.controls; let i = index">
+        <app-text-box-control *ngIf="
+                ctrl.controlType == 'textbox' || ctrl.controlType == 'decimal' || ctrl.controlType == 'textboxLink'"
+          [control]="ctrl" [form]="formGroup" [setErrores]="setErrorFormulario" [controlesDesdeBackend]="container.controls"
+          [cambioEnSeleccionDropdown]="cambioSeleccionEnDropdown"></app-text-box-control>
+    
+        <app-label-control *ngIf="ctrl.controlType == 'label'" [control]="ctrl">
+        </app-label-control>
+        
+        <app-busqueda-por-campo-control *ngIf="ctrl.controlType == 'textboxSearch'" [control]="ctrl"
+          [controlesDesdeBackend]="container.controls" [formulario]="formGroup"
+          [objetosDependenciaBusquedaVsInfo]="objetosDependenciaBusquedaVsInfo" [setErrores]="setErrorFormulario">
+        </app-busqueda-por-campo-control>
+      
+        <app-dropdown-control *ngIf="ctrl.controlType == 'dropdown'" [control]="ctrl" [formulario]="formGroup"
+          (cambioEnSeleccionDropdown)="onCambioEnSeleccionDropdown(ctrl)">
+        </app-dropdown-control>
+      
+        <app-info-control *ngIf="ctrl.controlType == 'textboxInfo'" [control]="ctrl" [formulario]="formGroup"
+          (nombreEtiquetaImprimirRespuesa)="onNombreEtiquetaImprimirRespuesta($event)"></app-info-control>
+      
+        <div *ngIf="ctrl.controlType == 'list'">
+          <app-list-control [control]="ctrl" [formulario]="formGroup">
+          </app-list-control>
+        </div>
+      
+        <div *ngIf="ctrl.controlType == 'radiobuttons'">
+          <app-radio-buttons-control [control]="ctrl" [formulario]="formGroup">
+          </app-radio-buttons-control>
+        </div>
+      
+        <div *ngIf="ctrl.controlType=='datepicker'">
+          <app-datepicker-control [control]="ctrl" [formulario]="formGroup" [index]="i">
+          </app-datepicker-control>
+        </div>
+      
+        <div *ngIf="ctrl.controlType=='autocomplete'">
+          <app-autocomplete-control [control]="ctrl" [formulario]="formGroup"></app-autocomplete-control>
+        </div>
+    
+        <div *ngIf="ctrl.controlType=='textarea'">
+          <app-text-area-control [control]="ctrl" [form]="formGroup"></app-text-area-control>      
+        </div>
+        
+        <div *ngIf="ctrl.controlType=='datepickerRange'">
+          <app-datepicker-range-control [control]="ctrl" [form]="formGroup" [index]="i"></app-datepicker-range-control>      
+        </div>
+      
+        <div *ngIf="ctrl.controlType=='textBoxSearchMultiple'">
+          <app-busqueda-por-campo-multiple-control [control]="ctrl" [controlesDesdeBackend]="container.controls"
+            [formulario]="formGroup" [objetosDependenciaBusquedaVsInfo]="objetosDependenciaBusquedaVsInfo"
+            [setErrores]="setErrorFormulario">
+          </app-busqueda-por-campo-multiple-control>
+        </div>
+
+        <div *ngIf="ctrl.controlType == 'slideButton'">
+          <app-slide-button-control [control]="ctrl" [form]="formGroup"></app-slide-button-control>
+        </div>
+      </div>
+    </div>
+</div>

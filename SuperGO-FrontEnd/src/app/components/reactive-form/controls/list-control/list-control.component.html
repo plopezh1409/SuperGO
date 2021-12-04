@@ -1,0 +1,15 @@
+<div style="background-color: #fff;">    
+    <mat-label>{{ control.label! }}</mat-label>
+    <mat-list>             
+        <mat-list-item *ngFor="let opt of control.content!.options!;let i=index">
+            <mat-radio-button color="primary" [checked]="value == opt.value" [value]="i" (change)="selection = $event.value">
+                <ng-container *ngIf="type!=null;">
+                    <mat-icon *ngIf="type!=='icono'" mat-list-icon>
+                        <img [src]="'assets/image/' + opt.value" height="24px" width="24px" alt=""/>
+                    </mat-icon>
+                </ng-container>                
+                {{opt.value}}
+            </mat-radio-button>           
+        </mat-list-item>
+    </mat-list>
+</div>

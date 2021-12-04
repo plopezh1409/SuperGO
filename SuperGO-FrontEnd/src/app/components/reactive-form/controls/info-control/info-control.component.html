@@ -1,0 +1,19 @@
+<mat-form-field
+  appearance="outline"
+  floatLabel="always"
+  [formGroup]="formulario"
+  class="form-react-form-field "
+>
+  <mat-label>{{ control.label }}</mat-label>
+  <input
+    matInput
+    [id]="control.ky!"
+    [formControlName]="control.ky!"
+    [name]="control.ky!"
+    [attributes]="control.attributes!"
+    class="reactiveInput"/>
+  <mat-error>
+    <span>El campo {{ control.label }} es requerido </span>
+  </mat-error>
+</mat-form-field>
+

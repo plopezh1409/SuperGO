@@ -1,0 +1,23 @@
+<mat-form-field appearance="outline" 
+floatLabel="always" 
+[formGroup]="formulario" 
+[ngClass]="(formulario.get(control.ky!)?.errors?.required!=undefined && formulario.get(control.ky!)?.errors?.required == true)? 
+'form-react-form-field-Color':'form-react-form-field'">
+    <mat-label *ngIf="control.label" [attr.for]="control.ky!">{{control.label}}</mat-label>
+    
+    <input matInput [formControlName]="control.ky!" [attributes]=control.attributes! [matDatepicker]="index"
+    [(ngModel)]="value" [min]="min" [max]="max"  [matDatepickerFilter]="dateFilter" 
+    autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="index"></mat-datepicker-toggle>
+    <mat-datepicker #index></mat-datepicker>
+    <mat-error *ngIf="formulario">             
+        <span *ngIf="formulario.get(control.ky!)?.errors?.required"> El campo {{ control.label }} es requerido </span>        
+        <span *ngIf="formulario.get(control.ky!)?.errors?.pattern"> La información del campo {{ control.label }} no cuenta con el formato correcto</span>
+        <span *ngIf="formulario.get(control.ky!)?.hasError('matDatepickerMin')"> Fecha mínima inválida</span>
+        <span *ngIf="formulario.get(control.ky!)?.hasError('matDatepickerMax')"> Fecha máxima inválida</span>
+        <span *ngIf="formulario.get(control.ky!)?.hasError('matDatepickerFilter')"> Fecha no aceptada</span>
+        <span *ngIf="formulario.get(control.ky!)?.hasError('matDatepickerParse')">
+            La información del campo {{ control.label }} no cuenta con información valida
+        </span>
+    </mat-error>
+  </mat-form-field>

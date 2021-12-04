@@ -1,0 +1,36 @@
+<mat-form-field appearance="outline" floatLabel="always" [formGroup]="formRange" [ngClass]="(form.get(control.label!)?.errors?.required!=undefined && form.get(control.label!)?.errors?.required == true)? 
+'form-react-form-field-Color':'form-react-form-field'">
+<mat-label>{{ control.label }}</mat-label>
+<mat-date-range-input [rangePicker]="index" [min]="min" [max]="max" [dateFilter]="dateFilter">
+    <input matStartDate [formControlName]="start" [attributes]="attributes" autocomplete="off">
+    <input matEndDate [formControlName]="end" [attributes]="attributes" autocomplete="off">
+</mat-date-range-input>
+<mat-datepicker-toggle matSuffix [for]="index"></mat-datepicker-toggle>
+<mat-date-range-picker #index></mat-date-range-picker>
+<mat-error *ngIf="formRange">         
+    <span *ngIf="(formRange.get(start)?.hasError('matDatepickerParse') || formRange.get(end)?.hasError('matDatepickerParse'))">
+        La información del campo {{ control.label }} no cuenta con información valida
+    </span>
+    <span *ngIf="formRange.get(start)?.hasError('matStartDateInvalid') || formRange.get(end)?.hasError('matEndDateInvalid')">
+        La información del campo {{ control.label }} tiene un rango de fechas erroneo
+    </span>      
+    <span *ngIf="formRange.get(start)?.hasError('matDatepickerMin') || formRange.get(end)?.hasError('matDatepickerMin')">
+        Fecha mínima inválida
+    </span>
+    <span *ngIf="formRange.get(start)?.hasError('matDatepickerMax') || formRange.get(end)?.hasError('matDatepickerMax')">
+        Fecha máxima inválida
+    </span>
+    <span *ngIf="formRange.get(start)?.hasError('matDatepickerFilter')">
+        Fecha inicial no aceptada
+    </span>
+    <span *ngIf="formRange.get(end)?.hasError('matDatepickerFilter')">
+        Fecha Final no aceptada
+    </span>    
+    <span *ngIf="formRange.get(start)?.errors?.required">
+        El campo {{ control.label }} es requerido
+    </span>    
+    <span *ngIf="formRange.get(end)?.errors?.required">
+        El campo {{ control.label }} es requerido
+    </span>        
+</mat-error>
+</mat-form-field>

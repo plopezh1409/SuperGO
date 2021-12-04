@@ -1,0 +1,38 @@
+$green: rgba(0,99,65,1)
+
+.dvHorizontal
+    width: 90%
+    margin: auto
+    margin-top: 15px
+    border: solid $green 1px
+    border-radius: 10px  
+    .subtitles
+        text-align: center      
+
+.dvVertical  
+    margin: 10px
+    border: solid $green 1px
+    border-radius: 10px
+    width: 250px
+    padding-bottom: 15px    
+    :parent
+        background-color: #000 !important
+        color: red
+        display: flex
+        flex-wrap: wrap
+
+.dvContHorizontal    
+    display: flex
+    justify-content: flex-start
+    flex-direction: row
+    flex-wrap: wrap
+    .ctrlDiv        
+        width: 250px !important
+        :first-child
+            padding-left: 20px
+        
+
+.dvContVertical
+    
+    .ctrlDiv
+        width: 100% !important

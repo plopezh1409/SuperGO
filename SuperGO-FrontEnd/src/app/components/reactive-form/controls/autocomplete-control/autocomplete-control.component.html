@@ -1,0 +1,28 @@
+<mat-form-field 
+appearance="outline" 
+floatLabel="always"
+[formGroup]="formulario" 
+[ngClass]="(formulario.get(control.ky!)?.errors?.required!=undefined && formulario.get(control.ky!)?.errors?.required == true)? 
+'form-react-form-field-Color':'form-react-form-field'">
+
+    <mat-label>{{ control.label! }}</mat-label>
+    <input matInput 
+    [attributes]=control.attributes! 
+           [mask]="mask"          
+           [matAutocomplete]="auto"
+           [formControlName]="control.ky!"
+           class = "reactiveInput"/>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+        <mat-option *ngFor="let opt of filtrarOpciones|async" [value]="opt">{{opt.value}}</mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="formulario">
+        <span *ngIf="formulario.get(control.ky!)?.hasError('required')">
+            El campo {{ control.label! }} es requerido
+        </span>
+        <span *ngIf="formulario.get(control.ky!)?.hasError('requiredMatch')">
+            El campo {{ control.label! }} tiene un valor no reconocido. Seleccione una de las opciones listadas
+        </span>
+    </mat-error>
+</mat-form-field>
+
+

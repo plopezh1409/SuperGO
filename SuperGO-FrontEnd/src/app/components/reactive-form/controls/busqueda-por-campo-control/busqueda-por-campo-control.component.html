@@ -1,0 +1,79 @@
+<mat-form-field  
+  [formGroup]="formulario"
+  [ngClass]="controlClass"
+  appearance="outline"
+  floatLabel="always"
+>
+  <mat-label>{{ control.label! }}</mat-label>
+  <input
+    matInput 
+    [formControlName]="control.ky!"
+    [mask]="mask"
+    [ngxInputLoader]="mostrarLoaderInput"
+    [attributes]="control.attributes!" 
+    autocomplete="off" 
+    class="reactiveInput"
+    (blur)="onBlurInput()"
+    (change) = "onChangeInput()"
+    (input) = "onInput()"
+  />
+  <div class="textbox__button-search" *ngIf="setIconoStatus !== -1">
+    <button
+    type="button"
+    class="btnSearchIcon"
+    mat-icon-button
+    matSuffix>
+      <span [ngSwitch]="setIconoStatus">        
+        <div *ngSwitchCase="1">
+          <mat-icon style="color: #006341">
+            done
+          </mat-icon>
+        </div>
+        <div *ngSwitchCase="0">
+          <mat-icon style="color: #c0392b">
+            error
+          </mat-icon>
+        </div>
+        <div *ngSwitchDefault>
+          <mat-icon>
+            search
+          </mat-icon>
+        </div>
+      </span>
+    </button>
+  </div>
+
+  <mat-error *ngIf="formulario">
+    <span *ngIf="formulario.get(control.ky!)?.errors?.max"
+      >Para {{ control.label! }} se requiere un valor máximo de
+      {{ control.getAttributeValueByName('max')! }}</span>
+      
+    <span *ngIf="formulario.get(control.ky!)?.errors?.maxlength"
+      >Para {{ control.label! }} se requiere un máximo de
+      {{ control.getAttributeValueByName('maxlength')!}} dígitos
+    </span>
+    
+    <span *ngIf="formulario.get(control.ky!)?.errors?.minlength"
+      >Para {{ control.label! }} se requiere un mínimo de
+      {{ control.getAttributeValueByName('minlength')! }} dígitos
+    </span>
+
+    <span *ngIf="formulario.get(control.ky!)?.errors?.required"
+      >El campo {{ control.label! }} es requerido
+    </span>
+    
+    <span *ngIf="formulario.get(control.ky!)?.errors?.pattern"
+      >La información del campo {{ control.label! }} no cuenta con el formato
+      correcto
+    </span>
+
+    
+
+    <span *ngIf="formulario.get(control.ky!)?.errors?.min"
+      >Para {{ control.label! }} se requiere un valor mínimo de
+      {{ control.getAttributeValueByName('min')! }}</span
+    >
+  </mat-error>
+</mat-form-field>
+
+

@@ -1,0 +1,31 @@
+<mat-form-field
+  appearance="outline"
+  floatLabel="always"
+  [formGroup]="formulario"
+  [ngClass]="(formulario.get(control.ky!)?.errors?.required!=undefined && formulario.get(control.ky!)?.errors?.required == true)? 
+              'form-react-form-field-Color':'form-react-form-field'"
+>
+  <mat-label>{{ control.label! }}</mat-label>
+
+  <mat-select 
+    [id]="control.ky!"
+    [formControlName]="control.ky!"    
+    [(ngModel)]="value"
+    [(value)]="value"
+    [attributes]="control.attributes!" 
+    placeholder="Seleccionar una opción"
+    class="reactiveInput"
+    (selectionChange) ="onChange()"
+  >
+    <mat-option *ngFor="let opt of control.content!.options" [value]="opt.ky">{{
+      opt.value
+    }}</mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="formulario">
+    <span *ngIf="formulario.get(control.ky!)?.errors?.required"
+      >El campo {{ control.label! }} es requerido
+    </span>
+  </mat-error>
+</mat-form-field>
+

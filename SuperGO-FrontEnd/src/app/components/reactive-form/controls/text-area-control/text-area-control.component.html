@@ -1,0 +1,29 @@
+<mat-form-field  appearance="outline" floatLabel="always" [formGroup]="form" >
+    <mat-label>{{ control.label }}</mat-label>
+    <label [for]="control.ky!">
+    <textarea matInput 
+    [id]="control.ky!" 
+    [name]="control.ky!" 
+    [formControlName]="control.ky!" 
+    [attributes]="control.attributes!" 
+    autocomplete="off" [mask]="mask"
+    class="reactiveInput"></textarea>
+    </label>
+    <mat-hint *ngIf="control.getAttributeValueByName('maxlength')" align="end"> 
+      {{control.getLengthValue(form)}} / {{control.getAttributeValueByName('maxlength')}} 
+    </mat-hint>
+    <mat-error *ngIf="form">
+        <span *ngIf="form.get(control.ky!)?.errors?.required">
+          El campo {{ control.label }} es requerido
+        </span>
+        <span *ngIf="form.get(control.ky!)?.errors?.minlength">
+          Para {{ control.label }} se requiere un mínimo de {{ control.getAttributeValueByName('minlength') }} dígitos
+        </span>
+        <span *ngIf="form.get(control.ky!)?.errors?.maxlength">
+          Para {{ control.label }} se requiere un máximo de {{ control.getAttributeValueByName('maxlength') }} dígitos
+        </span>
+        <span *ngIf="form.get(control.ky!)?.errors?.pattern">
+          La información del campo {{ control.label }} no cuenta con el formato correcto
+        </span>        
+      </mat-error>
+</mat-form-field>

@@ -143,6 +143,7 @@ export class EncabezadoComponent implements OnInit {
         }        
       });
     }
+    this.listaMenu.push({url:"Catalogos",image:"assets/image/table_chart-24px.svg", name:"Catálogos"});
   }
 
   changeRole(module:any, snav:any)

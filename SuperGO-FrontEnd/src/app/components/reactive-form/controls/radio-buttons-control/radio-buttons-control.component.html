@@ -1,0 +1,18 @@
+<label id="example-radio-group-label">{{control.label}}</label>
+<div [formGroup]="formulario">
+    <mat-radio-group [formControlName]="control.ky!">
+        <mat-radio-button *ngFor="let opt of control.content!.options;let i=index" [value]="opt.value"> 
+            <ng-container *ngIf="type!=null;else valueText">
+                <div *ngIf="type!='icono';else valueText">
+                    <mat-icon mat-list-icon>                    
+                        <img [src]="'assets/image/' + opt.value" height="24px" width="24px" alt=""/>
+                    </mat-icon>
+                </div>
+            </ng-container>                                  
+            <ng-template #valueText>
+                {{opt.value}}
+            </ng-template>
+            &nbsp;&nbsp;
+        </mat-radio-button>  
+    </mat-radio-group>  
+</div>

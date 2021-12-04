@@ -1,0 +1,32 @@
+<mat-form-field appearance="outline" floatLabel="always" [formGroup]="form" [ngClass]="controlClass">
+  <mat-label>{{ control.label }}</mat-label>
+  <label style="display: none;" ></label>
+  <input matInput [formControlName]="control.ky!" [attributes]="control.attributes!" autocomplete="off" [mask]="mask"
+    class="reactiveInput" (change)="onChangeInput()" (blur)="onBlur()" (input)="onInput()" />
+  <mat-hint *ngIf="control.controlType !== 'decimal' && control.getAttributeValueByName('maxlength')" align="end"> 
+    {{control.getLengthValue(form)}} / {{control.getAttributeValueByName('maxlength')}} 
+  </mat-hint>
+  <span *ngIf="control.getAttributeValueByName('prefix')" matPrefix> {{control.getAttributeValueByName('prefix')}} </span>
+  <span *ngIf="control.getAttributeValueByName('suffix')" matSuffix> {{control.getAttributeValueByName('suffix')}} </span>
+    
+  <mat-error *ngIf="form">
+    <span *ngIf="form.get(control.ky!)?.errors?.required">
+      El campo {{ control.label }} es requerido
+    </span>
+    <span *ngIf="form.get(control.ky!)?.errors?.pattern">
+      La información del campo {{ control.label }} no cuenta con el formato correcto
+    </span>
+    <span *ngIf="form.get(control.ky!)?.errors?.minlength">
+      Para {{ control.label }} se requiere un mínimo de {{ control.getAttributeValueByName('minlength') }} dígitos
+    </span>
+    <span *ngIf="form.get(control.ky!)?.errors?.min">
+      Para {{ control.label }} se requiere un valor mínimo de {{control.getAttributeValueByName('min') }}
+    </span>
+    <span *ngIf="form.get(control.ky!)?.errors?.max">
+      Para {{ control.label }} se requiere un valor máximo de {{control.getAttributeValueByName('max') }}
+    </span>
+    <span *ngIf="form.get(control.ky!)?.errors?.maxlength">
+      Para {{ control.label }} se requiere un máximo de {{ control.getAttributeValueByName('maxlength') }} dígitos
+    </span>
+  </mat-error>
+</mat-form-field>
