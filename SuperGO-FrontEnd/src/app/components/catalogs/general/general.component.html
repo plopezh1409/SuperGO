@@ -1,6 +1,3 @@
-mi catalogo 
-fdgtdftr
-
 <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
     (ngSubmit)="onSubmit()" (change) = "reactiveForm.onFormChange()">
     <div>
@@ -15,4 +12,10 @@ fdgtdftr
             </ng-container>
         </div>
     </div>
+    <div style="text-align: center;" class="mb-10">
+        <button mat-raised-button class="btnPrimary" >Agregar</button>
+    </div>
 </form>
+<div>
+    <app-tabla-catalogo [dataInfo]="dataInfo"></app-tabla-catalogo>
+</div>
