@@ -13,6 +13,7 @@ export class TablaCatalogoComponent implements OnInit {
   @Input()dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
   displayedColumns: string[] = ['razonSocial', 'rfc', 'tipoDeSociedad', 'options'];
+  totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -29,7 +30,8 @@ export class TablaCatalogoComponent implements OnInit {
   {
     console.log("onLoadTable");
     this.dataInfo=dataInfo;  
-    this.dataSource = new MatTableDataSource<any>(this.dataInfo);    
+    this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
+    this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
