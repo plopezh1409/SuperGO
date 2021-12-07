@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BillsComponent } from './bills/bills.component';
 import { GeneralBillsComponent } from './general-bills/general-bills.component';
 import { TableBillsComponent } from './table-bills/table-bills.component';
+import { UpdateModalBillComponent } from './update-modal-bill/update-modal-bill.component';
 
 
 
@@ -17,7 +18,8 @@ import { TableBillsComponent } from './table-bills/table-bills.component';
   declarations: [
     BillsComponent,
     GeneralBillsComponent,
-    TableBillsComponent
+    TableBillsComponent,
+    UpdateModalBillComponent
   ],
   imports: [
     CommonModule,

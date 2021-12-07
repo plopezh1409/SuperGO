@@ -9,13 +9,15 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { UpdateModalMonetizationComponent } from './update-modal-monetization/update-modal-monetization.component';
 
 
 @NgModule({
   declarations: [
     GeneralMonetizationComponent,
     TableMonetizationComponent,
-    MonetizationsComponent
+    MonetizationsComponent,
+    UpdateModalMonetizationComponent
   ],
   imports: [
     CommonModule,

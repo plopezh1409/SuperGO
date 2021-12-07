@@ -9,13 +9,15 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { UpdateModalAccountingComponent } from './update-modal-accounting/update-modal-accounting.component';
 
 
 @NgModule({
   declarations: [
     AccountingsComponent,
     TableAccountingComponent,
-    GeneralAccountingComponent
+    GeneralAccountingComponent,
+    UpdateModalAccountingComponent
   ],
   imports: [
     CommonModule,

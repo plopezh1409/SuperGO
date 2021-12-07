@@ -10,13 +10,15 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { UpdateModalOperationComponent } from './update-modal-operation/update-modal-operation.component';
 
 
 @NgModule({
   declarations: [
     GeneralOperationsComponent,
     TableOperationsComponent,
-    OperationsComponent
+    OperationsComponent,
+    UpdateModalOperationComponent
   ],
   imports: [
     CommonModule,
