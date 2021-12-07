@@ -1,35 +1,33 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
+import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-tabla-catalogo',
-  templateUrl: './tabla-catalogo.component.html',
-  styleUrls: ['./tabla-catalogo.component.sass']
+  selector: 'app-table-monetization',
+  templateUrl: './table-monetization.component.html',
+  styleUrls: ['./table-monetization.component.sass']
 })
-export class TablaCatalogoComponent implements OnInit {
-  @Input()dataInfo:Sociedad[];
-  dataSource:MatTableDataSource<Sociedad>;
-  displayedColumns: string[] = ['razonSocial', 'rfc', 'tipoDeSociedad', 'options', 'options2'];
+export class TableMonetizationComponent implements OnInit {
+
+  @Input()dataInfo:Monetizacion[];
+  dataSource:MatTableDataSource<Monetizacion>;
+  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'tipoDeImpuesto','divisa','options', 'options2'];
   totalRows:number = 0;
-  
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor() {    
     this.dataInfo=[];    
-    this.dataSource = new MatTableDataSource<Sociedad>();
-   
+    this.dataSource = new MatTableDataSource<Monetizacion>();    
    }
 
   ngOnInit(): void {     
     this.onLoadTable(this.dataInfo);
   }
 
-  onLoadTable(dataInfo:Sociedad[])  
+  onLoadTable(dataInfo:Monetizacion[])  
   {
     console.log("onLoadTable");
     this.dataInfo=dataInfo;  
@@ -63,9 +61,6 @@ export class TablaCatalogoComponent implements OnInit {
         
       }
     });
-
-    
-    
   }
 
 
@@ -83,7 +78,7 @@ export class TablaCatalogoComponent implements OnInit {
     });
     registro = registro.concat('</table>');    
     Swal.fire({             
-      html:`<div class="titModal"> Datos de la empresa </div><br/> <br/>${registro}`,
+      html:`<div class="titModal"> Datos de la monetizacion </div><br/> <br/>${registro}`,
       showCancelButton: false
     }).then(result=>{
       if (result.isConfirmed) {      
@@ -92,8 +87,5 @@ export class TablaCatalogoComponent implements OnInit {
       }
     });
   }
-
-
-  
 
 }

@@ -145,7 +145,11 @@ export class EncabezadoComponent implements OnInit {
       });
     }
 
-    this.listaMenu.push({url:"catalogos",image:"assets/image/table_chart-24px.svg", name:"Catalogos"});
+    this.listaMenu.push({url:"catalogos",image:"assets/image/person_gray.svg", name:"Sociedades"});
+    this.listaMenu.push({url:"bills",image:"assets/image/receipt_long_24dp.svg", name:"Facturas"});
+    this.listaMenu.push({url:"operations",image:"assets/image/person_gray.svg", name:"Operaciones"});
+    this.listaMenu.push({url:"accounting",image:"assets/image/person_gray.svg", name:"Contabilidad"});
+    this.listaMenu.push({url:"monetization",image:"assets/image/person_gray.svg", name:"Monetizacion"});
   }
 
   changeRole(module:any, snav:any)

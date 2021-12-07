@@ -1,0 +1,116 @@
+{
+  "response": [
+    {
+      "idContainer": "15",
+      "name": "OPERACIONES",
+      "order": "1",
+      "column": "1",
+      "controls": [
+        {
+          "ky": "descripcion",
+          "label": "DESCRIPCIÓN",
+          "controlType": "textbox",
+          "order": "1",
+          "column": "0",
+          "attributes": [
+            {
+              "type": "text"
+            },
+            {
+              "placeholder": "Compra de película"
+            },
+            {
+              "maxlength": "50"
+            },
+            {
+              "minlength": "8"
+            }
+          ],
+          "validations": []
+        },
+        {
+          "ky": "canal",
+          "label": "CANAL",
+          "controlType": "dropdown",
+          "order": "2",
+          "column": "0",
+          "attributes": [],
+          "validations": [],
+          "idControl": "1",
+          "content": {
+            "idContent": "11",
+            "name": "CANALES",
+            "type": "3",
+            "contentList": [
+              {
+                "ky": "1",
+                "value": "13"
+              }
+            ],
+            "options": [
+              {
+                "ky": "1",
+                "value": "13"
+              }
+            ]
+          }
+        },
+        {
+          "ky": "topicoKafka",
+          "label": "TÓPICO KAFKA",
+          "controlType": "textarea",
+          "order": "3",
+          "column": "0",
+          "attributes": [
+            
+            {
+              "placeholder": "SUPER-PAGOS-PELICULAS"
+            },
+            {
+              "maxlength": "50"
+            },
+            {
+              "minlength": "8"
+            }
+          ],
+          "validations": []
+        },
+        {
+          "ky": "estatus",
+          "label": "ESTATUS",
+          "controlType": "dropdown",
+          "order": "4",
+          "column": "0",
+          "attributes": [],
+          "validations": [],
+          "idControl": "1",
+          "content": {
+            "idContent": "11",
+            "name": "ESTATUS",
+            "type": "3",
+            "contentList": [
+              {
+                "ky": "1",
+                "value": "A"
+              },
+              {
+                "ky": "2",
+                "value": "D"
+              }
+            ],
+            "options": [
+              {
+                "ky": "1",
+                "value": "A"
+              },
+              {
+                "ky": "2",
+                "value": "D"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
