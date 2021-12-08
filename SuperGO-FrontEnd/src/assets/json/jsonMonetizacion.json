@@ -262,6 +262,49 @@
           ],
           "validations": []
         },
+        {
+          "ky": "unidadDeMonetizacion",
+          "label": "UNIDAD DE MOENTIZACIÓN",
+          "controlType": "dropdown",
+          "order": "4",
+          "column": "0",
+          "attributes": [],
+          "validations": [],
+          "idControl": "1",
+          "content": {
+            "idContent": "11",
+            "name": "REGLASDEMONETIZACION",
+            "type": "3",
+            "contentList": [
+              {
+                "ky": "1",
+                "value": "PORCENTAJE"
+              },
+              {
+                "ky": "2",
+                "value": "FIJO"
+              },
+              {
+                "ky": "3",
+                "value": "UNIDADES"
+              }
+            ],
+            "options": [
+              {
+                "ky": "1",
+                "value": "PORCENTAJE"
+              },
+              {
+                "ky": "2",
+                "value": "FIJO"
+              },
+              {
+                "ky": "3",
+                "value": "UNIDADES"
+              }
+            ]
+          }
+        },
 		 {
           "ky": "porcentaje",
           "label": "PORCENTAJE",
