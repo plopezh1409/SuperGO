@@ -1,4 +1,8 @@
-<div [formGroup]="form">
-    <mat-slide-toggle [formControlName]="control.ky!" [(ngModel)]="value"> {{control.label}}    
+<div [formGroup]="form" > 
+    <mat-slide-toggle  
+    [formControlName]="control.ky!" 
+    [(ngModel)]="value"
+    color='#ffff'> 
+    {{ control.label }}
     </mat-slide-toggle>
 </div>

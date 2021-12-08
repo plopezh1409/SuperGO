@@ -393,72 +393,22 @@
 		{
           "ky": "emisionDeFactura",
           "label": "EMISION DE FACTURA",
-          "controlType": "dropdown",
+          "controlType": "slideButton",
           "order": "6",
           "column": "0",
           "attributes": [],
           "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "CARGO",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "S"
-              },
-			  {
-                "ky": "2",
-                "value": "N"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "S"
-              },
-			  {
-                "ky": "2",
-                "value": "N"
-              }
-            ]
-          }
+          "idControl": "1"
         },
 		{
           "ky": "cobroPago",
           "label": "COBRO/PAGO",
-          "controlType": "dropdown",
+          "controlType": "slideButton",
           "order": "6",
           "column": "0",
           "attributes": [],
           "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "CARGO",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "C"
-              },
-			  {
-                "ky": "2",
-                "value": "P"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "C"
-              },
-			  {
-                "ky": "2",
-                "value": "P"
-              }
-            ]
-          }
+          "idControl": "1"
         },
 		{
           "ky": "corte",
