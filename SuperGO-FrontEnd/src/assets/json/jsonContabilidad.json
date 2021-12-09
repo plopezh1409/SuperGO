@@ -13,7 +13,12 @@
           "order": "1",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -72,7 +77,12 @@
           "order": "2",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -157,40 +167,18 @@
           }
         },
         {
-          "ky": "subOperacion",
-          "label": "SUB OPERACION",
-          "controlType": "dropdown",
-          "order": "3",
-          "column": "0",
-          "attributes": [],
-          "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "SUBOPERACIONES",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ]
-          }
-        },
-        {
           "ky": "monetizacion",
           "label": "MONETIZACION",
           "controlType": "dropdown",
           "order": "4",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -225,7 +213,12 @@
           "order": "5",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1"
         },
 		 {
@@ -236,19 +229,27 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
               "placeholder": "1234567"
             },
             {
-              "maxlength": "7"
+              "maxlength": "5"
             },
             {
-              "minlength": "7"
+              "minlength": "5"
+            },
+            {
+              "required":"1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "sociedadGl",
@@ -258,19 +259,24 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
-              "placeholder": "234567"
+              "placeholder": "3"
             },
             {
-              "maxlength": "6"
+              "maxlength": "1"
             },
             {
-              "minlength": "6"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "tipoCuenta",
@@ -280,19 +286,24 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
-              "placeholder": "Interna"
+              "placeholder": "2"
             },
             {
-              "maxlength": "50"
+              "maxlength": "1"
             },
             {
-              "minlength": "8"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "cuentaSap",
@@ -308,13 +319,18 @@
               "placeholder": "1234567RE"
             },
             {
-              "maxlength": "9"
+              "maxlength": "10"
             },
             {
-              "minlength": "9"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "claseDeDocumento",
@@ -333,10 +349,15 @@
               "maxlength": "6"
             },
             {
-              "minlength": "6"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "concepto",
@@ -352,13 +373,18 @@
               "placeholder": "MOV875"
             },
             {
-              "maxlength": "50"
+              "maxlength": "6"
             },
             {
-              "minlength": "8"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		{
           "ky": "centroDestino",
@@ -368,19 +394,24 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
-              "placeholder": "7654321"
+              "placeholder": "654321"
             },
             {
-              "maxlength": "7"
+              "maxlength": "6"
             },
             {
-              "minlength": "7"
+              "minlength": "6"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
         {
           "ky": "iva",
