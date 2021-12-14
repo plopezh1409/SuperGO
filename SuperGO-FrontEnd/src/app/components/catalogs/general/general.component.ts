@@ -17,6 +17,7 @@ export class GeneralComponent implements OnInit {
   maxNumControls=10;
   alignContent='horizontal';
   public dataInfo:Sociedad[];
+  
 
   @ViewChild(TablaCatalogoComponent) catalogsTable:TablaCatalogoComponent;
 

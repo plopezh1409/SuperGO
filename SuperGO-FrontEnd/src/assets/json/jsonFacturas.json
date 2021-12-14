@@ -13,7 +13,12 @@
           "order": "1",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -62,6 +67,9 @@
                 "ky": "5",
                 "value": "UPAX"
               }
+            ],
+            "visibility":[
+              {"id":"1", "name":"TIPOSDECOMRPOBANTE", "visible":1}
             ]
           }
         },
@@ -72,7 +80,12 @@
           "order": "2",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -157,40 +170,18 @@
           }
         },
         {
-          "ky": "subOperacion",
-          "label": "SUB OPERACION",
-          "controlType": "dropdown",
-          "order": "3",
-          "column": "0",
-          "attributes": [],
-          "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "SUBOPERACIONES",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ]
-          }
-        },
-        {
           "ky": "monetizacion",
           "label": "MONETIZACION",
           "controlType": "dropdown",
           "order": "4",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -225,7 +216,12 @@
           "order": "5",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -260,7 +256,12 @@
           "order": "6",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",

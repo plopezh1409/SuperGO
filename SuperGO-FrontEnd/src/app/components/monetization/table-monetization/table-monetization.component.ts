@@ -50,12 +50,13 @@ export class TableMonetizationComponent implements OnInit {
   show(element:any):void{
     let keys = Object.keys(element);
     let registro:string='';
-     
+    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Segmento","Monto de Monetización","Porcentaje","Fijo","Unidades","Tipo De Impuesto","Divisa","Emisión De Factura","Cobro/Pago","Corte","Fecha De Inicio De Vigencia","Fecha De Fin De Vigencia"]
+
     registro = registro.concat('<table class="tableInfoDel">');    
-    keys.forEach(k => {
+    keys.forEach((k,index) => {
       if(k!='Options')
       {   
-        registro = registro.concat(`<tr><td>${k}</td><td>${element[k]}</td></tr>`);            
+        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
       }      
     });
     registro = registro.concat('</table>');    

@@ -13,7 +13,12 @@
           "order": "1",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -72,7 +77,12 @@
           "order": "2",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -157,40 +167,18 @@
           }
         },
         {
-          "ky": "subOperacion",
-          "label": "SUB OPERACION",
-          "controlType": "dropdown",
-          "order": "3",
-          "column": "0",
-          "attributes": [],
-          "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "SUBOPERACIONES",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "GENERAL"
-              }
-            ]
-          }
-        },
-        {
           "ky": "monetizacion",
           "label": "MONETIZACION",
           "controlType": "dropdown",
           "order": "4",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -226,41 +214,72 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
               "placeholder": "67876.98"
             },
             {
-              "maxlength": "7"
+              "maxlength": "17"
             },
             {
-              "minlength": "7"
+              "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
-		 {
+        {
           "ky": "montoDeMonetizacion",
           "label": "MONTO DE MONETIZACIÓN",
-          "controlType": "textbox",
-          "order": "1",
+          "controlType": "dropdown",
+          "order": "4",
           "column": "0",
-          "attributes": [
+          "attributes": [],
+          "validations": [
             {
-              "type": "text"
-            },
-            {
-              "placeholder": "10.00"
-            },
-            {
-              "maxlength": "6"
-            },
-            {
-              "minlength": "6"
+              "validate": "required",
+              "type": "1"
             }
           ],
-          "validations": []
+          "idControl": "1",
+          "content": {
+            "idContent": "11",
+            "name": "REGLASDEMONETIZACION",
+            "type": "3",
+            "contentList": [
+              {
+                "ky": "1",
+                "value": "PORCENTAJE"
+              },
+              {
+                "ky": "2",
+                "value": "FIJO"
+              },
+              {
+                "ky": "3",
+                "value": "UNIDADES"
+              }
+            ],
+            "options": [
+              {
+                "ky": "1",
+                "value": "PORCENTAJE"
+              },
+              {
+                "ky": "2",
+                "value": "FIJO"
+              },
+              {
+                "ky": "3",
+                "value": "UNIDADES"
+              }
+            ]
+          }
         },
 		 {
           "ky": "porcentaje",
@@ -270,7 +289,7 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
               "placeholder": "9%"
@@ -280,9 +299,17 @@
             },
             {
               "minlength": "1"
+            },
+            {
+              "required":"true"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "fijo",
@@ -292,7 +319,7 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
               "placeholder": "30.00"
@@ -304,7 +331,12 @@
               "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         },
 		 {
           "ky": "unidades",
@@ -314,7 +346,7 @@
           "column": "0",
           "attributes": [
             {
-              "type": "text"
+              "type": "number"
             },
             {
               "placeholder": "1"
@@ -326,7 +358,12 @@
               "minlength": "1"
             }
           ],
-          "validations": []
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ]
         }, 
         {
           "ky": "tipoDeImpuesto",
@@ -335,7 +372,12 @@
           "order": "6",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -370,7 +412,12 @@
           "order": "6",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
           "idControl": "1",
           "content": {
             "idContent": "11",
@@ -393,72 +440,22 @@
 		{
           "ky": "emisionDeFactura",
           "label": "EMISION DE FACTURA",
-          "controlType": "dropdown",
+          "controlType": "slideButton",
           "order": "6",
           "column": "0",
           "attributes": [],
           "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "CARGO",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "S"
-              },
-			  {
-                "ky": "2",
-                "value": "N"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "S"
-              },
-			  {
-                "ky": "2",
-                "value": "N"
-              }
-            ]
-          }
+          "idControl": "1"
         },
 		{
           "ky": "cobroPago",
           "label": "COBRO/PAGO",
-          "controlType": "dropdown",
+          "controlType": "slideButton",
           "order": "6",
           "column": "0",
           "attributes": [],
           "validations": [],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "CARGO",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "C"
-              },
-			  {
-                "ky": "2",
-                "value": "P"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "C"
-              },
-			  {
-                "ky": "2",
-                "value": "P"
-              }
-            ]
-          }
+          "idControl": "1"
         },
 		{
           "ky": "corte",
@@ -466,8 +463,22 @@
           "controlType": "datepicker",
           "order": "6",
           "column": "0",
-          "attributes": [],
-          "validations": [],
+          "attributes": [
+            {
+              "validate": "required",
+              "type": "1"
+            }
+          ],
+          "validations": [
+            {
+                "validate": "^(?:0?[1-9]|1[1-2])([\\-/.])(3[01]|[12][0-9]|0?[1-9])\\1\\d{4}$",
+                "type": "2"
+            },
+            {
+              "validate": "required",
+              "type": "1"
+            }
+        ],
           "idControl": "2"
         },
 		{
@@ -477,7 +488,16 @@
           "order": "6",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+                "validate": "^(?:0?[1-9]|1[1-2])([\\-/.])(3[01]|[12][0-9]|0?[1-9])\\1\\d{4}$",
+                "type": "2"
+            },
+            {
+              "validate": "required",
+              "type": "1"
+            }
+        ],
           "idControl": "2"
         },
 		{
@@ -487,7 +507,16 @@
           "order": "6",
           "column": "0",
           "attributes": [],
-          "validations": [],
+          "validations": [
+            {
+                "validate": "^(?:0?[1-9]|1[1-2])([\\-/.])(3[01]|[12][0-9]|0?[1-9])\\1\\d{4}$",
+                "type": "2"
+            },
+            {
+              "validate": "required",
+              "type": "1"
+            }
+        ],
           "idControl": "2"
 
         }
