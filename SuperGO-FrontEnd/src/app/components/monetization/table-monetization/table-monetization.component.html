@@ -15,15 +15,20 @@
         <td mat-cell *matCellDef="let element"> {{element.subOperacion}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="tipoDeImpuesto">
-        <th mat-header-cell *matHeaderCellDef > TIPO DE IMPUESTO </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoDeImpuesto}} </td>
+    <ng-container matColumnDef="monetizacion">
+        <th mat-header-cell *matHeaderCellDef > REGLA DE MONETIZACION </th>
+        <td mat-cell *matCellDef="let element"> {{element.monetizacion}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="divisa">
-        <th mat-header-cell *matHeaderCellDef > DIVISA </th>
-        <td mat-cell *matCellDef="let element"> {{element.divisa}} </td>
+    <ng-container matColumnDef="fechaDeInicioDeVigencia">
+        <th mat-header-cell *matHeaderCellDef > FECHA INICIO DE VIGENCIA </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaDeInicioDeVigencia}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="fechaDeFinDeVigencia">
+      <th mat-header-cell *matHeaderCellDef > FECHA FIN DE VIGENCIA </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaDeFinDeVigencia}} </td>
+  </ng-container>
 
 
     <ng-container matColumnDef="options">

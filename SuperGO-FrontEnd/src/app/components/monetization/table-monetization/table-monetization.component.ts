@@ -15,7 +15,7 @@ export class TableMonetizationComponent implements OnInit {
 
   @Input()dataInfo:Monetizacion[];
   dataSource:MatTableDataSource<Monetizacion>;
-  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'tipoDeImpuesto','divisa','options', 'options2'];
+  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'monetizacion','fechaDeInicioDeVigencia','','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;

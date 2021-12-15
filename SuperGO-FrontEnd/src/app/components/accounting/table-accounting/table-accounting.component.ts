@@ -15,7 +15,7 @@ export class TableAccountingComponent implements OnInit {
 
   @Input()dataInfo:Contabilidad[];
   dataSource:MatTableDataSource<Contabilidad>;
-  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'monetizacion','contabilidadDiaria','numeroDeApunte','options', 'options2'];
+  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'monetizacion','numeroDeApunte','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;

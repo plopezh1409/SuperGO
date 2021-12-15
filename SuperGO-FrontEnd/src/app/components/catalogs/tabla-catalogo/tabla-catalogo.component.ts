@@ -40,8 +40,12 @@ export class TablaCatalogoComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  open(){
-    this.refData?.open(UpdateModalCatalogsComponent)
+  open(element:any){
+    this.refData?.open(UpdateModalCatalogsComponent,{
+      data:{
+        dataModal:element
+      }
+    })
   }
  
 
