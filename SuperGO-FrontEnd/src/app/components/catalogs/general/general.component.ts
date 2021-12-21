@@ -37,11 +37,11 @@ export class GeneralComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{razonSocial:'prueba prueba',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'} as Sociedad,
-    {razonSocial:'prueba prueba',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
+    this.dataInfo=[{razonSocial:'prueba prueba1',rfc:'kehy900909',tipoDeSociedad:'2-EXTERNA'} as Sociedad,
+    {razonSocial:'prueba prueba2',rfc:'kehy900908',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba3',rfc:'kehy900907',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba4',rfc:'kehy900906',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba5',rfc:'kehy900905',tipoDeSociedad:'2-EXTERNA'}as Sociedad,
     ];
 
   }
