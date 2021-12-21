@@ -24,129 +24,94 @@ export class UpdateModalCatalogsComponent implements OnInit {
   private readonly formService: FormService | undefined;
 
 
-  constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any, private readonly _route?: ActivatedRoute) { 
+  constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
+    
     this.containers=[];
     this.formService = this.injector.get<FormService>(FormService);
-    console.log(dataModal.dataModal)
+  
+    
   }
   
 
   ngOnInit(): void {
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
+      this.reactiveForm.setContainers(this.containers);
       this.getdata();
       this.reactiveForm.setContainers(this.containers);
     });
   }
 
+  
+
+
   getdata() {
-    let jsonPetition: string = `{ "info":{`;
     this.containers.forEach((cont: Container) => {
+
       const _formAux = this.reactiveForm.principalForm?.get(
 
         cont.idContainer
 
       ) as FormGroup;
 
-      jsonPetition = `${jsonPetition} "${cont.idContainer}":{`;
-
-      cont.controls.forEach((x: Control) => {
+   
+      cont.controls.forEach((x: Control, i) => {
 
         const ctrl: Control = Object.assign(new Control(), x);
-
+        var key = this.dataModal.keys[i];
+        
         switch (ctrl.controlType) {
 
           case 'datepicker':
 
-            jsonPetition = `${jsonPetition} "${
-
-              ctrl.ky
-
-            }" : "${ctrl.getDatePickerValue(_formAux)}",`;
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
 
             break;
 
           case 'decimal':
 
-            jsonPetition = `${jsonPetition} "${
-
-              ctrl.ky
-
-            }" : "${ctrl.getDecimalValue(_formAux)}",`;
-
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
             break;
 
           case 'label':
-
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
             break;
 
           case 'checkbox':
 
-            jsonPetition = `${jsonPetition} "${
-
-              ctrl.ky
-
-            }" : "${ctrl.getCheckBoxValue(_formAux)}",`;
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
 
             break;
 
           case 'dropdown':
 
-            jsonPetition = `${jsonPetition} "${
-
-              ctrl.ky
-
-            }" : "${ctrl.getDropDownValue(_formAux)}",`;
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
 
             break;
 
           case 'textboxInfo':
-
-            jsonPetition = `${jsonPetition} "${ctrl.ky}" : "${ctrl.getInfoValue(
-
-              _formAux
-
-            )}",`;
-
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
             break;
 
           case 'autocomplete':
 
-            jsonPetition = `${jsonPetition} "${
-
-              ctrl.ky
-
-            }" : "${ctrl.getAutocompleteValue(_formAux)}",`;
-
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
             break;
 
           default:
-
-            jsonPetition = `${jsonPetition} "${ctrl.ky}" : "${ctrl.getInfoValue(
-
-              _formAux
-
-            )}",`;
-
+            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
             break;
-
         }
-
+        
       });
 
-      jsonPetition = jsonPetition.substring(0, jsonPetition.length - 1);
 
-      jsonPetition = `${jsonPetition} },`;
 
     });
 
-    jsonPetition = jsonPetition.substring(0, jsonPetition.length - 1);
-
-    jsonPetition = jsonPetition + '}} ';
-
-    const newJson = JSON.parse(jsonPetition);
+  
   }
 
 

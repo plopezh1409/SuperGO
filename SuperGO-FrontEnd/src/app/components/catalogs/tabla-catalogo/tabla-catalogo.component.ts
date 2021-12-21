@@ -43,7 +43,8 @@ export class TablaCatalogoComponent implements OnInit {
   open(element:any){
     this.refData?.open(UpdateModalCatalogsComponent,{
       data:{
-        dataModal:element
+        dataModal:element,
+        keys:Object.keys(element)
       }
     })
   }

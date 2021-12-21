@@ -25,6 +25,10 @@
             {
               "minlength": "1"
             }
+            ,
+            {
+              "value": ""
+            }
           ],
           "validations":[
             {
@@ -52,6 +56,10 @@
             {
               "minlength": "13"
             }
+            ,
+            {
+              "value": ""
+            }
           ],
           "validations": [
             {
@@ -75,7 +83,12 @@
           "controlType": "dropdown",
           "order": "3",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
