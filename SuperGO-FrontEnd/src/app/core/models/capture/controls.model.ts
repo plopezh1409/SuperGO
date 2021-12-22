@@ -252,6 +252,23 @@ export class Control {
     return formatValor;
   }
 
+  
+  setDropDownValue(control: Control, valor:any) {
+
+      let filter = this.content!.contentList.filter((opcion) => {
+        return opcion.value === valor.toString();
+        }).map((opcion) => {
+          return opcion.ky;
+          });
+
+         
+    
+    return filter[0];
+    
+  }
+
+
+
   getInfoValue(_form: FormGroup) {
     let formatValor = '';
     if(_form.get(this.ky!))

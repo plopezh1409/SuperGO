@@ -50,13 +50,7 @@ export class UpdateModalCatalogsComponent implements OnInit {
   getdata() {
     this.containers.forEach((cont: Container) => {
 
-      const _formAux = this.reactiveForm.principalForm?.get(
 
-        cont.idContainer
-
-      ) as FormGroup;
-
-   
       cont.controls.forEach((x: Control, i) => {
 
         const ctrl: Control = Object.assign(new Control(), x);
@@ -87,7 +81,8 @@ export class UpdateModalCatalogsComponent implements OnInit {
 
           case 'dropdown':
 
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
+       
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,this.dataModal.dataModal[key]).toString());
 
             break;
 
