@@ -24,6 +24,9 @@
             },
             {
               "minlength": "1"
+            },
+            {
+              "value": ""
             }
           ],
           "validations": [
@@ -39,7 +42,11 @@
           "controlType": "dropdown",
           "order": "2",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
@@ -81,6 +88,9 @@
             },
             {
               "minlength": "10"
+            },
+            {
+              "value": ""
             }
           ],
           "validations": [
@@ -96,7 +106,11 @@
           "controlType": "slideButton",
           "order": "4",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",

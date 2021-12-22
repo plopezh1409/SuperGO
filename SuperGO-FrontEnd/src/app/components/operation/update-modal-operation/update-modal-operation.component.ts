@@ -1,6 +1,7 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from '@app/core/models/capture/container.model';
+import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormOperationsService } from '@app/core/services/operations/formOperations.service';
 
@@ -15,9 +16,10 @@ export class UpdateModalOperationComponent implements OnInit {
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
+  public control:Control = new Control;
 
   
-  constructor(private injector:Injector,public refData?:MatDialog) { 
+  constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
@@ -26,7 +28,10 @@ export class UpdateModalOperationComponent implements OnInit {
   ngOnInit(): void {
 
     this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;      
+      this.containers = data.response;
+      this.reactiveForm.setContainers(this.containers);
+      this.dataModal.dataModal.estatus = this.dataModal.dataModal.estatus == "A"?"true":"false";
+      this.control.setDataToControls(this.containers,this.dataModal);
       this.reactiveForm.setContainers(this.containers);
     });
 

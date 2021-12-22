@@ -37,12 +37,12 @@ export class GeneralOperationsComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
-    {descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
-    {descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
-    {descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
-    {descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
-    {descripcion:'Compra de película',canal:'12',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    this.dataInfo=[{descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    {descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    {descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    {descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    {descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
+    {descripcion:'Compra de película',canal:'13',topicoKafka:'COMPRA-DE-PELICULAS',estatus:'A'} as Operaciones,
     ];
 
   }

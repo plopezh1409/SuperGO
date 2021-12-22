@@ -12,7 +12,11 @@
           "controlType": "dropdown",
           "order": "1",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
@@ -79,7 +83,11 @@
           "controlType": "dropdown",
           "order": "2",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
@@ -175,7 +183,11 @@
           "controlType": "dropdown",
           "order": "4",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
@@ -215,7 +227,11 @@
           "controlType": "dropdown",
           "order": "5",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",
@@ -255,7 +271,11 @@
           "controlType": "dropdown",
           "order": "6",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",

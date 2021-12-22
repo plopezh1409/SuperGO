@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { FormArray, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import moment from 'moment';
+import { Container } from './container.model';
 import { Content } from './content.model';
 import { Mask } from './mask.model';
 import { Validation } from './validation.model';
@@ -266,6 +267,70 @@ export class Control {
     return filter[0];
     
   }
+
+
+  setDataToControls( containers:Container[],dataModal:any) {
+    containers.forEach((cont: Container) => {
+
+
+      cont.controls.forEach((x: Control, i) => {
+
+        const ctrl: Control = Object.assign(new Control(), x);
+        var key = dataModal.keys[i];
+        
+        switch (ctrl.controlType) {
+
+          case 'datepicker':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+
+            break;
+
+          case 'decimal':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'label':
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'checkbox':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+
+            break;
+
+          case 'dropdown':
+
+       
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal.dataModal[key]).toString());
+
+            break;
+
+          case 'textboxInfo':
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'autocomplete':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          default:
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+        }
+        
+      });
+
+
+
+    });
+
+  
+  }
+
 
 
 

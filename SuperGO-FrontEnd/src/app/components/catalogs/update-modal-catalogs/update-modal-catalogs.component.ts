@@ -20,16 +20,14 @@ export class UpdateModalCatalogsComponent implements OnInit {
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
-  public idModule: string | null | undefined;
-  private readonly formService: FormService | undefined;
 
+  public control:Control = new Control;
 
   constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
-    
     this.containers=[];
-    this.formService = this.injector.get<FormService>(FormService);
+
   
     
   }
@@ -39,7 +37,7 @@ export class UpdateModalCatalogsComponent implements OnInit {
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
-      this.getdata();
+      this.control.setDataToControls(this.containers,this.dataModal);
       this.reactiveForm.setContainers(this.containers);
     });
   }
@@ -47,67 +45,7 @@ export class UpdateModalCatalogsComponent implements OnInit {
   
 
 
-  getdata() {
-    this.containers.forEach((cont: Container) => {
 
-
-      cont.controls.forEach((x: Control, i) => {
-
-        const ctrl: Control = Object.assign(new Control(), x);
-        var key = this.dataModal.keys[i];
-        
-        switch (ctrl.controlType) {
-
-          case 'datepicker':
-
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-
-            break;
-
-          case 'decimal':
-
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-            break;
-
-          case 'label':
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-            break;
-
-          case 'checkbox':
-
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-
-            break;
-
-          case 'dropdown':
-
-       
-            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,this.dataModal.dataModal[key]).toString());
-
-            break;
-
-          case 'textboxInfo':
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-            break;
-
-          case 'autocomplete':
-
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-            break;
-
-          default:
-            ctrl.setAttributeValueByName("value",this.dataModal.dataModal[key]);
-            break;
-        }
-        
-      });
-
-
-
-    });
-
-  
-  }
 
 
 

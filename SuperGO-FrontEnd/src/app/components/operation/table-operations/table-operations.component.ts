@@ -38,8 +38,13 @@ export class TableOperationsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  open(){
-    this.refData?.open(UpdateModalOperationComponent)
+open(element:any){
+    this.refData?.open(UpdateModalOperationComponent,{
+      data:{
+        dataModal:element,
+        keys:Object.keys(element)
+      }
+    })
   }
 
 

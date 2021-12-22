@@ -37,12 +37,12 @@ export class GeneralBillsComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
+    this.dataInfo=[{sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
+    {sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
+    {sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
+    {sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
+    {sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
+    {sociedad:'ELEKTRA',operacion:'COLOCACIÓN DE CRÉDITO',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"FACTURA"} as Facturas,
     ];
 
   }
