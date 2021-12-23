@@ -20,14 +20,19 @@
         <td mat-cell *matCellDef="let element"> {{element.monetizacion}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="contabilidadDiaria">
-        <th mat-header-cell *matHeaderCellDef > CONTABILIDAD DIARIA </th>
-        <td mat-cell *matCellDef="let element"> {{element.contabilidadDiaria}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="numeroDeApunte">
         <th mat-header-cell *matHeaderCellDef > NÚMERO DE APUNTE </th>
         <td mat-cell *matCellDef="let element"> {{element.numeroDeApunte}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaInicioVigencia">
+        <th mat-header-cell *matHeaderCellDef > FECHA INICIO VIGENCIA </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaInicioVigencia}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaFinVigencia">
+        <th mat-header-cell *matHeaderCellDef > FECHA FIN VIGENCIA </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaFinVigencia}} </td>
     </ng-container>
     
     <ng-container matColumnDef="options">
