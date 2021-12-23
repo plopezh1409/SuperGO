@@ -78,7 +78,7 @@
           ]
         },
         {
-          "ky": "tipoDeSociedad",
+          "ky": "idTipoSociedad",
           "label": "TIPO DE SOCIEDAD",
           "controlType": "dropdown",
           "order": "3",

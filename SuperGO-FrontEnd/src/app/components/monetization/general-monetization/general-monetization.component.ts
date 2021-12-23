@@ -37,15 +37,8 @@ export class GeneralMonetizationComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:"REGLA1",segmento:"67876.98",montoDeMonetizacion:"10.00",porcentaje:"9%",fijo:"4",unidades:"4",tipoDeImpuesto:'GENERAL',divisa:"MXN",emisionDeFactura:"S",cobroPago:"C",corte:"12/02/2021",fechaDeInicioDeVigencia:"12/02/2021",fechaDeFinDeVigencia:"13/02/2021" } as Monetizacion,
-
+    this.dataInfo=[{idSociedad:'ELEKTRA',idTipo:'PAGO DE SERVICIOS',idSubtipo:'GENERAL',segmento:"67876.98",montoMonetizacion:"10.00",tipoMonto:"F",idTipoImpuesto:"1",codigoDivisa:"MXN",emisionFactura:"S",indicadorOperacion:"C",periodisidadCorte:"12/02/2021",fechaInicio:"12/02/2021",fechaFin:"13/02/2021" } as Monetizacion,
+   
     ];
 
   }

@@ -15,7 +15,7 @@ export class TableOperationsComponent implements OnInit {
 
   @Input()dataInfo:Operaciones[];
   dataSource:MatTableDataSource<Operaciones>;
-  displayedColumns: string[] = ['descripcion', 'canal', 'topicoKafka', 'estatus','options', 'options2'];
+  displayedColumns: string[] = ['descripcionTipoOperacion', 'idCanal', 'topicoKafka', 'status','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;

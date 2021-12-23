@@ -15,7 +15,7 @@ import { UpdateModalCatalogsComponent } from '../update-modal-catalogs/update-mo
 export class TablaCatalogoComponent implements OnInit {
   @Input()dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
-  displayedColumns: string[] = ['razonSocial', 'rfc', 'tipoDeSociedad', 'options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'RFC', 'idTipoSociedad', 'options', 'options2'];
   totalRows:number = 0;
   
 
@@ -71,7 +71,6 @@ export class TablaCatalogoComponent implements OnInit {
       showCancelButton: false
     }).then(result=>{
       if (result.isConfirmed) {      
-        
         
       }
     });

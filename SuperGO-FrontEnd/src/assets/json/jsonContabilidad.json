@@ -7,7 +7,7 @@
       "column": "1",
       "controls": [
         {
-          "ky": "sociedad",
+          "ky": "idSociedad",
           "label": "SOCIEDAD",
           "controlType": "dropdown",
           "order": "1",
@@ -44,6 +44,10 @@
               {
                 "ky": "5",
                 "value": "UPAX"
+              },
+              {
+                "ky": "6",
+                "value": "SAZ"
               }
             ],
             "options": [
@@ -66,12 +70,16 @@
               {
                 "ky": "5",
                 "value": "UPAX"
+              },
+              {
+                "ky": "6",
+                "value": "SAZ"
               }
             ]
           }
         },
         {
-          "ky": "operacion",
+          "ky": "idTipoOperacion",
           "label": "OPERACION",
           "controlType": "dropdown",
           "order": "2",
@@ -91,118 +99,111 @@
             "contentList": [
               {
                 "ky": "1",
-                "value": "COLOCACIÓN DE CRÉDITO"
+                "value": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS"
               },
               {
                 "ky": "2",
-                "value": "CRÉDITO AL CONSUMO Y NEGOCIOS"
+                "value": "COLOCACION DE CREDITO - CLIENTES NUEVOS"
               },
               {
                 "ky": "3",
-                "value": "TARJETAS DE CRÉDITO"
+                "value": "CREDITO AL CONSUMO Y NEGOCIOS"
               },
               {
                 "ky": "4",
-                "value": "PAGO DE SERVICIOS"
+                "value": "TARJETAS DE CREDITO"
               },
               {
                 "ky": "5",
-                "value": "VENTA DE MERCANCÍA"
+                "value": "SEGUROS"
               },
               {
                 "ky": "6",
-                "value": "PELÍCULAS ON DEMAND"
+                "value": "MIS PAGOS - PAGOS DE SERVICIOS, TIEMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
               },
               {
                 "ky": "7",
-                "value": "TV EN VIVO"
+                "value": "VENTA DE MERCANCIA"
               },
               {
                 "ky": "8",
-                "value": "NOTICIAS"
+                "value": "MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
               },
               {
                 "ky": "9",
+                "value": "MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
+              },
+              {
+                "ky":"10",
+                "value": "PELICULAS ON DEMAND"
+              },
+              {
+                "ky":"11",
+                "value": "WIFI PASS"
+              },
+              {
+                "ky":"12",
+                "value": "TV EN VIVO Y NOTICIAS"
+              },
+              {
+                "ky":"13",
                 "value": "CHAT Y RED SOCIAL"
               }
             ],
             "options": [
               {
                 "ky": "1",
-                "value": "COLOCACIÓN DE CRÉDITO"
+                "value": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS"
               },
               {
                 "ky": "2",
-                "value": "CRÉDITO AL CONSUMO Y NEGOCIOS"
+                "value": "COLOCACION DE CREDITO - CLIENTES NUEVOS"
               },
               {
                 "ky": "3",
-                "value": "TARJETAS DE CRÉDITO"
+                "value": "CREDITO AL CONSUMO Y NEGOCIOS"
               },
               {
                 "ky": "4",
-                "value": "PAGO DE SERVICIOS"
+                "value": "TARJETAS DE CREDITO"
               },
               {
                 "ky": "5",
-                "value": "VENTA DE MERCANCÍA"
+                "value": "SEGUROS"
               },
               {
                 "ky": "6",
-                "value": "PELÍCULAS ON DEMAND"
+                "value": "MIS PAGOS - PAGOS DE SERVICIOS, TIEMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
               },
               {
                 "ky": "7",
-                "value": "TV EN VIVO"
+                "value": "VENTA DE MERCANCIA"
               },
               {
                 "ky": "8",
-                "value": "NOTICIAS"
+                "value": "MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
               },
               {
                 "ky": "9",
+                "value": "MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS"
+              },
+              {
+                "ky":"10",
+                "value": "PELICULAS ON DEMAND"
+              },
+              {
+                "ky":"11",
+                "value": "WIFI PASS"
+              },
+              {
+                "ky":"12",
+                "value": "TV EN VIVO Y NOTICIAS"
+              },
+              {
+                "ky":"13",
                 "value": "CHAT Y RED SOCIAL"
               }
-            ]
-          }
-        },
-        {
-          "ky": "monetizacion",
-          "label": "MONETIZACION",
-          "controlType": "dropdown",
-          "order": "4",
-          "column": "0",
-          "attributes": [],
-          "validations": [
-            {
-              "validate": "required",
-              "type": "1"
-            }
-          ],
-          "idControl": "1",
-          "content": {
-            "idContent": "11",
-            "name": "REGLASDEMONETIZACION",
-            "type": "3",
-            "contentList": [
-              {
-                "ky": "1",
-                "value": "REGLA1"
-              },
-              {
-                "ky": "2",
-                "value": "REGLA2"
-              }
-            ],
-            "options": [
-              {
-                "ky": "1",
-                "value": "REGLA1"
-              },
-              {
-                "ky": "2",
-                "value": "REGLA2"
-              }
+     
             ]
           }
         },
@@ -222,7 +223,7 @@
           "idControl": "1"
         },
 		 {
-          "ky": "numeroDeApunte",
+          "ky": "numeroApunte",
           "label": "NÚMERO DE APUNTE",
           "controlType": "textbox",
           "order": "1",
@@ -232,7 +233,7 @@
               "type": "number"
             },
             {
-              "placeholder": "1234567"
+              "placeholder": "1"
             },
             {
               "maxlength": "5"
@@ -252,7 +253,7 @@
           ]
         },
 		 {
-          "ky": "sociedadGl",
+          "ky": "sociedad",
           "label": "SOCIEDAD GL",
           "controlType": "textbox",
           "order": "1",
@@ -306,7 +307,7 @@
           ]
         },
 		 {
-          "ky": "cuentaSap",
+          "ky": "cuentaSAP",
           "label": "CUENTA SAP",
           "controlType": "textbox",
           "order": "1",
@@ -333,7 +334,7 @@
           ]
         },
 		 {
-          "ky": "claseDeDocumento",
+          "ky": "claseDocumento",
           "label": "CLASE DE DOCUMENTO",
           "controlType": "textbox",
           "order": "1",
@@ -414,7 +415,7 @@
           ]
         },
         {
-          "ky": "iva",
+          "ky": "indicadorIVA",
           "label": "IVA",
           "controlType": "slideButton",
           "order": "6",
@@ -424,7 +425,7 @@
           "idControl": "1"
         },
 		{
-          "ky": "cargoAbono",
+          "ky": "indicadorOperacion",
           "label": "CARGO/ABONO",
           "controlType": "slideButton",
           "order": "6",

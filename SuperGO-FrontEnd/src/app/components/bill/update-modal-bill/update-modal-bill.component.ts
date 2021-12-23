@@ -17,7 +17,7 @@ export class UpdateModalBillComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-
+  public formas:any;
   
   constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormBillsService>(FormBillsService);
@@ -27,9 +27,14 @@ export class UpdateModalBillComponent implements OnInit {
 
   ngOnInit(): void {
     this.formCatService.getForm().subscribe((data:any)=>{
+      this.formas=this.dataModal;
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
-      this.control.setDataToControls(this.containers,this.dataModal);
+      delete this.formas.dataModal.idSubTipoOperacion;
+      delete this.formas.dataModal.idReglaMonetizacion;
+      this.formas.keys[2].delete;
+      this.formas.keys[3].delete;
+      this.control.setDataToControls(this.containers,this.formas);
       this.reactiveForm.setContainers(this.containers);
     });
 

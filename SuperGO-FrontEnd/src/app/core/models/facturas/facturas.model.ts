@@ -1,10 +1,10 @@
 export interface Facturas
 {
-    sociedad:string;
-    operacion:string;
-    subOperacion:string;
-    monetizacion:string;
-    tipoDeComprobante:string;
-    tipoDeFactura:string;
+    idSociedad:string;
+    idTipoOperacion:string;
+    idSubTipoOperacion:string;
+    idReglaMonetizacion:string;
+    tipoComprobante:string;
+    tipoFactura:string;
 
 }

@@ -1,33 +1,29 @@
 <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="sociedad">
+    <ng-container matColumnDef="idSociedad">
         <th mat-header-cell *matHeaderCellDef > SOCIEDAD </th>
-        <td mat-cell *matCellDef="let element"> {{element.sociedad}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.idSociedad}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="operacion">
+    <ng-container matColumnDef="idTipo">
         <th mat-header-cell *matHeaderCellDef class="te"> OPERACION </th>
-        <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.idTipo}} </td>
     </ng-container>
 
 
-    <ng-container matColumnDef="subOperacion">
+    <ng-container matColumnDef="idSubtipo">
         <th mat-header-cell *matHeaderCellDef > SUB OPERACION </th>
-        <td mat-cell *matCellDef="let element"> {{element.subOperacion}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.idSubtipo}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="monetizacion">
-        <th mat-header-cell *matHeaderCellDef > REGLA DE MONETIZACION </th>
-        <td mat-cell *matCellDef="let element"> {{element.monetizacion}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="fechaDeInicioDeVigencia">
+ 
+    <ng-container matColumnDef="fechaInicio">
         <th mat-header-cell *matHeaderCellDef > FECHA INICIO DE VIGENCIA </th>
-        <td mat-cell *matCellDef="let element"> {{element.fechaDeInicioDeVigencia}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.fechaInicio}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fechaDeFinDeVigencia">
+    <ng-container matColumnDef="fechaFin">
       <th mat-header-cell *matHeaderCellDef > FECHA FIN DE VIGENCIA </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaDeFinDeVigencia}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fechaFin}} </td>
   </ng-container>
 
 

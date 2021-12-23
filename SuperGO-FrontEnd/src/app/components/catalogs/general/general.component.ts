@@ -37,17 +37,31 @@ export class GeneralComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{razonSocial:'prueba prueba1',rfc:'kehy900909',tipoDeSociedad:'EXTERNA'} as Sociedad,
-    {razonSocial:'prueba prueba2',rfc:'kehy900908',tipoDeSociedad:'EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba3',rfc:'kehy900907',tipoDeSociedad:'EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba4',rfc:'kehy900906',tipoDeSociedad:'EXTERNA'}as Sociedad,
-    {razonSocial:'prueba prueba5',rfc:'kehy900905',tipoDeSociedad:'EXTERNA'}as Sociedad,
+    this.dataInfo=[{razonSocial:'prueba prueba1',RFC:'kehy900909',idTipoSociedad:'EXTERNA'} as Sociedad,
+    {razonSocial:'prueba prueba2',RFC:'kehy900908',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba3',RFC:'kehy900907',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba4',RFC:'kehy900906',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {razonSocial:'prueba prueba5',RFC:'kehy900905',idTipoSociedad:'EXTERNA'}as Sociedad,
     ];
 
   }
 
-  onSubmit()
-  {
+  onSubmit(value:any)
+  { 
+    // let datos = {
+    //   razonSocial: value[0],
+    //   idTipoSociedad: 1//parseInt(value.idTipoSociedad)
+    // }
+
+    var sisi:any;
+    for(var datas of Object.values(value)){
+      sisi = datas;
+      console.log(sisi);
+    }
+
+    let obsa = JSON.stringify(sisi);
+    var newa = JSON.parse(obsa);
+    /*var nea=0;
     let obj:Sociedad = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['SOCIEDADES'] as Sociedad;
     
     this.dataInfo.push(obj);
@@ -55,7 +69,11 @@ export class GeneralComponent implements OnInit {
     if(this.catalogsTable)
     {
       this.catalogsTable.onLoadTable(this.dataInfo);     
-    }    
+    }*/
+
   }
+  
+
+
 
 }

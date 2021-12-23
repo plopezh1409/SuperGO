@@ -30,7 +30,7 @@ export class UpdateModalOperationComponent implements OnInit {
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
-      this.dataModal.dataModal.estatus = this.dataModal.dataModal.estatus == "A"?"true":"false";
+      this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
       this.control.setDataToControls(this.containers,this.dataModal);
       this.reactiveForm.setContainers(this.containers);
     });

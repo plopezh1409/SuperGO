@@ -42,8 +42,9 @@ export class UpdateModalCatalogsComponent implements OnInit {
     });
   }
 
-  
-
+  modify(){
+    
+  }
 
 
 

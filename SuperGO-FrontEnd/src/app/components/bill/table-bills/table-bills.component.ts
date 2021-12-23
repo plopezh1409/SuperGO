@@ -16,7 +16,7 @@ export class TableBillsComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
-  displayedColumns: string[] = ['sociedad', 'operacion', 'monetizacion','tipoDeComprobante','tipoDeFactura','options', 'options2'];
+  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion','idSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
