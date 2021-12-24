@@ -10,26 +10,6 @@ const routes: Routes = [
     loadChildren: () => import('@app/components/login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'catalogos',
-    loadChildren: () => import('@app/components/catalogs/catalogs.module').then(m => m.CatalogsModule)
-  },
-  {
-    path: 'bills',
-    loadChildren: () => import('@app/components/bill/bill.module').then(m => m.BillModule)
-  },
-  {
-    path: 'operations',
-    loadChildren: () => import('@app/components/operation/operation.module').then(m => m.OperationModule)
-  },
-  {
-    path: 'accounting',
-    loadChildren: () => import('@app/components/accounting/accounting.module').then(m => m.AccountingModule)
-  },
-  {
-    path: 'monetization',
-    loadChildren: () => import('@app/components/monetization/monetization.module').then(m => m.MonetizationModule)
-  },
-  {
     path: '', component:InicioComponent,
   },
   {

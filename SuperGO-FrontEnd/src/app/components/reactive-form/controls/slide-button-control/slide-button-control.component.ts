@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
 import { Control } from '@app/core/models/capture/controls.model';
 
 @Component({
@@ -11,7 +10,6 @@ import { Control } from '@app/core/models/capture/controls.model';
 export class SlideButtonControlComponent implements OnInit {
   @Input() control!: Control;
   @Input() form!: FormGroup;
- 
   value:boolean=false;    
 
   ngOnInit(): void {

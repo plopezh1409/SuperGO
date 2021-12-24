@@ -9,9 +9,6 @@
     autocomplete="off" [mask]="mask"
     class="reactiveInput"></textarea>
     </label>
-    <mat-hint *ngIf="control.getAttributeValueByName('maxlength')" align="end"> 
-      {{control.getLengthValue(form)}} / {{control.getAttributeValueByName('maxlength')}} 
-    </mat-hint>
     <mat-error *ngIf="form">
         <span *ngIf="form.get(control.ky!)?.errors?.required">
           El campo {{ control.label }} es requerido

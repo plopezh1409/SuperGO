@@ -1,0 +1,390 @@
+{
+    "response":														
+        [
+            {
+                "idContainer":"1",											
+                "name":"TIPO DE CATS",													
+                "order":"1",												
+                "columns":"1",												
+                "controls":
+                [ 
+                    {
+                        "ky": "solicitudes",
+                        "label": "SOLICITUD",
+                        "controlType": "dropdown",
+                        "order": "1",
+                        "column": "1",
+                        "attributes": [
+                            {
+                                "maxlength": "40",
+                                "value":"0"
+                            }
+                        ],
+                        "validations": [
+                            {}
+                        ],
+                        "content": {
+                            "type": "3",
+                            "name": "SOLICITUDES",
+                            "contentList": [
+                                {
+                                    "ky": "001",
+                                    "value": "ABONO"
+                                },
+                                {
+                                    "ky": "002",
+                                    "value": "CARGO"
+                                },
+                                {
+                                    "ky": "003",
+                                    "value": "ABONO CONTABILIDAD"
+                                },
+                                {
+                                    "ky": "004",
+                                    "value": "CARGO CONTABILIDAD"
+                                },
+                                {
+                                    "ky": "005",
+                                    "value": "RETENCION"
+                                },
+                                {
+                                    "ky": "006",
+                                    "value": "LIBERACION"
+                                },
+                                {
+                                    "ky": "007",
+                                    "value": "ABONO PAGOSERVICIO"
+                                },
+                                {
+                                    "ky": "008",
+                                    "value": "ABONO PAGOSERVICIO CONTABLE"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "ky":"MONTO", 	
+                        "label":"MONTO",									
+                        "controlType":"decimal",
+                        "order":"2",											
+                        "column":"11",
+                        "attributes":[                            
+                            {"placeholder":"0.00"},
+                            {"maxlength":"20"    },
+                            {"minlength":"1"     },
+                            {"min":"0.01"        }
+                            
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"pattern"},                            
+                            { "type":"1", "validate":"min"},                            
+                            { "type":"2", "validate":"^([1-9]\\d*)?(\\.\\d{0,2})?$"}
+                        ],		
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]								
+                    },
+                    {
+                        "ky":"TIPOMONEDA", 			
+                        "label":"MONEDA",
+                        "controlType":"textboxInfo",
+                        "order":"3",
+                        "column":"11",
+                        "attributes":[
+                            {"value":"001-MXP"},
+                            {"placeholder":"TIPO MONEDA"},
+                            {"maxlength":"7"}
+                        ],								
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"2", "validate":"^.*$"}                        
+                        ],		
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"CUENTA",
+                        "label":"CUENTA",	
+                        "controlType":"textboxSearch",
+                        "order":"4",
+                        "column":"4",
+                        "attributes":[
+                            {"placeholder":"0.00"},
+                            {"maxlength":"20"},
+                            {"minlength":"10"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"minlength"},
+                            { "type":"1", "validate":"unique"},
+                            { "type":"2", "validate":"^([0-9]\\d*|0)$"}                            
+                        ],
+                        "content":
+                        {
+                            "type":"1",
+                            "name":"VALIDA CUENTA",
+                            "contentList":[
+                                {"ky":"1","value":"query/account|{account:'CUENTA',amount:'0'}" }
+                            ]
+                        },
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"NOMBRE",
+                        "label":"NOMBRE",
+                        "controlType":"textboxInfo",
+                        "order":"5",
+                        "column":"4",
+                        "attributes":[
+                            {"placeholder":"Nombre"}                                                        
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},                            
+                            { "type":"1", "validate":"pattern"},
+                            { "type":"2", "validate":"^[A-Za-z0-9ÑñÁáÉéÍíÓóÚú\\s]*$"}                            
+                        ],
+                        "content":
+                        {                            
+                            "type":"2",
+                            "name":"NOMBRECUENTA",
+                            "contentList":[
+                                {"ky":"1","value":"name" }
+                            ]
+                        }                        
+                    },
+                    {
+                        "ky":"FOLIO",
+                        "label":"FOLIO RETENCION",	
+                        "controlType":"textbox",
+                        "order":"6",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"FOLIO"},
+                            {"maxlength":"5"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"minlength"},
+                            { "type":"1", "validate":"unique"},
+                            { "type":"2", "validate":"^([0-9]\\d*|0)$"}                            
+                        ],
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"0"},
+                            {"id":"2","name":"CARGO", "visible":"0"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"0"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"0"},
+                            {"id":"5","name":"RETENCION", "visible":"0"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"0"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"0"}
+                        ]		
+                    },
+                    {
+                        "ky":"OBSERVACION",
+                        "label":"OBSERVACION",	
+                        "controlType":"textbox",
+                        "order":"7",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"OBSERVACIONES"},
+                            {"maxlength":"40"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"pattern"},    
+                            { "type":"2", "validate":"^[A-Za-z0-9ÑñÁáÉéÍíÓóÚú\\s]*$"}                          
+                        ],
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"0"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"EMISOR",
+                        "label":"EMISOR",	
+                        "controlType":"textbox",
+                        "order":"8",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"EMISOR"},
+                            {"maxlength":"10"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"minlength"},
+                            { "type":"1", "validate":"unique"},
+                            { "type":"2", "validate":"^[A-Za-z0-9\\s]*$"}                         
+                        ],
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"0"},
+                            {"id":"2","name":"CARGO", "visible":"0"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"0"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"0"},
+                            {"id":"5","name":"RETENCION", "visible":"0"},
+                            {"id":"6","name":"LIBERACION", "visible":"0"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"SUCURSAL",
+                        "label":"SUCURSAL",	
+                        "controlType":"textbox",
+                        "order":"9",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"SUCURSAL"},
+                            {"maxlength":"10"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"minlength"},
+                            { "type":"1", "validate":"unique"},
+                            { "type":"2", "validate":"^[A-Za-z0-9\\s]*$"}                         
+                        ],
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"0"},
+                            {"id":"2","name":"CARGO", "visible":"0"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"0"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"0"},
+                            {"id":"5","name":"RETENCION", "visible":"0"},
+                            {"id":"6","name":"LIBERACION", "visible":"0"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"CECO",
+                        "label":"CENTRO COSTOS",	
+                        "controlType":"dropdown",
+                        "order":"10",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"OBSERVACIONES"},
+                            {"maxlength":"10"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"pattern"},    
+                            { "type":"2", "validate":"^[A-Za-z0-9\\s]*$"}                          
+                        ],
+                        "content": {
+                            "type": "3",
+                            "name": "CECOS",
+                            "contentList": [
+                                {
+                                    "ky": "000",
+                                    "value": "0426"
+                                },
+                                {
+                                    "ky": "001",
+                                    "value": "0427"
+                                },
+                                {
+                                    "ky": "002",
+                                    "value": "0428"
+                                }
+                            ]
+                        },
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    },
+                    {
+                        "ky":"RISTRA",
+                        "label":"RISTRA",	
+                        "controlType":"dropdown",
+                        "order":"11",
+                        "column":"11",
+                        "attributes":[
+                            {"placeholder":"RISTRA"},
+                            {"maxlength":"10"}
+                        ],
+                        "validations":[
+                            { "type":"1", "validate":"required"},
+                            { "type":"1", "validate":"pattern"},    
+                            { "type":"2", "validate":"^([0-9]\\d*|0)$"}                          
+                        ],
+                        "content":
+                        {
+                            "type": "3",
+                            "name": "RISTRAS",
+                            "contentList": [
+                                {
+                                    "ky": "000",
+                                    "value": "41527263911209384729"
+                                },
+                                {
+                                    "ky": "001",
+                                    "value": "41527263911209387283"
+                                },
+                                {
+                                    "ky": "002",
+                                    "value": "41527263911203489923"
+                                }, {
+                                    "ky": "003",
+                                    "value": "41527263832749873874"
+                                },
+                                {
+                                    "ky": "004",
+                                    "value": "41527283748328473820"
+                                },
+                                {
+                                    "ky": "005",
+                                    "value": "41529832749873847364"
+                                }
+                            ]
+                        },
+                        "visibility":[
+                            {"id":"1","name":"ABONO", "visible":"1"},
+                            {"id":"2","name":"CARGO", "visible":"1"},
+                            {"id":"3","name":"ABONO_CONTABILIDAD", "visible":"1"},
+                            {"id":"4","name":"CARGO_CONTABILIDAD", "visible":"1"},
+                            {"id":"5","name":"RETENCION", "visible":"1"},
+                            {"id":"6","name":"LIBERACION", "visible":"1"},
+                            {"id":"7","name":"ABONO_PAGOSERVICIO", "visible":"1"},
+                            {"id":"8","name":"ABONO_PAGOSERVICIO_CONTABILIDAD", "visible":"1"}
+                        ]		
+                    }    
+                ]            
+            }
+        ]
+   }

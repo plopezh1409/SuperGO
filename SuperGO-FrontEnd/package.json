@@ -1,5 +1,5 @@
 {
-  "name": "supergo",
+  "name": "gestor-operaciones",
   "version": "2.0.0",
   "scripts": {
     "ng": "ng",

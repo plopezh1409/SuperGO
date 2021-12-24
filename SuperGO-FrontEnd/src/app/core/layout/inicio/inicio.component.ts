@@ -54,12 +54,15 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {    
     this.init = false;
-    let actMk = '';
+    let actMk = this.authService.isActiveMasterKey;
     if (isObservable(actMk)) {      
-     
+      this.appComponent.showLoader(true);
+        actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result=>{                    
+          this.initLogin(result);
+        });
     }
     else {
-     
+      this.initLogin(actMk);
     }    
   }  
 
@@ -103,6 +106,8 @@ export class InicioComponent implements OnInit {
   }
 
   getUserMasterKey(data: any) {    
+    this.authService.guardarToken(data);
+    this.authService.guardarUsuario(data);
     let usuario = this.authService.usuario;
 
     if (Number(usuario.employee) <= 0) {
@@ -136,9 +141,14 @@ export class InicioComponent implements OnInit {
       allowOutsideClick: false
     }).then((result: any) => {
       if (result.isConfirmed) {
-          
-      } else if (result.isDenied) {  
-
+        this.authService.newSession(data).subscribe(dt=>{
+          this.appComponent.isAuth = true;
+          this.getFavoriteTop();  
+        });        
+      } else if (result.isDenied) {    //CERRAR SESIÓN
+        this.authService.logout().subscribe(() => {
+          this.router.navigate(['/login']);
+        });
       }
 
       this.appComponent.showLoader(false);
@@ -159,6 +169,7 @@ export class InicioComponent implements OnInit {
     let module = this.authService.getModuleByUrl(topModule.url);
     if(module)
     {
+      this.authService.getRoleName(module.role.name);
       this.router.navigateByUrl(topModule.url);
     }
   }
@@ -207,6 +218,7 @@ export class InicioComponent implements OnInit {
           this.cardsTop = [];
           result.data.forEach((element: any) => {this.cardsTop.push(element);});          
           this.authService.usuario.top = this.cardsTop;
+          this.authService.upgradeUser(this.authService.usuario);
           this.calculateAdd();
         } else {
           this.openSnackBar(`Error al Agregar Favorito`, 'Cerrar', 'errorToast');
@@ -233,6 +245,7 @@ export class InicioComponent implements OnInit {
           .subscribe(() => {  
             this.cardsTop.splice(index, 1);
             this.authService.usuario.top = this.cardsTop;
+            this.authService.upgradeUser(this.authService.usuario);
             this.openSnackBar(`Favorito Eliminado Correctamente`, 'Cerrar', 'successToast');
             this.calculateAdd();            
           });

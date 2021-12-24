@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
     this.initIN = false;
   }
   ngOnInit() {
-    /*this.modules = this.authService.usuario.modules;
+    this.modules = this.authService.usuario.modules;
     this.modules.forEach(element => {
       let mod = element.module;
       if (mod.operation) {
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
         });
 
       }
-    });*/
+    });
   }
 
   onKey(data: any) {
@@ -89,6 +89,7 @@ export class SearchComponent implements OnInit {
     }
     let module = this.authService.getModuleByUrl(searchModule.url);
     if (module) {
+      this.authService.getRoleName(module.role.name);
       this.router.navigateByUrl(searchModule.url);
     }
   }

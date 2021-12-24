@@ -1,0 +1,14 @@
+{
+    "code": 200,
+    "message": "Transacción exitosa.",    
+    "response": {
+      "cuenta": "01270673461334882560",
+      "nombre": "GUILLERMO GONZALEZ CAMARENA",
+      "currencyType":"MXP",
+      "saldoDisp": "9999333406.00",
+      "status": "ACTIVA",
+      "core": "ALNOVA",
+      "account": "01270673461334882560",
+      "name": "GUILLERMO GONZALEZ CAMARENA"
+    }
+  }

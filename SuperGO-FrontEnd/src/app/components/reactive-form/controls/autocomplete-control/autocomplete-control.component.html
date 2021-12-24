@@ -19,7 +19,7 @@ floatLabel="always"
         <span *ngIf="formulario.get(control.ky!)?.hasError('required')">
             El campo {{ control.label! }} es requerido
         </span>
-        <span *ngIf="formulario.get(control.ky!)?.hasError('requiredMatch')">
+        <span *ngIf="formulario.get(control.ky!)?.hasError('incorrect')">
             El campo {{ control.label! }} tiene un valor no reconocido. Seleccione una de las opciones listadas
         </span>
     </mat-error>
