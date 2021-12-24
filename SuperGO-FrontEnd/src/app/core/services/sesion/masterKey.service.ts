@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AngularSecurity } from '../public/angularSecurity.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { environment } from '@env/environment';
 
 
 @Injectable({
@@ -28,20 +30,21 @@ export class MasterKeyService {
 
   constructor(
     private http: HttpClient,     
+    private angularSecurity: AngularSecurity,
     private deviceService: DeviceDetectorService,    
     private router: Router,
     authService: AuthService,
   ) {
     this.response_type = 'code';
-    this.cle = '';
-    this.client_id = '';
-    this.client_secret = '';
-    this.redirect_uri = '';
-    this.scope ='';
-    this.acr_values = '';
-    this.rp = '';
-    this.urlGsAuth = ''
-    this.urlGSLogOut = '';
+    this.cle = this.angularSecurity.getKeyAES;
+    this.client_id = this.angularSecurity.decryptAES(environment.client_id, this.cle);
+    this.client_secret = this.angularSecurity.decryptAES(environment.client_secret, this.cle);
+    this.redirect_uri = this.angularSecurity.decryptAES(environment.redirect_uri, this.cle);
+    this.scope = this.angularSecurity.decryptAES(environment.scope, this.cle);
+    this.acr_values = this.angularSecurity.decryptAES(environment.acr_values, this.cle);
+    this.rp = this.angularSecurity.decryptAES(environment.rp, this.cle);
+    this.urlGsAuth = environment.urlAuthGS;
+    this.urlGSLogOut = environment.urlAuthGSLogOut;
     this.urlSuperGo = authService.urlEnviroment;
 
     this.deviceInfo = this.deviceService.getDeviceInfo();

@@ -99,11 +99,15 @@ export class LoginComponent implements OnInit {
       this.usuarioAux = this.rutaActiva.snapshot.params.ADMIN
     }
     else {
-      const actMk ='';
+      const actMk = this.authService.isActiveMasterKey;
       if (isObservable(actMk)) {
-       
+        this.appComponent.showLoader(true);
+        actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result => {
+          this.activateMasterKey = result;
+        });
       }
       else {
+        this.activateMasterKey = actMk;
       }
     }
 
@@ -148,8 +152,10 @@ export class LoginComponent implements OnInit {
       //RENOVAR TOKEN
       if (result.isConfirmed) {
         this.appComponent.showLoader(true);
-        
-        this.appComponent.showLoader(false);
+        this.authService.newSession(data).pipe(finalize(()=>{this.appComponent.showLoader(false)}))
+        .subscribe(dt=> {
+          this.logIn(this.authService.usuario);    
+        });
       } else if (result.isDenied) {    //CERRAR SESIÓN
         this.authService.limpiarSesion();
         this.router.navigate(['/login']);
@@ -179,8 +185,8 @@ export class LoginComponent implements OnInit {
         this.appComponent.logger.info('LOGIN response', response);
         switch (response.code) {
           case 200://LOGUEO EXITOSO
-            // this.authService.guardarUsuario(response.response);
-            // this.authService.guardarToken(response.response);            
+            this.authService.guardarUsuario(response.response);
+            this.authService.guardarToken(response.response);            
             this.logIn(this.authService.usuario);            
             break;
           case 207://NECESITA CAMBIO DE PASSWORD
@@ -242,10 +248,40 @@ export class LoginComponent implements OnInit {
         heightAuto: false,
       }).then((result: any) => {
         if (result.isConfirmed) {
-         
-         
+          this.appComponent.showLoader(true);
+          this.authService.updatePassword({
+            employee: this.usuario.employee,
+            origen: this.usuario.p4ss,
+            newPsswrd: btoa(this.p4ss3)
+          })
+            .pipe(finalize(() => this.appComponent.showLoader(false)))
+            .subscribe(
+              response => {
+                this.authService.guardarUsuario(response.response);
+                this.authService.guardarToken(response.response);
+                let usuario = this.authService.usuario;
+                this.logIn(usuario);
+              },
+              err => {
+                this.appComponent.logger.error("actualizarP4ss error", err.error.errors);
+                swal.fire('Hubo un problema', `${err.error.message} ,intente de nuevo`, 'error');
+                swal.fire({
+                  icon: 'error',
+                  title: 'Lo sentimos',
+                  text: `${err.error.message} ,intente de nuevo`,
+                  heightAuto: false
+                });
+                this.authService.logout().subscribe(() => {
+                  location.reload();
+                  this.appComponent.isAuth = false
+                });
+              }
+            )
         } else {
-         
+          this.authService.logout().subscribe(() => {
+            location.reload();
+            this.appComponent.isAuth = false
+          });
         }
       })
 
@@ -318,7 +354,10 @@ export class LoginComponent implements OnInit {
   }
 
   reload() {
-  
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(["/login"]);
+      this.ngOnInit();
+    });
   }
 
   logIn(usuario: User) {

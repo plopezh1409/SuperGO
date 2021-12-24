@@ -17,27 +17,35 @@ import { PaginaNoEncontradaComponent } from "./pagina-no-encontrada/pagina-no-en
 
 //DIRECTIVAS
 import { DropArchivoDirective } from "./directives/drop-archivo.directive";
+import { MaskTextDirective } from "./directives/mask-text.directive";
+import { MaskDirective } from "./directives/mask.directive";
 import { AttributeDirective } from "./directives/attribute.directive";
 
 //PIPES
+import { BuscadorRutasPipe } from "./pipes/buscador-rutas.pipe";
+import { FechaNombreMesPipe } from "./pipes/fecha-nombre-mes.pipe";
+import { SplitCamelCasePipe } from "./pipes/splitCamelCase.pipe";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ProgressComponent } from './progress/progress.component';
 import { SearchComponent } from "./search/search.component";
 import { TestComponent } from './test/test.component';
-import { MaskDirective } from "./directives/mask.directive";
-import { MaskTextDirective } from "./directives/mask-text.directive";
+import { IPABPipe } from "./pipes/ipab.pipe";
 
 @NgModule({    
     declarations:[
-        AttributeDirective,       
+        AttributeDirective,      
+        BuscadorRutasPipe,        
         DropArchivoDirective,
         ElevatorComponent,
+        FechaNombreMesPipe,
+        IPABPipe,
+        MaskTextDirective,
+        MaskDirective,
         PaginaNoEncontradaComponent,
         ProgressComponent,
+        SplitCamelCasePipe,
         SearchComponent,
-        TestComponent,
-        MaskDirective,
-        MaskTextDirective
+        TestComponent
     ],
     imports:[
         CommonModule,  
@@ -53,24 +61,32 @@ import { MaskTextDirective } from "./directives/mask-text.directive";
         SweetAlert2Module.forRoot()        
     ],
     exports:[
-        AttributeDirective,   
+        AttributeDirective,
+        BuscadorRutasPipe,        
         DropArchivoDirective,
         ElevatorComponent,
+        FechaNombreMesPipe,
         FormsModule,
+        IPABPipe,
+        MaskTextDirective,
+        MaskDirective,
         MatCardModule,
         MatDialogModule,
         MatFormFieldModule, 
         MatIconModule,
         MatInputModule,
         ProgressComponent,
-        ReactiveFormsModule,     
+        ReactiveFormsModule,
+        SplitCamelCasePipe,        
         SweetAlert2Module,
         SearchComponent,
         TestComponent,  
-        MaskDirective,
-        MaskTextDirective
     ],
     providers:[
+        BuscadorRutasPipe,
+        FechaNombreMesPipe,
+        SplitCamelCasePipe,
+        IPABPipe,
     ]
 })
 export class SharedModule{}

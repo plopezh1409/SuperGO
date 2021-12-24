@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="titHome">
-                <strong class="goTitle"></strong>
+                <strong class="goTitle">Super GO</strong>
             </div>
         </div>
         <div class="headerLogo" *ngIf="showLogo">
@@ -78,14 +78,6 @@
                                 </a>
                             </li>
                         </ng-container>
-                        <!--<li>
-                            <a [routerLink]="Catalogos">
-                                <div class="four">
-                                    <img class="svgIcono" [src]="'assets/image/'+ menu.image+'.svg'" alt="" width="25px" height="25px" />
-                                    <h4 class="labelMain"> Catalogos </h4>
-                                </div>
-                            </a>
-                        </li>-->
                         <li style="cursor:pointer"><a (click)="changeRole(null,snav)" (click)="logout()">
                                 <div class="four">
                                     <mat-icon class="power-icon"> power_settings_new</mat-icon>
@@ -93,7 +85,6 @@
                                 </div>
                             </a>
                         </li>
-                        
                     </ul>
                 </div>
             </mat-nav-list>

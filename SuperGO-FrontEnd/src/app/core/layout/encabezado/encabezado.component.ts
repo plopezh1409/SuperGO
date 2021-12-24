@@ -51,6 +51,7 @@ export class EncabezadoComponent implements OnInit {
   
   listaMenu:any[];
   subscriptionModule: Subscription;  
+  subscriptionCloseSession: Subscription;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -89,12 +90,19 @@ export class EncabezadoComponent implements OnInit {
       }      
      });
 
-  
+    this.subscriptionCloseSession = this.authService.isClosed.subscribe(x=>{
+      setTimeout(() => {        
+        if(this.authService.token === null || this.authService.token.length<=0)
+        {
+          this.appComponent.isAuth = false;
+        }        
+      }, 100);      
+    });
   } 
    
   ngOnInit(): void {       
     this.usuarioStorage = this.authService.usuario;       
-    //this.loadHeader();    
+    this.loadHeader();    
     this.loadModules();    
   }  
 
@@ -115,25 +123,43 @@ export class EncabezadoComponent implements OnInit {
   } 
   
   logout(): void {        
-    let actMk = '';
+    let actMk = this.authService.isActiveMasterKey;
     if(isObservable(actMk))
     {        
-      
+      this.appComponent.showLoader(true);
+      actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result=>{                
+        this.closeSession(result);
+      });
     }
     else{                 
+      this.closeSession(actMk);
     }   
   }
 
   closeSession(activarLLaveMaestra:boolean){
-   
+    this.authService.logout().subscribe(()=>{
+      if (activarLLaveMaestra) {
+        window.location.href = this.llaveMaestraService.logout();          
+      } 
+      else 
+      {
+        swal.fire({
+          icon: 'success',
+          title: 'Cerrando sesión',
+          text: `Has cerrado sesión con éxito!`,
+          heightAuto: false
+        });
+        this.router.navigate(['/login']);
+        this.appComponent.isAuth = false;
+      }
+    });
   }
 
   goBack() {
     this.location.back();
   }
   
-  loadModules(){  
-    console.log("loadModules")  ;
+  loadModules(){    
     this.listaMenu=[];
     if(this.usuarioStorage.modules!=undefined && this.usuarioStorage.modules.length>0)
     { 
@@ -144,15 +170,13 @@ export class EncabezadoComponent implements OnInit {
         }        
       });
     }
-
-    this.listaMenu.push({url:"catalogos",image:"assets/image/table_chart-24px.svg", name:"Catalogos"});
   }
 
   changeRole(module:any, snav:any)
   {
     this.role = '';
     snav.close();    
-    /*if(module!=null)
+    if(module!=null)
     {
       let findRole = this.usuarioStorage.modules.filter((m:any) => Number(m.module.id) === Number(module.id));      
         if(findRole && findRole.length>0)
@@ -161,6 +185,6 @@ export class EncabezadoComponent implements OnInit {
           this.usuarioStorage.selectedModule = findRole[0];
           this.role = findRole[0].role.name;
         }              
-    }*/
+    }
   } 
 }

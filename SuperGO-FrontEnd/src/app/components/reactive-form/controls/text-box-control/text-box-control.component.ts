@@ -64,7 +64,18 @@ export class TextBoxControlComponent implements OnInit {
     if (this.control.controlType === 'textboxLink') {
       this.validDependenceByDropDown();
     }
-  }  
+  }
+
+  getLengthValue()
+  {     
+    let valueTxt = this.form.get(this.control.ky!)?.value;
+    if(valueTxt)
+    {
+      return valueTxt.length;
+    }
+
+    return 0;
+  }
 
   /***********MANEJO DE CAMBIO DE VALIDACIONES DEPENDIENTES DE UN COMBOBOX**************/
   validDependenceByDropDown() {

@@ -1,11 +1,13 @@
-
-
+import { Country } from "./country.model";
+import { Direction } from "./direction.model";
 import { Page } from "./page.module";
 
 
 export class User {
     employee:string;
     name:string;
+    direction:Direction;
+    country:Country;
     company:string;
     modules:Page[];
     top:Page[];
@@ -36,6 +38,8 @@ export class User {
     constructor() {
         this.employee = "";
         this.name = "";
+        this.direction = {} as Direction;
+        this.country = {} as Country;
         this.company = "";
         this.modules = [];
         this.top = [];

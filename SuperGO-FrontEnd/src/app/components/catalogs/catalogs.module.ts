@@ -9,12 +9,16 @@ import { TablaCatalogoComponent } from './tabla-catalogo/tabla-catalogo.componen
 import { SharedModule } from '@app/shared/shared.module';
 import { CatalogsComponent } from './catalogs.component';
 import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
+import { UpdateModalCatalogsComponent } from './update-modal-catalogs/update-modal-catalogs.component';
+
 
 @NgModule({
   declarations: [
     GeneralComponent,
     TablaCatalogoComponent,
-    CatalogsComponent
+    CatalogsComponent,
+    UpdateModalCatalogsComponent,
+   
   ],
   imports: [
     CatalogsRoutingModule,

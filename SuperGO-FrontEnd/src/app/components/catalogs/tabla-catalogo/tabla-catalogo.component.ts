@@ -1,8 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import Swal from 'sweetalert2';
+import { GeneralComponent } from '../general/general.component';
+import { UpdateModalCatalogsComponent } from '../update-modal-catalogs/update-modal-catalogs.component';
 
 @Component({
   selector: 'app-tabla-catalogo',
@@ -12,14 +15,16 @@ import Swal from 'sweetalert2';
 export class TablaCatalogoComponent implements OnInit {
   @Input()dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
-  displayedColumns: string[] = ['razonSocial', 'rfc', 'tipoDeSociedad', 'options'];
+  displayedColumns: string[] = ['razonSocial', 'rfc', 'tipoDeSociedad', 'options', 'options2'];
   totalRows:number = 0;
+  
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
-  constructor() {    
+  constructor(public refData?:MatDialog) {    
     this.dataInfo=[];    
-    this.dataSource = new MatTableDataSource<Sociedad>();    
+    this.dataSource = new MatTableDataSource<Sociedad>();
+   
    }
 
   ngOnInit(): void {     
@@ -35,22 +40,34 @@ export class TablaCatalogoComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  eliminar(element:any):void{
+  open(element:any){
+    this.refData?.open(UpdateModalCatalogsComponent,{
+      data:{
+        dataModal:element
+      }
+    })
+  }
+ 
+
+
+
+
+  show(element:any):void{
     let keys = Object.keys(element);
-    let registro:string='';    
+    let registro:string='';
+    let titulos:string[]=["Razón Social","RFC","Tipo De Sociedad"]
+     
     registro = registro.concat('<table class="tableInfoDel">');    
-    keys.forEach(k => {
+    keys.forEach((k,index) => {
       if(k!='Options')
       {   
-        registro = registro.concat(`<tr><td>${k}</td><td>${element[k]}</td></tr>`);                    
+        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
       }      
     });
     registro = registro.concat('</table>');    
     Swal.fire({             
-      html:`<div class="titModal">Eliminar Registro</div><br/>¿Estás seguro de eliminar el siguiente registro? <br/>${registro}`,
-      showCancelButton: true,
-      confirmButtonText: `Eliminar`,
-      cancelButtonText:'Cancelar',
+      html:`<div class="titModal"> Datos de la empresa </div><br/> <br/>${registro}`,
+      showCancelButton: false
     }).then(result=>{
       if (result.isConfirmed) {      
         

@@ -48,8 +48,10 @@ export class AppComponent implements OnInit {
     this.userInactive.subscribe(() => {
       if (this.authService.isAuthenticated()) 
       {
-           this.isAuth = false;
-       
+        this.authService.logout().subscribe(() => {
+          this.authService.terminarSesion('/login', "¡Necesitas iniciar sesión nuevamente!");          
+          this.isAuth = false;
+        });
       }
     });
 

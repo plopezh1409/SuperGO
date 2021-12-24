@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href /SuperGO/ --aot --output-path=dev/",
-    "buildQA": "ng build --prod --base-href /SuperGO/ --configuration=qa --output-path=qa/",
+    "build": "ng build --base-href /SuperGo/ --aot --output-path=dev/",
+    "buildQA": "ng build --prod --base-href /SuperGo/ --configuration=qa --output-path=qa/",
     "buildProduction": "ng build --prod --base-href /SuperGo/ --output-path=prod/",
     "test": "ng test",
     "lint": "ng lint",

@@ -73,21 +73,18 @@ export class ReactiveForm{
         const ctrl = ctrls.shift();
         const index = ctrls.findIndex((x:any)=> x.ky === ctrl.ky);
         if(index >= 0)
-            { 
-              if(Number(ctrl.idContainer)!==Number(ctrls[index].idContainer))
+            {             
+              const _formCtrl = this.principalForm?.get(ctrl.idContainer) as FormGroup;
+              const _formIndex = this.principalForm?.get(ctrls[index].idContainer) as FormGroup;                 
+              if(
+              (_formCtrl.get(ctrl.control.ky)?.status === 'VALID' && _formIndex.get(ctrl.control.ky)?.status === 'VALID') &&
+              (_formCtrl.controls[(ctrl.control.ky||'')].value.trim() === _formIndex.controls[(ctrl.control.ky||'')].value.trim()))
               {
-                const _formCtrl = this.principalForm?.get(ctrl.idContainer) as FormGroup;
-                const _formIndex = this.principalForm?.get(ctrls[index].idContainer) as FormGroup;                 
+                _formIndex.controls[(ctrl.control.ky||'')].setValue('');
+                throw new Error(`Los valores en los campos '${ctrl.control.ky}' no pueden ser iguales`);
+              }
 
-                if(
-                (_formCtrl.get(ctrl.control.ky)?.status === 'VALID' && _formIndex.get(ctrl.control.ky)?.status === 'VALID') &&
-                (_formCtrl.controls[(ctrl.control.ky||'')].value.trim() === _formIndex.controls[(ctrl.control.ky||'')].value.trim()))
-                {
-                  _formIndex.controls[(ctrl.control.ky||'')].setValue('');
-                  throw new Error(`Los valores en los campos '${ctrl.control.ky}' no pueden ser iguales`);
-                }
-                ctrls.splice(index,1);
-              }              
+              ctrls.splice(index,1);
             }
       }      
 
@@ -174,14 +171,5 @@ export class ReactiveForm{
       }  
 
 
-      cleanValuesForm(containers:Container[])
-      {
-        let _formAux:FormGroup;
-        containers.forEach((cont: Container) => {
-          _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
-          _formAux.reset();      
-          let ctrls = cont.controls.filter(c=> c.getAttributeValueByName('value'));
-          console.log(ctrls);
-        });
-      }
+
 }

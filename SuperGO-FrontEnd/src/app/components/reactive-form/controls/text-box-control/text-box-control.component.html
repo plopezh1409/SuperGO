@@ -4,7 +4,7 @@
   <input matInput [formControlName]="control.ky!" [attributes]="control.attributes!" autocomplete="off" [mask]="mask"
     class="reactiveInput" (change)="onChangeInput()" (blur)="onBlur()" (input)="onInput()" />
   <mat-hint *ngIf="control.controlType !== 'decimal' && control.getAttributeValueByName('maxlength')" align="end"> 
-    {{control.getLengthValue(form)}} / {{control.getAttributeValueByName('maxlength')}} 
+    {{getLengthValue()}} / {{control.getAttributeValueByName('maxlength')}} 
   </mat-hint>
   <span *ngIf="control.getAttributeValueByName('prefix')" matPrefix> {{control.getAttributeValueByName('prefix')}} </span>
   <span *ngIf="control.getAttributeValueByName('suffix')" matSuffix> {{control.getAttributeValueByName('suffix')}} </span>

@@ -49,7 +49,7 @@ export class Control {
     return this.configValidators(this.validations!);
   }
 
-  configControlType() {
+  configControlType(): void {
     switch (this.controlType) {
       case 'datepicker':
         let elem: any = this.findAttributeByName('value');
@@ -78,16 +78,9 @@ export class Control {
           case 'email':
             validationsFn.push(Validators.email);
             break;
-          case 'required':     
-            if(this.controlType==='slideButton')
-            {
-              validationsFn.push(Validators.requiredTrue);
-            }       
-            else
-            {
-              validationsFn.push(Validators.required);   
-            }              
-            break;          
+          case 'required':
+            validationsFn.push(this.getRequiredValidator());              
+            break;
           case 'min':
             let min: any = this.getAttributeValueByName('min');
             validationsFn.push(Validators.min(min || 0));
@@ -106,15 +99,12 @@ export class Control {
             break;
           case 'pattern':
             let [pattern] = this.validations!.filter((v) => {
-              return Number(v.type) === 2;
+              return v.type === 2;
             });
             if (pattern) {
               validationsFn.push(Validators.pattern(pattern.validate || ''));
             }
             break;
-          case 'requiredMatch':
-            validationsFn.push(this.requiredMatch);  
-            break;            
           default:
             break;
         }
@@ -122,10 +112,29 @@ export class Control {
     });
 
     return validationsFn;
-  }  
+  }
+
+  getRequiredValidator()
+  {
+    let validator:any;
+    switch(this.controlType)
+    {
+      case 'slideButton':
+        validator = Validators.requiredTrue;
+      break;
+      case 'autocomplete':
+        validator = this.requireMatch;        
+      break;
+      default:
+        validator = Validators.required;
+        break;
+    }
+
+    return validator;
+  }
 
   isUniqueValidate() {
-    let unique = this.validations!.find((v) => { return Number(v.type) === 1 && v.validate === 'unique'; });
+    let unique = this.validations!.find((v) => { return v.type === 1 && v.validate === 'unique'; });
     if (unique) {
       return true;
     }
@@ -160,11 +169,11 @@ export class Control {
     }
   }
 
-  requiredMatch(control: any) {
-    const selection = control.value;
+  requireMatch(control: any): any {
+    const selection: any = control.value;
     if (typeof selection === 'string') {
       if (selection.trim().length > 0) {
-        return { requiredMatch: true };
+        return { incorrect: true };
       }
     }
     return null;
@@ -198,7 +207,7 @@ export class Control {
     console.log("getDecimalValue");
 
     formatValor = _form.controls[this.ky!].value.toString().replace(/[$,]/g, '');
-    if (this.validations!.filter((v) => { return Number(v.type) === 1 && v.validate === 'format_0'; }).length > 0) {
+    if (this.validations!.filter((v) => { return v.type === 1 && v.validate === 'format_0'; }).length > 0) {
 
       if (formatValor.indexOf('.') > 0) {
         decimal = formatValor.substring(formatValor.indexOf('.') + 1);
@@ -241,12 +250,12 @@ export class Control {
     if(_form.controls[this.ky!].value)
     {     
       formatValor += _form.controls[this.ky!].value.toString();
-      let filter = this.content!.options.filter((opcion) => {
+      /*let filter = this.content!.options.filter((opcion) => {
         return opcion.ky === _form.controls[this.ky!].value.toString();
         });
         if (filter.length > 0) {
-          formatValor += `-${filter[0].value}`;
-        }        
+          formatValor += `${filter[0].value}`;
+        }*/        
     }
     
     return formatValor;
@@ -260,7 +269,7 @@ export class Control {
         formatValor = _form.controls[this.ky!].value.toString();
       } else if (
         this.validations!.filter((v) => {
-          return Number(v.type) === 1 && v.validate === 'format_0';
+          return v.type === 1 && v.validate === 'format_0';
         }).length > 0
       ) {
         let maxlength = this.getAttributeValueByName('maxlength');
@@ -275,19 +284,11 @@ export class Control {
     return formatValor;
   }
 
-  getAutocompleteValue(_form: FormGroup) {
+  getAutocompleteValue(formulario: FormGroup): string {
     let formatValor = '';
-    if(_form.get(this.ky!))
-    {
-      if (typeof _form.controls[this.ky!].value === 'object') {
-        formatValor = `${_form.controls[this.ky!].value.ky} - ${_form.controls[this.ky!].value.value}`;
-      }
-      else {
-        formatValor = _form.controls[this.ky!].value;
-
-      }
+    if (typeof formulario.controls[this.ky!].value === 'object') {
+      formatValor = `${formulario.controls[this.ky!].value.ky} - ${formulario.controls[this.ky!].value.value}`;
     }
-    
     return formatValor;
   }
 
@@ -317,14 +318,14 @@ export class Control {
     }
   }
 
-  getAttributeValueByName(name: string) {
+  getAttributeValueByName(name: string): any {
     let elem: any = this.findAttributeByName(name);
     return elem === null ? null : elem[name];
   }
 
-  getMask() {
+  getMask(): Mask {
     let mask: Mask = {} as Mask;
-    let pattern = this.validations!.find((v) => { return Number(v.type) == 2; });
+    let pattern = this.validations!.find((v) => { return v.type == 2; });
     if (pattern) {
       mask = {
         regex: pattern.validate,
@@ -332,19 +333,5 @@ export class Control {
       } as Mask;
     }
     return mask;
-  }
-
-  getLengthValue(_form: FormGroup)
-  {
-    if(_form.get(this.ky!))
-    {
-      let valueTxt = _form.controls[this.ky!].value;
-      if(valueTxt &&  typeof valueTxt ==='string')
-      {
-        return valueTxt.length;
-      }
-    }   
-
-    return 0;
   }
 }

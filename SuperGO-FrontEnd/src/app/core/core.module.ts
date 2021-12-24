@@ -14,6 +14,11 @@ import { InicioComponent } from "./layout/inicio/inicio.component";
 import { PieDePaginaComponent } from "./layout/pie-de-pagina/pie-de-pagina.component";
 import { DialogTop } from "./layout/dialog/dialogTop/dialogTop.component";
 
+//INTERCEPTORES
+import { GlobalErrorHandler } from "./interceptors/globalErrorHandler.interceptor";
+import { ErrorServidorInterceptor } from "./interceptors/errorServidor.interceptor";
+import { TokenInterceptor } from "./interceptors/token.interceptor";
+import { ResponseInterceptor } from "./interceptors/response.interceptor";
 
 //DEPENDENCIAS
 import {MatBreadcrumbModule} from "mat-breadcrumb";
@@ -46,6 +51,12 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
         InicioComponent,
         PieDePaginaComponent,
         DialogTop        
+    ],
+    providers:[                
+        { provide: ErrorHandler, useClass: GlobalErrorHandler }, 
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorServidorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },    
+        { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true }, 
     ]
 
 })

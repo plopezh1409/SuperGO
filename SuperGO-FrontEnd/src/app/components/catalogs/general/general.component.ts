@@ -14,9 +14,10 @@ export class GeneralComponent implements OnInit {
   formCatService:FormCatService;
   reactiveForm:ReactiveForm;
   containers:Container[];
-  maxNumControls=4;
+  maxNumControls=10;
   alignContent='horizontal';
   public dataInfo:Sociedad[];
+  
 
   @ViewChild(TablaCatalogoComponent) catalogsTable:TablaCatalogoComponent;
 

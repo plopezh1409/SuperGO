@@ -1,0 +1,19 @@
+<form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
+     (change) = "reactiveForm.onFormChange()">
+    <div>
+        <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
+                'dvPrincipalContent row': alignContent === 'vertical'}">
+            <ng-container  *ngFor="let container of containers; let i = index">
+                <div [formGroupName]="container.idContainer">
+                    <app-container [container]="container" [alignContent]="alignContent"
+                        [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                    </app-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div  class="mb-10 text-align-center">
+        <button mat-raised-button class="btnPrimary" >Modificar</button>
+        <button mat-raised-button class="btnPrimary" (click)="close()">Cerrar</button>
+    </div>
+</form>
