@@ -1,6 +1,6 @@
 export interface Sociedad
 {
-    id:string;
+    idSociedad:string;
     razonSocial:string;
     RFC:string;
     idTipoSociedad:string;

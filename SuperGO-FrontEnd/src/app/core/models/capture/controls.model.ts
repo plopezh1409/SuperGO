@@ -268,6 +268,13 @@ export class Control {
     
   }
 
+  deleteValuesForSettings(dataModal:any,indexF:Number,indexL:Number){
+    dataModal = Object.values(dataModal).map((data:any) =>{
+      return dataModal[data] = Object.values(data).slice(1|1);
+    });
+
+    return dataModal;
+  }
 
   setDataToControls( containers:Container[],dataModal:any) {
     containers.forEach((cont: Container) => {

@@ -37,11 +37,11 @@ export class GeneralComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{id:"1",razonSocial:'prueba prueba1',RFC:'kehy900909',idTipoSociedad:'EXTERNA'} as Sociedad,
-    {id:"2",razonSocial:'prueba prueba2',RFC:'kehy900908',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {id:"3",razonSocial:'prueba prueba3',RFC:'kehy900907',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {id:"4",razonSocial:'prueba prueba4',RFC:'kehy900906',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {id:"5",razonSocial:'prueba prueba5',RFC:'kehy900905',idTipoSociedad:'EXTERNA'}as Sociedad,
+    this.dataInfo=[{idSociedad:"1",razonSocial:'prueba prueba1',RFC:'kehy900909',idTipoSociedad:'EXTERNA'} as Sociedad,
+    {idSociedad:"2",razonSocial:'prueba prueba2',RFC:'kehy900908',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {idSociedad:"3",razonSocial:'prueba prueba3',RFC:'kehy900907',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {idSociedad:"4",razonSocial:'prueba prueba4',RFC:'kehy900906',idTipoSociedad:'EXTERNA'}as Sociedad,
+    {idSociedad:"5",razonSocial:'prueba prueba5',RFC:'kehy900905',idTipoSociedad:'EXTERNA'}as Sociedad,
     ];
 
   }

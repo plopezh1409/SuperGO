@@ -27,14 +27,9 @@ export class UpdateModalBillComponent implements OnInit {
 
   ngOnInit(): void {
     this.formCatService.getForm().subscribe((data:any)=>{
-      this.formas=this.dataModal;
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
-      delete this.formas.dataModal.idSubTipoOperacion;
-      delete this.formas.dataModal.idReglaMonetizacion;
-      this.formas.keys[2].delete;
-      this.formas.keys[3].delete;
-      this.control.setDataToControls(this.containers,this.formas);
+      this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
       this.reactiveForm.setContainers(this.containers);
     });
 
