@@ -1,53 +1,53 @@
 <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef > DESCRIPCIÓN </th>
-        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="canal">
-        <th mat-header-cell *matHeaderCellDef class="te"> CANAL </th>
-        <td mat-cell *matCellDef="let element"> {{element.canal}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="topicoKafka">
-        <th mat-header-cell *matHeaderCellDef > TOPÍCO KAFKA </th>
-        <td mat-cell *matCellDef="let element"> {{element.topicoKafka}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="estatus">
-        <th mat-header-cell *matHeaderCellDef > ESTATUS </th>
-        <td mat-cell *matCellDef="let element"> {{element.estatus}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="options">
-        <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
-        <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
-            visibility 
-          </mat-icon>
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="options2">
-      
-      <th mat-header-cell *matHeaderCellDef class="head" scope="col"> EDITAR </th>
-   
-      <td mat-cell *matCellDef="let element" id="icons" (click)="open()">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
-            edit 
-          </mat-icon>
-        </td>
+  <ng-container matColumnDef="descripcionTipoOperacion">
+      <th mat-header-cell *matHeaderCellDef > DESCRIPCIÓN </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionTipoOperacion}} </td>
   </ng-container>
 
-    
+  <ng-container matColumnDef="idCanal">
+      <th mat-header-cell *matHeaderCellDef class="te"> CANAL </th>
+      <td mat-cell *matCellDef="let element"> {{element.idCanal}} </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+
+  <ng-container matColumnDef="topicoKafka">
+      <th mat-header-cell *matHeaderCellDef > TOPÍCO KAFKA </th>
+      <td mat-cell *matCellDef="let element"> {{element.topicoKafka}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef > ESTATUS </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
+      <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+          visibility 
+        </mat-icon>
+      </td>
+  </ng-container>
+
+  <ng-container matColumnDef="options2">
     
+    <th mat-header-cell *matHeaderCellDef class="head" scope="col"> EDITAR </th>
+ 
+    <td mat-cell *matCellDef="let element" id="icons" (click)="open(element)">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+          edit 
+        </mat-icon>
+      </td>
+</ng-container>
+
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+  
 </table>
 <div class="paginator">
-    <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-    showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+  showFirstLastButtons></mat-paginator>
 </div> 

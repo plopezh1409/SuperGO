@@ -15,7 +15,7 @@ export class TableAccountingComponent implements OnInit {
 
   @Input()dataInfo:Contabilidad[];
   dataSource:MatTableDataSource<Contabilidad>;
-  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'monetizacion','numeroDeApunte','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
+  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion', 'idSubtipoOperacion', 'idReglaMonetizacion','numeroApunte','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -51,7 +51,7 @@ export class TableAccountingComponent implements OnInit {
   show(element:any):void{
     let keys = Object.keys(element);
     let registro:string='';
-    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Contabilidad Diaria","Número De Apunte","Sociedad GL","Tipo Cuenta","Cuenta SAP","Clase Documento","Concepto","Centro Destino","IVA","Cargo/Abono"]
+    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Contabilidad Diaria","Número De Apunte","Sociedad GL","Tipo Cuenta","Cuenta SAP","Clase Documento","Concepto","Centro Destino","IVA","Cargo/Abono","Fecha Inicio De Vigencia","Fecha Fin De Vigencia"]
      
     registro = registro.concat('<table class="tableInfoDel">');    
     keys.forEach((k,index) => {

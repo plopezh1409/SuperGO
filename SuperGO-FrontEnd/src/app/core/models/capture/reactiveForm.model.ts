@@ -14,6 +14,7 @@ export class ReactiveForm{
         const formGroup: FormGroup = new FormGroup({});
         for(let i=0; i<container.controls.length; i++)
         {    
+        
           container.controls[i] = Object.assign(new Control(), container.controls[i]);  
           if(container.controls[i])
           {

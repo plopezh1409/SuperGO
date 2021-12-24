@@ -37,12 +37,8 @@ export class GeneralBillsComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
-    {sociedad:'ELEKTRA',operacion:'PAGO DE SERVICIOS',subOperacion:'GENERAL',monetizacion:'REGLA1',tipoDeComprobante:'COMPROBANTE1',tipoDeFactura:"CON FACTURA"} as Facturas,
+    this.dataInfo=[{idSociedad:'ELEKTRA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS', idSubTipoOperacion:"GENERAL",idReglaMonetizacion:'REGLA1',tipoComprobante:'COMPROBANTE1',tipoFactura:"FACTURA"} as Facturas,
+   
     ];
 
   }

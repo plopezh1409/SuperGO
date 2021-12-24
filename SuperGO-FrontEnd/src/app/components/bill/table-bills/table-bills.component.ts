@@ -16,7 +16,7 @@ export class TableBillsComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
-  displayedColumns: string[] = ['sociedad', 'operacion', 'subOperacion', 'monetizacion','tipoDeComprobante','tipoDeFactura','options', 'options2'];
+  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion','idSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
   totalRows:number = 0;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -39,8 +39,13 @@ export class TableBillsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  open(){
-    this.refData?.open(UpdateModalBillComponent)
+  open(element:any){
+    this.refData?.open(UpdateModalBillComponent,{
+      data:{
+        dataModal:element,
+        keys:Object.keys(element)
+      }
+    })
   }
 
 

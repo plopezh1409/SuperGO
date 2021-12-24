@@ -1,18 +1,21 @@
 export interface Contabilidad
 {
-    sociedad:string;
-    operacion:string;
-    subOperacion:string;
-    monetizacion:string;
+    idSociedad:string;
+    idTipoOperacion:string;
+    idSubtipoOperacion:string;
+    idReglaMonetizacion:string;
     contabilidadDiaria:string;
-    numeroDeApunte:string;
-    sociedadGl:string;
+    numeroApunte:string;
+    sociedad:string;
     tipoCuenta:string;
-    cuentaSap:string;
-    claseDeDocumento:string;
+    cuentaSAP:string;
+    claseDocumento:string;
     concepto:string;
     centroDestino:string;
-    iva:string;
-    cargoAbono:string;
+    indicadorIVA:string;
+    indicadorOperacion:string;
+    fechaInicioVigencia:string;
+    fechaFinVigencia:string;
+
 
 }

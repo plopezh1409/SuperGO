@@ -25,6 +25,10 @@
             {
               "minlength": "1"
             }
+            ,
+            {
+              "value": ""
+            }
           ],
           "validations": [
             {
@@ -52,6 +56,10 @@
             {
               "minlength": "13"
             }
+            ,
+            {
+              "value": ""
+            }
           ],
           "validations": [
             {
@@ -66,15 +74,20 @@
               "validate": "^([A-Z,Ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])|([A-Z,Ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z|\\d]{3})))$",
               "type": "2"
             }
+            
           ]
         },
         {
-          "ky": "tipoDeSociedad",
+          "ky": "idTipoSociedad",
           "label": "TIPO DE SOCIEDAD",
           "controlType": "dropdown",
           "order": "3",
           "column": "0",
-          "attributes": [],
+          "attributes": [
+            {
+              "value": ""
+            }
+          ],
           "validations": [
             {
               "validate": "required",

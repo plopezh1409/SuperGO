@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { FormArray, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import moment from 'moment';
+import { Container } from './container.model';
 import { Content } from './content.model';
 import { Mask } from './mask.model';
 import { Validation } from './validation.model';
@@ -261,6 +262,87 @@ export class Control {
     return formatValor;
   }
 
+  
+  setDropDownValue(control: Control, valor:any) {
+
+      let filter = this.content!.contentList.filter((opcion) => {
+        return opcion.value === valor.toString();
+        }).map((opcion) => {
+          return opcion.ky;
+          });
+
+         
+    
+    return filter[0];
+    
+  }
+
+
+  setDataToControls( containers:Container[],dataModal:any) {
+    containers.forEach((cont: Container) => {
+
+
+      cont.controls.forEach((x: Control, i) => {
+
+        const ctrl: Control = Object.assign(new Control(), x);
+        var key = dataModal.keys[i];
+        
+        switch (ctrl.controlType) {
+
+          case 'datepicker':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+
+            break;
+
+          case 'decimal':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'label':
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'checkbox':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+
+            break;
+
+          case 'dropdown':
+
+       
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal.dataModal[key]).toString());
+
+            break;
+
+          case 'textboxInfo':
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          case 'autocomplete':
+
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+
+          default:
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            break;
+        }
+        
+      });
+
+
+
+    });
+
+  
+  }
+
+
+
+
   getInfoValue(_form: FormGroup) {
     let formatValor = '';
     if(_form.get(this.ky!))
@@ -333,5 +415,19 @@ export class Control {
       } as Mask;
     }
     return mask;
+  }
+
+  getLengthValue(_form: FormGroup)
+  {
+    if(_form.get(this.ky!))
+    {
+      let valueTxt = _form.controls[this.ky!].value;
+      if(valueTxt &&  typeof valueTxt ==='string')
+      {
+        return valueTxt.length;
+      }
+    }   
+
+    return 0;
   }
 }

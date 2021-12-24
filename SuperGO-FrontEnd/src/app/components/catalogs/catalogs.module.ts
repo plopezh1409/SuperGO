@@ -12,12 +12,14 @@ import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 import { UpdateModalCatalogsComponent } from './update-modal-catalogs/update-modal-catalogs.component';
 
 
+
 @NgModule({
   declarations: [
     GeneralComponent,
     TablaCatalogoComponent,
     CatalogsComponent,
     UpdateModalCatalogsComponent,
+
    
   ],
   imports: [
