@@ -37,7 +37,13 @@ export class UpdateModalCatalogsComponent implements OnInit {
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
-      this.control.setDataToControls(this.containers,this.dataModal);
+
+
+      var obj_dataModal = this.dataModal;
+      obj_dataModal = Object.values(obj_dataModal).map((data:any) =>{
+        return obj_dataModal[data] = Object.values(data).slice(1);
+      });
+      this.control.setDataToControls(this.containers,obj_dataModal);
       this.reactiveForm.setContainers(this.containers);
     });
   }

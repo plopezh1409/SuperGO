@@ -276,49 +276,49 @@ export class Control {
       cont.controls.forEach((x: Control, i) => {
 
         const ctrl: Control = Object.assign(new Control(), x);
-        var key = dataModal.keys[i];
+        var key = dataModal[1][i];
         
         switch (ctrl.controlType) {
 
           case 'datepicker':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
 
             break;
 
           case 'decimal':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'label':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'checkbox':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
 
             break;
 
           case 'dropdown':
 
        
-            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal.dataModal[key]).toString());
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]).toString());
 
             break;
 
           case 'textboxInfo':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'autocomplete':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
             break;
 
           default:
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
             break;
         }
         
