@@ -30,46 +30,31 @@ export class GeneralComponent implements OnInit {
     this.dataInfo=[];
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     console.log("GeneralComponent ngOnInit");
+    this.formCatService.getData().subscribe(async (data:any)=>{
+      this.dataInfo = data.resultado.sociedadesExistentes;
+      this.catalogsTable.onLoadTable(this.dataInfo);
+     });
+
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;      
       this.reactiveForm.setContainers(this.containers);
     });
-
-    this.dataInfo=[{idSociedad:"1",razonSocial:'prueba prueba1',RFC:'kehy900909',idTipoSociedad:'EXTERNA'} as Sociedad,
-    {idSociedad:"2",razonSocial:'prueba prueba2',RFC:'kehy900908',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {idSociedad:"3",razonSocial:'prueba prueba3',RFC:'kehy900907',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {idSociedad:"4",razonSocial:'prueba prueba4',RFC:'kehy900906',idTipoSociedad:'EXTERNA'}as Sociedad,
-    {idSociedad:"5",razonSocial:'prueba prueba5',RFC:'kehy900905',idTipoSociedad:'EXTERNA'}as Sociedad,
-    ];
-
   }
 
   onSubmit(value:any)
-  { 
-    // let datos = {
-    //   razonSocial: value[0],
-    //   idTipoSociedad: 1//parseInt(value.idTipoSociedad)
-    // }
-
-    var sisi:any;
+  {
+    var newCatalog;
     for(var datas of Object.values(value)){
-      sisi = datas;
-      console.log(sisi);
+      newCatalog = datas;
     }
+    var strCatalog = JSON.stringify(newCatalog);
+    // this.formCatService.sendData(JSON.parse(strCatalog)).subscribe((data:any)=>{ });
 
-    let obsa = JSON.stringify(sisi);
-    var newa = JSON.parse(obsa);
-    /*var nea=0;
-    let obj:Sociedad = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['SOCIEDADES'] as Sociedad;
-    
-    this.dataInfo.push(obj);
-    
-    if(this.catalogsTable)
-    {
-      this.catalogsTable.onLoadTable(this.dataInfo);     
-    }*/
+    // let obj:Sociedad = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['SOCIEDADES'] as Sociedad;    
+    // this.dataInfo.push(obj);
+    // if(this.catalogsTable) { this.catalogsTable.onLoadTable(this.dataInfo); }
 
   }
   

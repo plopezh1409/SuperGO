@@ -19,7 +19,7 @@ export class Control {
   public isVerify?: number;
   public visibility?: any[];
   public class?: string;  
-
+  public principalForm!: FormGroup |null; 
   constructor(
     obj: {
       ky?: string;
@@ -311,7 +311,7 @@ export class Control {
           case 'dropdown':
 
        
-            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]).toString());
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
 
             break;
 
@@ -336,6 +336,26 @@ export class Control {
     });
 
   
+  }
+
+
+  getDataToControls( containers:Container[]) {
+    var dataCatalog:{[k:string]:any}={};
+    
+    let _formAux:FormGroup;
+    containers.forEach((cont: Container) => {
+      _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
+      cont.controls.forEach((x: Control, i) => {
+        const ctrl: Control = Object.assign(new Control(), x);
+        var ky = ctrl.ky !== undefined ? ctrl.ky : "";
+        var value = ctrl.getAttributeValueByName("value");
+        dataCatalog[ky.toString()] = value;
+        var a = ctrl.getInfoValue(_formAux)
+      });
+    });
+
+    
+    return dataCatalog;
   }
 
 
@@ -394,7 +414,7 @@ export class Control {
     return elem;
   }
 
-  setAttributeValueByName(name: string, value: string) {
+  setAttributeValueByName(name: string, value: any) {
     let elem: any = this.findAttributeByName(name);
     if (elem != null) {
       elem[name] = value;

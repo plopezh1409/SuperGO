@@ -1,5 +1,5 @@
 <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-     (change) = "reactiveForm.onFormChange()">
+    (change) = "reactiveForm.onFormChange()">
     <div>
         <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div  class="mb-10 text-align-center">
-        <button mat-raised-button class="btnPrimary" (click)="modify()" >Modificar</button>
+        <button mat-raised-button class="btnPrimary" (click)="modify()">Modificar</button>
         <button mat-raised-button class="btnPrimary" (click)="close()">Cerrar</button>
     </div>
 </form>

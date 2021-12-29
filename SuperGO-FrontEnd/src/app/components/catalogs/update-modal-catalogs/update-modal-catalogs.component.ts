@@ -20,6 +20,7 @@ export class UpdateModalCatalogsComponent implements OnInit {
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
+  private idData:any={};
 
   public control:Control = new Control;
 
@@ -27,9 +28,6 @@ export class UpdateModalCatalogsComponent implements OnInit {
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
-
-  
-    
   }
   
 
@@ -37,26 +35,28 @@ export class UpdateModalCatalogsComponent implements OnInit {
     this.formCatService.getForm().subscribe((data:any)=>{
       this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
+      this.idData = this.getIdData();
       this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
       this.reactiveForm.setContainers(this.containers);
     });
   }
 
-
-
-
-
   
   modify(){
-    
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idData);
+    const con_json = JSON.stringify(jsonResult);
   }
-
-
-
 
 
   close(){
    this.refData?.closeAll()
+  }
+
+  getIdData(){
+    let oData:{[k:string]:any}={};
+    var key = this.dataModal?.keys[0];
+    oData[key] = parseInt(this.dataModal?.dataModal[key]);
+    return oData;
   }
 
 }

@@ -13,7 +13,7 @@ import { UpdateModalCatalogsComponent } from '../update-modal-catalogs/update-mo
   styleUrls: ['./tabla-catalogo.component.sass']
 })
 export class TablaCatalogoComponent implements OnInit {
-  @Input()dataInfo:Sociedad[];
+  dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
   displayedColumns: string[] = ['razonSocial', 'RFC', 'idTipoSociedad', 'options', 'options2'];
   totalRows:number = 0;
@@ -28,7 +28,7 @@ export class TablaCatalogoComponent implements OnInit {
    }
 
   ngOnInit(): void {     
-    this.onLoadTable(this.dataInfo);
+
   }
 
   onLoadTable(dataInfo:Sociedad[])  
@@ -56,14 +56,15 @@ export class TablaCatalogoComponent implements OnInit {
   show(element:any):void{
     let keys = Object.keys(element);
     let registro:string='';
-    let titulos:string[]=["Razón Social","RFC","Tipo De Sociedad"]
+    let titulos:string[]=["IdSociedad","Razón Social","RFC","Tipo De Sociedad"]
      
     registro = registro.concat('<table class="tableInfoDel">');    
     keys.forEach((k,index) => {
-      if(k!='Options')
-      {   
-        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
-      }      
+      if(index != 0)
+        if(k!='Options')
+        {   
+          registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
+        }      
     });
     registro = registro.concat('</table>');    
     Swal.fire({             
