@@ -101,29 +101,29 @@
             "type": "3",
             "contentList": [
               {
-                "ky": "1",
+                "ky": 1,
                 "value": "INTERNA"
               },
               {
-                "ky": "2",
+                "ky": 2,
                 "value": "EXTERNA"
               },
               {
-                "ky": "3",
+                "ky": 3,
                 "value": "BAZ"
               }
             ],
             "options": [
               {
-                "ky": "1",
+                "ky": 1,
                 "value": "INTERNA"
               },
               {
-                "ky": "2",
+                "ky": 2,
                 "value": "EXTERNA"
               },
               {
-                "ky": "3",
+                "ky": 3,
                 "value": "BAZ"
               }
             ]

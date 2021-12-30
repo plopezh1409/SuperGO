@@ -37,7 +37,8 @@ export class GeneralOperationsComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
     });
 
-    this.dataInfo=[{descripcionTipoOperacion:'Compra de película',idCanal:'13',topicoKafka:'COMPRA-DE-PELICULAS',status:'A'} as Operaciones,
+    this.dataInfo=[{idTipoOperacion:"1",descripcionTipoOperacion:'Compra de película',idCanal:'13',topicoKafka:'COMPRA-DE-PELICULAS',status:'A'} as Operaciones,
+    {idTipoOperacion:"2",descripcionTipoOperacion:'Compra de película',idCanal:'13',topicoKafka:'COMPRA-DE-PELICULAS',status:'A'} as Operaciones
 
     ];
 

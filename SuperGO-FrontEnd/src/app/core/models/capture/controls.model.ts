@@ -19,7 +19,7 @@ export class Control {
   public isVerify?: number;
   public visibility?: any[];
   public class?: string;  
-
+  public principalForm!: FormGroup |null; 
   constructor(
     obj: {
       ky?: string;
@@ -277,6 +277,13 @@ export class Control {
     
   }
 
+  deleteValuesForSettings(dataModal:any,indexF:Number,indexL:Number){
+    dataModal = Object.values(dataModal).map((data:any) =>{
+      return dataModal[data] = Object.values(data).slice(1|1);
+    });
+
+    return dataModal;
+  }
 
   setDataToControls( containers:Container[],dataModal:any) {
     containers.forEach((cont: Container) => {
@@ -285,49 +292,49 @@ export class Control {
       cont.controls.forEach((x: Control, i) => {
 
         const ctrl: Control = Object.assign(new Control(), x);
-        var key = dataModal.keys[i];
+        var key = dataModal[1][i];
         
         switch (ctrl.controlType) {
 
           case 'datepicker':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
 
             break;
 
           case 'decimal':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'label':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'checkbox':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
 
             break;
 
           case 'dropdown':
 
        
-            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal.dataModal[key]).toString());
+            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
 
             break;
 
           case 'textboxInfo':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
             break;
 
           case 'autocomplete':
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
             break;
 
           default:
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[key]);
+            ctrl.setAttributeValueByName("value",dataModal[0][i]);
             break;
         }
         
@@ -338,6 +345,26 @@ export class Control {
     });
 
   
+  }
+
+
+  getDataToControls( containers:Container[]) {
+    var dataCatalog:{[k:string]:any}={};
+    
+    let _formAux:FormGroup;
+    containers.forEach((cont: Container) => {
+      _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
+      cont.controls.forEach((x: Control, i) => {
+        const ctrl: Control = Object.assign(new Control(), x);
+        var ky = ctrl.ky !== undefined ? ctrl.ky : "";
+        var value = ctrl.getAttributeValueByName("value");
+        dataCatalog[ky.toString()] = value;
+        var a = ctrl.getInfoValue(_formAux)
+      });
+    });
+
+    
+    return dataCatalog;
   }
 
 
@@ -388,7 +415,7 @@ export class Control {
     return elem;
   }
 
-  setAttributeValueByName(name: string, value: string) {
+  setAttributeValueByName(name: string, value: any) {
     let elem: any = this.findAttributeByName(name);
     if (elem != null) {
       elem[name] = value;

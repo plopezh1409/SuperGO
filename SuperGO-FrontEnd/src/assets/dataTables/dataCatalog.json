@@ -1,0 +1,31 @@
+{
+    "resultado":{
+    "sociedadesExistentes":[
+    {    
+        "idSociedad":"1",
+        "razonSocial":"prueba prueba1",
+        "RFC":"kehy900909",
+        "idTipoSociedad":"EXTERNA"
+    },        
+    {
+        "idSociedad":"2",
+        "razonSocial":"prueba prueba2",
+        "RFC":"kehy900908",
+        "idTipoSociedad":"EXTERNA"
+    },
+    {    
+        "idSociedad":"3",
+        "razonSocial":"prueba prueba3",
+        "RFC":"kehy900907",
+        "idTipoSociedad":"EXTERNA"
+    },        
+    {
+        "idSociedad":"4",
+        "razonSocial":"prueba prueba4",
+        "RFC":"kehy900906",
+        "idTipoSociedad":"EXTERNA"
+    }
+]
+    }
+
+}

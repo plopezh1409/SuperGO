@@ -1,4 +1,5 @@
 import { FormControl, FormGroup} from '@angular/forms';
+import { Sociedad } from '../catalogos/sociedad.model';
 import { Container } from './container.model';
 import { Control } from './controls.model';
 
@@ -172,5 +173,27 @@ export class ReactiveForm{
       }  
 
 
+      cleanValuesForm(containers:Container[])
+      {
+        let _formAux:FormGroup;
+        containers.forEach((cont: Container) => {
+          _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
+          _formAux.reset();      
+          let ctrls = cont.controls.filter(c=> c.getAttributeValueByName('value'));
+          console.log(ctrls);
+        });
+      }
 
+      getModifyContainers(containers:Container[], oIdData:object){
+        let _formAux:FormGroup;
+        let oDataAux: Object={};
+        containers.forEach((cont: Container) => {
+          _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
+          oDataAux = _formAux.value;
+          });
+        var objResult = {...oIdData, ...oDataAux}
+        let jsonResult = JSON.stringify(objResult);
+        return JSON.parse(jsonResult);
+      }
+      
 }
