@@ -125,6 +125,10 @@ export class AuthService {
         {
             let urlCle = this.angularSecurity.getKeyAES;
             this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
+            // let des = 'http://10.112.69.181:8090/APIGO/';
+            // let enc = this.angularSecurity.encryptAES(des, urlCle);
+            // console.log("MENSAJE ENCRIPTADO:", enc);
+            // console.log("MENSAJE Desencriptado:", this.angularSecurity.decryptAES(enc, urlCle));
             return this._urlEnviroment;
         }
     }  

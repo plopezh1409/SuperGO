@@ -3,13 +3,9 @@ import { NgxLoggerLevel } from "ngx-logger";
 export const environment = {
   production: false,
 
+
   // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
-
-  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
-
-
-
-
+   urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
 
   // K1L0
   urlAuthGS: 'https://authns.desadsi.gs/nidp/oauth/nam/authz',
