@@ -3,12 +3,13 @@ import { NgxLoggerLevel } from "ngx-logger";
 export const environment = {
   production: false,
 
-  // WH15KY    
-      urlSuperGo: "qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=",                          //8R4V0
-  //  urlSuperGo: "qnuLv7SMRPSjOanKK3t3lQgiayB5M25RiU11WKAcDx8=",                          //D3LT4
-  //  urlSuperGo: "qnuLv7SMRPSjOanKK3t3lYd0aku1ueaA1t7RdW/BpUtq1IeS+BCzSHY7QjiXwXp1",      //M1K3
-  //  urlSuperGo: 'qnuLv7SMRPSjOanKK3t3ldHkECtpR6M6JVlnMkS15Ts=',                          //JUL13T
-  //  urlSuperGo: "qnuLv7SMRPSjOanKK3t3lZtW6Ah58ybmJlUYWQqDcSicCW0eP43rHigGwOwDdeQ7",      //L1M4
+  // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
+
+  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
+
+
+
+
 
   // K1L0
   urlAuthGS: 'https://authns.desadsi.gs/nidp/oauth/nam/authz',

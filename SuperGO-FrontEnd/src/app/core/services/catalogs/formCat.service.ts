@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
@@ -7,9 +7,18 @@ import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
     providedIn:'root'
 })
 export class FormCatService{
-    // urlApi:string = "https://api.dev-supercore.com/desarrollo/supercore/monetizador/gestion-sociedades/v1/sociedades";
+    urlEnviroment:string = "https://api.dev-supercore.com/desarrollo/supercore/monetizador/gestion-sociedades/v1/sociedades";
+    httpHeaders = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-idAcceso': ''
+        })
+    }
+
     constructor(public httpClient:HttpClient)
-    {}
+    {
+        this.httpHeaders.headers.set("x-idAcceso","nuevo");
+    }
 
     getForm():Observable<any>
     {
@@ -18,13 +27,22 @@ export class FormCatService{
 
     getData():Observable<any>
     {
-        return this.httpClient.get('/assets/dataTables/dataCatalog.json');
+        return this.httpClient.get('/assets/dataTables/dataCatalog.json', this.httpHeaders);
     }
 
-    sendData(catalog:any):Observable<any>
+    // getData():Observable<any>
+    // {
+    //     return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+    // }
+
+    insertRecord(catalog:any):Observable<any>
     {
-        var urlApi ="";
-        return this.httpClient.post(urlApi,catalog);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+    }
+
+    updateRecord(catalog:any):Observable<any>
+    {
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
     }
 
 }
