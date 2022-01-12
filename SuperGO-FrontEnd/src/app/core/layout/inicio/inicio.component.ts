@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
   private userService: UsuarioService;  
   private llaveMaestraService: MasterKeyService;
   inputSearch: string = "";
-  showImage: boolean = true;
+  showImage= true;
   init: boolean = false;
   cardsTop: any[] = [];
   cardsTopRes: any[] = [];

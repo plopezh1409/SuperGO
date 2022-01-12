@@ -1,4 +1,5 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { AppComponent } from '@app/app.component';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
@@ -22,12 +23,15 @@ export class GeneralMonetizationComponent implements OnInit {
   @ViewChild(TableMonetizationComponent) catalogsTable:TableMonetizationComponent;
 
 
-  constructor(private injector:Injector) { 
+  constructor(private readonly appComponent: AppComponent, private injector:Injector) { 
     this.formCatService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new TableMonetizationComponent();
     this.containers=[];
     this.dataInfo=[];
+    this.appComponent.showInpImage(false);
+    this.appComponent.showBoolImg(false);
+    this.appComponent.showLogo = true;
   }
 
   ngOnInit(): void {

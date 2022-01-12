@@ -1,4 +1,5 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { AppComponent } from '@app/app.component';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
@@ -22,12 +23,15 @@ export class GeneralOperationsComponent implements OnInit {
   @ViewChild(TableOperationsComponent) catalogsTable:TableOperationsComponent;
 
 
-  constructor(private injector:Injector) { 
+  constructor(private readonly appComponent: AppComponent, private injector:Injector) { 
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new TableOperationsComponent();
     this.containers=[];
     this.dataInfo=[];
+    this.appComponent.showInpImage(false);
+    this.appComponent.showBoolImg(false);
+    this.appComponent.showLogo = true;
   }
 
   ngOnInit(): void {

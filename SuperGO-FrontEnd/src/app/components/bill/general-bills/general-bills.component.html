@@ -1,21 +1,23 @@
-<form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-    (ngSubmit)="onSubmit()" (change) = "reactiveForm.onFormChange()">
-    <div>
-        <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
+<div class="contain fade-in" style="margin-bottom: 50px;">
+    <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" (ngSubmit)="onSubmit()"
+        (change)="reactiveForm.onFormChange()">
+        <div>
+            <div [ngClass]="{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
-            <ng-container  *ngFor="let container of containers; let i = index">
-                <div [formGroupName]="container.idContainer">
-                    <app-container [container]="container" [alignContent]="alignContent"
-                        [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
-                    </app-container>
-                </div>
-            </ng-container>
+                <ng-container *ngFor="let container of containers; let i = index">
+                    <div [formGroupName]="container.idContainer">
+                        <app-container [container]="container" [alignContent]="alignContent"
+                            [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                        </app-container>
+                    </div>
+                </ng-container>
+            </div>
         </div>
+        <div style="text-align: center;" class="mb-10">
+            <button mat-raised-button class="btnPrimary">Agregar</button>
+        </div>
+    </form>
+    <div>
+        <app-table-bills [dataInfo]="dataInfo"></app-table-bills>
     </div>
-    <div style="text-align: center;" class="mb-10">
-        <button mat-raised-button class="btnPrimary" >Agregar</button>
-    </div>
-</form>
-<div>
-  <app-table-bills [dataInfo]="dataInfo"></app-table-bills>
 </div>

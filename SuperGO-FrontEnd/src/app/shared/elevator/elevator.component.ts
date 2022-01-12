@@ -6,15 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./elevator.component.sass']
 })
 export class ElevatorComponent{  
-  regresarInicio(){            
-    let scrollToTop = window.setInterval(() => {
-      let pos = window.pageYOffset;
+  regresarInicio(){  
+    debugger;
+    const interval = 30;
+    const position = 20;          
+    const scrollToTop = window.setInterval(() => {
+    const pos = window.pageYOffset;
       if (pos > 0) {
-          window.scrollTo(0, pos - 20); // how far to scroll on each step
+          window.scrollTo(0, pos - position); // how far to scroll on each step
       } else {
           window.clearInterval(scrollToTop);
       }
-  }, 30);  
+  }, interval);  
   }
 
 }

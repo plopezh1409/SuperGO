@@ -34,6 +34,9 @@ export class GeneralComponent implements OnInit {
     this.catalogsTable = new TablaCatalogoComponent();
     this.containers=[];
     this.dataInfo=[];
+    this.appComponent.showInpImage(false);
+    this.appComponent.showBoolImg(false);
+    this.appComponent.showLogo = true;
   }
 
   async ngOnInit() {
