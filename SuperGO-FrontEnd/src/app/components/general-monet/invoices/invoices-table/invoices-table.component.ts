@@ -4,6 +4,11 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateModalCatalogsComponent } from '@app/components/catalogs/update-modal-catalogs/update-modal-catalogs.component';
+import { Facturas } from '@app/core/models/facturas/facturas.model';
+import Swal from 'sweetalert2';
+import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-modal-invoices.component';
 
 @Component({
   selector: 'app-invoices-table',
@@ -18,122 +23,70 @@ import { MatTableDataSource } from '@angular/material/table';
   ],
 })
 export class invoicesTableComponent implements OnInit {
-  @Input() optionsType:string;  
-  @Input() hideColumns:string[];
-  @Input() expandedvalue:string;
-  @Input() dataInfo:any[];  
-  displayedColumns: string[];
-  dataSource : MatTableDataSource<any>;
-  totalRows:number;
+
+  @Input()dataInfo:Facturas[];
+  dataSource:MatTableDataSource<Facturas>;
+  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion','idSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
+  totalRows:number = 0;
   pageEvent: PageEvent;
-  decimalPipe : DecimalPipe;
-  expandedElement: any | null;     
 
-  //PAGINATOR AND SORT
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
-  @ViewChild(MatSort)  sort!: MatSort;
-
-  constructor( ) { 
-    this.totalRows = 0;
-    this.pageEvent= new PageEvent();
-    this.dataSource = new MatTableDataSource();
-    this.displayedColumns=[];
-    this.decimalPipe = new DecimalPipe(navigator.language);
-    this.dataInfo=[];
-    this.optionsType='';    
-    this.hideColumns = [];
-    this.expandedvalue = '';
-  }
-
-  ngOnInit(): void {        
-    this.loadInformation(this.dataInfo);
-  }
-
-  loadInformation(dataInfo:any[]):void
-  { 
-    this.displayedColumns=[];
-    this.dataInfo = dataInfo;
-    if(this.dataInfo.length > 0)
-      {        
-        if(this.dataInfo[0].cuentas!=undefined && this.dataInfo[0].cuentas.length>0)
-        {
-          this.displayedColumns.push('Detalle');
-        }
-        
-        const keys = Object.keys(this.dataInfo[0]);        
-        keys.forEach((x:string) => {
-          const hc = this.hideColumns.filter( c =>  c == x );
-          if(hc.length <= 0)
-          {
-            this.displayedColumns.push(x);
-          }
-        });        
-      }
-      this.dataSource = new MatTableDataSource<any>(this.dataInfo);    
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.totalRows = this.dataInfo.length;
-  }
-
-  ngAfterViewInit(): void {    
-    this.paginator._intl.itemsPerPageLabel = 'Elementos por página: ';
-    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-      const start = page * pageSize + 1;
-      const end = (page + 1) * pageSize;
-      return `${start} - ${end} de ${this.decimalPipe.transform(length)}`;
-    };
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }    
-
-  aplicarFiltro(event: Event): void {
-    const filterValue  = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-      setTimeout(()=>this.totalRows = this.dataSource.paginator?.length!=undefined?this.dataSource.paginator?.length:this.dataInfo.length); 
-    }
-  }
-
-  setHideColumns(hcols:any[])
-  {
-    this.hideColumns = hcols;
-  }
   
-  expandInfo(row:any):string
-  {    
-    this.expandedElement = this.expandedElement === row ? null : row;
-    return this.loadsubInfo(row);
+  constructor(public refData?:MatDialog) {    
+    this.dataInfo=[];    
+    this.dataSource = new MatTableDataSource<Facturas>();
+    this.pageEvent= new PageEvent();   
+   }
+
+  ngOnInit(): void {     
+    this.onLoadTable(this.dataInfo);
   }
 
-  headersList(obj:any):string[]{
-    return  Object.keys(obj); 
-  }
-
-  contentList(obj:any):string[]
+  onLoadTable(dataInfo:Facturas[])  
   {
-    const keys = Object.keys(obj);
-    const content:any[]=[];
-    keys.forEach(k=>{
-      content.push(obj[k].trim().toUpperCase());
+    console.log("onLoadTable");
+    this.dataInfo=dataInfo;  
+    this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
+    this.totalRows  =this.dataInfo.length;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  open(element:any){
+    this.refData?.open(UpdateModalInvoicesComponent,{
+      data:{
+        dataModal:element,
+        keys:Object.keys(element)
+      }
+    })
+  }
+
+
+
+
+
+
+  show(element:any):void{
+    let keys = Object.keys(element);
+    let registro:string='';
+    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Tipo Comprobante","Tipo Factura"]
+     
+    registro = registro.concat('<table class="tableInfoDel">');    
+    keys.forEach((k,index) => {
+      if(k!='Options')
+      {   
+        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
+      }      
     });
-    
-    return content;
+    registro = registro.concat('</table>');    
+    Swal.fire({             
+      html:`<div class="titModal"> Datos de la factura </div><br/> <br/>${registro}`,
+      showCancelButton: false
+    }).then(result=>{
+      if (result.isConfirmed) {      
+        
+        
+      }
+    });
   }
 
-  loadsubInfo(element:any): string
-  {
-    let tbl='';    
-    if(element.cuentas!=undefined && element.length>0)
-    {
-      tbl = '<table>';
-      const keys= Object.keys(element);
-        keys.forEach((c:any) => {
-        tbl = tbl.concat(`<tr><th>${c}</th></tr>`);
-      });    
-    }
-    
-    return tbl;
-  }
 }

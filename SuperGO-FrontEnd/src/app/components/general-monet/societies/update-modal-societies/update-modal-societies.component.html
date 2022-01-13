@@ -1,5 +1,5 @@
 <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-    (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()" >
+    (change) = "reactiveForm.onFormChange()">
     <div>
         <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
@@ -12,10 +12,8 @@
             </ng-container>
         </div>
     </div>
-    <div style="text-align: center;" class="mb-10">
-        <button mat-raised-button class="btnPrimary" >Agregar</button>
+    <div  class="mb-10 text-align-center">
+        <button mat-raised-button class="btnPrimary" (click)="modify()">Modificar</button>
+        <button mat-raised-button class="btnPrimary" (click)="close()">Cerrar</button>
     </div>
 </form>
-<div>
-    <app-societies-table></app-societies-table>
-</div>

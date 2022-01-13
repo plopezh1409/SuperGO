@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { AuthService } from '@app/core/services/sesion/auth.service';
+import {MatIconModule} from '@angular/material/icon';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home-monetizer.component.sass']
 })
 export class HomeMonetizerComponent implements OnInit {
-  listaMenu:any[];
+  public listaMenu:any[];
   public authService: AuthService;  
  
   constructor(private readonly router: Router, public injector:Injector) 
@@ -38,10 +39,12 @@ export class HomeMonetizerComponent implements OnInit {
         const {operation}  = x.module;
         if(operation)
         {
+          console.log("operation", operation);
           const filter = operation.filter(op=> op.url.includes(this.router.url)); 
           if(filter.length>0)
           {
             this.listaMenu = this.listaMenu.concat(filter);
+            console.log("Lista menu", this.listaMenu);
           }
         }
       });

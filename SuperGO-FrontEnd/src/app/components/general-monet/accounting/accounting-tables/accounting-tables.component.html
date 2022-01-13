@@ -1,0 +1,75 @@
+<div class="scrollable">
+    <div>
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="idSociedad">
+            <th mat-header-cell *matHeaderCellDef > SOCIEDAD </th>
+            <td mat-cell *matCellDef="let element"> {{element.idSociedad}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="idTipoOperacion">
+            <th mat-header-cell *matHeaderCellDef class="te"> OPERACION </th>
+            <td mat-cell *matCellDef="let element"> {{element.idTipoOperacion}} </td>
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="idSubtipoOperacion">
+            <th mat-header-cell *matHeaderCellDef > SUB OPERACION </th>
+            <td mat-cell *matCellDef="let element"> {{element.idSubtipoOperacion}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="idReglaMonetizacion">
+            <th mat-header-cell *matHeaderCellDef > MONETIZACION </th>
+            <td mat-cell *matCellDef="let element"> {{element.idReglaMonetizacion}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="numeroApunte">
+            <th mat-header-cell *matHeaderCellDef > NÚMERO DE APUNTE </th>
+            <td mat-cell *matCellDef="let element"> {{element.numeroApunte}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="fechaInicioVigencia">
+            <th mat-header-cell *matHeaderCellDef > FECHA INICIO VIGENCIA </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaInicioVigencia}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="fechaFinVigencia">
+            <th mat-header-cell *matHeaderCellDef > FECHA FIN VIGENCIA </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaFinVigencia}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="options">
+            <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
+            <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+                visibility 
+              </mat-icon>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="options2">
+          
+          <th mat-header-cell *matHeaderCellDef class="head" scope="col"> EDITAR </th>
+       
+          <td mat-cell *matCellDef="let element" id="icons"  (click)="open()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+                edit 
+              </mat-icon>
+            </td>
+      </ng-container>    
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+          </tr>
+  
+      </table>
+    </div>
+      <div class="paginator">
+              <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                  showFirstLastButtons></mat-paginator>
+      </div>
+  </div>
+  
+  
+

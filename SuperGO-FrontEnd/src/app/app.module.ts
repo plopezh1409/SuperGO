@@ -6,6 +6,7 @@ import localeES from '@angular/common/locales/es';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 //ENTORNOS
 import { environment } from '@env/environment';
@@ -23,6 +24,7 @@ import { LoggerModule } from 'ngx-logger';
 import { NgFallimgModule } from 'ng-fallimg';
 import {MatBreadcrumbModule} from 'mat-breadcrumb';
 
+
 registerLocaleData(localeES, 'es');
 
 @NgModule({
@@ -34,6 +36,7 @@ registerLocaleData(localeES, 'es');
     BrowserModule,
     CoreModule,    
     MatBreadcrumbModule,
+    CommonModule,
     NgFallimgModule.forRoot({
       default: 'assets/image/user-not-found.png',
     }),

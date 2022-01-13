@@ -16,12 +16,23 @@ import { PetitionRoutingModule } from './general-monet-routing.module';
 
 //SERVICES
 
-
 //COMPONENTS
 import { generalmonetComponent } from './general-monet.component';
 import { societiescomponent } from './societies/societies.component';
 import { invoicesComponent } from './invoices/invoices.component';
 import { invoicesTableComponent } from './invoices/invoices-table/invoices-table.component';
+import { OperationsComponent } from './operations/operations.component';
+import { AccountingComponent } from './accounting/accounting.component';
+import { MonetizationComponent } from './monetization/monetization.component';
+import { UpdateModalInvoicesComponent } from './invoices/update-modal-invoices/update-modal-invoices.component';
+import { UpdateModalAccountingComponent } from './accounting/update-modal-accounting/update-modal-accounting.component';
+import { AccountingTablesComponent } from './accounting/accounting-tables/accounting-tables.component';
+import { MonetizationTableComponent } from './monetization/monetization-table/monetization-table.component';
+import { UpdateModalMonetizationComponent } from './monetization/update-modal-monetization/update-modal-monetization.component';
+import { OperationsTableComponent } from './operations/operations-table/operations-table.component';
+import { UpdateModalOperationsComponent } from './operations/update-modal-operations/update-modal-operations.component';
+import { SocietiesTableComponent } from './societies/societies-table/societies-table.component';
+import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
 
 
 @NgModule({
@@ -29,7 +40,19 @@ import { invoicesTableComponent } from './invoices/invoices-table/invoices-table
     generalmonetComponent,
     societiescomponent,
     invoicesComponent,    
-    invoicesTableComponent
+    invoicesTableComponent,
+    OperationsComponent,
+    AccountingComponent,
+    MonetizationComponent,
+    UpdateModalInvoicesComponent,
+    UpdateModalAccountingComponent,
+    AccountingTablesComponent,
+    MonetizationTableComponent,
+    UpdateModalMonetizationComponent,
+    OperationsTableComponent,
+    UpdateModalOperationsComponent,
+    SocietiesTableComponent,
+    UpdateModalSocietiesComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +62,6 @@ import { invoicesTableComponent } from './invoices/invoices-table/invoices-table
     MatTabsModule,    
     MatTableModule,
     MatSortModule,
-    MatTableModule,
     MatPaginatorModule,
     SharedModule,   
     MatProgressSpinnerModule

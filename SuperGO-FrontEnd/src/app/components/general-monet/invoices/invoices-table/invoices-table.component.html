@@ -1,74 +1,72 @@
 <div class="scrollable">
     <div>
-        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
-            <caption></caption>
-            <ng-container *ngFor="let disCol of displayedColumns;let colIndex = index " matColumnDef="{{disCol}}">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
-                    {{disCol|splitCamelCase }}                
-                </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <div *ngIf="disCol=='Detalle'">
-                        <button  mat-icon-button *ngIf="expandedElement != element" 
-                            [class.expanded]="expandedElement == element" (click)="expandInfo(element)">
-                            <mat-icon> keyboard_arrow_down </mat-icon>
-                        </button>
-                        <button  mat-icon-button *ngIf="expandedElement == element" 
-                            [class.expanded]="expandedElement == undefined" (click)="expandInfo(element)">
-                            <mat-icon>keyboard_arrow_up</mat-icon>
-                        </button>
-                    </div>                                      
-                    <ng-container *ngIf="disCol==='marcajeActual' || disCol==='marcajeAAplicar'; else elemTbl">
-                        {{element[disCol]|markIPAB}}
-                    </ng-container>
-                    <ng-template #elemTbl>                        
-                        {{element[disCol]}}
-                    </ng-template>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="expandedDetail">
-                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                    <div class="example-element-detail"
-                        [@detailExpand]="(element == expandedElement) ? 'expanded' : 'collapsed'">
-                        <div style="width: 100%;" *ngIf="element.cuentas!=undefined && element.cuentas.length>0">
-                            <table class="tblDetail">
-                                <caption></caption>
-                                <tr>
-                                    <th *ngFor="let titulo of headersList(element.cuentas[0])" 
-                                    scope="col">{{titulo|splitCamelCase}}</th>
-                                </tr>
-                                <tr *ngFor="let el of element.cuentas">
-                                    <td *ngFor="let cont of contentList(el)">{{cont}}</td>
-                                </tr>
-                            </table>                            
-                        </div>
-                        <div *ngIf="element.mensaje!=undefined">
-                            <span style="font-weight: bold;color: red;">{{element.mensaje}} </span>
-                        </div>
-                    </div>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-                [ngClass]="{'colorRow': row.clase!=undefined && row.clase == true}">
-            </tr> 
-            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" 
-            class="detalle-row" 
-            (click)="expandInfo(row)" 
-            (KeyDown)="expandInfo(row)" >                
-            </tr>           
+      <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="idSociedad">
+              <th mat-header-cell *matHeaderCellDef > SOCIEDAD </th>
+              <td mat-cell *matCellDef="let element"> {{element.idSociedad}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="idTipoOperacion">
+              <th mat-header-cell *matHeaderCellDef class="te"> OPERACION </th>
+              <td mat-cell *matCellDef="let element"> {{element.idTipoOperacion}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="idSubTipoOperacion">
+            <th mat-header-cell *matHeaderCellDef class="te"> SUB OPERACION </th>
+            <td mat-cell *matCellDef="let element"> {{element.idSubTipoOperacion}} </td>
+        </ng-container>
+  
+  
+          <ng-container matColumnDef="idReglaMonetizacion">
+              <th mat-header-cell *matHeaderCellDef > MONETIZACION </th>
+              <td mat-cell *matCellDef="let element"> {{element.idReglaMonetizacion}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="tipoComprobante">
+              <th mat-header-cell *matHeaderCellDef > TIPO DE COMPROBANTE </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipoComprobante}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="tipoFactura">
+              <th mat-header-cell *matHeaderCellDef > TIPO DE FACTURA </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipoFactura}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="options">
+              <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
+              <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+                  visibility 
+                </mat-icon>
+              </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="options2">
+            
+            <th mat-header-cell *matHeaderCellDef class="head" scope="col"> EDITAR </th>
+        
+            <td mat-cell *matCellDef="let element" id="icons" (click)="open(element)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+                  edit 
+                </mat-icon>
+              </td>
+        </ng-container>
+  
+          
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
             <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
-            </tr>
-        </table>
+              <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+          </tr>
+  
+      </table>
     </div>
-    <div class="paginator">
-        <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-            (page)="pageEvent = $event" showFirstLastButtons></mat-paginator>
-    </div>
-</div>
-
-<div *ngIf="(pageEvent.pageSize>10 && this.totalRows>25)">
-    <app-elevator ></app-elevator>
-</div>
+      <div class="paginator">
+              <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                  showFirstLastButtons></mat-paginator>
+      </div>
+  </div>
+  
+  
+ 

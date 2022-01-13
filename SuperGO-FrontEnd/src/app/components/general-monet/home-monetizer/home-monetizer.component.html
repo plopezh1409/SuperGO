@@ -1,22 +1,53 @@
-<div class="contain fade-in" style="margin-top:25px" >
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="contain fade-in" style="margin-top:25px">
     <div style="text-align: center;color: #333333;font-size: 19px;width: 100%">Solicitudes disponibles: </div>
-    <div class="row" style="justify-content: center;padding-left: 20%;padding-right: 20%;margin-bottom: 80px">
 
+    <div class="row" style="justify-content: center;padding-left: 20%;padding-right:20%;margin-bottom: 80px">
+
+        <h1 >{{listaMenu.length}}</h1>
         <div class="cards" style="justify-content: center;margin-left: -10px" *ngIf="listaMenu.length>0">
 
-            <div class="cardPer mr-10 mt-10" *ngFor="let menu of  listaMenu;let i = index" 
-            (click)="redirectUrl(i)" 
-            (KeyDown)="redirectUrl(i)">
-                <div class="divIconInit">
-                    <mat-icon class="iconPersInit">
-                        assignment
-                    </mat-icon>
-                    <span class="descricao">
-                        {{menu.name}}
-                    </span>
-                </div>
+
+
+
+            <div *ngFor="let one of listaMenu">
+
+                <h2 style="color: green;">{{ one.name }}</h2>
+
             </div>
 
+
+
+
+            <div class="cardPer mr-10 mt-10" *ngFor="let menu of  listaMenu;let i = index" 
+
+            (click)="redirectUrl(i)" 
+
+            (KeyDown)="redirectUrl(i)">
+
+                <div class="divIconInit">
+<!--
+                    <mat-icon class="iconPersInit">
+
+                        assignment
+
+                    </mat-icon>-->
+
+                    <span class="descricao">
+
+                        {{menu.name}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+
         </div>
+
     </div>
+
 </div>

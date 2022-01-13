@@ -5,6 +5,9 @@ import { societiescomponent } from './societies/societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
 import { generalmonetComponent } from './general-monet.component';
 import { invoicesComponent } from './invoices/invoices.component';
+import { OperationsComponent } from './operations/operations.component';
+import { MonetizationComponent } from './monetization/monetization.component';
+import { AccountingComponent } from './accounting/accounting.component';
 
 const principalMonetizaor = '/monetizador';
 const routes: Routes = [
@@ -27,7 +30,7 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'monetizer',
+    path: '/monetizador',
     component: HomeMonetizerComponent,
     data: {
       title: 'solicitudGeneral',
@@ -44,7 +47,7 @@ const routes: Routes = [
     }    
   },
   {
-    path: 'monetizer/invoices',
+    path: '/monetizador/invoices',
     component: invoicesComponent, 
     data:{
       title:'Solicitud',
@@ -65,7 +68,7 @@ const routes: Routes = [
     }   
   },
   {
-    path: 'monetizer/societies',
+    path: '/monetizador/societies',
     component: societiescomponent,   
     data:{
       title:'Solicitud',
@@ -80,6 +83,69 @@ const routes: Routes = [
         },
         {
           label: 'societies',
+          url: ''
+        }
+      ]
+    } 
+  },
+  {
+    path: '/monetizador/operations',
+    component: OperationsComponent,   
+    data:{
+      title:'Solicitud',
+      breadcrumb:[
+        {
+          label: 'Inicio',
+          url: 'inicio'
+        },
+        {
+          label: 'Solicitud',
+          url: principalMonetizaor
+        },
+        {
+          label: 'operations',
+          url: ''
+        }
+      ]
+    } 
+  },
+  {
+    path: '/monetizador/accounting',
+    component: AccountingComponent,   
+    data:{
+      title:'Solicitud',
+      breadcrumb:[
+        {
+          label: 'Inicio',
+          url: 'inicio'
+        },
+        {
+          label: 'Solicitud',
+          url: principalMonetizaor
+        },
+        {
+          label: 'accounting',
+          url: ''
+        }
+      ]
+    } 
+  },
+  {
+    path: '/monetizador/monetization',
+    component: MonetizationComponent,   
+    data:{
+      title:'Solicitud',
+      breadcrumb:[
+        {
+          label: 'Inicio',
+          url: 'inicio'
+        },
+        {
+          label: 'Solicitud',
+          url: principalMonetizaor
+        },
+        {
+          label: 'monetization',
           url: ''
         }
       ]
