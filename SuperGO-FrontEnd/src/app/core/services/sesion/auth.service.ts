@@ -19,34 +19,39 @@ import { User } from '../../models/public/user.model';
 import { environment } from '@env/environment';
 import { Page } from '@app/core/models/public/page.module';
 
+
+const codeOkResult = 200;
+const millisec = 1000;
+const minuteAjustTime = 120;
+
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {    
+export class AuthService {   
+    private readonly _rol:any;
+    private readonly storage: any;
+    private readonly storageService: StorageService;
+    private readonly _roleName:BehaviorSubject<string>;
+    private readonly _isClosed:BehaviorSubject<any>;    
+    private readonly angularSecurity: AngularSecurity;
+    public  readonly deviceService: DeviceDetectorService;
     private _usuario: any;
-    private _token: any;
-    private _rol:any;
-    private _module:any;
-    private storage: any;
+    private _token: any;    
+    private _module:any;    
     private _payload: any;
     private _payloadAjustado:number;
     private _urlEnviroment:string|null;
-    private activateMasterKey:boolean|null;    
-    private storageService: StorageService;    
-    deviceInfo: any = null; 
-    private _roleName:BehaviorSubject<string>;        
-    private _isClosed:BehaviorSubject<any>;
+    private activateMasterKey:boolean|null; 
+    deviceInfo: any = null;
     roleName: Observable<any>;
     isClosed: Observable<any>;
     private minuteAjustTime=120;
 
     constructor(
         public injector:Injector,
-        private http: HttpClient,
-        private angularSecurity: AngularSecurity,        
-        public deviceService: DeviceDetectorService,                       
-        private router: Router,
-        private logger: NGXLogger        
+        private readonly http: HttpClient,                              
+        private readonly router: Router,
+        private readonly logger: NGXLogger               
     ) { 
         this._usuario = null;
         this._payload = null;
@@ -56,20 +61,27 @@ export class AuthService {
         this._token = null;
         this._urlEnviroment = null;
         this.activateMasterKey = null;
-        this.deviceInfo = this.deviceService.getDeviceInfo();
+        this.angularSecurity = this.injector.get<AngularSecurity>(AngularSecurity);
+        this.deviceService = this.injector.get<DeviceDetectorService>(DeviceDetectorService);        
         this.storageService= this.injector.get<StorageService>(StorageService);       
         this._roleName = new BehaviorSubject('null');
         this.roleName = this._roleName.asObservable();
         this._isClosed = new BehaviorSubject('');
         this.isClosed = this._isClosed.asObservable();
+        this.deviceInfo = this.deviceService.getDeviceInfo();
     }
 
     public get usuario(): User {
         if (this._usuario != null) {
             return this._usuario;
-        } else if (this._usuario == null && localStorage.getItem(this.angularSecurity.getStorageUser) != null) {
-            this._usuario = this.storageService.decryptUserStorage();
-            return this._usuario;
+        }
+        else 
+        {
+            if (this._usuario == null && localStorage.getItem(this.angularSecurity.getStorageUser) != null) 
+            {
+                this._usuario = this.storageService.decryptUserStorage();
+                return this._usuario;
+            }            
         }
         return new User();
     }
@@ -78,9 +90,13 @@ export class AuthService {
         if (this._token != null && this._token.trim().length>0) {
             return this._token;
         } 
-        else if (this._token == null && localStorage.getItem(this.angularSecurity.getStorageToken) != null) {            
-            this._token = this.storageService.decryptTokenStorage();
-            return (this._token!=null && this._token.trim().length>0)?this.token:null;
+        else  
+        {
+            if (this._token == null && localStorage.getItem(this.angularSecurity.getStorageToken) != null)
+            {
+                this._token = this.storageService.decryptTokenStorage();
+                return (this._token!=null && this._token.trim().length>0)?this.token:null;
+            }                        
         }
         return null;
     }   
@@ -94,10 +110,16 @@ export class AuthService {
     {
         if (this._module != null) {
             return this._module;
-        }else if (this._module == null && this.storageService.decryptSelectedRoleStorage() != null) {
-            this._module = this.storageService.decryptUserStorage();
-            return this._module;
         }
+        else  
+        {
+            if (this._module == null && this.storageService.decryptSelectedRoleStorage() != null)
+            {
+                this._module = this.storageService.decryptUserStorage();
+                return this._module;
+            }            
+        }
+
         return {} as Page;
     }
 
@@ -106,10 +128,13 @@ export class AuthService {
         {
             return this._payload;
         }
-        else if (this._token != null)
+        else 
         {
-            this._payload = this.obtenerDatosToken(this._token);
-            return this._payload;
+            if (this._token != null)
+            {
+                this._payload = this.obtenerDatosToken(this._token);
+                return this._payload;
+            }            
         }
         return null;
 
@@ -123,12 +148,8 @@ export class AuthService {
         }
         else
         {
-            let urlCle = this.angularSecurity.getKeyAES;
+            const urlCle = this.angularSecurity.getKeyAES;
             this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
-            let des = 'http://10.112.69.189:8080/';
-            let enc = this.angularSecurity.encryptAES(des, urlCle);
-            console.log("MENSAJE ENCRIPTADO:", enc);
-            // console.log("MENSAJE Desencriptado:", this.angularSecurity.decryptAES(enc, urlCle));
             return this._urlEnviroment;
         }
     }  
@@ -141,7 +162,7 @@ export class AuthService {
         }
         else{            
             return this.getFlagMasterKey()
-                .pipe(pluck("response") ,map((resultado: boolean) => {                
+                .pipe(pluck('response') ,map((resultado: boolean) => {                
                 this.activateMasterKey = resultado;
                 return this.activateMasterKey;
             }));
@@ -152,15 +173,15 @@ export class AuthService {
     {
         if(this.payload)
         {
-            this._payloadAjustado = ((this.payload.exp) - this.minuteAjustTime) || 0;
+            this._payloadAjustado = ((this.payload.exp) - minuteAjustTime) || 0;
         }
         
         return this._payloadAjustado;
     }
 
     guardarUsuario(accessToken: string): void {
-        let payload = this.obtenerDatosToken(accessToken);
-        let keyAES: any = this.angularSecurity.getKeyAES;        
+        const payload = this.obtenerDatosToken(accessToken);
+        const keyAES: any = this.angularSecurity.getKeyAES;        
         this._usuario = JSON.parse(this.angularSecurity.decryptAES2(payload.info, keyAES));        
         this.storageService.encryptUserStorage(this._usuario);
     }
@@ -177,8 +198,8 @@ export class AuthService {
     }
 
     obtenerDatosToken(accessToken: string): any {
-        if (accessToken != null && accessToken != "") {
-            return JSON.parse(decodeURIComponent(escape(atob(accessToken.split(".")[1]))));
+        if (accessToken !== null && accessToken !== '') {
+            return JSON.parse(decodeURIComponent(escape(atob(accessToken.split('.')[1]))));
         }
         return null;
     }
@@ -190,9 +211,9 @@ export class AuthService {
         }
         
         if (this._token != null) {
-            let keyAES: any = this.angularSecurity.getKeyAES;
-            let payload = this.obtenerDatosToken(this._token);
-            let info: any = JSON.parse(this.angularSecurity.decryptAES2(payload.info, keyAES));
+            const keyAES: any = this.angularSecurity.getKeyAES;
+            const payload = this.obtenerDatosToken(this._token);
+            const info: any = JSON.parse(this.angularSecurity.decryptAES2(payload.info, keyAES));
             if (info != null && info.name && info.name.length > 0) {
                 return true;
             }
@@ -204,8 +225,8 @@ export class AuthService {
 
     limpiarSesion()
     {
-        this._token = null!;
-        this._usuario = null!;
+        this._token = null;
+        this._usuario = null;
         this._payloadAjustado = 0;
         this._payload = null;        
         localStorage.clear();
@@ -217,9 +238,11 @@ export class AuthService {
     isTokenExpirado()
     {       
         // HORA DE EXPIRACIÓN DEL TOKEN        
-        this._payloadAjustado = ((this.payload.exp) - this.minuteAjustTime) || 0; // -> SE RESTAN 2 MINUTOS PARA RENOVAR ANTES DE QUE SE ACABE EL TIEMPO REAL DEL TOKEN                
-        let now = (new Date().getTime() / 1000); //HORA LOCAL ACTUAL
-        this.logger.info("AuthService isTokenExpirado, TiempoExp:", new Date(this.payload.exp*1000),"TiempoAjust", new Date(this._payloadAjustado*1000), "TiempoActual",new Date(now*1000));
+        // -> SE RESTAN 2 MINUTOS PARA RENOVAR ANTES DE QUE SE ACABE EL TIEMPO REAL DEL TOKEN
+        this._payloadAjustado = ((this.payload.exp) - minuteAjustTime) || 0; 
+        const now = (new Date().getTime() / millisec); //HORA LOCAL ACTUAL
+        this.logger.info('AuthService isTokenExpirado, TiempoExp:', new Date(this.payload.exp*millisec),
+        'TiempoAjust', new Date(this._payloadAjustado*millisec), 'TiempoActual',new Date(now*millisec));
 
         if (this._payloadAjustado < now) {
           return true;
@@ -232,8 +255,8 @@ export class AuthService {
         this.router.navigate([ruta]); 
         this.IsCloseSystem();   
         swal.fire({
-            html: `<div class="titModal">Aviso</div><br/>
-            <span class="material-icons error-icon">error</span><br/>
+            html: `<div class='titModal'>Aviso</div><br/>
+            <span class='material-icons error-icon'>error</span><br/>
             <div>${mensaje}</div>`,
             allowOutsideClick: false,
             heightAuto: false,
@@ -242,14 +265,12 @@ export class AuthService {
     }
 
     newSession(token: any): Observable<any>  {
-        this.logger.info("Nueva session AuthService, llamando a renovar token");
+        this.logger.info('Nueva session AuthService, llamando a renovar token');
         return this.tokenRefresh(token).pipe(map(data=>{
-            if (data.code === 200) {
-                //this.logger.info("Nueva session AuthService,NUEVO TOKEN ",data.response);
-                if (data.response !== null && data.response.length > 0) {
-                    this.guardarToken(data.response);
-                    this.guardarUsuario(data.response);                    
-                }                    
+            if (data.code === codeOkResult && data.response !== null && data.response.length > 0) {
+                this.logger.info('Nueva session AuthService,NUEVO TOKEN ',data.response);                
+                this.guardarToken(data.response);
+                this.guardarUsuario(data.response);                                                        
             }
             return data;
         }));
@@ -271,11 +292,11 @@ export class AuthService {
 
     tokenRefresh(accessToken: any): Observable<any> {        
         this._token = accessToken;
-        return this.http.post(`${this.urlEnviroment}login/refresh`, {textoX:""});
+        return this.http.post(`${this.urlEnviroment}login/refresh`, {textoX:''});
     }
 
     getFlagMasterKey(): Observable<any> {      
-        return this.http.post(`${this.urlEnviroment}flag/masterkey`,{"text":"1"});
+        return this.http.post(`${this.urlEnviroment}flag/masterkey`,{'text':'1'});
     }
 
     getModuleByUrl(url: string)
@@ -297,7 +318,7 @@ export class AuthService {
             const {operation} = page.module;
             if(operation )
             {
-                let filter = operation.filter(op=> url.includes(op.url) && op.url.trim().length>0); 
+                const filter = operation.filter(op=> url.includes(op.url) && op.url.trim().length>0); 
                 if(filter.length>0)
                 {
                   filterUrlModule = filterUrlModule.concat(page);
@@ -309,9 +330,6 @@ export class AuthService {
           {
             filterUrlModule=[];
             filterUrlModule = modules.filter(page => url === page.module.url);
-            console.log("URL",url);
-            console.log("PAGE",filterUrlModule);
-            
             if(filterUrlModule.length<=0)
             {
               swal.fire({
@@ -353,7 +371,7 @@ export class AuthService {
 
     IsCloseSystem()
     {
-        this._isClosed.next("cerrar sesion");
+        this._isClosed.next('cerrar sesion');
     }
 
     public upgradeUser(usuario: User)

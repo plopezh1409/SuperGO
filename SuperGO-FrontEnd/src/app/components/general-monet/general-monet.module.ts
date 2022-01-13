@@ -33,6 +33,7 @@ import { OperationsTableComponent } from './operations/operations-table/operatio
 import { UpdateModalOperationsComponent } from './operations/update-modal-operations/update-modal-operations.component';
 import { SocietiesTableComponent } from './societies/societies-table/societies-table.component';
 import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
+import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { UpdateModalSocietiesComponent } from './societies/update-modal-societie
     OperationsTableComponent,
     UpdateModalOperationsComponent,
     SocietiesTableComponent,
-    UpdateModalSocietiesComponent
+    UpdateModalSocietiesComponent,
+    HomeMonetizerComponent
   ],
   imports: [
     CommonModule,
@@ -65,8 +67,9 @@ import { UpdateModalSocietiesComponent } from './societies/update-modal-societie
     MatPaginatorModule,
     SharedModule,   
     MatProgressSpinnerModule
-  ],
+  ]
 })
-export class generalmonetModule { 
+
+export class GeneralMonetModule { 
 
 }

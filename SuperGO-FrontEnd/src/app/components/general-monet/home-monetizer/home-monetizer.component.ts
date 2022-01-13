@@ -1,7 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { AuthService } from '@app/core/services/sesion/auth.service';
-import {MatIconModule} from '@angular/material/icon';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,6 +18,7 @@ export class HomeMonetizerComponent implements OnInit {
     this.listaMenu = [];
   }
 
+  
   ngOnInit(): void {    
     this.loadPetitions();
   }
@@ -53,6 +53,8 @@ export class HomeMonetizerComponent implements OnInit {
       {
         this.withoutPetitions();
       }    
+
+      console.log('***Lista Menu****',this.listaMenu);
     }
   }
 

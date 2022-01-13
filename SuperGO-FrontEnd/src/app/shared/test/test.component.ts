@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./test.component.sass']
 })
 export class TestComponent{
-  version = '| Aplicacion Gestor de Operaciones FrontEnd 0.2.0, 2021 Banco Azteca. | Todos los derechos reservados.';  
+  version = '| Aplicacion Super Gestor de Operaciones FrontEnd 0.0.1n, 2022 Banco Azteca. | Todos los derechos reservados.';  
   _date = new Date();
   fechaHora = `${this._date.toDateString()} - ${this._date.toLocaleTimeString()}`;
 }

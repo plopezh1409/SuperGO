@@ -6,7 +6,7 @@ import { HeaderService } from '../../services/public/header.service';
   styleUrls: ['./pie-de-pagina.component.sass']
 })
 export class PieDePaginaComponent {
-  version = '2021 Banco Azteca. | Todos los derechos reservados.';
+  version = '2022 Banco Azteca. | Todos los derechos reservados.';
   fechaHora = [];
   public headerService: HeaderService;
   constructor(public injector:Injector ){

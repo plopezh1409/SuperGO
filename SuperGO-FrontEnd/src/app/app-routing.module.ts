@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'monetizador',
-    loadChildren: () => import('@app/components/general-monet/general-monet.module').then(m => m.generalmonetModule), canLoad:[ModuleGuard],
+    loadChildren: () => import('@app/components/general-monet/general-monet.module').then(m => m.GeneralMonetModule), canLoad:[ModuleGuard],
   }, 
   {
     path: 'catalogos',
@@ -41,10 +41,9 @@ const routes: Routes = [
     path: 'inicio', component:InicioComponent,
   },
   {
-    path:'web/test', component:TestComponent
+    path:'test', component:TestComponent
   },
   { path: '**', component: PaginaNoEncontradaComponent }, //RUTA 40 
-  
   
 ];
 

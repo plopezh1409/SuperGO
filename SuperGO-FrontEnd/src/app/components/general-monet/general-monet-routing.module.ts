@@ -23,52 +23,36 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: ''
         }
       ]
     } 
   },
+  
   {
-    path: '/monetizador',
-    component: HomeMonetizerComponent,
-    data: {
-      title: 'solicitudGeneral',
-      breadcrumb: [
-        {
-          label: 'Inicio',
-          url: 'inicio'
-        },
-        {
-          label: 'Solicitud',
-          url: ''
-        }
-      ]
-    }    
-  },
-  {
-    path: '/monetizador/invoices',
+    path: 'invoices',
     component: invoicesComponent, 
     data:{
-      title:'Solicitud',
+      title:'Catalogos',
       breadcrumb:[
         {
           label: 'Inicio',
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: principalMonetizaor
         },
         {
-          label: 'invoices',
+          label: 'Facturas',
           url: ''
         }
       ]
     }   
   },
   {
-    path: '/monetizador/societies',
+    path: 'societies',
     component: societiescomponent,   
     data:{
       title:'Solicitud',
@@ -78,18 +62,18 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: principalMonetizaor
         },
         {
-          label: 'societies',
+          label: 'Sociedades',
           url: ''
         }
       ]
     } 
   },
   {
-    path: '/monetizador/operations',
+    path: 'operations',
     component: OperationsComponent,   
     data:{
       title:'Solicitud',
@@ -99,18 +83,18 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: principalMonetizaor
         },
         {
-          label: 'operations',
+          label: 'Tipos de Operacion',
           url: ''
         }
       ]
     } 
   },
   {
-    path: '/monetizador/accounting',
+    path: 'accounting',
     component: AccountingComponent,   
     data:{
       title:'Solicitud',
@@ -120,18 +104,18 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: principalMonetizaor
         },
         {
-          label: 'accounting',
+          label: 'Cuenta',
           url: ''
         }
       ]
     } 
   },
   {
-    path: '/monetizador/monetization',
+    path: 'monetization',
     component: MonetizationComponent,   
     data:{
       title:'Solicitud',
@@ -141,11 +125,11 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Solicitud',
+          label: 'Catalogos',
           url: principalMonetizaor
         },
         {
-          label: 'monetization',
+          label: 'Monetización',
           url: ''
         }
       ]
