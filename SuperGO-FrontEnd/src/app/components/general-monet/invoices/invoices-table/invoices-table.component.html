@@ -1,0 +1,74 @@
+<div class="scrollable">
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+            <caption></caption>
+            <ng-container *ngFor="let disCol of displayedColumns;let colIndex = index " matColumnDef="{{disCol}}">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+                    {{disCol|splitCamelCase }}                
+                </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <div *ngIf="disCol=='Detalle'">
+                        <button  mat-icon-button *ngIf="expandedElement != element" 
+                            [class.expanded]="expandedElement == element" (click)="expandInfo(element)">
+                            <mat-icon> keyboard_arrow_down </mat-icon>
+                        </button>
+                        <button  mat-icon-button *ngIf="expandedElement == element" 
+                            [class.expanded]="expandedElement == undefined" (click)="expandInfo(element)">
+                            <mat-icon>keyboard_arrow_up</mat-icon>
+                        </button>
+                    </div>                                      
+                    <ng-container *ngIf="disCol==='marcajeActual' || disCol==='marcajeAAplicar'; else elemTbl">
+                        {{element[disCol]|markIPAB}}
+                    </ng-container>
+                    <ng-template #elemTbl>                        
+                        {{element[disCol]}}
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="(element == expandedElement) ? 'expanded' : 'collapsed'">
+                        <div style="width: 100%;" *ngIf="element.cuentas!=undefined && element.cuentas.length>0">
+                            <table class="tblDetail">
+                                <caption></caption>
+                                <tr>
+                                    <th *ngFor="let titulo of headersList(element.cuentas[0])" 
+                                    scope="col">{{titulo|splitCamelCase}}</th>
+                                </tr>
+                                <tr *ngFor="let el of element.cuentas">
+                                    <td *ngFor="let cont of contentList(el)">{{cont}}</td>
+                                </tr>
+                            </table>                            
+                        </div>
+                        <div *ngIf="element.mensaje!=undefined">
+                            <span style="font-weight: bold;color: red;">{{element.mensaje}} </span>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                [ngClass]="{'colorRow': row.clase!=undefined && row.clase == true}">
+            </tr> 
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" 
+            class="detalle-row" 
+            (click)="expandInfo(row)" 
+            (KeyDown)="expandInfo(row)" >                
+            </tr>           
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+            </tr>
+        </table>
+    </div>
+    <div class="paginator">
+        <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="pageEvent = $event" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+
+<div *ngIf="(pageEvent.pageSize>10 && this.totalRows>25)">
+    <app-elevator ></app-elevator>
+</div>
