@@ -1,7 +1,16 @@
 export interface Sociedad
 {
-    idSociedad:string;
+    idSociedad:number;
     razonSocial:string;
-    RFC:string;
-    idTipoSociedad:string;
+    rfc:string;
+    idTipoSociedad:number;
+    descTipoSociedad:string;
+
+    // constructor(){
+    //     this.idSociedad ="";
+    //     this.razonSocial="";
+    //     this.rfc="";
+    //     this.descTipoSociedad = "";
+    //     this.idTipoSociedad = "";
+    // }
 }

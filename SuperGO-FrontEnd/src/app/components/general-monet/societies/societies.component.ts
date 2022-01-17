@@ -94,23 +94,61 @@ export class societiescomponent implements OnInit {
     //     }       
     //   });
 
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;      
+    this.formCatService.getForm().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    subscribe((data:any)=>{
+      this.containers = data.response.reactiveForm;
       this.reactiveForm.setContainers(this.containers);
+    }, (err:any) => {
+      if (err.status == 500 || err.status == 400) {
+        swal.fire({
+          icon: 'error',
+          title: 'Lo sentimos',
+          text: err.error.message,
+          heightAuto: false
+        });
+      }       
     });
   }
 
   onSubmit(value:any)
   {
+
+    if(!this.reactiveForm.principalForm?.valid){
+      // this.reactiveForm.principalForm?;
+      return;
+    }
+    //Validaciones form
     if(!value)
       return;
+      let bodySoc:Sociedad;
     var newSociety;
     for(var datas of Object.values(value)){
-      newSociety = datas;
+      bodySoc = Object(datas);
     }
 
-    //Borra el formulario
-    this.containers = [];
+    let bodySociety:object = {
+      idSociedad:1,
+      razonSocial: "s",
+      rfc: "xaxx0202000",
+     idTipoSociedad:1,
+    descTipoSociedad:"string"
+    };
+    this.formCatService.getDataSociedad(bodySociety).//pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    subscribe((data:any)=>{
+      this.containers = data.response;      
+      this.reactiveForm.setContainers(this.containers);
+    }, (err:any) => {
+      if (err.status == 500 || err.status == 400) {
+        swal.fire({
+          icon: 'error',
+          title: 'Lo sentimos',
+          text: err.error.message,
+          heightAuto: false
+        });
+      }       
+    });
+
+    // //Borra el formulario
     this.reactiveForm.setContainers(this.containers);
 
     var strCatalog = JSON.stringify(newSociety);

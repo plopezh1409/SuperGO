@@ -40,11 +40,11 @@ export class GeneralComponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log("GeneralComponent ngOnInit");
-    this.formCatService.getData().subscribe(async (data:any)=>{
-      this.dataInfo = data.resultado.sociedadesExistentes;
-      this.catalogsTable.onLoadTable(this.dataInfo);
-     });
+    // console.log("GeneralComponent ngOnInit");
+    // this.formCatService.getData().subscribe(async (data:any)=>{
+    //   this.dataInfo = data.resultado.sociedadesExistentes;
+    //   this.catalogsTable.onLoadTable(this.dataInfo);
+    //  });
 
      //Consulta api
      //this.appComponent.showLoader(true);
@@ -93,11 +93,11 @@ export class GeneralComponent implements OnInit {
     //     }       
     //   });
 
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;      
-      this.reactiveForm.setContainers(this.containers);
-    });
-  }
+    // this.formCatService.getForm().subscribe((data:any)=>{
+    //   this.containers = data.response;      
+    //   this.reactiveForm.setContainers(this.containers);
+    // });
+  } 
 
   onSubmit(value:any)
   {

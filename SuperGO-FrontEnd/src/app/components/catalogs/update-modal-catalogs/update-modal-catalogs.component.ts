@@ -34,13 +34,13 @@ export class UpdateModalCatalogsComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;
-      this.reactiveForm.setContainers(this.containers);
-      this.idData = this.getIdData();
-      this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
-      this.reactiveForm.setContainers(this.containers);
-    });
+    // this.formCatService.getForm().subscribe((data:any)=>{
+    //   this.containers = data.response;
+    //   this.reactiveForm.setContainers(this.containers);
+    //   this.idData = this.getIdData();
+    //   this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    //   this.reactiveForm.setContainers(this.containers);
+    // });
   }
 
   

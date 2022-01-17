@@ -4,6 +4,7 @@ import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 
+
 @Component({
   selector: 'app-update-modal-accounting',
   templateUrl: './update-modal-accounting.component.html',
