@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ElevatorComponent{  
   regresarInicio(){  
-    debugger;
     const interval = 30;
     const position = 20;          
     const scrollToTop = window.setInterval(() => {

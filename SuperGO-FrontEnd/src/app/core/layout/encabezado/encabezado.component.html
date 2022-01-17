@@ -72,7 +72,9 @@
                             <li *ngFor="let menu of  listaMenu">
                                 <a [routerLink]="menu.url" (click)="changeRole(menu,snav)">
                                     <div class="four">
-                                        <img class="svgIcono" [src]="'assets/image/'+ menu.image+'.svg'" alt="" width="25px" height="25px" />
+                                        <mat-icon class="MenuIconos">
+                                            {{menu.image}}
+                                        </mat-icon> 
                                         <h4 class="labelMain"> {{menu.name}} </h4>
                                     </div>
                                 </a>

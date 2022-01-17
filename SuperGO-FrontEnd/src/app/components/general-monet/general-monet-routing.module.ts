@@ -108,7 +108,7 @@ const routes: Routes = [
           url: principalMonetizaor
         },
         {
-          label: 'Cuenta',
+          label: 'Contabilidad',
           url: ''
         }
       ]
