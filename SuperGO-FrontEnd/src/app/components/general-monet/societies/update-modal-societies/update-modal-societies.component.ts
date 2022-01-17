@@ -35,7 +35,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;
+      this.containers = data.response.reactiveForm;
       this.reactiveForm.setContainers(this.containers);
       this.idData = this.getIdData();
       this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
