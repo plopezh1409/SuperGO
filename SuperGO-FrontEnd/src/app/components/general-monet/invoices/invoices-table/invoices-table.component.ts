@@ -5,7 +5,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdateModalCatalogsComponent } from '@app/components/catalogs/update-modal-catalogs/update-modal-catalogs.component';
 import { Facturas } from '@app/core/models/facturas/facturas.model';
 import Swal from 'sweetalert2';
 import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-modal-invoices.component';
