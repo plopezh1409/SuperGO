@@ -39,12 +39,12 @@ export class HomeMonetizerComponent implements OnInit {
         const {operation}  = x.module;
         if(operation)
         {
-          console.log("operation", operation);
+          // console.log("operation", operation);
           const filter = operation.filter(op=> op.url.includes(this.router.url)); 
           if(filter.length>0)
           {
             this.listaMenu = this.listaMenu.concat(filter);
-            console.log("Lista menu", this.listaMenu);
+            // console.log("Lista menu", this.listaMenu);
           }
         }
       });

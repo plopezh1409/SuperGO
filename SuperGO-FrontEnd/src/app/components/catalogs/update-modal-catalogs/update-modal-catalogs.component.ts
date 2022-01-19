@@ -12,12 +12,12 @@ import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-update-modal-societies',
-  templateUrl: './update-modal-societies.component.html',
-  styleUrls: ['./update-modal-societies.component.sass']
+  selector: 'app-update-modal-catalogs',
+  templateUrl: './update-modal-catalogs.component.html',
+  styleUrls: ['./update-modal-catalogs.component.sass']
 })
 
-export class UpdateModalSocietiesComponent implements OnInit {
+export class UpdateModalCatalogsComponent implements OnInit {
   formCatService:FormCatService;
   reactiveForm:ReactiveForm;
   containers:Container[];
@@ -34,13 +34,13 @@ export class UpdateModalSocietiesComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response.reactiveForm;
-      this.reactiveForm.setContainers(this.containers);
-      this.idData = this.getIdData();
-      this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
-      this.reactiveForm.setContainers(this.containers);
-    });
+    // this.formCatService.getForm().subscribe((data:any)=>{
+    //   this.containers = data.response;
+    //   this.reactiveForm.setContainers(this.containers);
+    //   this.idData = this.getIdData();
+    //   this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    //   this.reactiveForm.setContainers(this.containers);
+    // });
   }
 
   

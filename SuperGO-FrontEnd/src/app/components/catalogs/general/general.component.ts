@@ -3,7 +3,7 @@ import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import { FormCatService } from '@app/core/services/catalogs/formCat.service';
-import { SocietiesTableComponent } from './societies-table/societies-table.component';
+import { TablaCatalogoComponent } from '../tabla-catalogo/tabla-catalogo.component';
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
 
@@ -11,12 +11,11 @@ import swal from 'sweetalert2';
 import { AppComponent } from '@app/app.component';
 
 @Component({
-  selector: 'app-societies',
-  templateUrl: './societies.component.html',
-  styleUrls: ['./societies.component.sass']
+  selector: 'app-general',
+  templateUrl: './general.component.html',
+  styleUrls: ['./general.component.sass']
 })
-
-export class societiescomponent implements OnInit {
+export class GeneralComponent implements OnInit {
   formCatService:FormCatService;
   reactiveForm:ReactiveForm;
   containers:Container[];
@@ -26,13 +25,13 @@ export class societiescomponent implements OnInit {
   public showLoad: boolean = false;
 
 
-  @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
+  @ViewChild(TablaCatalogoComponent) catalogsTable:TablaCatalogoComponent;
 
 
   constructor(private injector:Injector, private appComponent: AppComponent) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
-    this.catalogsTable = new SocietiesTableComponent();
+    this.catalogsTable = new TablaCatalogoComponent();
     this.containers=[];
     this.dataInfo=[];
     this.appComponent.showInpImage(false);
@@ -41,11 +40,11 @@ export class societiescomponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log("GeneralComponent ngOnInit");
-    this.formCatService.getData().subscribe(async (data:any)=>{
-      this.dataInfo = data.resultado.sociedadesExistentes;
-      this.catalogsTable.onLoadTable(this.dataInfo);
-     });
+    // console.log("GeneralComponent ngOnInit");
+    // this.formCatService.getData().subscribe(async (data:any)=>{
+    //   this.dataInfo = data.resultado.sociedadesExistentes;
+    //   this.catalogsTable.onLoadTable(this.dataInfo);
+    //  });
 
      //Consulta api
      //this.appComponent.showLoader(true);
@@ -94,61 +93,23 @@ export class societiescomponent implements OnInit {
     //     }       
     //   });
 
-    this.formCatService.getForm().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
-      this.containers = data.response.reactiveForm;
-      this.reactiveForm.setContainers(this.containers);
-    }, (err:any) => {
-      if (err.status == 500 || err.status == 400) {
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: err.error.message,
-          heightAuto: false
-        });
-      }       
-    });
-  }
+    // this.formCatService.getForm().subscribe((data:any)=>{
+    //   this.containers = data.response;      
+    //   this.reactiveForm.setContainers(this.containers);
+    // });
+  } 
 
   onSubmit(value:any)
   {
-
-    if(!this.reactiveForm.principalForm?.valid){
-      // this.reactiveForm.principalForm?;
-      return;
-    }
-    //Validaciones form
     if(!value)
       return;
-      let bodySoc:Sociedad;
     var newSociety;
     for(var datas of Object.values(value)){
-      bodySoc = Object(datas);
+      newSociety = datas;
     }
 
-    let bodySociety:object = {
-      idSociedad:1,
-      razonSocial: "s",
-      rfc: "xaxx0202000",
-     idTipoSociedad:1,
-    descTipoSociedad:"string"
-    };
-    this.formCatService.getDataSociedad(bodySociety).//pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
-      this.containers = data.response;      
-      this.reactiveForm.setContainers(this.containers);
-    }, (err:any) => {
-      if (err.status == 500 || err.status == 400) {
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: err.error.message,
-          heightAuto: false
-        });
-      }       
-    });
-
-    // //Borra el formulario
+    //Borra el formulario
+    this.containers = [];
     this.reactiveForm.setContainers(this.containers);
 
     var strCatalog = JSON.stringify(newSociety);
