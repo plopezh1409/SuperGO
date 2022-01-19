@@ -318,10 +318,7 @@ export class Control {
             break;
 
           case 'dropdown':
-
-       
             ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
-
             break;
 
           case 'textboxInfo':

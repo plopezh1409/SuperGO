@@ -112,15 +112,17 @@ export class societiescomponent implements OnInit {
 
   onSubmit(value:any)
   {
-
     if(!this.reactiveForm.principalForm?.valid){
-      // this.reactiveForm.principalForm?;
+      swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Complete los campos faltantes',
+        heightAuto: false
+      });
       return;
     }
     //Validaciones form
-    if(!value)
-      return;
-      let bodySoc:Sociedad;
+    let bodySoc:Sociedad;
     var newSociety;
     for(var datas of Object.values(value)){
       bodySoc = Object(datas);
@@ -133,20 +135,20 @@ export class societiescomponent implements OnInit {
      idTipoSociedad:1,
     descTipoSociedad:"string"
     };
-    this.formCatService.getDataSociedad(bodySociety).//pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
-      this.containers = data.response;      
-      this.reactiveForm.setContainers(this.containers);
-    }, (err:any) => {
-      if (err.status == 500 || err.status == 400) {
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: err.error.message,
-          heightAuto: false
-        });
-      }       
-    });
+    // this.formCatService.getDataSociedad(bodySociety).//pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    // subscribe((data:any)=>{
+    //   this.containers = data.response;      
+    //   this.reactiveForm.setContainers(this.containers);
+    // }, (err:any) => {
+    //   if (err.status == 500 || err.status == 400) {
+    //     swal.fire({
+    //       icon: 'error',
+    //       title: 'Lo sentimos',
+    //       text: err.error.message,
+    //       heightAuto: false
+    //     });
+    //   }       
+    // });
 
     // //Borra el formulario
     this.reactiveForm.setContainers(this.containers);

@@ -12,8 +12,8 @@
             </ng-container>
         </div>
     </div>
-    <div style="text-align: center;" class="mb-10">
-        <input type="submit" class="btnPrimary" name="submit" value="Agregar"  style="margin-left: 67px;" >
+    <div style="text-align: center;" class="mb-10 mt-10">
+        <button mat-raised-button class="btnPrimary" type="submit"  *ngIf="reactiveForm.principalForm.valid">Agregar</button>
     </div>
 </form>
 <div>

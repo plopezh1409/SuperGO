@@ -30,12 +30,16 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
+    
+    
   }
   
 
   ngOnInit(): void {
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response.reactiveForm;
+    this.formCatService.getForm().//pipe(finalize(() => {  })).
+    subscribe((data:any)=>{
+      // this.containers = data.response.reactiveForm;
+      this.containers = data.response;
       this.reactiveForm.setContainers(this.containers);
       this.idData = this.getIdData();
       this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
@@ -46,6 +50,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
   
   modify(){
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idData);
+    console.log(jsonResult);
     // const con_json = JSON.stringify(jsonResult);
 
      //cerrar el modal del formulario
