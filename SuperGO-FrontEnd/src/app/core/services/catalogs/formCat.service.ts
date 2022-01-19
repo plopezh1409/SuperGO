@@ -38,14 +38,12 @@ export class FormCatService{
             this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
             return this._urlEnviroment;
         }
-    }  
+    }
 
     getForm():Observable<any>
     {
         let dataBody = { "idRequest": "13" };
-        // var body = JSON.stringify(dataBody);
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataBody);
-        // return this.httpClient.post(`http://10.112.69.189:8080/reactiveForm`, dataBody);
     }
 
     // getForm():Observable<any>

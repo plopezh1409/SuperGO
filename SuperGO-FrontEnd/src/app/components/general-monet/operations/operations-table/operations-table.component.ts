@@ -18,6 +18,7 @@ export class OperationsTableComponent implements OnInit {
   dataSource:MatTableDataSource<Operaciones>;
   displayedColumns: string[] = ['descripcionTipoOperacion', 'idCanal', 'topicoKafka', 'status','options', 'options2'];
   totalRows:number = 0;
+  dataChanel:any=[];
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -26,14 +27,17 @@ export class OperationsTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Operaciones>();    
    }
 
-  ngOnInit(): void {     
-    this.onLoadTable(this.dataInfo);
+  ngOnInit(): void {
+    if(this.dataInfo.length !== 0)
+      this.onLoadTable(this.dataInfo);
   }
 
-  onLoadTable(dataInfo:Operaciones[])  
+  onLoadTable(dataInfo:any)  
   {
     console.log("onLoadTable");
-    this.dataInfo=dataInfo;  
+    // dataInfo:Operaciones[] = 
+    this.dataChanel = dataInfo.canales;
+    this.dataInfo=dataInfo.operaciones;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -43,7 +47,8 @@ open(element:any){
     this.refData?.open(UpdateModalOperationsComponent,{
       data:{
         dataModal:element,
-        keys:Object.keys(element)
+        keys:Object.keys(element),
+        dataChanel:this.dataChanel
       }
     })
   }

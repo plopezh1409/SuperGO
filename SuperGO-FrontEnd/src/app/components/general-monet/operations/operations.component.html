@@ -1,5 +1,5 @@
 <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-    (ngSubmit)="onSubmit()" (change) = "reactiveForm.onFormChange()">
+    (ngSubmit)="onSubmit(onSubmit(reactiveForm.principalForm.value))" (change) = "reactiveForm.onFormChange()">
     <div>
         <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
