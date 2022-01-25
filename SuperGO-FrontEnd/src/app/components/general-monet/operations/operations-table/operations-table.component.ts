@@ -20,7 +20,6 @@ export class OperationsTableComponent implements OnInit {
   totalRows:number = 0;
   dataChanel:any=[];
   auxForm:any;
-
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(public refData?:MatDialog) {
@@ -54,11 +53,12 @@ open(element:any){
       }
     });
     dialogRef.afterClosed().subscribe((oData:any)=>{
-      if(oData.status === true){
-        this.dataInfo = oData.data.response;
-        let auxForm = JSON.parse(JSON.stringify(oData.data.response));
-        this.onLoadTable(this.dataInfo, auxForm);
-      }
+      if(oData !== undefined)
+        if(oData.status === true){
+          this.dataInfo = oData.data.response;
+          let auxForm = JSON.parse(JSON.stringify(oData.data.response));
+          this.onLoadTable(this.dataInfo, auxForm);
+        }
     });
     
   }

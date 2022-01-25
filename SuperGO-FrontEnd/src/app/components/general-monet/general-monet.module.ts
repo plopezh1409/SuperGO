@@ -35,6 +35,7 @@ import { UpdateModalOperationsComponent } from './operations/update-modal-operat
 import { SocietiesTableComponent } from './societies/societies-table/societies-table.component';
 import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
+import { AppComponent } from '@app/app.component';
 
 
 @NgModule({
@@ -68,8 +69,11 @@ import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.componen
     MatPaginatorModule,
     SharedModule,   
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
+  providers:[
+    AppComponent
+  ]
 })
 
 export class GeneralMonetModule { 

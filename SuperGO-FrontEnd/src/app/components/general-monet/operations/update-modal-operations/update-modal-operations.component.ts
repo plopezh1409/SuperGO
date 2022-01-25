@@ -16,22 +16,27 @@ import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTabl
   templateUrl: './update-modal-operations.component.html',
   styleUrls: ['./update-modal-operations.component.sass']
 })
+@Injectable({providedIn: 'root'})
 
 export class UpdateModalOperationsComponent implements OnInit {
-  
+
   formCatService:FormOperationsService;
+  //private appComponent: AppComponent
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
   private idData:any={};
   private resultTable:any={};
-  
-  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  public showLoad: boolean = false;
+  private loaderDuration: number;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
+    //this.appComponent = this.injector.get<AppComponent>(AppComponent);
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
-    
+    this.loaderDuration = 100;
   }
 
   ngOnInit(): void {
@@ -74,9 +79,10 @@ export class UpdateModalOperationsComponent implements OnInit {
       topicoKafka: jsonResult.topicoKafka,
       status: jsonResult.estatus === true ?"A":"I"
     }
-    
+    this.showLoader(true);
+
     this.formCatService.updateOperation(obOperacion)
-      .pipe(finalize(() => {  }))
+      .pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
           case 200: //Se modifico el registro correctamente
@@ -97,7 +103,7 @@ export class UpdateModalOperationsComponent implements OnInit {
             swal.fire({
               icon: 'warning',
               title: 'Solicitud incorrecta',
-              text: response.mensaje, 
+              text: response.mensaje,
               heightAuto: false
             });
             break;
@@ -140,6 +146,13 @@ export class UpdateModalOperationsComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
+  showLoader(showLoad: boolean): void {
+    setTimeout(() => {
+      this.showLoad = showLoad;
+      console.log('showload', this.showLoad);
+    }, this.loaderDuration);
+  }
+
   addDataDropdown(dataForm:any, dataContent:any){
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
@@ -154,8 +167,9 @@ export class UpdateModalOperationsComponent implements OnInit {
 
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();;
-    this.formCatService.getData()
+    let oResponse:ResponseTable = new ResponseTable();
+    this.showLoader(true);
+    this.formCatService.getData().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
           case 200: //Se modifico el registro correctamente
@@ -182,7 +196,7 @@ export class UpdateModalOperationsComponent implements OnInit {
           title: 'Error',
           text: 'Ocurrio un error inesperado, intente más tarde.',
           heightAuto: false
-        });     
+        });
       });
   }
 
