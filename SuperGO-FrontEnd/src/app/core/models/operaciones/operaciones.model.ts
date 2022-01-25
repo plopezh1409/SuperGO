@@ -1,8 +1,8 @@
 export interface Operaciones
 {
-    idTipoOperacion:string;
+    idTipoOperacion:number;
     descripcionTipoOperacion:string;
-    idCanal:string;
+    idCanal:number;
     topicoKafka:string;
     status:string;
 

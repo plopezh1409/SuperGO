@@ -1,34 +1,102 @@
 {
-    "message":"OK",
     "code": 200,
-    "response":{
-        "operaciones":
-        [
-            {
-                "idTipoOperacion":1,
-                "descripcionTipoOperacion":"Compra de película",
-                "idCanal":13,
-                "topicoKafka":"COMPRA-DE-PELICULAS",
-                "status":"A"
-            },
-            {
-                "idTipoOperacion":2,
-                "descripcionTipoOperacion":"Compra de película",
-                "idCanal":12,
-                "topicoKafka":"COMPRA-DE-PELICULAS",
-                "status":"A"
-            }
-        ],
-        "canales":[
-            {
-                "ky": 12,
-                "value":"12"
-            },
-            {
-                "ky": 13,
-                "value":"13"
-            }
-        ]
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response": {
+      "tipoOperacion": [
+        {
+          "idTipoOperacion": 12,
+          "descripcionTipoOperacion": "VENTA DE MERCANCIA",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 11,
+          "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
+          "idCanal": 1,
+          "topicoKafka": " ",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 10,
+          "descripcionTipoOperacion": "NOTICIAS",
+          "idCanal": 1,
+          "topicoKafka": " ",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 9,
+          "descripcionTipoOperacion": "TV EN VIVO",
+          "idCanal": 1,
+          "topicoKafka": " ",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 8,
+          "descripcionTipoOperacion": "PELICULAS ON-DEMAND",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 7,
+          "descripcionTipoOperacion": "TARJETAS DE REGALO",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PAGOS-CORRESPONSALIA-BANCARIA-OPERACIONES-ARCUS-V1-OPERADORES-ID-RECARGAS-TARJETAS-REGALO-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 6,
+          "descripcionTipoOperacion": "TIEMPO AIRE",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-CONECTIVIDAD-TIEMPO-AIRE-V1-RECARGAS-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 5,
+          "descripcionTipoOperacion": "PAGO DE SERVICIOS",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-SWITCH-COMERCIAL-PAGOS-REFERENCIADOS-V1-PAGOS-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 4,
+          "descripcionTipoOperacion": "VENTA DE SEGUROS",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-SEGUROS-SEGUROS-AZTECA-SOCIOS-COMERCIALES-GESTION-POLIZAS-V1-POLIZA-COTIZACION-ID-PAGOS-COMPROBANTES-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 3,
+          "descripcionTipoOperacion": "TARJETAS DE CREDITO",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-TARJETA-CREDITO-V1-TARJETAS-LIBERACIONES-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 2,
+          "descripcionTipoOperacion": "CREDITO - CLIENTES NUEVOS",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-SURTIMIENTOS-POST",
+          "status": "A"
+        },
+        {
+          "idTipoOperacion": 1,
+          "descripcionTipoOperacion": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idCanal": 54,
+          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-DISPERSIONES-POST",
+          "status": "A"
+        }
+      ],
+      "canal": [
+        {
+          "ky": 54,
+          "value": "54"
+        },
+        {
+          "ky": 1,
+          "value": "1"
+        }
+      ]
     }
-
-}
+  }

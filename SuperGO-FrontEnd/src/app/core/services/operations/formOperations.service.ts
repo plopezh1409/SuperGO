@@ -33,11 +33,20 @@ export class FormOperationsService{
         }
     }
 
+    private get _requestForm(){
+
+        return { "idRequest": "14" };
+    }
+
     getForm():Observable<any>
     {
-        let dataBody = { "idRequest": "14" };
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataBody);
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
     }
+
+    // getData():Observable<any>
+    // {
+    //     return this.httpClient.get(`http://10.112.209.112:8080/Monetizador-0.0.1/tipoOperacion/get`);
+    // }
 
     getData():Observable<any>
     {
@@ -45,6 +54,10 @@ export class FormOperationsService{
     }
 
     insertOperation(dataBody:any):Observable<any>{
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataBody);
+        return this.httpClient.post(`http://10.112.209.112:8080/Monetizador-0.0.1/tipoOperacion/post`, dataBody);
+    }
+
+    updateOperation(dataBody:any):Observable<any>{
+        return this.httpClient.put(`http://10.112.209.112:8080/Monetizador-0.0.1/tipoOperacion/put`, dataBody);
     }
 }

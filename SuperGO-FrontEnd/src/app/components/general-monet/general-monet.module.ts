@@ -7,7 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';  
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //MODULES
 import { SharedModule } from '@app/shared/shared.module';
@@ -66,8 +67,9 @@ import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.componen
     MatSortModule,
     MatPaginatorModule,
     SharedModule,   
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+    MatDialogModule
+  ],
 })
 
 export class GeneralMonetModule { 

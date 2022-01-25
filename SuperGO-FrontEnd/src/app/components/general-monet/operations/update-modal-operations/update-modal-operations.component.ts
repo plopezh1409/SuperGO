@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Injector, OnInit, Injectable } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
@@ -8,6 +8,8 @@ import { AppComponent } from '@app/app.component';
 import { finalize } from 'rxjs/operators';
 import { AfterViewChecked, ChangeDetectorRef } from '@angular/core'
 import swal from 'sweetalert2';
+import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
 @Component({
   selector: 'app-update-modal-operations',
@@ -16,33 +18,34 @@ import swal from 'sweetalert2';
 })
 
 export class UpdateModalOperationsComponent implements OnInit {
-
+  
   formCatService:FormOperationsService;
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
   private idData:any={};
+  private resultTable:any={};
   
-  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
+    
   }
 
   ngOnInit(): void {
-    this.formCatService.getForm().pipe(finalize(() => {  })).subscribe((data:any)=>{
-      let dataChanel = this.dataModal.dataChanel;
-      delete this.dataModal.dataChanel;
-      this.containers = this.addDataDropdown(data.response.reactiveForm, dataChanel);
-      this.reactiveForm.setContainers(this.containers);
-      this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
-      this.idData = this.getIdData();
-      this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
-      this.dataModal.dataModal.status = this.dataModal.dataModal.status == "true"?"A":"B";
-      this.reactiveForm.setContainers(this.containers);
-    });
-
+    let dataChanel = this.dataModal.dataChanel;
+    let auxForm = this.dataModal.auxForm;
+    delete this.dataModal.dataChanel;
+    delete this.dataModal.auxForm;
+    this.containers = this.addDataDropdown(auxForm.reactiveForm, dataChanel);
+    this.reactiveForm.setContainers(this.containers);
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
+    this.idData = this.getIdData();
+    this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status == "true"?"A":"I";
+    this.reactiveForm.setContainers(this.containers);
   }
 
   getIdData(){
@@ -64,22 +67,31 @@ export class UpdateModalOperationsComponent implements OnInit {
     }
 
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idData);
-    console.log(jsonResult);
-    // const con_json = JSON.stringify(jsonResult);
-
-     //cerrar el modal del formulario
-     this.close();
-    /*this.formCatService.updateRecord(jsonResult)
+     var obOperacion:Operaciones = {
+      idTipoOperacion: jsonResult.idTipoOperacion,
+      descripcionTipoOperacion: jsonResult.descripcion,
+      idCanal: jsonResult.canal,
+      topicoKafka: jsonResult.topicoKafka,
+      status: jsonResult.estatus === true ?"A":"I"
+    }
+    
+    this.formCatService.updateOperation(obOperacion)
       .pipe(finalize(() => {  }))
       .subscribe((response:any) => {
         switch (response.code) {
           case 200: //Se modifico el registro correctamente
             swal.fire({
               icon: 'success',
-              title: 'Correcto  ',
+              title: 'Solicitud correcta',
               text: response.mensaje,
-              heightAuto: false
-            });
+              heightAuto: false,
+              allowOutsideClick: false,
+              confirmButtonText: "Ok"
+            }).then((result)=>{
+              if(result.isConfirmed){
+                this.getDataTable();
+              }
+            });;
             break;
           case 400: //Solicitud incorrecta
             swal.fire({
@@ -108,21 +120,20 @@ export class UpdateModalOperationsComponent implements OnInit {
           default: break;
         }
       }, (err:any) => {
-        if (err.status == 500 || err.status == 500) {
-          swal.fire({
-            icon: 'error',
-            title: 'Lo sentimos',
-            text: 'Por el momento no podemos proporcionar tu Solicitud.',
-            heightAuto: false
-          });
-        }       
-      });*/
+        swal.fire({
+          icon: 'error',
+          title: 'Lo sentimos',
+          text: 'Por el momento no podemos proporcionar tu Solicitud.',
+          heightAuto: false
+        });
+      });
   }
 
 
 
   close(){
-    this.refData?.closeAll()
+    let oResponse:ResponseTable= new ResponseTable();
+    this.refData?.close(oResponse);
    }
 
    ngAfterViewChecked(): void {
@@ -139,6 +150,40 @@ export class UpdateModalOperationsComponent implements OnInit {
       });
     });
     return dataForm;
+  }
+
+
+  getDataTable(){
+    let oResponse:ResponseTable = new ResponseTable();;
+    this.formCatService.getData()
+      .subscribe((response:any) => {
+        switch (response.code) {
+          case 200: //Se modifico el registro correctamente
+            oResponse.status = true;
+            oResponse.data = response.response;
+            this.refData?.close(oResponse);
+          break;
+          case 400:
+          case 401:
+          case 500:
+          default:
+            this.refData?.close(oResponse);
+            swal.fire({
+              icon: 'error',
+              title:'Error',
+              text: 'Ocurrio un error inesperado, intente más tarde.',
+              heightAuto: false
+            });
+            break;
+        }
+      }, (err:any) => {
+        swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrio un error inesperado, intente más tarde.',
+          heightAuto: false
+        });     
+      });
   }
 
 }
