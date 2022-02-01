@@ -36,7 +36,8 @@ export class UpdateModalAccountingComponent implements OnInit {
 
 
   close(){
-    this.refData?.closeAll()
+    return(
+      this.refData?.closeAll());
    }
 
 }

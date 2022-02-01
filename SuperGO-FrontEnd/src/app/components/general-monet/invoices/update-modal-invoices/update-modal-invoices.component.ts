@@ -38,7 +38,8 @@ export class UpdateModalInvoicesComponent implements OnInit {
 
 
   close(){
-    this.refData?.closeAll()
+    return(
+      this.refData?.closeAll());
    }
 
 }

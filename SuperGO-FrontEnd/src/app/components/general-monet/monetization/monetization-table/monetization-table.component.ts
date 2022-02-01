@@ -31,7 +31,10 @@ export class MonetizationTableComponent implements OnInit {
   }
 
   open(){
-    this.refData?.open(UpdateModalMonetizationComponent)
+    return(
+      this.refData?.open(UpdateModalMonetizationComponent)
+    );
+   
   }
 
   onLoadTable(dataInfo:Monetizacion[])  

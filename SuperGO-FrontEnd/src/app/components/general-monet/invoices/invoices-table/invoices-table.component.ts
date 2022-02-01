@@ -51,12 +51,13 @@ export class invoicesTableComponent implements OnInit {
   }
 
   open(element:any){
-    this.refData?.open(UpdateModalInvoicesComponent,{
+    return( this.refData?.open(UpdateModalInvoicesComponent,{
       data:{
         dataModal:element,
         keys:Object.keys(element)
       }
-    })
+    }));
+   
   }
 
 

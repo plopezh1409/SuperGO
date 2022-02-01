@@ -33,7 +33,10 @@ export class AccountingTablesComponent implements OnInit {
   }
 
   open(){
-    this.refData?.open(UpdateModalAccountingComponent)
+    return(
+      this.refData?.open(UpdateModalAccountingComponent)
+    );
+   
   }
 
   onLoadTable(dataInfo:Contabilidad[])  
