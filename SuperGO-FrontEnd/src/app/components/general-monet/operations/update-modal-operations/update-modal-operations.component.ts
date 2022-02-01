@@ -78,10 +78,10 @@ export class UpdateModalOperationsComponent implements OnInit {
 
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idOperation);
      var obOpe:Operaciones = new Operaciones();
-     obOpe.idTipoOperacion = jsonResult.idTipoOperacion,
-     obOpe.descripcionTipoOperacion = jsonResult.descripcion.trim(),
-     obOpe.idCanal = jsonResult.canal,
-     obOpe.topicoKafka = jsonResult.topicoKafka.trim(),
+     obOpe.idTipoOperacion = jsonResult.idTipoOperacion
+     obOpe.descripcionTipoOperacion = jsonResult.descripcion.trim()
+     obOpe.idCanal = jsonResult.canal
+     obOpe.topicoKafka = jsonResult.topicoKafka.trim()
      obOpe.status = jsonResult.estatus === true ?"A":"I"
     
     this.showLoader(true);
@@ -178,22 +178,24 @@ export class UpdateModalOperationsComponent implements OnInit {
       .subscribe((response:any) => {
         switch (response.code) {
           case 200: //Se modifico el registro correctamente
-            oResponse.status = true;
-            oResponse.data = response.response;
-            this.refData?.close(oResponse);
-          break;
+          return(
+            oResponse.status = true,
+            oResponse.data = response.response,
+            this.refData?.close(oResponse)
+          );
           case 400:
           case 401:
           case 500:
           default:
-            this.refData?.close(oResponse);
-            swal.fire({
-              icon: 'error',
-              title:'Error',
-              text: 'Ocurrio un error inesperado, intente más tarde.',
-              heightAuto: false
-            });
-            break;
+            return(
+              this.refData?.close(oResponse),
+              swal.fire({
+                icon: 'error',
+                title:'Error',
+                text: 'Ocurrio un error inesperado, intente más tarde.',
+                heightAuto: false
+              })
+            );
         }
       }, (err:any) => {
         swal.fire({

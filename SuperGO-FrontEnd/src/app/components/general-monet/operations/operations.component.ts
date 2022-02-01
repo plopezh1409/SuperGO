@@ -65,9 +65,9 @@ export class OperationsComponent implements OnInit {
       dataBody = Object(datas);
     }
     var obOpe:Operaciones =  new Operaciones();
-    obOpe.descripcionTipoOperacion = dataBody.descripcion,
-    obOpe.idCanal = dataBody.canal,
-    obOpe.topicoKafka = dataBody.topicoKafka,
+    obOpe.descripcionTipoOperacion = dataBody.descripcion
+    obOpe.idCanal = dataBody.canal
+    obOpe.topicoKafka = dataBody.topicoKafka
     obOpe.status = dataBody.estatus === true ?"A":"I"
 
     this.appComponent.showLoader(true);
