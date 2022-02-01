@@ -1,31 +1,68 @@
 {
-    "resultado":{
-    "sociedadesExistentes":[
-    {    
-        "idSociedad":"1",
-        "razonSocial":"prueba prueba1",
-        "RFC":"kehy900909",
-        "idTipoSociedad":"EXTERNA"
-    },        
-    {
-        "idSociedad":"2",
-        "razonSocial":"prueba prueba2",
-        "RFC":"kehy900908",
-        "idTipoSociedad":"EXTERNA"
-    },
-    {    
-        "idSociedad":"3",
-        "razonSocial":"prueba prueba3",
-        "RFC":"kehy900907",
-        "idTipoSociedad":"EXTERNA"
-    },        
-    {
-        "idSociedad":"4",
-        "razonSocial":"prueba prueba4",
-        "RFC":"kehy900906",
-        "idTipoSociedad":"EXTERNA"
-    }
-]
+    "code": 200,
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response":{
+        "sociedades": [
+            {
+                "idSociedad": 17,
+                "razonSocial": "EMPRESA PRUEBA9",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 54,
+                "descripcionTipoSociedad": "BAZ SUPERAPP"
+            },
+            {
+                "idSociedad": 6,
+                "razonSocial": "UPAX S.A. DE C.V.",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            },
+            {
+                "idSociedad": 5,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial": "TOTALPLAY S.A. DE C.V.",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "SEGUROS AZTECA S.A. DE C.V.",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            },
+            {
+                "idSociedad": 1,
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "rfc": "XAXX010101000",
+                "idTipoSociedad": 1,
+                "descripcionTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            }
+        ],
+        "tipoSociedad":[
+            {
+                "idTipoSociedad": 54,
+                "descripcion": "BAZ SUPERAPP"
+            },
+            {
+                "idTipoSociedad": 1,
+                "descripcion": "SOCIEDAD DE GRUPO SALINAS"
+            }
+        ]
     }
 
 }

@@ -266,7 +266,7 @@ export class Control {
   setDropDownValue(control: Control, valor:any) {
 
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.value === valor.toString();
+        return opcion.ky === valor;
         }).map((opcion) => {
           return opcion.ky;
           });

@@ -1,10 +1,16 @@
-import { Component, Input, OnInit, ViewChild, Injector } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
+
+//MATERIAL
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
-import Swal from 'sweetalert2';
+
+//COMPONENTS
 import { UpdateModalOperationsComponent } from '../update-modal-operations/update-modal-operations.component';
+
+//MODELS
+import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 
 @Component({
   selector: 'app-operations-table',
@@ -18,8 +24,8 @@ export class OperationsTableComponent implements OnInit {
   dataSource:MatTableDataSource<Operaciones>;
   displayedColumns: string[] = ['descripcionTipoOperacion', 'idCanal', 'topicoKafka', 'status','options', 'options2'];
   totalRows:number = 0;
-  dataChanel:any=[];
-  auxForm:any;
+  containers:any;
+  
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(public refData?:MatDialog) {
@@ -29,14 +35,13 @@ export class OperationsTableComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.dataInfo.length !== 0)
-      this.onLoadTable(this.dataInfo, this.auxForm);
+      this.onLoadTable(this.dataInfo);
   }
 
-  onLoadTable(dataInfo:any, auxForm:any)  
+  onLoadTable(dataInfo:any)  
   {
-    console.log("onLoadTable");
-    this.auxForm = auxForm;
-    this.dataChanel = dataInfo.canal;
+    var auxForm:any = localStorage.getItem("_auxForm");
+    this.containers = JSON.parse(auxForm);
     this.dataInfo=dataInfo.tipoOperacion;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
@@ -48,37 +53,35 @@ open(element:any){
       data:{
         dataModal:element,
         keys:Object.keys(element),
-        dataChanel:this.dataChanel,
-        auxForm:this.auxForm
+        auxForm:this.containers
       }
     });
     dialogRef.afterClosed().subscribe((oData:any)=>{
       if(oData !== undefined)
         if(oData.status === true){
-          this.dataInfo = oData.data.response;
-          let auxForm = JSON.parse(JSON.stringify(oData.data.response));
-          this.onLoadTable(this.dataInfo, auxForm);
+          this.dataInfo = oData.data;
+          this.onLoadTable(this.dataInfo);
         }
     });
-    
   }
 
   show(element:any):void{
     let keys = Object.keys(element);
     let registro:string='';
     let titulos:string[]=["IdSociedad","Descripción","Canal","Tópico KAFKA","Estatus"]
-    registro = registro.concat('<table class="tableInfoDel"  style="font-size: 17px;">');    
+    registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');    
     keys.forEach((k,index) => {
       if(index != 0)
         if(k!='Options')
         {   
-          registro = registro.concat(`<tr><td><b>${titulos[index]}</b></td><td>${element[k]}</td></tr>`);            
+          registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:20%; padding:5px"><b>${titulos[index]}</b></td><td style="padding:5px">${element[k]}</td></tr>`);            
         }      
     });
-    registro = registro.concat('</table>');    
+    registro = registro.concat('</table>');
     Swal.fire({             
-      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;" >Datos de la operación </div><br/> ${registro}`,
-      showCancelButton: false
+      html: `<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;" >Datos de la operación </div><br/> ${registro}`,
+      showCancelButton: false,
+      width: '60%'
     }).then(result=>{
       if (result.isConfirmed) { }
     });

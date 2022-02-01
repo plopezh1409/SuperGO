@@ -25,7 +25,7 @@ export class invoicesTableComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
-  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion','idSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion','descSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
   totalRows:number = 0;
   pageEvent: PageEvent;
 
@@ -37,16 +37,17 @@ export class invoicesTableComponent implements OnInit {
     this.pageEvent= new PageEvent();   
    }
 
-  ngOnInit(): void {     
-    this.onLoadTable(this.dataInfo);
+  ngOnInit(): void {
+    if(this.dataInfo.length !== 0)
+      this.onLoadTable(this.dataInfo);
   }
 
-  onLoadTable(dataInfo:Facturas[])  
+  onLoadTable(dataInfo:any)  
   {
     console.log("onLoadTable");
-    this.dataInfo=dataInfo;  
-    this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
-    this.totalRows  =this.dataInfo.length;
+    this.dataInfo=dataInfo.facturas;  
+    this.dataSource = new MatTableDataSource<any>(this.dataInfo);
+    this.totalRows = this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -65,26 +66,28 @@ export class invoicesTableComponent implements OnInit {
 
 
   show(element:any):void{
-    let keys = Object.keys(element);
+    var oElement = Object.assign({} , element);
+    delete oElement.idSociedad;
+    delete oElement.idTipoOperacion;
+    delete oElement.idSubTipoOperacion
+    let keys = Object.keys(oElement);
     let registro:string='';
     let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Tipo Comprobante","Tipo Factura"]
-     
-    registro = registro.concat('<table class="tableInfoDel">');    
+    registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
     keys.forEach((k,index) => {
       if(k!='Options')
       {   
-        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
+        registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>${titulos[index]}</b></td><td style="padding:5px">${oElement[k]}</td></tr>`);            
       }      
     });
     registro = registro.concat('</table>');    
     Swal.fire({             
-      html:`<div class="titModal"> Datos de la factura </div><br/> <br/>${registro}`,
-      showCancelButton: false
+      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la empresa </div><br/> <br/>${registro}`,
+      showCancelButton: false,
+      width: '60%'
     }).then(result=>{
-      if (result.isConfirmed) {      
-        
-        
-      }
+      if (result.isConfirmed) {}
     });
   }
 

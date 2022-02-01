@@ -3,8 +3,11 @@ import { AppComponent } from '@app/app.component';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Facturas } from '@app/core/models/facturas/facturas.model';
-import { FormBillsService } from '@app/core/services/bills/formBills.service';
+import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
 import { invoicesTableComponent } from './invoices-table/invoices-table.component';
+import swal from 'sweetalert2';
+import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-invoices',
@@ -14,7 +17,7 @@ import { invoicesTableComponent } from './invoices-table/invoices-table.componen
 
 export class invoicesComponent implements OnInit {
 
-  formCatService:FormBillsService;
+  formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   containers:Container[];
   maxNumControls=10;
@@ -25,7 +28,7 @@ export class invoicesComponent implements OnInit {
 
 
   constructor( private readonly appComponent: AppComponent, private injector:Injector) { 
-    this.formCatService = this.injector.get<FormBillsService>(FormBillsService);
+    this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new invoicesTableComponent();
     this.containers=[];
@@ -37,28 +40,233 @@ export class invoicesComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("GeneralComponent ngOnInit");
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;      
+    this.fillDataPage();
+    // this.formInvoicesService.getForm().subscribe((data:any)=>{
+    //   this.containers = data.response;      
+    //   this.reactiveForm.setContainers(this.containers);
+    // });
+    // this.dataInfo=[{idSociedad:'ELEKTRA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS', idSubTipoOperacion:"GENERAL",idReglaMonetizacion:'REGLA1',tipoComprobante:'COMPROBANTE1',tipoFactura:"FACTURA"} as Facturas];
+  }
+
+  async fillDataPage(){
+    this.appComponent.showLoader(true);
+    let dataForm = await this.formInvoicesService.getForm().toPromise().catch((err) =>{
+      return err;
+    });
+    var dataOper = await this.formInvoicesService.getInfoInvoices().toPromise().catch((err) =>{
+      return err;
+    });
+    this.appComponent.showLoader(false);
+    if(dataForm.code !== 200){
+      this.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== 200) {
+      this.showMessageError(dataOper.message, dataOper.code);
+    }
+    else{
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
+      this.dataInfo = dataOper.response;
+      this.containers = dataForm.response.reactiveForm;
       this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      this.catalogsTable.onLoadTable(this.dataInfo);
+    }
+  }
+
+  
+  onSubmit(value:any)
+  {
+    if(!this.reactiveForm.principalForm?.valid){
+      swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Complete los campos faltantes',
+        heightAuto: false
+      });
+      return;
+    }
+
+    let dataBody;
+    for(var datas of Object.values(value)){
+      dataBody = Object(datas);
+    }
+    var oInvoice:Facturas =  new Facturas();
+    oInvoice.idSociedad = dataBody.sociedad;
+    oInvoice.idTipoOperacion = dataBody.operacion;
+    oInvoice.idSubTipoOperacion = dataBody.subOperacion;
+    oInvoice.tipoComprobante = dataBody.tipoDeComprobante;
+    oInvoice.tipoFactura = dataBody.tipoDeFactura;
+
+    this.appComponent.showLoader(true);
+    this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => { this.appComponent.showLoader(false); }))
+    .subscribe((data:any)=>{
+      console.log(data);
+      switch (data.code) {
+        case 201: //Solicitud correcta
+        swal.fire({
+          icon: 'success',
+          title: 'Solicitud correcta',
+          text: data.menssage,
+          heightAuto: false,
+          confirmButtonText: "Ok",
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.reactiveForm.setContainers(this.containers);
+            this.updateTable();
+          }
+        });
+          break;
+        case 400: //Solicitud incorrecta
+          swal.fire({
+            icon: 'warning',
+            title: 'Solicitud incorrecta',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        case 401://No autorizado
+          swal.fire({
+            icon: 'warning',
+            title: 'No autorizado',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        case 500://Error Inesperado
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        default:
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: "Intente mas tarde",
+            heightAuto: false
+          });
+          break;
+        }
     });
 
-    this.dataInfo=[{idSociedad:'ELEKTRA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS', idSubTipoOperacion:"GENERAL",idReglaMonetizacion:'REGLA1',tipoComprobante:'COMPROBANTE1',tipoFactura:"FACTURA"} as Facturas,
-   
-    ];
-
   }
 
-  onSubmit()
-  {
-    let obj:Facturas = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['FACTURAS'] as Facturas;
-    
-    this.dataInfo.push(obj);
-    
-    if(this.catalogsTable)
-    {
-      this.catalogsTable.onLoadTable(this.dataInfo);     
-    }    
+  addDataDropdown(dataForm:any, dataContent:any){
+    var cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.facturas
+    Object.entries(cpDataContent).map(([key, value]:any, idx:number) =>{
+      value.forEach((ele:any) => {
+        Object.entries(ele).map(([key, value]:any, idx:number) => {
+          if(typeof value === 'number'){
+            ele['ky'] = ele[key];
+            delete ele[key];
+          }
+          else{
+            ele['value'] = ele[key];
+            delete ele[key];
+          }
+        });
+      });
+    });
+    dataForm.forEach((element:any) => {
+      element.controls.forEach((ctrl:any) => {
+        if(ctrl.controlType === 'dropdown'){
+          if(ctrl.ky === 'sociedad'){
+            ctrl.content.contentList = cpDataContent.sociedades;
+            ctrl.content.options = cpDataContent.sociedades;
+          }
+          else if (ctrl.ky === 'operacion'){
+            ctrl.content.contentList = cpDataContent.operaciones;
+            ctrl.content.options = cpDataContent.operaciones;
+          }
+          else if (ctrl.ky === 'subOperacion'){
+            ctrl.content.contentList = cpDataContent.subOperacion;
+            ctrl.content.options = cpDataContent.subOperacion;
+          }
+          else if (ctrl.ky === 'tipoDeComprobante'){
+            ctrl.content.contentList = cpDataContent.tipoComprobante;
+            ctrl.content.options = cpDataContent.tipoComprobante;
+          }
+          else if (ctrl.ky === 'tipoDeFactura'){
+            ctrl.content.contentList = cpDataContent.tipoFactura;
+            ctrl.content.options = cpDataContent.tipoFactura;
+          } 
+        }
+      });
+    });
+    return dataForm;
   }
+
+  showMessageError(menssage:string, code:number){
+    switch (code) {
+      case 400: //Solicitud incorrecta
+        swal.fire({
+          icon: 'warning',
+          title: 'Solicitud incorrecta',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      case 404://No autorizado
+        swal.fire({
+          icon: 'warning',
+          title: 'No autorizado',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      case 500://Error Inesperado
+        swal.fire({
+          icon: 'error',
+          title: 'Error inesperado',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      default:
+        // swal.fire({
+        //   icon: 'error',
+        //   title: 'Error inesperado',
+        //   text: "Intente de nuevo",
+        //   heightAuto: false
+        // });
+        break;
+    }
+  }
+
+  updateTable(){
+    this.appComponent.showLoader(true);
+    this.formInvoicesService.getInfoInvoices().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    subscribe((data:any)=>{
+      switch (data.code) {
+        case 200:
+          this.dataInfo = data.response;
+          this.catalogsTable.onLoadTable(this.dataInfo);
+        break;
+    case 400: //Solicitud incorrecta
+    case 401:
+    case 500:
+    default:
+      swal.fire({
+        icon: 'error',
+        title: 'Error inesperado',
+        text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+        heightAuto: false
+      });
+    break;
+    }
+},(err:any) => {
+  swal.fire({
+    icon: 'error',
+    title: 'Error inesperado',
+    text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+    heightAuto: false
+  });      
+});
+}
 
 }
 

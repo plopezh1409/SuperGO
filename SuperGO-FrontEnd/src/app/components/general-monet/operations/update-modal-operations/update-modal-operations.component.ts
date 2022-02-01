@@ -1,13 +1,19 @@
 import { Component, Inject, Injector, OnInit, Injectable } from '@angular/core';
+import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
+import { finalize } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core'
+import swal from 'sweetalert2';
+
+//MATERIAL
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+//SERVICES
+import { AuthService } from '@app/core/services/sesion/auth.service';
+import { FormOperationsService } from '@app/core/services/operations/formOperations.service';
+
+//MODELS
 import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
-import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
-import { FormOperationsService } from '@app/core/services/operations/formOperations.service';
-import { AppComponent } from '@app/app.component';
-import { finalize } from 'rxjs/operators';
-import { AfterViewChecked, ChangeDetectorRef } from '@angular/core'
-import swal from 'sweetalert2';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
@@ -21,39 +27,36 @@ import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTabl
 export class UpdateModalOperationsComponent implements OnInit {
 
   formCatService:FormOperationsService;
-  //private appComponent: AppComponent
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private idData:any={};
-  private resultTable:any={};
+  private idOperation:any={};
   public showLoad: boolean = false;
   private loaderDuration: number;
+  private authService:AuthService;
 
   constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
-    //this.appComponent = this.injector.get<AppComponent>(AppComponent);
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
+    this.authService = this.injector.get<AuthService>(AuthService);
+    this.refData?.updateSize('70%');
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
   }
 
   ngOnInit(): void {
-    let dataChanel = this.dataModal.dataChanel;
-    let auxForm = this.dataModal.auxForm;
-    delete this.dataModal.dataChanel;
+    this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
-    this.containers = this.addDataDropdown(auxForm.reactiveForm, dataChanel);
     this.reactiveForm.setContainers(this.containers);
     this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
-    this.idData = this.getIdData();
+    this.idOperation = this.getIdOperation();
     this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
     this.dataModal.dataModal.status = this.dataModal.dataModal.status == "true"?"A":"I";
     this.reactiveForm.setContainers(this.containers);
   }
 
-  getIdData(){
+  getIdOperation(){
     let oData:{[k:string]:any}={};
     var key = this.dataModal?.keys[0];
     oData[key] = parseInt(this.dataModal?.dataModal[key]);
@@ -61,6 +64,8 @@ export class UpdateModalOperationsComponent implements OnInit {
   }
 
   update(){
+    if(this.authService.isAuthenticated())
+      this.close();
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
         icon: 'warning',
@@ -71,19 +76,19 @@ export class UpdateModalOperationsComponent implements OnInit {
       return;
     }
 
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idData);
-     var obOperacion:Operaciones = {
-      idTipoOperacion: jsonResult.idTipoOperacion,
-      descripcionTipoOperacion: jsonResult.descripcion,
-      idCanal: jsonResult.canal,
-      topicoKafka: jsonResult.topicoKafka,
-      status: jsonResult.estatus === true ?"A":"I"
-    }
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idOperation);
+     var obOpe:Operaciones = new Operaciones();
+     obOpe.idTipoOperacion = jsonResult.idTipoOperacion,
+     obOpe.descripcionTipoOperacion = jsonResult.descripcion.trim(),
+     obOpe.idCanal = jsonResult.canal,
+     obOpe.topicoKafka = jsonResult.topicoKafka.trim(),
+     obOpe.status = jsonResult.estatus === true ?"A":"I"
+    
     this.showLoader(true);
-
-    this.formCatService.updateOperation(obOperacion)
+    this.formCatService.updateOperation(obOpe)
       .pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
+        console.log(response.code)
         switch (response.code) {
           case 200: //Se modifico el registro correctamente
             swal.fire({
@@ -135,8 +140,6 @@ export class UpdateModalOperationsComponent implements OnInit {
       });
   }
 
-
-
   close(){
     let oResponse:ResponseTable= new ResponseTable();
     this.refData?.close(oResponse);
@@ -169,7 +172,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   getDataTable(){
     let oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.formCatService.getData().pipe(finalize(() => { this.showLoader(false); }))
+    this.formCatService.getInfoOperation().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
           case 200: //Se modifico el registro correctamente

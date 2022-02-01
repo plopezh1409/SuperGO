@@ -23,7 +23,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: ''
         }
       ]
@@ -41,7 +41,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: principalMonetizaor
         },
         {
@@ -62,7 +62,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: principalMonetizaor
         },
         {
@@ -83,7 +83,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: principalMonetizaor
         },
         {
@@ -104,7 +104,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: principalMonetizaor
         },
         {
@@ -125,7 +125,7 @@ const routes: Routes = [
           url: 'inicio'
         },
         {
-          label: 'Catalogos',
+          label: 'Monetizador',
           url: principalMonetizaor
         },
         {

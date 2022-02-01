@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
-import { FormBillsService } from '@app/core/services/bills/formBills.service';
+import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
 
 @Component({
   selector: 'app-update-modal-invoices',
@@ -13,7 +13,7 @@ import { FormBillsService } from '@app/core/services/bills/formBills.service';
 
 export class UpdateModalInvoicesComponent implements OnInit {
 
-  formCatService:FormBillsService;
+  formCatService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
@@ -21,7 +21,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
   public formas:any;
   
   constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
-    this.formCatService = this.injector.get<FormBillsService>(FormBillsService);
+    this.formCatService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
   }
