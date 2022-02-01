@@ -110,7 +110,9 @@ export class UpdateModalSocietiesComponent implements OnInit {
 
 
   close(){
-   this.refData?.close()
+    return(
+      this.refData?.close()
+    );
   }
 
   addDataDropdown(dataForm:any, dataContent:any){
@@ -128,7 +130,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
   getIdData(){
     let oData:{[k:string]:any}={};
     var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key]);
+    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
 

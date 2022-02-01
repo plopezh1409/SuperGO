@@ -46,7 +46,7 @@ export class SocietiesTableComponent implements OnInit {
   }
 
   open(element:any){
-    this.refData?.open(UpdateModalSocietiesComponent,{
+    return( this.refData?.open(UpdateModalSocietiesComponent,{
       data:{
         dataModal:element,
         keys:Object.keys(element),
@@ -58,7 +58,7 @@ export class SocietiesTableComponent implements OnInit {
           this.dataInfo = oData.data;
           this.onLoadTable(this.dataInfo);
         }
-    });
+    }));
   }
 
   show(element:any):void{

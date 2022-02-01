@@ -101,14 +101,14 @@ export class UpdateModalCatalogsComponent implements OnInit {
   }
 
 
-  close(){
-   this.refData?.closeAll()
+  close(){ return(
+   this.refData?.closeAll());
   }
 
   getIdData(){
     let oData:{[k:string]:any}={};
     var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key]);
+    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
 

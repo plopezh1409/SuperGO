@@ -34,7 +34,7 @@ export class OperationsTableComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if(this.dataInfo.length !== 0)
+    if (this.dataInfo.length !== 0)
       this.onLoadTable(this.dataInfo);
   }
 

@@ -59,7 +59,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   getIdOperation(){
     let oData:{[k:string]:any}={};
     var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key]);
+    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
 
@@ -142,7 +142,9 @@ export class UpdateModalOperationsComponent implements OnInit {
 
   close(){
     let oResponse:ResponseTable= new ResponseTable();
-    this.refData?.close(oResponse);
+    return(
+    this.refData?.close(oResponse)
+    );
    }
 
    ngAfterViewChecked(): void {

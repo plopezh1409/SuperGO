@@ -19,7 +19,7 @@
     
         <ng-container matColumnDef="options">
             <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
-            <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)">
+            <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)" onKeyDown="show(element);">
               <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
                 visibility 
               </mat-icon>

@@ -36,7 +36,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
 
   close(){
-   this.refData?.closeAll()
+    return(
+      this.refData?.closeAll());
   }
 
 }
