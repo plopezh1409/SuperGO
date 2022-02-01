@@ -49,14 +49,13 @@ export class OperationsTableComponent implements OnInit {
   }
 
 open(element:any){
-    let dialogRef:any = this.refData?.open(UpdateModalOperationsComponent,{
+    this.refData?.open(UpdateModalOperationsComponent,{
       data:{
         dataModal:element,
         keys:Object.keys(element),
         auxForm:this.containers
       }
-    });
-    dialogRef.afterClosed().subscribe((oData:any)=>{
+    }).afterClosed().subscribe((oData:any)=>{
       if(oData !== undefined)
         if(oData.status === true){
           this.dataInfo = oData.data;

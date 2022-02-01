@@ -8,9 +8,9 @@
             "razonSocial": "ELEKTRA",
             "idTipoOperacion": 1,
             "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
-            "idSubTipoOperacion": 1,
+            "idSubTipoOperacion": 2,
             "descSubTipoOperacion": "GENERAL",
-            "idReglaMonetizacion": 1,
+            "idReglaMonetizacion": 2,
             "tipoComprobante": 1,
             "tipoFactura": 1
         },

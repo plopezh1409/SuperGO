@@ -1,0 +1,133 @@
+this.dataInfo=[{idSociedad:'BANCO AZTECA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'4% SOBRE EL MONTO COLOCADO',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'BANCO AZTECA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'9% SOBRE EL MONTO COLOCADO',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'BANCO AZTECA',idTipoOperacion:'CREDITO AL CONSUMO Y NEGOCIOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'5% SOBRE EL CREDITO COLOCADO',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'BANCO AZTECA',idTipoOperacion:'TARJETAS DE CREDITO',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'1.25% SOBRE EL LIMTE DE CREDITO',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'SAZ',idTipoOperacion:'SEGUROS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'5% SOBRE EL MONTO DE LA POLIZA COLOCADA',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'ELEKTRA',idTipoOperacion:'MIS PAGOS - PAGOS DE SERVICIOS, TIEMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'50% DE LA COMICION BACK (NETA DE COSTOS DE TRANSACCION)',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'ELEKTRA',idTipoOperacion:'VENTA DE MERCANCIA',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'3.5% SOBRE EL TICKET',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'ELEKTRA',idTipoOperacion:'MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'20% DE LA COMISION AL FRONT',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'ELEKTRA',idTipoOperacion:'MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'50% DE LA COMICION BACK (NETA DE COSTOS DE TRANSACCION)',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'TOTALPLAY',idTipoOperacion:'PELICULAS ON DEMAND',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'3% DE COMISION SOBRE EL PRECIO DE VENTA',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'TOTALPLAY',idTipoOperacion:'WIFI PASS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'10% DE COMISION SOBRE EL PRECIO DE VENTA',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'TV AZTECA',idTipoOperacion:'TV EN VIVO Y NOTICIAS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'60% DE LOS INGRESOS POR VENTA DE PUBLICIDAD VISTA EN SUPERAPP',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    {idSociedad:'UPAX',idTipoOperacion:'CHAT Y RED SOCIAL',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'REGLA1',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
+    ];
+
+    {
+        "code": 200,
+        "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+        "response": {
+          "facturas": [
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA",
+                "idTipoOperacion": 1,
+                "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
+                "idSubTipoOperacion": 2,
+                "descSubTipoOperacion": "GENERAL",
+                "idReglaMonetizacion": 2,
+                "tipoComprobante": 1,
+                "tipoFactura": 1
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial": "UPAX S.A. DE C.V.",
+                "idTipoOperacion": 11,
+                "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
+                "idSubTipoOperacion": 1,
+                "descSubTipoOperacion": "GENERICO",
+                "idReglaMonetizacion": 33,
+                "tipoComprobante": 1,
+                "tipoFactura": 1
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
+                "idTipoOperacion": 10,
+                "descripcionTipoOperacion": "NOTICIAS",
+                "idSubTipoOperacion": 1,
+                "descSubTipoOperacion": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "tipoComprobante": 1,
+                "tipoFactura": 1
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
+                "idTipoOperacion": 10,
+                "descripcionTipoOperacion": "VENTA DE SEGUROS",
+                "idSubTipoOperacion": 0,
+                "descSubTipoOperacion": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "tipoComprobante": 1,
+                "tipoFactura": 1
+            }
+        ],
+        "sociedades":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial":"UPAX S.A. DE C.V."
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V."
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+            }
+        ],
+        "operaciones":[
+            {
+                "idOperacion": 1,
+                "descripcionOperacion":"COLOCACION DE CREDITO - CLIENTES NUEVOS"
+            },
+            {
+                "idOperacion": 2,
+                "descripcionOperacion":"CHAT Y RED SOCIAL"
+            },
+            {
+                "idOperacion": 3,
+                "descripcionOperacion":"NOTICIAS"
+            },
+            {
+                "idOperacion": 4,
+                "descripcionOperacion":"VENTA DE SEGUROS"
+            }
+        ],
+        "subOperacion":[
+            {
+                "idSubOperacion": 1,
+                "descripcionSubOperacion":"GENERICO" 
+            },
+            {
+                "idOperacion": 2,
+                "descripcionOperacion":"GENERAL"
+            }
+        ],
+        "tipoComprobante":[
+            {
+                "idTipoComprobante": 1,
+                "descripcionTipoComprobante":"1" 
+            },
+            {
+                "idTipoComprobante": 2,
+                "descripcionTipoComprobante":"2"
+            }
+        ],
+        "tipoFactura":[
+            {
+                "idSubOperacion": 1,
+                "descripcionSubOperacion":"1" 
+            },
+            {
+                "idOperacion": 2,
+                "descripcionOperacion":"2"
+            }
+        ]
+    }
+    }

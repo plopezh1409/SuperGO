@@ -52,6 +52,10 @@ export class FormInvoicesService {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
     }
 
+    updateInvoce(dataInvoice:any){
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
+    }
+
     // getForm():Observable<any>
     // {
     //     return this.httpClient.get('assets/json/jsonFacturas.json');
