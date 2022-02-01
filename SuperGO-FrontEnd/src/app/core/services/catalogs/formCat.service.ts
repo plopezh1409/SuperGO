@@ -40,41 +40,38 @@ export class FormCatService{
         }
     }
 
-    getForm():Observable<any>
-    {
-        let dataBody = { "idRequest": "13" };
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataBody);
+    private get _requestForm(){
+        return { "idRequest": "13" };
     }
 
-    // getForm():Observable<any>
-    // {
-    //     return this.httpClient.get('assets/json/jsonSociedades.json');
-    // }
+    getForm():Observable<any>
+    {
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
+    }
 
-
-    getData():Observable<any>
+    getInfoSocieties():Observable<any>
     {
         return this.httpClient.get('/assets/dataTables/dataCatalog.json');
     }
 
-    getDataSociedad(body:any):Observable<any>
+    insertSociety(catalog:any):Observable<any>
     {
-        return this.httpClient.post<Sociedad>('http://10.112.209.251:8081/sociedades/test', body, this.httpHeaders);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
     }
 
-    // getData():Observable<any>
+    updateSociety(catalog:any):Observable<any>
+    {
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+    }
+
+    // getForm():Observable<any> //JSON de prueba local FORMULARIO
     // {
-    //     return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+    //     return this.httpClient.get('assets/json/jsonSociedades.json');
     // }
 
-    insertRecord(catalog:any):Observable<any>
-    {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
-    }
-
-    updateRecord(catalog:any):Observable<any>
-    {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
-    }
+    // getInfoSocieties():Observable<any>
+    // {
+    //     return this.httpClient.post<Sociedad>('http://10.112.209.251:8081/sociedades/test', body, this.httpHeaders);
+    // }
 
 }

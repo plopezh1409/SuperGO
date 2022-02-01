@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, Injector } from '@angular/core';
+import { Component, HostListener, OnInit, Injector, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { Subject } from 'rxjs';
@@ -11,6 +11,9 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class AppComponent implements OnInit {
   title = 'SuperGO';

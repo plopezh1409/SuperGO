@@ -1,6 +1,6 @@
 <div class="contain fade-in" style="margin-bottom: 50px;">
-    <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" (ngSubmit)="onSubmit()"
-        (change)="reactiveForm.onFormChange()">
+    <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm"
+    (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()">
         <div>
             <div [ngClass]="{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
@@ -13,7 +13,7 @@
                 </ng-container>
             </div>
         </div>
-        <div style="text-align: center;" class="mb-10">
+        <div style="text-align: center;" class="mb-10 mt-10">
             <button mat-raised-button class="btnPrimary"> Agregar </button>
         </div>
     </form>

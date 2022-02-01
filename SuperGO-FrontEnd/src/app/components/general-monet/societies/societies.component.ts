@@ -2,6 +2,7 @@ import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
+import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
 import { FormCatService } from '@app/core/services/catalogs/formCat.service';
 import { SocietiesTableComponent } from './societies-table/societies-table.component';
 import { finalize } from 'rxjs/operators';
@@ -25,89 +26,21 @@ export class societiescomponent implements OnInit {
   public dataInfo:Sociedad[];
   public showLoad: boolean = false;
 
-
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
-
 
   constructor(private injector:Injector, private appComponent: AppComponent) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
-    this.catalogsTable = new SocietiesTableComponent();
+    this.catalogsTable = new SocietiesTableComponent(this.injector);
     this.containers=[];
     this.dataInfo=[];
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
   }
-
-  async ngOnInit() {
-    console.log("GeneralComponent ngOnInit");
-    this.formCatService.getData().subscribe(async (data:any)=>{
-      this.dataInfo = data.resultado.sociedadesExistentes;
-      this.catalogsTable.onLoadTable(this.dataInfo);
-     });
-
-     //Consulta api
-     //this.appComponent.showLoader(true);
-    //  this.formCatService.getData()
-    //   .pipe(finalize((this.appComponent.showLoader(false)) => {  }))
-    //   .subscribe((response:any) => {
-    //     switch (response.code) {
-    //       case 200: //Consulta exitosa
-    //       this.dataInfo = response.resultado.sociedadesExistentes;
-    //       this.catalogsTable.onLoadTable(this.dataInfo);
-    //         break;
-    //       case 400: //Solicitud incorrecta
-    //         swal.fire({
-    //           icon: 'warning',
-    //           title: 'Solicitud incorrecta',
-    //           text: response.mensaje,
-    //           heightAuto: false
-    //         });
-    //         break;
-    //       case 401://No autorizado
-    //         swal.fire({
-    //           icon: 'warning',
-    //           title: 'No autorizado',
-    //           text: response.mensaje,
-    //           heightAuto: false
-    //         });
-    //         break;
-    //       case 500://Error Inesperado
-    //         swal.fire({
-    //           icon: 'error',
-    //           title: 'Error inesperado',
-    //           text: response.mensaje,
-    //           heightAuto: false
-    //         });
-    //         break;
-    //       default: break;
-    //     }
-    //   }, (err:any) => {
-    //     if (err.status == 500 || err.status == 400) {
-    //       swal.fire({
-    //         icon: 'error',
-    //         title: 'Lo sentimos',
-    //         text: 'Por el momento no podemos proporcionar tu Solicitud.',
-    //         heightAuto: false
-    //       });
-    //     }       
-    //   });
-
-    this.formCatService.getForm().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
-      this.containers = data.response.reactiveForm;
-      this.reactiveForm.setContainers(this.containers);
-    }, (err:any) => {
-      if (err.status == 500 || err.status == 400) {
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: err.error.message,
-          heightAuto: false
-        });
-      }       
-    });
+  
+  ngOnInit() {
+    this.fillDataPage();
   }
 
   onSubmit(value:any)
@@ -209,5 +142,93 @@ export class societiescomponent implements OnInit {
     // this.dataInfo.push(obj);
     // if(this.catalogsTable) { this.catalogsTable.onLoadTable(this.dataInfo); }
   }
+
+  async fillDataPage(){
+    this.appComponent.showLoader(true);
+    let dataForm = await this.formCatService.getForm().toPromise().catch((err) =>{
+      return err;
+    });
+    var dataOper = await this.formCatService.getInfoSocieties().toPromise().catch((err) =>{
+      return err;
+    });
+    this.appComponent.showLoader(false);
+    if(dataForm.code !== 200){
+      this.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== 200) {
+      this.showMessageError(dataOper.message, dataOper.code);
+    }
+    else{
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.tipoSociedad);
+      this.dataInfo = dataOper.response;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      this.catalogsTable.onLoadTable(this.dataInfo);
+    }
+  }
+
+  showMessageError(menssage:string, code:number){
+    switch (code) {
+      case 400: //Solicitud incorrecta
+        swal.fire({
+          icon: 'warning',
+          title: 'Solicitud incorrecta',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      case 404://No autorizado
+        swal.fire({
+          icon: 'warning',
+          title: 'No autorizado',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      case 500://Error Inesperado
+        swal.fire({
+          icon: 'error',
+          title: 'Error inesperado',
+          text: menssage,
+          heightAuto: false
+        });
+        break;
+      default:
+        swal.fire({
+          icon: 'error',
+          title: 'Error inesperado',
+          text: "Intente de nuevo",
+          heightAuto: false
+        });
+        break;
+    }
+  }
+
+  addDataDropdown(dataForm:any, dataContent:any){
+    var dataDropdown:any = [];
+    
+    dataContent.forEach((element:any) => {
+      var oDropdown:DropdownModel = new DropdownModel();
+      Object.entries(element).map(([key, value]:any, idx:number) => {
+        if(typeof value === 'number')
+          oDropdown.ky = value;
+        else
+          oDropdown.value = value;
+      });
+
+      dataDropdown.push(oDropdown);
+    });
+
+    dataForm.forEach((element:any) => {
+      element.controls.forEach((ctrl:any) => {
+        if(ctrl.controlType === 'dropdown'){
+          ctrl.content.contentList = dataDropdown;
+          ctrl.content.options = dataDropdown;
+        }
+      });
+    });
+    return dataForm;
+  }
+
 
 }

@@ -150,6 +150,11 @@ export class AuthService {
         {
             const urlCle = this.angularSecurity.getKeyAES;
             this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
+
+            // let des = 'http://10.112.210.69:8080/Monetizador-0.0.1/';
+            // let enc = this.angularSecurity.encryptAES(des, urlCle);
+            // console.log("oka MENSAJE ENCRIPTADO: ", enc);
+                        
             return this._urlEnviroment;
         }
     }  

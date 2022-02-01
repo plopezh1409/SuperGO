@@ -9,7 +9,7 @@ export const environment = {
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+U6xLg0YYxE8L81zVy8v9TE=', //Javi
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+VoLmmMRyh3XY8hTT45PK0iWB5fyLVdvHXYgjTlrmxDM',
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
-  // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRNp8iKdSLdJQMML5C6HVhyw=', //Alejandro Piso 10.112.53.80:8090/SUPERGO 
+  // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRNp8iKdSLdJQMML5C6HVhyw=', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
   // K1L0
   urlAuthGS: 'https://authns.desadsi.gs/nidp/oauth/nam/authz',
   urlAuthGSLogOut: 'https://authns.desadsi.gs/nidp/jsp/logoutSuccess_latest.jsp',

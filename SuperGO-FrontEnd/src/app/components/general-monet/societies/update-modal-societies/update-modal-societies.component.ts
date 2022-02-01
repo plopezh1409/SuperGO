@@ -1,15 +1,18 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormCatService } from '@app/core/services/catalogs/formCat.service';
 import { element } from 'protractor';
 import { FormGroup } from '@angular/forms';
-import { Control } from '@app/core/models/capture/controls.model';
 import { FormService } from '@app/core/services/capture/form.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
+
+//MODELS 
+import { Control } from '@app/core/models/capture/controls.model';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-update-modal-societies',
@@ -22,34 +25,34 @@ export class UpdateModalSocietiesComponent implements OnInit {
   reactiveForm:ReactiveForm;
   containers:Container[];
   alignContent='horizontal';
-  private idData:any={};
-
   public control:Control = new Control;
+  private idSociety:any={};
+  private showLoad: boolean = false;
+  private loaderDuration: number;
+  private authService:AuthService;
 
-  constructor(private injector:Injector,public refData?:MatDialog, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private injector:Injector,public refData?:MatDialogRef<UpdateModalSocietiesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
+    this.authService = this.injector.get<AuthService>(AuthService)
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
-    
-    
+    this.loaderDuration = 100;
   }
   
 
   ngOnInit(): void {
-    this.formCatService.getForm().//pipe(finalize(() => {  })).
-    subscribe((data:any)=>{
-      // this.containers = data.response.reactiveForm;
-      this.containers = data.response;
-      this.reactiveForm.setContainers(this.containers);
-      this.idData = this.getIdData();
-      this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
-      this.reactiveForm.setContainers(this.containers);
-    });
+    this.refData?.updateSize('70%');
+    this.containers = this.dataModal.auxForm;
+    delete this.dataModal.auxForm;
+    this.reactiveForm.setContainers(this.containers);
+    this.idSociety = this.getIdData();
+    this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    this.reactiveForm.setContainers(this.containers);
   }
 
   
   modify(){
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idData);
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idSociety);
     console.log(jsonResult);
     // const con_json = JSON.stringify(jsonResult);
 
@@ -108,7 +111,20 @@ export class UpdateModalSocietiesComponent implements OnInit {
 
   close(){
     return(
-      this.refData?.closeAll());
+      this.refData?.close()
+    );
+  }
+
+  addDataDropdown(dataForm:any, dataContent:any){
+    dataForm.forEach((element:any) => {
+      element.controls.forEach((ctrl:any) => {
+        if(ctrl.controlType === 'dropdown'){
+          ctrl.content.contentList = dataContent;
+          ctrl.content.options = dataContent;
+        }
+      });
+    });
+    return dataForm;
   }
 
   getIdData(){

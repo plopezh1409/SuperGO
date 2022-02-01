@@ -7,7 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';  
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //MODULES
 import { SharedModule } from '@app/shared/shared.module';
@@ -34,6 +35,7 @@ import { UpdateModalOperationsComponent } from './operations/update-modal-operat
 import { SocietiesTableComponent } from './societies/societies-table/societies-table.component';
 import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
+import { AppComponent } from '@app/app.component';
 
 
 @NgModule({
@@ -66,7 +68,11 @@ import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.componen
     MatSortModule,
     MatPaginatorModule,
     SharedModule,   
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule,
+  ],
+  providers:[
+    AppComponent
   ]
 })
 

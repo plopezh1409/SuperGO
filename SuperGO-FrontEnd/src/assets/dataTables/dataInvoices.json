@@ -1,0 +1,118 @@
+{
+    "code": 200,
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response": {
+      "facturas": [
+        {
+            "idSociedad": 1,
+            "razonSocial": "ELEKTRA",
+            "idTipoOperacion": 1,
+            "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
+            "idSubTipoOperacion": 1,
+            "descSubTipoOperacion": "GENERAL",
+            "idReglaMonetizacion": 1,
+            "tipoComprobante": 1,
+            "tipoFactura": 1
+        },
+        {
+            "idSociedad": 2,
+            "razonSocial": "UPAX S.A. DE C.V.",
+            "idTipoOperacion": 11,
+            "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
+            "idSubTipoOperacion": 1,
+            "descSubTipoOperacion": "GENERICO",
+            "idReglaMonetizacion": 33,
+            "tipoComprobante": 1,
+            "tipoFactura": 1
+        },
+        {
+            "idSociedad": 3,
+            "razonSocial": "TV AZTECA S.A.B. DE C.V.",
+            "idTipoOperacion": 10,
+            "descripcionTipoOperacion": "NOTICIAS",
+            "idSubTipoOperacion": 1,
+            "descSubTipoOperacion": "GENERICO",
+            "idReglaMonetizacion": 1,
+            "tipoComprobante": 1,
+            "tipoFactura": 1
+        },
+        {
+            "idSociedad": 4,
+            "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
+            "idTipoOperacion": 10,
+            "descripcionTipoOperacion": "VENTA DE SEGUROS",
+            "idSubTipoOperacion": 0,
+            "descSubTipoOperacion": "GENERICO",
+            "idReglaMonetizacion": 1,
+            "tipoComprobante": 1,
+            "tipoFactura": 1
+        }
+    ],
+    "sociedades":[
+        {
+            "idSociedad": 1,
+            "razonSocial": "ELEKTRA"
+        },
+        {
+            "idSociedad": 2,
+            "razonSocial":"UPAX S.A. DE C.V."
+        },
+        {
+            "idSociedad": 3,
+            "razonSocial": "TV AZTECA S.A.B. DE C.V."
+        },
+        {
+            "idSociedad": 4,
+            "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+        }
+    ],
+    "operaciones":[
+        {
+            "idOperacion": 1,
+            "descripcionOperacion":"COLOCACION DE CREDITO - CLIENTES NUEVOS"
+        },
+        {
+            "idOperacion": 2,
+            "descripcionOperacion":"CHAT Y RED SOCIAL"
+        },
+        {
+            "idOperacion": 3,
+            "descripcionOperacion":"NOTICIAS"
+        },
+        {
+            "idOperacion": 4,
+            "descripcionOperacion":"VENTA DE SEGUROS"
+        }
+    ],
+    "subOperacion":[
+        {
+            "idSubOperacion": 1,
+            "descripcionSubOperacion":"GENERICO" 
+        },
+        {
+            "idOperacion": 2,
+            "descripcionOperacion":"GENERAL"
+        }
+    ],
+    "tipoComprobante":[
+        {
+            "idTipoComprobante": 1,
+            "descripcionTipoComprobante":"1" 
+        },
+        {
+            "idTipoComprobante": 2,
+            "descripcionTipoComprobante":"2"
+        }
+    ],
+    "tipoFactura":[
+        {
+            "idSubOperacion": 1,
+            "descripcionSubOperacion":"1" 
+        },
+        {
+            "idOperacion": 2,
+            "descripcionOperacion":"2"
+        }
+    ]
+}
+}

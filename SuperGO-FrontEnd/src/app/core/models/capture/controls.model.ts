@@ -266,7 +266,7 @@ export class Control {
   setDropDownValue(control: Control, valor:any) {
 
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.value === valor.toString();
+        return opcion.ky === valor;
         }).map((opcion) => {
           return opcion.ky;
           });
@@ -318,7 +318,7 @@ export class Control {
             break;
 
           case 'dropdown':
-            ctrl.setAttributeValueByName("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
+            ctrl.setAttributeValueByNameDropdown("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
             break;
 
           case 'textboxInfo':
@@ -420,6 +420,31 @@ export class Control {
     else {
       if (this.attributes) {
         this.attributes.push(JSON.parse(`{"${name}":"${value}"}`));
+      }
+    }
+  }
+
+  //JA.DEJESUS
+  setAttributeValueByNameDropdown(name: string, value: any) {
+    let elem: any = this.findAttributeByName(name);
+    if (elem != null) {
+      elem[name] = value;
+    }
+    else {
+      if (this.attributes) {
+        var data:any;
+        for(data of this.attributes){
+          if (Object.keys(data).length === 0){
+            data.value = value;
+            break;
+          }
+        }
+        // this.attributes.forEach((data:any)=> {
+        //   if (Object.keys(data).length === 0){
+        //     data.value = value;
+        //   }
+        // });
+        // this.attributes[0].value = value;
       }
     }
   }

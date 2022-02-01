@@ -3,13 +3,14 @@ import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 //ENVIROMENT
 import { environment } from '@env/environment';
-//SERVICES
+//SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
 
 @Injectable({
     providedIn:'root'
 })
-export class FormOperationsService{
+
+export class FormInvoicesService {
     private readonly angularSecurity: AngularSecurity;
     private _urlEnviroment:string|null;
 
@@ -34,31 +35,26 @@ export class FormOperationsService{
     }
 
     private get _requestForm(){
-
-        return { "idRequest": "14" };
+        return { "idRequest": "15" };
     }
-
-    getForm():Observable<any>
+	
+	
+	getForm():Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
     }
 
-    // getInfoOperation():Observable<any>
+    getInfoInvoices(){
+        return this.httpClient.get('/assets/dataTables/dataInvoices.json');
+    }
+
+    insertInvoice(dataInvoice:any){
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
+    }
+
+    // getForm():Observable<any>
     // {
-    //     return this.httpClient.get(`http://10.112.210.69:8080/Monetizador-0.0.1/tipoOperacion/get`);
+    //     return this.httpClient.get('assets/json/jsonFacturas.json');
     // }
-
-    getInfoOperation():Observable<any> //JSON de prueba local
-    {
-        return this.httpClient.get('/assets/dataTables/dataOperation.json');
-    }
-
-    insertOperation(dataBody:any):Observable<any>{
-        return this.httpClient.post(`http://10.112.210.69:8080/Monetizador-0.0.1/tipoOperacion/post`, dataBody);
-    }
-
-    updateOperation(dataBody:any):Observable<any>{
-        return this.httpClient.put(`http://10.112.210.69:8080/Monetizador-0.0.1/tipoOperacion/put`, dataBody);
-    }
 
 }
