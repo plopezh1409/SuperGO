@@ -16,7 +16,7 @@ export class AccountingTablesComponent implements OnInit {
 
   @Input()dataInfo:Contabilidad[];
   dataSource:MatTableDataSource<Contabilidad>;
-  displayedColumns: string[] = ['idSociedad', 'idTipoOperacion', 'idSubtipoOperacion', 'idReglaMonetizacion','numeroApunte','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'descripcionReglaMonetizacion','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number = 0;
   pageEvent: PageEvent;
 

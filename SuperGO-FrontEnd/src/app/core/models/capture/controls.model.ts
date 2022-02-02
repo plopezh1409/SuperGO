@@ -285,6 +285,14 @@ export class Control {
     return dataModal;
   }
 
+  getValueForSettings(dataModal:any,indexF:Number,indexL:Number){
+    dataModal = Object.values(dataModal).map((data:any) =>{
+      return dataModal[data] = Object.values(data);
+    });
+
+    return dataModal;
+  }
+
   setDataToControls( containers:Container[],dataModal:any) {
     containers.forEach((cont: Container) => {
 

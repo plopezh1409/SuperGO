@@ -64,7 +64,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   }
 
   update(){
-    if(this.authService.isAuthenticated())
+    if(!this.authService.isAuthenticated())
       this.close();
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({

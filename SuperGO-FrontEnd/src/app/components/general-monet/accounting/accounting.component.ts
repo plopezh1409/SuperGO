@@ -5,6 +5,8 @@ import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 import { AccountingTablesComponent } from './accounting-tables/accounting-tables.component';
+import swal from 'sweetalert2';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-accounting',
@@ -36,27 +38,7 @@ export class AccountingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("GeneralComponent ngOnInit");
-    this.formCatService.getForm().subscribe((data:any)=>{
-      this.containers = data.response;      
-      this.reactiveForm.setContainers(this.containers);
-    });
-
-    this.dataInfo=[{idSociedad:'BANCO AZTECA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'4% SOBRE EL MONTO COLOCADO',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'BANCO AZTECA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'9% SOBRE EL MONTO COLOCADO',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'BANCO AZTECA',idTipoOperacion:'CREDITO AL CONSUMO Y NEGOCIOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'5% SOBRE EL CREDITO COLOCADO',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'BANCO AZTECA',idTipoOperacion:'TARJETAS DE CREDITO',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'1.25% SOBRE EL LIMTE DE CREDITO',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'SAZ',idTipoOperacion:'SEGUROS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'5% SOBRE EL MONTO DE LA POLIZA COLOCADA',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'ELEKTRA',idTipoOperacion:'MIS PAGOS - PAGOS DE SERVICIOS, TIEMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'50% DE LA COMICION BACK (NETA DE COSTOS DE TRANSACCION)',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'ELEKTRA',idTipoOperacion:'VENTA DE MERCANCIA',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'3.5% SOBRE EL TICKET',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'ELEKTRA',idTipoOperacion:'MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'20% DE LA COMISION AL FRONT',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'ELEKTRA',idTipoOperacion:'MI NEGOCIO - PAGO DE SERVICIOS, TIMPO AIRE, TARJETAS DE PREPAGO, ABONO A CREDITOS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'50% DE LA COMICION BACK (NETA DE COSTOS DE TRANSACCION)',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'TOTALPLAY',idTipoOperacion:'PELICULAS ON DEMAND',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'3% DE COMISION SOBRE EL PRECIO DE VENTA',contabilidadDiaria:'D',numeroApunte:"2",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'TOTALPLAY',idTipoOperacion:'WIFI PASS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'10% DE COMISION SOBRE EL PRECIO DE VENTA',contabilidadDiaria:'D',numeroApunte:"3",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'TV AZTECA',idTipoOperacion:'TV EN VIVO Y NOTICIAS',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'60% DE LOS INGRESOS POR VENTA DE PUBLICIDAD VISTA EN SUPERAPP',contabilidadDiaria:'D',numeroApunte:"4",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    {idSociedad:'UPAX',idTipoOperacion:'CHAT Y RED SOCIAL',idSubtipoOperacion:'GENERAL',idReglaMonetizacion:'REGLA1',contabilidadDiaria:'D',numeroApunte:"1",sociedad:"1234567",tipoCuenta:"Interna",cuentaSAP:"123456MOV",claseDocumento:"123456MOV",concepto:"1234567",centroDestino:"1234567",indicadorIVA:"S",indicadorOperacion:"C",fechaInicioVigencia:"12/12/2021",fechaFinVigencia:"12/12/2022"} as Contabilidad,
-    ];
-
+    this.fillDataPage();
   }
 
   onSubmit()
@@ -70,4 +52,97 @@ export class AccountingComponent implements OnInit {
       this.catalogsTable.onLoadTable(this.dataInfo);     
     }    
   }
+
+  async fillDataPage(){
+    this.appComponent.showLoader(true);
+    let dataForm = await this.formCatService.getForm().toPromise().catch((err) =>{
+      return err;
+    });
+    var dataAcco = await this.formCatService.getInfoAccounting().toPromise().catch((err) =>{
+      return err;
+    });
+    this.appComponent.showLoader(false);
+    if(dataForm.code !== 200){
+      this.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataAcco.code !== 200) {
+      this.showMessageError(dataAcco.message, dataAcco.code);
+    }
+    else{
+      this.containers = dataForm.response.reactiveForm;//this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response.canal);
+      this.dataInfo = dataAcco.response.registrosContables;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      this.catalogsTable.onLoadTable(this.dataInfo);
+    }
+  }
+
+  showMessageError(menssage:string, code:number){
+        switch (code) {
+          case 400: //Solicitud incorrecta
+            swal.fire({
+              icon: 'warning',
+              title: 'Solicitud incorrecta',
+              text: menssage,
+              heightAuto: false
+            });
+            break;
+          case 404://No autorizado
+            swal.fire({
+              icon: 'warning',
+              title: 'No autorizado',
+              text: menssage,
+              heightAuto: false
+            });
+            break;
+          case 500://Error Inesperado
+            swal.fire({
+              icon: 'error',
+              title: 'Error inesperado',
+              text: menssage,
+              heightAuto: false
+            });
+            break;
+          default:
+            swal.fire({
+              icon: 'error',
+              title: 'Error inesperado',
+              text: "Intente de nuevo",
+              heightAuto: false
+            });
+            break;
+        }
+      }
+
+      updateTable(){
+        this.appComponent.showLoader(true);
+        this.formCatService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+        subscribe((data:any)=>{
+          switch (data.code) {
+            case 200:
+              this.dataInfo = data.response;
+              this.catalogsTable.onLoadTable(this.dataInfo);
+            break;
+        case 400: //Solicitud incorrecta
+        case 401:
+        case 500:
+        default:
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            heightAuto: false
+          });
+        break;
+        }
+    },(err:any) => {
+      swal.fire({
+        icon: 'error',
+        title: 'Error inesperado',
+        text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+        heightAuto: false
+      });      
+    });
+  }
+
 }
