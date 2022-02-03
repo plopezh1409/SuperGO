@@ -6,6 +6,8 @@ import { environment } from '@env/environment';
 //SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
 
+import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
+
 @Injectable({
     providedIn:'root'
 })
@@ -50,6 +52,11 @@ export class FormAccountingsService{
     getInfoAccounting()
     {
         return this.httpClient.get('/assets/dataTables/dataAccounting.json');
+    }
+
+    insertAccounting(dataAccounting:Contabilidad)
+    {
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
     }
 
 

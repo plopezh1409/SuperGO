@@ -97,6 +97,16 @@
                 "idOperacion": 2,
                 "descripcionOperacion":"GENERAL"
             }
+        ],
+        "monetizacion":[
+            {
+                "idMonetizacion": 1,
+                "descripcionMonetizacion":"4% Sobre el monto colocado"
+            },
+            {
+                "idMonetizacion": 2,
+                "descripcionMonetizacion":"20% Sobre el monto colocado"
+            }
         ]
     }
     }

@@ -160,7 +160,7 @@ export class societiescomponent implements OnInit {
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.tipoSociedad);
-      this.dataInfo = dataOper.response;
+      this.dataInfo = dataOper. response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
