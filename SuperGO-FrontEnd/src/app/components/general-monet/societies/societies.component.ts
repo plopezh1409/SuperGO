@@ -47,8 +47,8 @@ export class societiescomponent implements OnInit {
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: 'warning',
+        title: 'Campos requeridos',
         text: 'Complete los campos faltantes',
         heightAuto: false
       });

@@ -6,7 +6,6 @@ import { Facturas } from '@app/core/models/facturas/facturas.model';
 import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
 import { invoicesTableComponent } from './invoices-table/invoices-table.component';
 import swal from 'sweetalert2';
-import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +15,6 @@ import { finalize } from 'rxjs/operators';
 })
 
 export class invoicesComponent implements OnInit {
-
   formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   containers:Container[];

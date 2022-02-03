@@ -33,3 +33,11 @@ node/
 .scannerwork/css-bundle/package/yarn.lock
 .scannerwork/css-bundle/stylelintconfig.json
 .scannerwork/report-task.txt
+.scannerwork/scanner-report/syntax-highlightings-97.pb
+.scannerwork/.sonartmp/eslint-bridge-bundle/package/bin/server
+*.ts
+*.js
+*.map
+*.tsbuildinfo
+*.json
+*.pb

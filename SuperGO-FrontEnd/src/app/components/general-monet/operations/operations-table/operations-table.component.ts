@@ -49,6 +49,7 @@ export class OperationsTableComponent implements OnInit {
   }
 
 open(element:any){
+  return(
     this.refData?.open(UpdateModalOperationsComponent,{
       data:{
         dataModal:element,
@@ -61,7 +62,9 @@ open(element:any){
           this.dataInfo = oData.data;
           this.onLoadTable(this.dataInfo);
         }
-    });
+    })
+  );
+   
   }
 
   show(element:any):void{

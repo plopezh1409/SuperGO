@@ -5,6 +5,7 @@ import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
 import { MonetizationTableComponent } from './monetization-table/monetization-table.component';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-monetization',
@@ -50,6 +51,15 @@ export class MonetizationComponent implements OnInit {
 
   onSubmit()
   {
+    if(!this.reactiveForm.principalForm?.valid){
+      swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Complete los campos faltantes',
+        heightAuto: false
+      });
+      return;
+    }
     let obj:Monetizacion = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['MONETIZACION'] as Monetizacion;
     
     this.dataInfo.push(obj);

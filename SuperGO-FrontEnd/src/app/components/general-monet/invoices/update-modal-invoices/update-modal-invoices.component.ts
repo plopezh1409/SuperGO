@@ -57,7 +57,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
   getIdInvoice(){
     let oData:{[k:string]:any}={};
     var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key]);
+    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
 
@@ -140,9 +140,9 @@ export class UpdateModalInvoicesComponent implements OnInit {
 
   close(){
     let oResponse:ResponseTable= new ResponseTable();
-    this.refData?.close(oResponse);
+    return(this.refData?.close(oResponse));
   }
-
+    
    ngAfterViewChecked(): void {
     this.changeDetectorRef.detectChanges();
   }
@@ -176,20 +176,21 @@ export class UpdateModalInvoicesComponent implements OnInit {
           case 200: //Se modifico el registro correctamente
             oResponse.status = true;
             oResponse.data = response.response;
-            this.refData?.close(oResponse);
-          break;
+            return(this.refData?.close(oResponse));
           case 400:
           case 401:
           case 500:
           default:
-            this.refData?.close(oResponse);
-            swal.fire({
-              icon: 'error',
-              title:'Error',
-              text: 'Ocurrio un error inesperado, intente más tarde.',
-              heightAuto: false
-            });
-            break;
+            return(
+              this.refData?.close(oResponse),
+              swal.fire({
+                icon: 'error',
+                title:'Error',
+                text: 'Ocurrio un error inesperado, intente más tarde.',
+                heightAuto: false
+              })
+            );
+           
         }
       }, (err:any) => {
         swal.fire({

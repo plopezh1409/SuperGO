@@ -60,19 +60,21 @@ export class invoicesTableComponent implements OnInit {
     delete oEle.descripcionTipoOperacion
     delete oEle.descSubTipoOperacion
     delete oEle.idReglaMonetizacion
-    this.refData?.open(UpdateModalInvoicesComponent,{
-      data:{
-        dataModal:oEle,
-        keys:Object.keys(oEle),
-        auxForm:this.containers
-      }
-    }).afterClosed().subscribe((oData:any)=> {
-      if(oData !== undefined)
-        if(oData.status === true){
-          this.dataInfo = oData.data;
-          this.onLoadTable(this.dataInfo);
+    return(
+      this.refData?.open(UpdateModalInvoicesComponent,{
+        data:{
+          dataModal:oEle,
+          keys:Object.keys(oEle),
+          auxForm:this.containers
         }
-    });
+      }).afterClosed().subscribe((oData:any)=> {
+        if(oData !== undefined)
+          if(oData.status === true){
+            this.dataInfo = oData.data;
+            this.onLoadTable(this.dataInfo);
+          }
+      })
+    );
   }
 
   show(element:any):void{
