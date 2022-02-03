@@ -16,7 +16,7 @@ import { finalize } from 'rxjs/operators';
 
 export class AccountingComponent implements OnInit {
 
-  formCatService:FormAccountingsService;
+  accountService:FormAccountingsService;
   reactiveForm:ReactiveForm;
   containers:Container[];
   maxNumControls=10;
@@ -27,7 +27,7 @@ export class AccountingComponent implements OnInit {
 
 
   constructor( private readonly appComponent: AppComponent, private injector:Injector) { 
-    this.formCatService = this.injector.get<FormAccountingsService>(FormAccountingsService);
+    this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new AccountingTablesComponent();
     this.containers=[];
@@ -41,24 +41,102 @@ export class AccountingComponent implements OnInit {
     this.fillDataPage();
   }
 
-  onSubmit()
+  onSubmit(value:any)
   {
-    let obj:Contabilidad = JSON.parse(this.reactiveForm.getInfoByJsonFormat(this.containers))['CONTABILIDAD'] as Contabilidad;
+    if(!this.reactiveForm.principalForm?.valid){
+      swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Complete los campos faltantes',
+        heightAuto: false
+      });
+      return;
+    }
     
-    this.dataInfo.push(obj);
-    
-    if(this.catalogsTable)
-    {
-      this.catalogsTable.onLoadTable(this.dataInfo);     
-    }    
+    let dataBody;
+    for(var datas of Object.values(value)){
+      dataBody = Object(datas);
+    }
+
+    var oConta:Contabilidad =  new Contabilidad();
+    oConta.idSociedad = dataBody.sociedad;
+    oConta.idTipoOperacion = dataBody.operacion;
+    oConta.idSubtipoOperacion = dataBody.subOperacion;
+    oConta.idReglaMonetizacion = dataBody.monetizacion;
+    oConta.contabilidadDiaria = dataBody.contabilidadDiaria;
+    oConta.numeroApunte = dataBody.numeroDeApunte;
+    oConta.sociedad = dataBody.sociedadGl;
+    oConta.tipoCuenta = dataBody.tipoCuenta;
+    oConta.cuentaSAP = dataBody.cuentaSap;
+    oConta.claseDocumento = dataBody.claseDeDocumento;
+    oConta.concepto = dataBody.concepto;
+    oConta.centroDestino = dataBody.centroDestino;
+    oConta.indicadorIVA = dataBody.IVA;
+    oConta.indicadorOperacion = dataBody.cargoAbono;
+
+    /*this.appComponent.showLoader(true);
+    this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
+    .subscribe((data:any)=>{
+      console.log(data);
+      switch (data.code) {
+        case 201: //Solicitud correcta
+        swal.fire({
+          icon: 'success',
+          title: 'Solicitud correcta',
+          text: data.menssage,
+          heightAuto: false,
+          confirmButtonText: "Ok",
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.reactiveForm.setContainers(this.containers);
+            this.updateTable();
+          }
+        });
+          break;
+        case 400: //Solicitud incorrecta
+          swal.fire({
+            icon: 'warning',
+            title: 'Solicitud incorrecta',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        case 401://No autorizado
+          swal.fire({
+            icon: 'warning',
+            title: 'No autorizado',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        case 500://Error Inesperado
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: data.menssage,
+            heightAuto: false
+          });
+          break;
+        default:
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: "Intente mas tarde",
+            heightAuto: false
+          });
+          break;
+        }
+    });*/
+
   }
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.formCatService.getForm().toPromise().catch((err) =>{
+    let dataForm = await this.accountService.getForm().toPromise().catch((err) =>{
       return err;
     });
-    var dataAcco = await this.formCatService.getInfoAccounting().toPromise().catch((err) =>{
+    var dataAcco = await this.accountService.getInfoAccounting().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
@@ -69,13 +147,56 @@ export class AccountingComponent implements OnInit {
       this.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
-      this.containers = dataForm.response.reactiveForm;//this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response.canal);
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
       this.dataInfo = dataAcco.response.registrosContables;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
+
+  addDataDropdown(dataForm:any, dataContent:any){
+    var cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.registrosContables
+    Object.entries(cpDataContent).map(([key, value]:any, idx:number) =>{
+      value.forEach((ele:any) => {
+        Object.entries(ele).map(([key, value]:any, idx:number) => {
+          if(typeof value === 'number'){
+            ele['ky'] = ele[key];
+            delete ele[key];
+          }
+          else{
+            ele['value'] = ele[key];
+            delete ele[key];
+          }
+        });
+      });
+    });
+    dataForm.forEach((element:any) => {
+      element.controls.forEach((ctrl:any) => {
+        if(ctrl.controlType === 'dropdown'){
+          if(ctrl.ky === 'sociedad'){
+            ctrl.content.contentList = cpDataContent.sociedades;
+            ctrl.content.options = cpDataContent.sociedades;
+          }
+          else if (ctrl.ky === 'operacion'){
+            ctrl.content.contentList = cpDataContent.operaciones;
+            ctrl.content.options = cpDataContent.operaciones;
+          }
+          else if (ctrl.ky === 'subOperacion'){
+            ctrl.content.contentList = cpDataContent.subOperacion;
+            ctrl.content.options = cpDataContent.subOperacion;
+          }
+          else if (ctrl.ky === 'monetizacion'){
+            ctrl.content.contentList = cpDataContent.monetizacion;
+            ctrl.content.options = cpDataContent.monetizacion;
+          }
+        }
+      });
+    });
+    return dataForm;
+  }
+
 
   showMessageError(menssage:string, code:number){
         switch (code) {
@@ -116,7 +237,7 @@ export class AccountingComponent implements OnInit {
 
       updateTable(){
         this.appComponent.showLoader(true);
-        this.formCatService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+        this.accountService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
         subscribe((data:any)=>{
           switch (data.code) {
             case 200:
