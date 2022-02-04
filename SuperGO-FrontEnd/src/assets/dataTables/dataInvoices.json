@@ -10,42 +10,42 @@
             "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
             "idSubTipoOperacion": 2,
             "descSubTipoOperacion": "GENERAL",
-            "idReglaMonetizacion": 2,
             "tipoComprobante": 1,
-            "tipoFactura": 1
+            "tipoFactura": 1,
+            "idReglaMonetizacion": 2
         },
         {
             "idSociedad": 2,
             "razonSocial": "UPAX S.A. DE C.V.",
-            "idTipoOperacion": 11,
+            "idTipoOperacion": 2,
             "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
             "idSubTipoOperacion": 1,
             "descSubTipoOperacion": "GENERICO",
-            "idReglaMonetizacion": 33,
             "tipoComprobante": 1,
-            "tipoFactura": 1
+            "tipoFactura": 1,
+            "idReglaMonetizacion": 1
         },
         {
             "idSociedad": 3,
             "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-            "idTipoOperacion": 10,
+            "idTipoOperacion": 3,
             "descripcionTipoOperacion": "NOTICIAS",
             "idSubTipoOperacion": 1,
             "descSubTipoOperacion": "GENERICO",
-            "idReglaMonetizacion": 1,
             "tipoComprobante": 1,
-            "tipoFactura": 1
+            "tipoFactura": 1,
+            "idReglaMonetizacion": 1
         },
         {
             "idSociedad": 4,
             "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
-            "idTipoOperacion": 10,
+            "idTipoOperacion": 4,
             "descripcionTipoOperacion": "VENTA DE SEGUROS",
-            "idSubTipoOperacion": 0,
+            "idSubTipoOperacion": 1,
             "descSubTipoOperacion": "GENERICO",
-            "idReglaMonetizacion": 1,
             "tipoComprobante": 1,
-            "tipoFactura": 1
+            "tipoFactura": 1,
+            "idReglaMonetizacion": 1
         }
     ],
     "sociedades":[
@@ -112,6 +112,16 @@
         {
             "idOperacion": 2,
             "descripcionOperacion":"2"
+        }
+    ],
+    "monetizacion":[
+        {
+            "idMonetizacion": 1,
+            "descripcionMonetizacion":"1" 
+        },
+        {
+            "idMonetizacion": 2,
+            "descripcionMonetizacion":"2"
         }
     ]
 }

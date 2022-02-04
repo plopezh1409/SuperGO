@@ -59,13 +59,13 @@ export class invoicesTableComponent implements OnInit {
     delete oEle.razonSocial;
     delete oEle.descripcionTipoOperacion
     delete oEle.descSubTipoOperacion
-    delete oEle.idReglaMonetizacion
+    var _auxForm = this.disabledFieldSociety(this.containers);
     return(
       this.refData?.open(UpdateModalInvoicesComponent,{
         data:{
           dataModal:oEle,
           keys:Object.keys(oEle),
-          auxForm:this.containers
+          auxForm:_auxForm
         }
       }).afterClosed().subscribe((oData:any)=> {
         if(oData !== undefined)
@@ -101,6 +101,17 @@ export class invoicesTableComponent implements OnInit {
     }).then(result=>{
       if (result.isConfirmed) {}
     });
+  }
+
+  disabledFieldSociety(_auxForm:any){
+    let element:any; let ctrl:any;
+    for(element of _auxForm)
+      for(ctrl of element.controls) 
+        if(ctrl.ky === 'sociedad'){
+          ctrl.disabled = true;
+          break;
+        }
+    return _auxForm;
   }
 
 }

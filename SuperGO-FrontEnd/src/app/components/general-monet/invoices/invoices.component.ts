@@ -39,11 +39,6 @@ export class invoicesComponent implements OnInit {
   ngOnInit(): void {
     console.log("GeneralComponent ngOnInit");
     this.fillDataPage();
-    // this.formInvoicesService.getForm().subscribe((data:any)=>{
-    //   this.containers = data.response;      
-    //   this.reactiveForm.setContainers(this.containers);
-    // });
-    // this.dataInfo=[{idSociedad:'ELEKTRA',idTipoOperacion:'COLOCACION DE CREDITO - CLIENTES NUEVOS', idSubTipoOperacion:"GENERAL",idReglaMonetizacion:'REGLA1',tipoComprobante:'COMPROBANTE1',tipoFactura:"FACTURA"} as Facturas];
   }
 
   async fillDataPage(){
@@ -64,7 +59,6 @@ export class invoicesComponent implements OnInit {
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
       this.dataInfo = dataOper.response;
-      this.containers = dataForm.response.reactiveForm;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
@@ -191,7 +185,11 @@ export class invoicesComponent implements OnInit {
           else if (ctrl.ky === 'tipoDeFactura'){
             ctrl.content.contentList = cpDataContent.tipoFactura;
             ctrl.content.options = cpDataContent.tipoFactura;
-          } 
+          }
+          else if (ctrl.ky === 'monetizacion'){
+            ctrl.content.contentList = cpDataContent.monetizacion;
+            ctrl.content.options = cpDataContent.monetizacion;  
+          }
         }
       });
     });

@@ -10,8 +10,17 @@
                 "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
                 "idSubTipoOperacion": 2,
                 "descSubTipoOperacion": "GENERAL",
-                "idReglaMonetizacion": 2,
-                "descripcionReglaMonetizacion":"4% SOBRE EL MONTO COLOCADO",
+                "contabilidadDiaria":"D",
+                "numeroApunte":"10",
+                "sociedadGL":"GL902",
+                "tipoCuenta":"M",
+                "indicadorOperacion":"C",
+                "claseDocumento":"SA",
+                "concepto":"COMISION PAGO DE SERVICIOS",
+                "centroDestino":"0629",
+                "indicadorIva":"AA",
+                "cuentaSap":"1309213442",
+                "idReglaMonetizacion": 1,
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -24,6 +33,7 @@
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 33,
                 "descripcionReglaMonetizacion":"9% SOBRE EL MONTO COLOCADO",
+                "numeroApunte":"10",
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -36,6 +46,7 @@
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "descripcionReglaMonetizacion": "4% SOBRE EL MONTO COLOCADO",
+                "numeroApunte":"10",
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -48,6 +59,7 @@
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "descripcionReglaMonetizacion":"5% SOBRE EL CREDITO COLOCADO",
+                "numeroApunte":"10",
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             }

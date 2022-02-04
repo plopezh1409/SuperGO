@@ -3,6 +3,7 @@ export class Facturas
     idSociedad:number;
     idTipoOperacion:number;
     idSubTipoOperacion:number;
+    idReglaMonetizacion:number;
     tipoComprobante:number;
     tipoFactura:number;
 
@@ -10,6 +11,7 @@ export class Facturas
         this.idSociedad = 0;
         this.idTipoOperacion = 0;
         this.idSubTipoOperacion = 0;
+        this.idReglaMonetizacion = 0;
         this.tipoComprobante = 0;
         this.tipoFactura = 0;
     }

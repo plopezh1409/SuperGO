@@ -59,6 +59,10 @@ export class FormAccountingsService{
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
     }
 
+    updateAccounting(dataAccounting:Contabilidad){
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
+    }
+
 
 
 }

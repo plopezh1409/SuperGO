@@ -45,13 +45,6 @@ export class UpdateModalInvoicesComponent implements OnInit {
     this.idInvoice = this.getIdInvoice();
     this.control.setDataToControls(this.containers,this.control.getValueForSettings(this.dataModal,1,1));
     this.reactiveForm.setContainers(this.containers);
-    // this.formCatService.getForm().subscribe((data:any)=>{
-    //   this.containers = data.response;
-    //   this.reactiveForm.setContainers(this.containers);
-    //   this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
-    //   this.reactiveForm.setContainers(this.containers);
-    // });
-
   }
 
   getIdInvoice(){
@@ -62,7 +55,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
   }
 
   update(){
-    if(this.authService.isAuthenticated())
+    if(!this.authService.isAuthenticated())
       this.close();
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -76,13 +69,13 @@ export class UpdateModalInvoicesComponent implements OnInit {
 
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idInvoice);
     var oInvoice:Facturas =  new Facturas();
-    oInvoice.idSociedad = jsonResult.sociedad;
+    oInvoice.idSociedad = jsonResult.idSociedad;
     oInvoice.idTipoOperacion = jsonResult.operacion;
     oInvoice.idSubTipoOperacion = jsonResult.subOperacion;
     oInvoice.tipoComprobante = jsonResult.tipoDeComprobante;
     oInvoice.tipoFactura = jsonResult.tipoDeFactura;
-
-    this.showLoader(true);
+    oInvoice.idReglaMonetizacion = jsonResult.monetizacion;
+    /*this.showLoader(true);
     this.formInvService.updateInvoce(oInvoice)
       .pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
@@ -135,7 +128,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
           text: 'Por el momento no podemos proporcionar tu Solicitud.',
           heightAuto: false
         });
-      });
+      });*/
   }
 
   close(){

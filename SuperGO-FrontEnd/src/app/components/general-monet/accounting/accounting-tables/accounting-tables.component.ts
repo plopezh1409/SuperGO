@@ -19,6 +19,7 @@ export class AccountingTablesComponent implements OnInit {
   displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'descripcionReglaMonetizacion','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number = 0;
   pageEvent: PageEvent;
+  containers:any;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -32,49 +33,85 @@ export class AccountingTablesComponent implements OnInit {
     this.onLoadTable(this.dataInfo);
   }
 
-  open(){
-    return(
-      this.refData?.open(UpdateModalAccountingComponent)
-    );
-   
-  }
-
   onLoadTable(dataInfo:Contabilidad[])  
   {
     console.log("onLoadTable");
+    var auxForm:any = localStorage.getItem("_auxForm");
+    this.containers = JSON.parse(auxForm);
     this.dataInfo=dataInfo;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
- 
-
-
-
-
+  open(element:any){
+    let oEle = Object.assign({}, element);
+    delete oEle.razonSocial;
+    delete oEle.descripcionTipoOperacion
+    delete oEle.descSubTipoOperacion
+    delete oEle.descripcionReglaMonetizacion
+    delete oEle.fechaInicioVigencia
+    delete oEle.fechaFinVigencia
+    oEle.contabilidadDiaria = oEle.contabilidadDiaria == "D"?"true":"false";
+    oEle.indicadorIva = oEle.indicadorIva == "AA"?"true":"false";
+    oEle.indicadorOperacion = oEle.indicadorOperacion == "C"?"true":"false";
+    var _auxForm = this.disabledFieldSociety(this.containers);
+    return( this.refData?.open(UpdateModalAccountingComponent,{
+      data:{
+        dataModal:oEle,
+        keys:Object.keys(oEle),
+        auxForm:_auxForm
+      }
+    }).afterClosed().subscribe((oData:any)=>{
+      if(oData !== undefined)
+        if(oData.status === true){
+          this.dataInfo = oData.data;
+          this.onLoadTable(this.dataInfo);
+        }
+    }));
+  }
 
   show(element:any):void{
-    let keys = Object.keys(element);
+    var oElement = Object.assign({} , element);
+    delete oElement.idSociedad;
+    delete oElement.idReglaMonetizacion;
+    delete oElement.idSubTipoOperacion;
+    delete oElement.idTipoOperacion;
+    oElement.contabilidadDiaria = oElement.contabilidadDiaria == "true"?"CONTABILIDAD DIARIA":"CONTABILIDAD AL CORTE";
+    oElement.indicadorIva = oElement.indicadorIva == "true"?"APLICA IVA":"NO APLICA IVA";
+    oElement.indicadorOperacion = oElement.indicadorOperacion == "true"?"CARGO":"ABONO";
+    
+    let keys = Object.keys(oElement);
     let registro:string='';
-    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Contabilidad Diaria","Número De Apunte","Sociedad GL","Tipo Cuenta","Cuenta SAP","Clase Documento","Concepto","Centro Destino","IVA","Cargo/Abono","Fecha Inicio De Vigencia","Fecha Fin De Vigencia"]
+
+    let titulos:string[]=["Sociedad","Operación","Sub-Operación", "Contabilidad Diaria","Número de Apunte","Sociedad GL", "Tipo de Cuenta", "Indicador de Operación","Clase de Documento","Concepto","Centro Destino","IVA","Cuenta SAP","Monetización","Fecha Inicio De Vigencia","Fecha Fin De Vigencia"]
      
-    registro = registro.concat('<table class="tableInfoDel">');    
-    keys.forEach((k,index) => {
+    registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);            
+      keys.forEach((k,index) => {
       if(k!='Options')
       {   
-        registro = registro.concat(`<tr><td>${titulos[index]}</td><td>${element[k]}</td></tr>`);            
+        registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>${titulos[index]}</b></td><td style="padding:5px">${oElement[k]}</td></tr>`);            
       }      
     });
-    registro = registro.concat('</table>');    
     Swal.fire({             
-      html:`<div class="titModal"> Datos de la contabilidad </div><br/> <br/>${registro}`,
-      showCancelButton: false
+      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
+      showCancelButton: false,
+      width: '60%'
     }).then(result=>{
-      if (result.isConfirmed) {      
-        
-        
-      }
+      if (result.isConfirmed) {}
     });
   }
+
+  disabledFieldSociety(_auxForm:any){
+    let element:any; let ctrl:any;
+    for(element of _auxForm)
+      for(ctrl of element.controls) 
+        if(ctrl.ky === 'sociedad'){
+          ctrl.disabled = true;
+          break;
+        }
+    return _auxForm;
+  }
+
 }

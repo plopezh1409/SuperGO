@@ -18,6 +18,7 @@ export class MonetizationTableComponent implements OnInit {
   dataSource:MatTableDataSource<Monetizacion>;
   displayedColumns: string[] = ['idSociedad', 'idTipo', 'idSubtipo','fechaInicio','fechaFin','options', 'options2'];
   totalRows:number = 0;
+  containers:any;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -37,10 +38,12 @@ export class MonetizationTableComponent implements OnInit {
    
   }
 
-  onLoadTable(dataInfo:Monetizacion[])  
+  onLoadTable(dataInfo:any)  
   {
     console.log("onLoadTable");
-    this.dataInfo=dataInfo;  
+    var auxForm:any = localStorage.getItem("_auxForm");
+    this.containers = JSON.parse(auxForm);
+    this.dataInfo = dataInfo;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;

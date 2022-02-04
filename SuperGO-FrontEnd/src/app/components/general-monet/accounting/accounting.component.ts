@@ -63,7 +63,7 @@ export class AccountingComponent implements OnInit {
     oConta.idTipoOperacion = dataBody.operacion;
     oConta.idSubtipoOperacion = dataBody.subOperacion;
     oConta.idReglaMonetizacion = dataBody.monetizacion;
-    oConta.contabilidadDiaria = dataBody.contabilidadDiaria;
+    oConta.contabilidadDiaria = dataBody.contabilidadDiaria == "true"?"D":"C";
     oConta.numeroApunte = dataBody.numeroDeApunte;
     oConta.sociedad = dataBody.sociedadGl;
     oConta.tipoCuenta = dataBody.tipoCuenta;
@@ -71,8 +71,8 @@ export class AccountingComponent implements OnInit {
     oConta.claseDocumento = dataBody.claseDeDocumento;
     oConta.concepto = dataBody.concepto;
     oConta.centroDestino = dataBody.centroDestino;
-    oConta.indicadorIVA = dataBody.IVA;
-    oConta.indicadorOperacion = dataBody.cargoAbono;
+    oConta.indicadorIVA = dataBody.IVA == "true"? "AA":"NA";
+    oConta.indicadorOperacion = dataBody.cargoAbono == "true" ? "C": "A";
 
     /*this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
@@ -148,6 +148,7 @@ export class AccountingComponent implements OnInit {
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
+      console.log(this.containers);
       this.dataInfo = dataAcco.response.registrosContables;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
