@@ -39,7 +39,6 @@ export class UpdateModalAccountingComponent implements OnInit {
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
-    this.reactiveForm.setContainers(this.containers);
     this.idAccounting = this.getIdData();
     this.control.setDataToControls(this.containers,this.control.getValueForSettings(this.dataModal,1,1));
     this.reactiveForm.setContainers(this.containers);
@@ -48,6 +47,9 @@ export class UpdateModalAccountingComponent implements OnInit {
   update(){
     if(!this.authService.isAuthenticated())
       this.close();
+
+    this.disabledFieldSociety(false)
+    this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
         icon: 'warning',
@@ -55,6 +57,8 @@ export class UpdateModalAccountingComponent implements OnInit {
         text: 'Complete los campos faltantes',
         heightAuto: false
       });
+      this.disabledFieldSociety(true)
+      this.reactiveForm.setContainers(this.containers);
       return;
     }
 
@@ -66,7 +70,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.idReglaMonetizacion = jsonResult.monetizacion;
     oConta.contabilidadDiaria = jsonResult.contabilidadDiaria == "true"?"D":"C";
     oConta.numeroApunte = jsonResult.numeroDeApunte;
-    oConta.sociedad = jsonResult.sociedadGl;
+    oConta.sociedadGl = jsonResult.sociedadGl;
     oConta.tipoCuenta = jsonResult.tipoCuenta;
     oConta.cuentaSAP = jsonResult.cuentaSap;
     oConta.claseDocumento = jsonResult.claseDeDocumento;
@@ -74,10 +78,8 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.centroDestino = jsonResult.centroDestino;
     oConta.indicadorIVA = jsonResult.IVA == "true"? "AA":"NA";
     oConta.indicadorOperacion = jsonResult.cargoAbono == "true" ? "C": "A";
-
-
-    
-    this.showLoader(true);
+    console.log(oConta);
+    /*this.showLoader(true);
     this.accountingService.updateAccounting(oConta)
       .pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
@@ -130,7 +132,7 @@ export class UpdateModalAccountingComponent implements OnInit {
           text: 'Por el momento no podemos proporcionar tu Solicitud.',
           heightAuto: false
         });
-      });
+      });*/
   }
 
   getDataTable(){
@@ -188,9 +190,25 @@ export class UpdateModalAccountingComponent implements OnInit {
   showLoader(showLoad: boolean): void {
     setTimeout(() => {
       this.showLoad = showLoad;
-      console.log('showload', this.showLoad);
     }, this.loaderDuration);
   }
+
+  disabledFieldSociety(disabled:boolean){
+    let element:any; let ctrl:any;
+    for(element of this.containers)
+      for(ctrl of element.controls) 
+        if(ctrl.ky === 'sociedad'){
+          ctrl.disabled = disabled;
+          break;
+        }
+        else if(ctrl.ky === 'operacion'){
+          ctrl.disabled = true;
+        }
+        else if(ctrl.ky === 'subOperacion'){
+          ctrl.disabled = true;
+        }
+  }
+
 
 
 }

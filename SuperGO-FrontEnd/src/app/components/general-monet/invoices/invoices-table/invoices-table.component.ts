@@ -59,7 +59,7 @@ export class invoicesTableComponent implements OnInit {
     delete oEle.razonSocial;
     delete oEle.descripcionTipoOperacion
     delete oEle.descSubTipoOperacion
-    var _auxForm = this.disabledFieldSociety(this.containers);
+    var _auxForm = this.disabledFields(this.containers);
     return(
       this.refData?.open(UpdateModalInvoicesComponent,{
         data:{
@@ -103,13 +103,18 @@ export class invoicesTableComponent implements OnInit {
     });
   }
 
-  disabledFieldSociety(_auxForm:any){
+  disabledFields(_auxForm:any){
     let element:any; let ctrl:any;
     for(element of _auxForm)
       for(ctrl of element.controls) 
         if(ctrl.ky === 'sociedad'){
           ctrl.disabled = true;
-          break;
+        }
+        else if(ctrl.ky === 'operacion'){
+          ctrl.disabled = true;
+        }
+        else if(ctrl.ky === 'subOperacion'){
+          ctrl.disabled = true;
         }
     return _auxForm;
   }

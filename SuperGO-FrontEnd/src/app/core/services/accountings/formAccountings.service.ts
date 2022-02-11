@@ -42,16 +42,20 @@ export class FormAccountingsService{
     getForm():Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
-    }
+    //  return this.httpClient.get('assets/json/jsonContabilidad.json');
 
-    // getForm():Observable<any>
-    // {
-    //     return this.httpClient.get('assets/json/jsonContabilidad.json');
-    // }
+    }
 
     getInfoAccounting()
     {
         return this.httpClient.get('/assets/dataTables/dataAccounting.json');
+    }
+
+    getAccountingById(dataAccount:Contabilidad)
+    {
+        return this.httpClient.get('/assets/dataTables/dataAccountingBusqueda.json');
+        // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
+   
     }
 
     insertAccounting(dataAccounting:Contabilidad)
