@@ -154,7 +154,6 @@ export class UpdateModalOperationsComponent implements OnInit {
   showLoader(showLoad: boolean): void {
     setTimeout(() => {
       this.showLoad = showLoad;
-      console.log('showload', this.showLoad);
     }, this.loaderDuration);
   }
 

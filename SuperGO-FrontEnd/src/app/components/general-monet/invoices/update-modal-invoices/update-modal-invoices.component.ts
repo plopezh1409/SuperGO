@@ -57,6 +57,9 @@ export class UpdateModalInvoicesComponent implements OnInit {
   update(){
     if(!this.authService.isAuthenticated())
       this.close();
+
+    this.disabledFieldSociety(false);
+    this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
         icon: 'warning',
@@ -64,6 +67,8 @@ export class UpdateModalInvoicesComponent implements OnInit {
         text: 'Complete los campos faltantes',
         heightAuto: false
       });
+      this.disabledFieldSociety(true);
+      this.reactiveForm.setContainers(this.containers);
       return;
     }
 
@@ -143,7 +148,6 @@ export class UpdateModalInvoicesComponent implements OnInit {
   showLoader(showLoad: boolean): void {
     setTimeout(() => {
       this.showLoad = showLoad;
-      console.log('showload', this.showLoad);
     }, this.loaderDuration);
   }
 
@@ -195,5 +199,20 @@ export class UpdateModalInvoicesComponent implements OnInit {
       });
   }
 
+  disabledFieldSociety(disabled:boolean){
+    let element:any; let ctrl:any;
+    for(element of this.containers)
+      for(ctrl of element.controls) 
+        if(ctrl.ky === 'sociedad'){
+          ctrl.disabled = disabled;
+          break;
+        }
+        else if(ctrl.ky === 'operacion'){
+          ctrl.disabled = true;
+        }
+        else if(ctrl.ky === 'subOperacion'){
+          ctrl.disabled = true;
+        }
+  }
 
 }

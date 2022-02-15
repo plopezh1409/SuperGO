@@ -7,6 +7,7 @@ import { Mask } from './mask.model';
 import { Validation } from './validation.model';
 
 export class Control {
+  public idControl?:number;
   public ky?: string; //*
   public label?: string; //*
   public controlType?: string; //*
@@ -22,6 +23,7 @@ export class Control {
   public principalForm!: FormGroup |null; 
   constructor(
     obj: {
+      idControl?:number;
       ky?: string;
       label?: string;
       controlType?: string;
@@ -33,6 +35,7 @@ export class Control {
       isVerify?: number;
     } = {}
   ) {
+    this.idControl = obj.idControl;
     this.ky = obj.ky;
     this.label = obj.label;
     this.controlType = obj.controlType;
@@ -41,7 +44,7 @@ export class Control {
     this.attributes = obj.attributes;
     this.validations = obj.validations;
     this.disabled = obj.disabled;
-    this.isVerify = obj.isVerify;    
+    this.isVerify = obj.isVerify; 
   }
 
   onLoadControl() {
@@ -266,7 +269,7 @@ export class Control {
   setDropDownValue(control: Control, valor:any) {
 
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.ky === valor;
+        return opcion.ky == valor;
         }).map((opcion) => {
           return opcion.ky;
           });

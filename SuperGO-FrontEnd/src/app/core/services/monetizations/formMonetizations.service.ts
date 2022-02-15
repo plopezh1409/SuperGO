@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 
 //SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
+import { Monetizacion } from "@app/core/models/monetizacion/monetizacion.model";
 
 @Injectable({
     providedIn:'root'
@@ -46,7 +47,13 @@ export class FormMonetizationsService{
 
     getDataMonetization():Observable<any>
     {
-        return this.httpClient.get('assets/json/jsonMonetizacion.json');
+        return this.httpClient.get('assets/dataTables/dataMonetization.json');
+    }
+
+    getDataMonetizationById(dataMonetization:Monetizacion):Observable<any>
+    {
+        return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
+                // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataMonetization);
     }
 
 }

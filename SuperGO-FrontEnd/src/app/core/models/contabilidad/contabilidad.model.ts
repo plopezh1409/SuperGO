@@ -4,16 +4,22 @@ export class Contabilidad
     idTipoOperacion:number;
     idSubtipoOperacion:number;
     idReglaMonetizacion:number;
+    razonSocial:string;
+    descripcionTipoOperacion:string;
+    descSubTipoOperacion:string;
     contabilidadDiaria:string;
     numeroApunte:number;
-    sociedad:string;
+    sociedadGl:string;
     tipoCuenta:string;
-    cuentaSAP:string;
+    indicadorOperacion:string;
     claseDocumento:string;
     concepto:string;
     centroDestino:string;
     indicadorIVA:string;
-    indicadorOperacion:string;
+    cuentaSAP:string;
+    fechaInicioVigencia: string;
+    fechaFinVigencia:string;
+
 
     constructor(){
         this.idSociedad = 0;
@@ -22,7 +28,7 @@ export class Contabilidad
         this.idReglaMonetizacion = 0;
         this.contabilidadDiaria = "";
         this.numeroApunte = 0;
-        this.sociedad = "";
+        this.sociedadGl = "";
         this.tipoCuenta = "";
         this.cuentaSAP = "";
         this.claseDocumento = "";
@@ -30,6 +36,11 @@ export class Contabilidad
         this.centroDestino = "";
         this.indicadorIVA = "";
         this.indicadorOperacion = "";
+        this.razonSocial = "";
+        this.descripcionTipoOperacion="";
+        this.descSubTipoOperacion = "";
+        this.fechaInicioVigencia = "";
+        this.fechaFinVigencia = "";
     }
 
 }

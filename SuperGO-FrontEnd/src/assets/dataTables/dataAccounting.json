@@ -10,17 +10,8 @@
                 "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
                 "idSubTipoOperacion": 2,
                 "descSubTipoOperacion": "GENERAL",
-                "contabilidadDiaria":"D",
-                "numeroApunte":"10",
-                "sociedadGL":"GL902",
-                "tipoCuenta":"M",
-                "indicadorOperacion":"C",
-                "claseDocumento":"SA",
-                "concepto":"COMISION PAGO DE SERVICIOS",
-                "centroDestino":"0629",
-                "indicadorIva":"AA",
-                "cuentaSap":"1309213442",
                 "idReglaMonetizacion": 1,
+                "numeroApunte":10,
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -32,8 +23,7 @@
                 "idSubTipoOperacion": 1,
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 33,
-                "descripcionReglaMonetizacion":"9% SOBRE EL MONTO COLOCADO",
-                "numeroApunte":"10",
+                "numeroApunte":10,
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -45,8 +35,7 @@
                 "idSubTipoOperacion": 1,
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 1,
-                "descripcionReglaMonetizacion": "4% SOBRE EL MONTO COLOCADO",
-                "numeroApunte":"10",
+                "numeroApunte":10,
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             },
@@ -58,8 +47,7 @@
                 "idSubTipoOperacion": 0,
                 "descSubTipoOperacion": "GENERICO",
                 "idReglaMonetizacion": 1,
-                "descripcionReglaMonetizacion":"5% SOBRE EL CREDITO COLOCADO",
-                "numeroApunte":"10",
+                "numeroApunte":10,
                 "fechaInicioVigencia": "01-01-2022",
                 "fechaFinVigencia": "01-08-2022"
             }
@@ -113,11 +101,11 @@
         "monetizacion":[
             {
                 "idMonetizacion": 1,
-                "descripcionMonetizacion":"4% Sobre el monto colocado"
+                "descripcionMonetizacion":"1"
             },
             {
                 "idMonetizacion": 2,
-                "descripcionMonetizacion":"20% Sobre el monto colocado"
+                "descripcionMonetizacion":"2"
             }
         ]
     }

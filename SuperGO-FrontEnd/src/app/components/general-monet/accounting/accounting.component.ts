@@ -29,7 +29,7 @@ export class AccountingComponent implements OnInit {
   constructor( private readonly appComponent: AppComponent, private injector:Injector) { 
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
-    this.catalogsTable = new AccountingTablesComponent();
+    this.catalogsTable = new AccountingTablesComponent(this.injector);
     this.containers=[];
     this.dataInfo=[];
     this.appComponent.showInpImage(false);
@@ -65,14 +65,14 @@ export class AccountingComponent implements OnInit {
     oConta.idReglaMonetizacion = dataBody.monetizacion;
     oConta.contabilidadDiaria = dataBody.contabilidadDiaria == "true"?"D":"C";
     oConta.numeroApunte = dataBody.numeroDeApunte;
-    oConta.sociedad = dataBody.sociedadGl;
+    oConta.sociedadGl = dataBody.sociedadGl;
     oConta.tipoCuenta = dataBody.tipoCuenta;
     oConta.cuentaSAP = dataBody.cuentaSap;
     oConta.claseDocumento = dataBody.claseDeDocumento;
     oConta.concepto = dataBody.concepto;
     oConta.centroDestino = dataBody.centroDestino;
     oConta.indicadorIVA = dataBody.IVA == "true"? "AA":"NA";
-    oConta.indicadorOperacion = dataBody.cargoAbono == "true" ? "C": "A";
+    oConta.indicadorOperacion = dataBody.cargoAbono;
 
     /*this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
