@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Injector, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatBreadcrumbService } from 'mat-breadcrumb';
 import { AppComponent } from '@app/app.component';
@@ -23,7 +23,7 @@ import { element } from 'protractor';
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.sass']
 })
-export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
+export class InicioComponent implements OnInit {
   private authService: AuthService;
 
   private userService: UsuarioService;
@@ -37,7 +37,7 @@ export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   public tk: string | null;
   usuario: User;
-
+  Auth = false;
   constructor(
     private cdref: ChangeDetectorRef,
     private injector: Injector,
@@ -53,26 +53,32 @@ export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
     this.appComponent.showInpImage(true);
     this.appComponent.showBoolImg(true);
     this.appComponent.showLogo = false;
-    this.tk = null;
-    this.usuario = new User();
-  }
-  ngAfterViewInit() {
-    
-  }
-
-  ngAfterContentChecked() {
-    this.cdref.detectChanges();
-  }
-
-  ngOnInit(): void {
-     debugger;
     this.tk = this.activatedRoute.snapshot.paramMap.get('token');
+    this.usuario = new User();
+    this.Auth = this.authService.isAuthenticated();
+  }
+ 
+  ngOnInit(): void {
+    this.Auth = false;
+    this.init = false;
+    //--------REDIRECTION --- GO -> SUPERGO-------------
     if (this.tk) {
-      this.authService.guardarToken(this.tk);
-      this.authService.guardarUsuario(this.tk);
-      this.initLoginWithToken(this.authService.usuario);
-    } else {
-      this.init = false;
+      if (this.authService.isAuthenticated()) {
+        Swal.fire({
+          html: `<div class="titModal">Aviso</div><br/><span class="material-icons error-icon">error</span><br/><div>${this.authService.usuario.name} ya estás autenticado!</div>`,
+          allowOutsideClick: false,
+          confirmButtonText: 'Aceptar',
+          heightAuto: false
+        });
+        this.router.navigate(['/']);
+      } else {
+        this.authService.guardarToken(this.tk);
+        this.authService.guardarUsuario(this.tk);
+        this.initLoginWithToken(this.authService.usuario);
+      }
+    }
+    //--------------------------------------------------
+    else {
       let actMk = this.authService.isActiveMasterKey;
       if (isObservable(actMk)) {
         this.appComponent.showLoader(true);
@@ -84,12 +90,9 @@ export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
         this.initLogin(actMk);
       }
     }
+
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    
-  }
-  
   initLogin(activarLLaveMaestra: boolean) {
     if (this.authService.isAuthenticated()) {
       this.getFavoriteTop();
@@ -102,10 +105,14 @@ export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
     this.init = true;
   }
   initLoginWithToken(usuario: User) {
-    this.appComponent.isAuth = true;
+    setTimeout(() => {
+      this.appComponent.isAuth = true;
+    //this.Auth = true;
     this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
     this.getFavoriteTop();
     this.init = true;
+    }, 100);
+    
   }
   isActiveMasterKey() {
     let llaveMaestraObject = {
@@ -281,7 +288,6 @@ export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
   }
 
   getFavoriteTop() {
-    debugger;
     if (this.authService.usuario.top) {
       this.cardsTop = this.authService.usuario.top;
     }
