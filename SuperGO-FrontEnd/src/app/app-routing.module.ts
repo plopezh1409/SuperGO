@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('@app/components/login/login.module').then(m => m.LoginModule)
   },
+  { 
+    //Token
+    path: 'inicio/:token', component: InicioComponent  
+  },
   {
     path: 'monetizador',
     loadChildren: () => import('@app/components/general-monet/general-monet.module').then(m => m.GeneralMonetModule), canLoad:[ModuleGuard],

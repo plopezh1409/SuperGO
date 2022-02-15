@@ -1,10 +1,11 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Injector, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatBreadcrumbService } from 'mat-breadcrumb';
 import { AppComponent } from '@app/app.component';
 import Swal from 'sweetalert2';
 import { finalize, pluck } from 'rxjs/operators';
 import { isObservable } from 'rxjs';
+import { User } from '@app/core/models/public/user.model';
 
 //SERVICES
 import { AuthService } from '../../services/sesion/auth.service';
@@ -22,71 +23,98 @@ import { element } from 'protractor';
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.sass']
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent implements OnInit, OnChanges,AfterViewInit {
   private authService: AuthService;
-  
-  private userService: UsuarioService;  
+
+  private userService: UsuarioService;
   private llaveMaestraService: MasterKeyService;
   inputSearch: string = "";
-  showImage= true;
+  showImage = true;
   init: boolean = false;
   cardsTop: any[] = [];
   cardsTopRes: any[] = [];
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+  public tk: string | null;
+  usuario: User;
 
   constructor(
+    private cdref: ChangeDetectorRef,
     private injector: Injector,
     private activatedRoute: ActivatedRoute,
     private appComponent: AppComponent,
-    private router: Router,    
+    private router: Router,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog    
+    public dialog: MatDialog,
   ) {
-    this.authService = this.injector.get<AuthService>(AuthService);    
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.llaveMaestraService = this.injector.get<MasterKeyService>(MasterKeyService);
     this.userService = this.injector.get<UsuarioService>(UsuarioService);
     this.appComponent.showInpImage(true);
     this.appComponent.showBoolImg(true);
-    this.appComponent.clearSearch(true);
     this.appComponent.showLogo = false;
+    this.tk = null;
+    this.usuario = new User();
+  }
+  ngAfterViewInit() {
+    
   }
 
-  ngOnInit(): void {    
-    this.init = false;
-    let actMk = this.authService.isActiveMasterKey;
-    if (isObservable(actMk)) {      
-      this.appComponent.showLoader(true);
-        actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result=>{                    
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+  }
+
+  ngOnInit(): void {
+     debugger;
+    this.tk = this.activatedRoute.snapshot.paramMap.get('token');
+    if (this.tk) {
+      this.authService.guardarToken(this.tk);
+      this.authService.guardarUsuario(this.tk);
+      this.initLoginWithToken(this.authService.usuario);
+    } else {
+      this.init = false;
+      let actMk = this.authService.isActiveMasterKey;
+      if (isObservable(actMk)) {
+        this.appComponent.showLoader(true);
+        actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result => {
           this.initLogin(result);
         });
+      }
+      else {
+        this.initLogin(actMk);
+      }
     }
-    else {
-      this.initLogin(actMk);
-    }    
-  }  
+  }
 
-  initLogin(activarLLaveMaestra: boolean) {      
+  ngOnChanges(changes: SimpleChanges) {
+    
+  }
+  
+  initLogin(activarLLaveMaestra: boolean) {
     if (this.authService.isAuthenticated()) {
-      this.getFavoriteTop();      
+      this.getFavoriteTop();
     }
     else if (activarLLaveMaestra) {
       this.isActiveMasterKey();
-
     } else {
       this.router.navigate(['/login']);
-    }    
+    }
     this.init = true;
-  } 
-  
+  }
+  initLoginWithToken(usuario: User) {
+    this.appComponent.isAuth = true;
+    this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
+    this.getFavoriteTop();
+    this.init = true;
+  }
   isActiveMasterKey() {
     let llaveMaestraObject = {
       code: this.activatedRoute.snapshot.queryParamMap.get('code'),
       scope: this.activatedRoute.snapshot.queryParamMap.get('scope')
     };
-       
+
     if (llaveMaestraObject.code) {
-      this.appComponent.showLoader(true); 
+      this.appComponent.showLoader(true);
       this.llaveMaestraService.getUserInfo(llaveMaestraObject.code)
         .pipe(finalize(() => this.appComponent.showLoader(false)))
         .subscribe((response: ResponseServer) => {
@@ -105,7 +133,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
-  getUserMasterKey(data: any) {    
+  getUserMasterKey(data: any) {
     this.authService.guardarToken(data);
     this.authService.guardarUsuario(data);
     let usuario = this.authService.usuario;
@@ -117,14 +145,14 @@ export class InicioComponent implements OnInit {
         text: `No se ha Identificado al usuario correctamente,  falta número de empleado `,
         heightAuto: false,
         allowOutsideClick: false
-      });      
+      });
       this.router.navigate(['/login']);
     }
     else {
-      this.openSnackBar(`Bienvenido ${usuario.name}`, 'Cerrar', 'successToast');      
+      this.openSnackBar(`Bienvenido ${usuario.name}`, 'Cerrar', 'successToast');
       this.router.navigate(['/']);
       this.appComponent.isAuth = true;
-      this.getFavoriteTop();     
+      this.getFavoriteTop();
     }
   }
 
@@ -141,10 +169,10 @@ export class InicioComponent implements OnInit {
       allowOutsideClick: false
     }).then((result: any) => {
       if (result.isConfirmed) {
-        this.authService.newSession(data).subscribe(dt=>{
+        this.authService.newSession(data).subscribe(dt => {
           this.appComponent.isAuth = true;
-          this.getFavoriteTop();  
-        });        
+          this.getFavoriteTop();
+        });
       } else if (result.isDenied) {    //CERRAR SESIÓN
         this.authService.logout().subscribe(() => {
           this.router.navigate(['/login']);
@@ -154,7 +182,7 @@ export class InicioComponent implements OnInit {
       this.appComponent.showLoader(false);
       this.router.navigate(['/login']);
     });
-  }  
+  }
 
   openSnackBar(message: any, action: any, type: any) {
     this._snackBar.open(message, action, {
@@ -165,10 +193,9 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  redirect(topModule: any) {     
+  redirect(topModule: any) {
     let module = this.authService.getModuleByUrl(topModule.url);
-    if(module)
-    {
+    if (module) {
       this.authService.getRoleName(module.role.name);
       this.router.navigateByUrl(topModule.url);
     }
@@ -188,78 +215,83 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  calculateAdd(){
-    this.cardsTopRes =[];
+  calculateAdd() {
+    this.cardsTopRes = [];
     let can = this.cardsTop.length;
-    for (let i = 0; i < 5-can; i++) {
+    for (let i = 0; i < 5 - can; i++) {
       this.cardsTopRes.push(i);
-      
-    }    
+
+    }
   }
 
   addTarget() {
     const dialogRef = this.dialog.open(DialogTop, {
       width: '320px',
       disableClose: true,
-      hasBackdrop:true,
+      hasBackdrop: true,
       data: {
         title: 'Agregar Nuevo Favorito',
         modules: this.authService.usuario.modules,
-        top:this.authService.usuario.top,
+        top: this.authService.usuario.top,
         cantidad: this.cardsTop.length
       }
-    });    
-    
-    dialogRef.afterClosed()
-    .pipe(finalize(()=>{this.appComponent.showLoader(false);}))
-    .subscribe((result: any) => {      
-      if (result) {        
-        if (result.success) {
-          this.cardsTop = [];
-          result.data.forEach((element: any) => {this.cardsTop.push(element);});          
-          this.authService.usuario.top = this.cardsTop;
-          this.authService.upgradeUser(this.authService.usuario);
-          this.calculateAdd();
-        } else {
-          this.openSnackBar(`Error al Agregar Favorito`, 'Cerrar', 'errorToast');
-        }
-      }
     });
+
+    dialogRef.afterClosed()
+      .pipe(finalize(() => { this.appComponent.showLoader(false); }))
+      .subscribe((result: any) => {
+        if (result) {
+          if (result.success) {
+            this.cardsTop = [];
+            result.data.forEach((element: any) => { this.cardsTop.push(element); });
+            this.authService.usuario.top = this.cardsTop;
+            this.authService.upgradeUser(this.authService.usuario);
+            this.calculateAdd();
+          } else {
+            this.openSnackBar(`Error al Agregar Favorito`, 'Cerrar', 'errorToast');
+          }
+        }
+      });
   }
-  
-  deleteTarget(index: any) {    
+
+  deleteTarget(index: any) {
     Swal.fire({
       title: '¿Estas seguro de eliminar este favorito?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       confirmButtonColor: '#d33'
-    }).then((result) => {      
+    }).then((result) => {
       if (result.isConfirmed) {
         let tp = {
           'idTop': this.cardsTop[index].id
         }
         this.appComponent.showLoader(true);
         this.userService.modifyTop(tp, 'delete')
-          .pipe(pluck('response'), finalize(()=>{ this.appComponent.showLoader(false);}))
-          .subscribe(() => {  
+          .pipe(pluck('response'), finalize(() => { this.appComponent.showLoader(false); }))
+          .subscribe(() => {
             this.cardsTop.splice(index, 1);
             this.authService.usuario.top = this.cardsTop;
             this.authService.upgradeUser(this.authService.usuario);
             this.openSnackBar(`Favorito Eliminado Correctamente`, 'Cerrar', 'successToast');
-            this.calculateAdd();            
+            this.calculateAdd();
           });
-      }      
+      }
     })
   }
 
-  getFavoriteTop()
-  {    
-    if (this.authService.usuario.top) 
-    {      
-      this.cardsTop = this.authService.usuario.top;      
+  getFavoriteTop() {
+    debugger;
+    if (this.authService.usuario.top) {
+      this.cardsTop = this.authService.usuario.top;
     }
-    
+
     this.calculateAdd();
+  }
+  capitalize(val: string) {
+    if (val.length > 0) {
+      return val.toLowerCase().trim().split(' ').map((v: string) => v[0].toUpperCase() + v.substr(1)).join(' ');
+    }
+    return null;
   }
 }

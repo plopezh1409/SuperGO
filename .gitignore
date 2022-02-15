@@ -41,3 +41,9 @@ node/
 *.tsbuildinfo
 *.json
 *.pb
+SuperGO-FrontEnd/.scannerwork/.sonar_lock
+SuperGO-FrontEnd/.scannerwork/css-bundle/bin/server
+*.lock
+*.txt
+SuperGO-FrontEnd/src/.scannerwork/.sonar_lock
+SuperGO-FrontEnd/src/.scannerwork/css-bundle/bin/server
