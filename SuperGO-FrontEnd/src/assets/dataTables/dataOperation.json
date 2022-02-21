@@ -14,21 +14,21 @@
           "idTipoOperacion": 11,
           "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
           "idCanal": 1,
-          "topicoKafka": " ",
+          "topicoKafka": "PRUEBA 1",
           "status": "A"
         },
         {
           "idTipoOperacion": 10,
           "descripcionTipoOperacion": "NOTICIAS",
           "idCanal": 1,
-          "topicoKafka": " ",
+          "topicoKafka": "PRUEBA2",
           "status": "A"
         },
         {
           "idTipoOperacion": 9,
           "descripcionTipoOperacion": "TV EN VIVO",
           "idCanal": 1,
-          "topicoKafka": " ",
+          "topicoKafka": "PRUEBA 3",
           "status": "A"
         },
         {

@@ -184,16 +184,28 @@ export class ReactiveForm{
         });
       }
 
-      getModifyContainers(containers:Container[], oIdData:object){
+      getModifyContainers(containers:Container[]){
         let _formAux:FormGroup;
         let oDataAux: Object={};
         containers.forEach((cont: Container) => {
           _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
           oDataAux = _formAux.value;
           });
-        var objResult = {...oIdData, ...oDataAux}
-        let jsonResult = JSON.stringify(objResult);
+        let jsonResult = JSON.stringify(oDataAux);
         return JSON.parse(jsonResult);
       }
       
+      getDataForm(containers:Container[]){
+        let _formAux:FormGroup;
+        let oDataAux: Object={};
+        containers.forEach((cont: Container) => {
+          _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
+          oDataAux = _formAux.value;
+          });
+        let jsonResult = JSON.stringify(oDataAux);
+        return JSON.parse(jsonResult);
+      }
+
+
+
 }

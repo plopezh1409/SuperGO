@@ -4,7 +4,6 @@ import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
-import { AuthService } from '@app/core/services/sesion/auth.service';
 import { Control } from '@app/core/models/capture/controls.model';
 import swal from 'sweetalert2'
 import { finalize } from 'rxjs/operators';
@@ -23,14 +22,12 @@ export class UpdateModalAccountingComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private idAccounting:any={};
   private showLoad: boolean = false;
   private loaderDuration: number;
-  private authService:AuthService;
+  private objIds:any;
   
   constructor(private changeDetectorRef: ChangeDetectorRef,private injector:Injector,public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.accountingService = this.injector.get<FormAccountingsService>(FormAccountingsService);
-    this.authService = this.injector.get<AuthService>(AuthService)
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
@@ -39,16 +36,22 @@ export class UpdateModalAccountingComponent implements OnInit {
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
-    this.idAccounting = this.getIdData();
-    this.control.setDataToControls(this.containers,this.control.getValueForSettings(this.dataModal,1,1));
+    this.control.setDataToControls(this.containers,this.dataModal.dataModal);
     this.reactiveForm.setContainers(this.containers);
+    this.objIds = {
+      idSociedad: this.dataModal.dataModal.idSociedad,
+      idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
+      idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion
+    }
   }
 
   update(){
-    if(!this.authService.isAuthenticated())
-      this.close();
-
-    this.disabledFieldSociety(false)
+    this.disabledFieldSociety(false);
+    let cpyModal = this.reactiveForm.getDataForm(this.containers);
+    cpyModal = {...cpyModal, ...this.objIds};
+    cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria == true? 'true':'false';
+    cpyModal.indicadorIVA = cpyModal.indicadorIVA == true? 'true':'false';
+    this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -62,22 +65,23 @@ export class UpdateModalAccountingComponent implements OnInit {
       return;
     }
 
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idAccounting);
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
     var oConta:Contabilidad =  new Contabilidad();
-    oConta.idSociedad = jsonResult.sociedad;
-    oConta.idTipoOperacion = jsonResult.operacion;
-    oConta.idSubtipoOperacion = jsonResult.subOperacion;
-    oConta.idReglaMonetizacion = jsonResult.monetizacion;
-    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria == "true"?"D":"C";
-    oConta.numeroApunte = jsonResult.numeroDeApunte;
+    oConta.idSociedad = jsonResult.idSociedad;
+    oConta.idTipoOperacion = jsonResult.idTipoOperacion;
+    oConta.idSubtipoOperacion = jsonResult.idSubTipoOperacion;
+    oConta.idReglaMonetizacion = jsonResult.idReglaMonetizacion;
+    oConta.numeroApunte = parseInt(jsonResult.numeroApunte,10);
     oConta.sociedadGl = jsonResult.sociedadGl;
     oConta.tipoCuenta = jsonResult.tipoCuenta;
-    oConta.cuentaSAP = jsonResult.cuentaSap;
-    oConta.claseDocumento = jsonResult.claseDeDocumento;
+    oConta.cuentaSAP = jsonResult.cuentaSAP;
+    oConta.claseDocumento = jsonResult.claseDocumento;
     oConta.concepto = jsonResult.concepto;
     oConta.centroDestino = jsonResult.centroDestino;
-    oConta.indicadorIVA = jsonResult.IVA == "true"? "AA":"NA";
-    oConta.indicadorOperacion = jsonResult.cargoAbono == "true" ? "C": "A";
+    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria == "true"?"D":"C";
+    oConta.indicadorIVA = jsonResult.indicadorIVA == "true"? "AA":"NA";
+    oConta.indicadorOperacion = jsonResult.indicadorOperacion == '1' ? "C": "A";
+
     console.log(oConta);
     /*this.showLoader(true);
     this.accountingService.updateAccounting(oConta)
@@ -180,13 +184,6 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
-   getIdData(){
-    let oData:{[k:string]:any}={};
-    var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
-    return oData;
-  }
-
   showLoader(showLoad: boolean): void {
     setTimeout(() => {
       this.showLoad = showLoad;
@@ -197,17 +194,16 @@ export class UpdateModalAccountingComponent implements OnInit {
     let element:any; let ctrl:any;
     for(element of this.containers)
       for(ctrl of element.controls) 
-        if(ctrl.ky === 'sociedad'){
+        if(ctrl.ky === 'idSociedad'){
           ctrl.disabled = disabled;
-          break;
         }
-        else if(ctrl.ky === 'operacion'){
-          ctrl.disabled = true;
+        else if(ctrl.ky === 'idTipoOperacion'){
+          ctrl.disabled = disabled;
         }
-        else if(ctrl.ky === 'subOperacion'){
-          ctrl.disabled = true;
+        else if(ctrl.ky === 'idSubTipoOperacion'){
+          ctrl.disabled = disabled;
         }
-  }
+      }
 
 
 

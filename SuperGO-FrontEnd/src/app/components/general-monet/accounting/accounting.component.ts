@@ -59,20 +59,22 @@ export class AccountingComponent implements OnInit {
     }
 
     var oConta:Contabilidad =  new Contabilidad();
-    oConta.idSociedad = dataBody.sociedad;
-    oConta.idTipoOperacion = dataBody.operacion;
-    oConta.idSubtipoOperacion = dataBody.subOperacion;
-    oConta.idReglaMonetizacion = dataBody.monetizacion;
-    oConta.contabilidadDiaria = dataBody.contabilidadDiaria == "true"?"D":"C";
-    oConta.numeroApunte = dataBody.numeroDeApunte;
+
+    oConta.idSociedad = dataBody.idSociedad;
+    oConta.idTipoOperacion = dataBody.idTipoOperacion;
+    oConta.idSubtipoOperacion = dataBody.idSubTipoOperacion;
+    oConta.idReglaMonetizacion = dataBody.idReglaMonetizacion;
+    oConta.numeroApunte = parseInt(dataBody.numeroApunte,10);
     oConta.sociedadGl = dataBody.sociedadGl;
     oConta.tipoCuenta = dataBody.tipoCuenta;
-    oConta.cuentaSAP = dataBody.cuentaSap;
-    oConta.claseDocumento = dataBody.claseDeDocumento;
+    oConta.cuentaSAP = dataBody.cuentaSAP;
+    oConta.claseDocumento = dataBody.claseDocumento;
     oConta.concepto = dataBody.concepto;
     oConta.centroDestino = dataBody.centroDestino;
-    oConta.indicadorIVA = dataBody.IVA == "true"? "AA":"NA";
-    oConta.indicadorOperacion = dataBody.cargoAbono;
+    oConta.contabilidadDiaria = dataBody.contabilidadDiaria == true?"D":"C";
+    oConta.indicadorIVA = dataBody.indicadorIVA == true? "AA":"NA";
+    oConta.indicadorOperacion = dataBody.indicadorOperacion == '1' ? "C": "A";
+    console.log(oConta);
 
     /*this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
@@ -176,19 +178,19 @@ export class AccountingComponent implements OnInit {
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
         if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'sociedad'){
+          if(ctrl.ky === 'idSociedad'){
             ctrl.content.contentList = cpDataContent.sociedades;
             ctrl.content.options = cpDataContent.sociedades;
           }
-          else if (ctrl.ky === 'operacion'){
+          else if (ctrl.ky === 'idTipoOperacion'){
             ctrl.content.contentList = cpDataContent.operaciones;
             ctrl.content.options = cpDataContent.operaciones;
           }
-          else if (ctrl.ky === 'subOperacion'){
+          else if (ctrl.ky === 'idSubTipoOperacion'){
             ctrl.content.contentList = cpDataContent.subOperacion;
             ctrl.content.options = cpDataContent.subOperacion;
           }
-          else if (ctrl.ky === 'monetizacion'){
+          else if (ctrl.ky === 'idReglaMonetizacion'){
             ctrl.content.contentList = cpDataContent.monetizacion;
             ctrl.content.options = cpDataContent.monetizacion;
           }
@@ -226,12 +228,6 @@ export class AccountingComponent implements OnInit {
             });
             break;
           default:
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: "Intente de nuevo",
-              heightAuto: false
-            });
             break;
         }
       }

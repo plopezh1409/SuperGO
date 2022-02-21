@@ -51,15 +51,14 @@ export class UpdateModalOperationsComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
     this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
     this.idOperation = this.getIdOperation();
-    this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    this.control.setDataToControls(this.containers,this.dataModal.dataModal);
     this.dataModal.dataModal.status = this.dataModal.dataModal.status == "true"?"A":"I";
     this.reactiveForm.setContainers(this.containers);
   }
 
   getIdOperation(){
     let oData:{[k:string]:any}={};
-    var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
+    oData.idTipoOperacion = parseInt(this.dataModal?.dataModal.idTipoOperacion,10);
     return oData;
   }
 
@@ -76,7 +75,7 @@ export class UpdateModalOperationsComponent implements OnInit {
       return;
     }
 
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idOperation);
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
      var obOpe:Operaciones = new Operaciones();
      obOpe.idTipoOperacion = jsonResult.idTipoOperacion
      obOpe.descripcionTipoOperacion = jsonResult.descripcion.trim()

@@ -113,16 +113,6 @@
             "idOperacion": 2,
             "descripcionOperacion":"2"
         }
-    ],
-    "monetizacion":[
-        {
-            "idMonetizacion": 1,
-            "descripcionMonetizacion":"1" 
-        },
-        {
-            "idMonetizacion": 2,
-            "descripcionMonetizacion":"2"
-        }
     ]
 }
 }

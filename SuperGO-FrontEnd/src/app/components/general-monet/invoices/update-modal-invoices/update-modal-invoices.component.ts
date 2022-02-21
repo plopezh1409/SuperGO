@@ -5,7 +5,6 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
 import swal from 'sweetalert2';
-import { AuthService } from '@app/core/services/sesion/auth.service';
 import { Facturas } from '@app/core/models/facturas/facturas.model'
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
@@ -24,14 +23,13 @@ export class UpdateModalInvoicesComponent implements OnInit {
   alignContent='horizontal';
   public control:Control = new Control;
   public formas:any;
-  idInvoice:any;
+  // idInvoice:any;
   public showLoad: boolean = false;
   private loaderDuration: number;
-  private authService:AuthService;
+  private objIds:any;
   
   constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector,public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formInvService = this.injector.get<FormInvoicesService>(FormInvoicesService);
-    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.refData?.updateSize('70%');
     this.containers=[];
@@ -41,24 +39,39 @@ export class UpdateModalInvoicesComponent implements OnInit {
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
+    let cpyModal = this.dataModal.dataModal; //this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
+    this.control.setDataToControls(this.containers, cpyModal);
     this.reactiveForm.setContainers(this.containers);
-    this.idInvoice = this.getIdInvoice();
-    this.control.setDataToControls(this.containers,this.control.getValueForSettings(this.dataModal,1,1));
-    this.reactiveForm.setContainers(this.containers);
+    this.objIds = {
+      idSociedad: cpyModal.idSociedad,
+      idTipoOperacion: cpyModal.idTipoOperacion,
+      idSubTipoOperacion: cpyModal.idSubTipoOperacion,
+      idReglaMonetizacion: cpyModal.idReglaMonetizacion
+    }
   }
 
-  getIdInvoice(){
-    let oData:{[k:string]:any}={};
-    var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
-    return oData;
-  }
+  // getIdInvoice(){
+  //   let oData:{[k:string]:any}={};
+  //   var key = this.dataModal?.keys[0];
+  //   oData[key] = parseInt(this.dataModal?.dataModal[key],10);
+  //   oData["idReglaMonetizacion"] = parseInt(this.dataModal?.dataModal["idReglaMonetizacion"],10);
+  //   delete this.dataModal.dataModal.idReglaMonetizacion;
+  //   let index = 0;
+  //   for(let ky of this.dataModal.keys){
+  //     if(ky === "idReglaMonetizacion"){
+  //       delete this.dataModal.keys[index];
+  //       break;
+  //     }
+  //     index++;
+  //   }
+  //   return oData;
+  // }
 
   update(){
-    if(!this.authService.isAuthenticated())
-      this.close();
-
     this.disabledFieldSociety(false);
+    let cpyModal = this.reactiveForm.getDataForm(this.containers);
+    cpyModal = {...cpyModal, ...this.objIds};
+    this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -71,15 +84,10 @@ export class UpdateModalInvoicesComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idInvoice);
-    var oInvoice:Facturas =  new Facturas();
-    oInvoice.idSociedad = jsonResult.idSociedad;
-    oInvoice.idTipoOperacion = jsonResult.operacion;
-    oInvoice.idSubTipoOperacion = jsonResult.subOperacion;
-    oInvoice.tipoComprobante = jsonResult.tipoDeComprobante;
-    oInvoice.tipoFactura = jsonResult.tipoDeFactura;
-    oInvoice.idReglaMonetizacion = jsonResult.monetizacion;
+    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    var oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
+    oInvoice.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
+    console.log(oInvoice);
     /*this.showLoader(true);
     this.formInvService.updateInvoce(oInvoice)
       .pipe(finalize(() => { this.showLoader(false); }))
@@ -203,15 +211,14 @@ export class UpdateModalInvoicesComponent implements OnInit {
     let element:any; let ctrl:any;
     for(element of this.containers)
       for(ctrl of element.controls) 
-        if(ctrl.ky === 'sociedad'){
+        if(ctrl.ky === 'idSociedad'){
           ctrl.disabled = disabled;
-          break;
         }
-        else if(ctrl.ky === 'operacion'){
-          ctrl.disabled = true;
+        else if(ctrl.ky === 'idTipoOperacion'){
+          ctrl.disabled = disabled;
         }
-        else if(ctrl.ky === 'subOperacion'){
-          ctrl.disabled = true;
+        else if(ctrl.ky === 'idSubTipoOperacion'){
+          ctrl.disabled = disabled;
         }
   }
 

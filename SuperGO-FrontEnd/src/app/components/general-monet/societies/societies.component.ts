@@ -55,19 +55,12 @@ export class societiescomponent implements OnInit {
       return;
     }
     //Validaciones form
-    let bodySoc:Sociedad;
+    let bodySoc:Sociedad = new Sociedad();
     var newSociety;
     for(var datas of Object.values(value)){
       bodySoc = Object(datas);
     }
-
-    let bodySociety:object = {
-      idSociedad:1,
-      razonSocial: "s",
-      rfc: "xaxx0202000",
-     idTipoSociedad:1,
-    descTipoSociedad:"string"
-    };
+    console.log(bodySoc);
     // this.formCatService.getDataSociedad(bodySociety).//pipe(finalize(() => { this.appComponent.showLoader(false); })).
     // subscribe((data:any)=>{
     //   this.containers = data.response;      
@@ -86,7 +79,7 @@ export class societiescomponent implements OnInit {
     // //Borra el formulario
     this.reactiveForm.setContainers(this.containers);
 
-    var strCatalog = JSON.stringify(newSociety);
+    // var strCatalog = JSON.stringify(newSociety);
     /*this.formCatService.updateRecord(newSociety)
       .pipe(finalize(() => {  }))
       .subscribe((response:any) => {
@@ -194,12 +187,6 @@ export class societiescomponent implements OnInit {
         });
         break;
       default:
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: "Intente de nuevo",
-          heightAuto: false
-        });
         break;
     }
   }

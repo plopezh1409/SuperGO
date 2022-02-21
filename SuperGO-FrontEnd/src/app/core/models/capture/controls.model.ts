@@ -298,61 +298,45 @@ export class Control {
 
   setDataToControls( containers:Container[],dataModal:any) {
     containers.forEach((cont: Container) => {
-
-
       cont.controls.forEach((x: Control, i) => {
-
         const ctrl: Control = Object.assign(new Control(), x);
-        var key = dataModal[1][i];
-        
-        switch (ctrl.controlType) {
+        var key = ctrl.ky?.toString() === undefined? "": ctrl.ky?.toString();
+        var value = dataModal[key];
+        if(key !== "")
+          switch (ctrl.controlType) {
+            case 'datepicker':
+              ctrl.setAttributeValueByName("value",value);
+              break;
+            case 'decimal':
+              ctrl.setAttributeValueByName("value",value);
+              break;
 
-          case 'datepicker':
+            case 'label':
+              ctrl.setAttributeValueByName("value",value);
+              break;
 
-            ctrl.setAttributeValueByName("value",dataModal[0][i]);
+            case 'checkbox':
+              ctrl.setAttributeValueByName("value",value);
+              break;
 
-            break;
+            case 'dropdown':
+              ctrl.setAttributeValueByNameDropdown("value", ctrl.setDropDownValue(ctrl,value));
+              break;
 
-          case 'decimal':
+            case 'textboxInfo':
+              ctrl.setAttributeValueByName("value",value);
+              break;
 
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
-            break;
+            case 'autocomplete':
+              ctrl.setAttributeValueByNameDropdown("value", value);
+              break;
 
-          case 'label':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
-            break;
-
-          case 'checkbox':
-
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
-
-            break;
-
-          case 'dropdown':
-            ctrl.setAttributeValueByNameDropdown("value", ctrl.setDropDownValue(ctrl,dataModal[0][i]));
-            break;
-
-          case 'textboxInfo':
-            ctrl.setAttributeValueByName("value",dataModal.dataModal[0][i]);
-            break;
-
-          case 'autocomplete':
-
-            ctrl.setAttributeValueByName("value",dataModal[0][i]);
-            break;
-
-          default:
-            ctrl.setAttributeValueByName("value",dataModal[0][i]);
-            break;
-        }
-        
+            default:
+              ctrl.setAttributeValueByName("value",value);
+              break;
+          }
       });
-
-
-
-    });
-
-  
+    });  
   }
 
 
@@ -435,7 +419,6 @@ export class Control {
     }
   }
 
-  //JA.DEJESUS
   setAttributeValueByNameDropdown(name: string, value: any) {
     let elem: any = this.findAttributeByName(name);
     if (elem != null) {
@@ -450,12 +433,6 @@ export class Control {
             break;
           }
         }
-        // this.attributes.forEach((data:any)=> {
-        //   if (Object.keys(data).length === 0){
-        //     data.value = value;
-        //   }
-        // });
-        // this.attributes[0].value = value;
       }
     }
   }

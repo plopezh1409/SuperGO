@@ -189,12 +189,6 @@ export class OperationsComponent implements OnInit {
             });
             break;
           default:
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: "Intente de nuevo",
-              heightAuto: false
-            });
             break;
         }
       }

@@ -9,6 +9,8 @@ import { FormService } from '@app/core/services/capture/form.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
+import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
+
 
 //MODELS 
 import { Control } from '@app/core/models/capture/controls.model';
@@ -26,10 +28,10 @@ export class UpdateModalSocietiesComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private idSociety:any={};
   private showLoad: boolean = false;
   private loaderDuration: number;
   private authService:AuthService;
+  private idSociety:any;
 
   constructor(private injector:Injector,public refData?:MatDialogRef<UpdateModalSocietiesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
@@ -45,18 +47,20 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.reactiveForm.setContainers(this.containers);
-    this.idSociety = this.getIdData();
-    this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    this.idSociety = this.dataModal.dataModal.idSociedad;
+    // this.control.setDataToControls(this.containers,this.control.deleteValuesForSettings(this.dataModal,1,1));
+    this.control.setDataToControls(this.containers, this.dataModal.dataModal);
     this.reactiveForm.setContainers(this.containers);
   }
 
   
   modify(){
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers, this.idSociety);
-    console.log(jsonResult);
+    // let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    let oSociety:Sociedad = this.reactiveForm.getModifyContainers(this.containers);
+    oSociety.idSociedad = this.idSociety;
+    console.log(oSociety);
     // const con_json = JSON.stringify(jsonResult);
-
-     //cerrar el modal del formulario
+    //cerrar el modal del formulario
      this.close();
     /*this.formCatService.updateRecord(jsonResult)
       .pipe(finalize(() => {  }))
@@ -125,13 +129,6 @@ export class UpdateModalSocietiesComponent implements OnInit {
       });
     });
     return dataForm;
-  }
-
-  getIdData(){
-    let oData:{[k:string]:any}={};
-    var key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
-    return oData;
   }
 
 }

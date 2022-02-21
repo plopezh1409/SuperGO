@@ -64,7 +64,6 @@ export class invoicesTableComponent implements OnInit {
       this.refData?.open(UpdateModalInvoicesComponent,{
         data:{
           dataModal:oEle,
-          keys:Object.keys(oEle),
           auxForm:_auxForm
         }
       }).afterClosed().subscribe((oData:any)=> {
@@ -77,43 +76,37 @@ export class invoicesTableComponent implements OnInit {
     );
   }
 
-  show(element:any):void{
-    var oElement = Object.assign({} , element);
-    delete oElement.idSociedad;
-    delete oElement.idTipoOperacion;
-    delete oElement.idSubTipoOperacion
-    let keys = Object.keys(oElement);
+  show(oInvoice:Facturas):void{
     let registro:string='';
-    let titulos:string[]=["Sociedad","Operación","Sub-Operación","Monetización","Tipo Comprobante","Tipo Factura"]
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-    keys.forEach((k,index) => {
-      if(k!='Options')
-      {   
-        registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>${titulos[index]}</b></td><td style="padding:5px">${oElement[k]}</td></tr>`);            
-      }      
-    });
-    registro = registro.concat('</table>');    
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Sociedad </b></td><td style="padding:5px"> `+ oInvoice.razonSocial +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Operación </b></td><td style="padding:5px"> `+ oInvoice.descripcionTipoOperacion +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Sub-Operación </b></td><td style="padding:5px"> `+ oInvoice.descSubTipoOperacion +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Monetización </b></td><td style="padding:5px"> `+ oInvoice.idReglaMonetizacion +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo de Comprobante </b></td><td style="padding:5px"> `+ oInvoice.tipoComprobante +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo de Factura </b></td><td style="padding:5px"> `+ oInvoice.tipoFactura +` </td></tr>`);            
     Swal.fire({             
-      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la empresa </div><br/> <br/>${registro}`,
+      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
     }).then(result=>{
       if (result.isConfirmed) {}
     });
+
   }
 
   disabledFields(_auxForm:any){
     let element:any; let ctrl:any;
     for(element of _auxForm)
       for(ctrl of element.controls) 
-        if(ctrl.ky === 'sociedad'){
+        if(ctrl.ky === 'idSociedad'){
           ctrl.disabled = true;
         }
-        else if(ctrl.ky === 'operacion'){
+        else if(ctrl.ky === 'idTipoOperacion'){
           ctrl.disabled = true;
         }
-        else if(ctrl.ky === 'subOperacion'){
+        else if(ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
     return _auxForm;

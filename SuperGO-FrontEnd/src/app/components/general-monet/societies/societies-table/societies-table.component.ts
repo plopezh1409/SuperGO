@@ -49,7 +49,6 @@ export class SocietiesTableComponent implements OnInit {
     return( this.refData?.open(UpdateModalSocietiesComponent,{
       data:{
         dataModal:element,
-        keys:Object.keys(element),
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:any)=>{
@@ -61,26 +60,15 @@ export class SocietiesTableComponent implements OnInit {
     }));
   }
 
-  show(element:any):void{
-    var oElement = Object.assign({} , element);
-    delete oElement.idSociedad;
-    delete oElement.idTipoSociedad;
-    let keys = Object.keys(oElement);
-    let registro:string='';
-    let titulos:string[]=["Razón Social","RFC","Tipo De Sociedad"]
-     
+  show(oSociedad:Sociedad):void{
+    let registro:string=''; 
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);            
-  
-    keys.forEach((k,index) => {
-    if(k!='Options')
-    {   
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>${titulos[index]}</b></td><td style="padding:5px">${oElement[k]}</td></tr>`);            
-    }      
-    });
-    registro = registro.concat('</table>');    
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Razón Social </b></td><td style="padding:5px"> `+ oSociedad.razonSocial +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> RFC </b></td><td style="padding:5px"> `+ oSociedad.rfc +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo De Sociedad </b></td><td style="padding:5px"> `+ oSociedad.descripcionTipoSociedad +` </td></tr>`);            
     Swal.fire({             
-      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la empresa </div><br/> <br/>${registro}`,
+      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
     }).then(result=>{

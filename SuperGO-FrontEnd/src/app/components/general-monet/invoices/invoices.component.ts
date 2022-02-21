@@ -37,7 +37,6 @@ export class invoicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("GeneralComponent ngOnInit");
     this.fillDataPage();
   }
 
@@ -82,12 +81,8 @@ export class invoicesComponent implements OnInit {
     for(var datas of Object.values(value)){
       dataBody = Object(datas);
     }
-    var oInvoice:Facturas =  new Facturas();
-    oInvoice.idSociedad = dataBody.sociedad;
-    oInvoice.idTipoOperacion = dataBody.operacion;
-    oInvoice.idSubTipoOperacion = dataBody.subOperacion;
-    oInvoice.tipoComprobante = dataBody.tipoDeComprobante;
-    oInvoice.tipoFactura = dataBody.tipoDeFactura;
+    var oInvoice:Facturas =  dataBody;
+    console.log(oInvoice);
 
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => { this.appComponent.showLoader(false); }))
@@ -166,27 +161,27 @@ export class invoicesComponent implements OnInit {
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
         if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'sociedad'){
+          if(ctrl.ky === 'idSociedad'){
             ctrl.content.contentList = cpDataContent.sociedades;
             ctrl.content.options = cpDataContent.sociedades;
           }
-          else if (ctrl.ky === 'operacion'){
+          else if (ctrl.ky === 'idTipoOperacion'){
             ctrl.content.contentList = cpDataContent.operaciones;
             ctrl.content.options = cpDataContent.operaciones;
           }
-          else if (ctrl.ky === 'subOperacion'){
+          else if (ctrl.ky === 'idSubTipoOperacion'){
             ctrl.content.contentList = cpDataContent.subOperacion;
             ctrl.content.options = cpDataContent.subOperacion;
           }
-          else if (ctrl.ky === 'tipoDeComprobante'){
+          else if (ctrl.ky === 'tipoComprobante'){
             ctrl.content.contentList = cpDataContent.tipoComprobante;
             ctrl.content.options = cpDataContent.tipoComprobante;
           }
-          else if (ctrl.ky === 'tipoDeFactura'){
+          else if (ctrl.ky === 'tipoFactura'){
             ctrl.content.contentList = cpDataContent.tipoFactura;
             ctrl.content.options = cpDataContent.tipoFactura;
           }
-          else if (ctrl.ky === 'monetizacion'){
+          else if (ctrl.ky === 'idReglaMonetizacion'){
             ctrl.content.contentList = cpDataContent.monetizacion;
             ctrl.content.options = cpDataContent.monetizacion;  
           }
@@ -223,12 +218,6 @@ export class invoicesComponent implements OnInit {
         });
         break;
       default:
-        // swal.fire({
-        //   icon: 'error',
-        //   title: 'Error inesperado',
-        //   text: "Intente de nuevo",
-        //   heightAuto: false
-        // });
         break;
     }
   }

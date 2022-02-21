@@ -33,7 +33,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
         EncabezadoComponent,
         InicioComponent,
         PieDePaginaComponent,
-        DialogTop        
+        DialogTop,
     ],
     imports:[    
         CommonModule,    

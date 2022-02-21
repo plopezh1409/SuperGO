@@ -1,8 +1,11 @@
 export class Facturas
 {
     idSociedad:number;
+    razonSocial:string;
     idTipoOperacion:number;
+    descripcionTipoOperacion:string;
     idSubTipoOperacion:number;
+    descSubTipoOperacion:string;
     idReglaMonetizacion:number;
     tipoComprobante:number;
     tipoFactura:number;
@@ -14,6 +17,9 @@ export class Facturas
         this.idReglaMonetizacion = 0;
         this.tipoComprobante = 0;
         this.tipoFactura = 0;
+        this.razonSocial = "";
+        this.descSubTipoOperacion = "";
+        this.descripcionTipoOperacion = "";
     }
 
 }
