@@ -7,7 +7,7 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 import swal from 'sweetalert2';
 import { UpdateModalMonetizationComponent } from '../update-modal-monetization/update-modal-monetization.component';
 import { finalize, timeout } from 'rxjs/operators';
-// import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
+import { PeriodicityModule } from '../helper/periodicity/periodicity.module';
 
 @Component({
   selector: 'app-monetization-table',

@@ -35,7 +35,6 @@ node/
 .scannerwork/report-task.txt
 .scannerwork/scanner-report/syntax-highlightings-97.pb
 .scannerwork/.sonartmp/eslint-bridge-bundle/package/bin/server
-*.ts
 *.js
 *.map
 *.tsbuildinfo

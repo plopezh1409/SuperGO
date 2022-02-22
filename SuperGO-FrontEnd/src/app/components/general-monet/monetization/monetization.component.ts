@@ -14,8 +14,8 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
 import { ActivatedRoute } from '@angular/router';
 
-// import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
-// import { MonetizationModule } from '@app/core/helper/monetization/monetization.module';
+import { PeriodicityModule } from './helper/periodicity/periodicity.module';
+import { MonetizationModule } from './helper/monetization/monetization.module';
 
 
 @Component({
@@ -35,8 +35,8 @@ export class MonetizationComponent implements OnInit {
   private selectedValRequest: any;
   public principalContainers: Container[];
   public idSolicitud: string | null;
-  // private periodicity: PeriodicityModule;
-  // private monetModule: MonetizationModule;
+  private periodicity: PeriodicityModule;
+  private monetModule: MonetizationModule;
   
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
@@ -55,8 +55,8 @@ export class MonetizationComponent implements OnInit {
     this.selectedValRequest = null;
     this.principalContainers = [];
     this.idSolicitud= null;
-    // this.periodicity = new PeriodicityModule();
-    // this.monetModule = new MonetizationModule()
+    this.periodicity = new PeriodicityModule();
+    this.monetModule = new MonetizationModule()
   }
 
   ngOnInit(): void {
@@ -97,13 +97,13 @@ export class MonetizationComponent implements OnInit {
     oMonet.idTipoOperacion = dataForm.idTipoOperacion;
     oMonet.idSubTipoOperacion = dataForm.idSubTipoOperacion;
     oMonet.segmento = parseInt(dataForm.segmento,10);
-    //oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
+    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
     oMonet.montoMonetizacion = parseInt(dataForm.montoMonetizacion,10);
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto,10);
-    //oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
+    oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
     oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? "P" : "C";
-    //oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
+    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(dataForm.fechaFinVigencia);
     console.log(oMonet);
