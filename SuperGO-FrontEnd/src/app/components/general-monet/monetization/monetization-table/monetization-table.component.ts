@@ -7,7 +7,7 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 import swal from 'sweetalert2';
 import { UpdateModalMonetizationComponent } from '../update-modal-monetization/update-modal-monetization.component';
 import { finalize, timeout } from 'rxjs/operators';
-import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
+// import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
 
 @Component({
   selector: 'app-monetization-table',
@@ -26,7 +26,7 @@ export class MonetizationTableComponent implements OnInit {
   monetService:FormMonetizationsService;
   private showLoad: boolean = false;
   private loaderDuration: number;
-  private periodicity: PeriodicityModule;
+  // private periodicity: PeriodicityModule;
   private timeOutModal: number = 240000;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -37,7 +37,7 @@ export class MonetizationTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Monetizacion>(); 
     this.pageEvent= new PageEvent();   
     this.loaderDuration = 100;
-    this.periodicity = new PeriodicityModule();  
+    // this.periodicity = new PeriodicityModule();  
    }
 
   ngOnInit(): void {    
@@ -118,7 +118,7 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Divisa </b></td><td style="padding:5px"> ${oMonet.codigoDivisa} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
+      // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
       swal.fire({             

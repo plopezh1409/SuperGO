@@ -10,8 +10,8 @@ import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
-import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
-import { MonetizationModule } from '@app/core/helper/monetization/monetization.module';
+// import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
+// import { MonetizationModule } from '@app/core/helper/monetization/monetization.module';
 //Servicio
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
 
@@ -35,8 +35,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
   public showButtonAdd: boolean;
   private selectedValRequest: any;
   public principalContainers: Container[];
-  private periodicity:PeriodicityModule;
-  private monetModule:MonetizationModule;
+  // private periodicity:PeriodicityModule;
+  // private monetModule:MonetizationModule;
   private objIds:any;
   private appComp:AppComponent;
 
@@ -49,23 +49,23 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.showButtonAdd = false;
     this.selectedValRequest = null;
     this.principalContainers = [];
-    this.periodicity = new PeriodicityModule();
-    this.monetModule = new MonetizationModule();
+    // this.periodicity = new PeriodicityModule();
+    // this.monetModule = new MonetizationModule();
   }
 
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.dataModal.dataModal.codigoDivisa = this.getValueDivisa(this.dataModal.dataModal.codigoDivisa);
-    let cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
-    this.control.setDataToControls(this.containers,cpyModal);
+    // let cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
+    // this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     this.principalContainers = this.containers;
     this.changePeridicity(this.containers);
     this.objIds = {
-      idSociedad: cpyModal.idSociedad,
-      idTipoOperacion: cpyModal.idTipoOperacion,
-      idSubTipoOperacion: cpyModal.idSubTipoOperacion
+      // idSociedad: cpyModal.idSociedad,
+      // idTipoOperacion: cpyModal.idTipoOperacion,
+      // idSubTipoOperacion: cpyModal.idSubTipoOperacion
     }
   }
 
@@ -132,13 +132,13 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.idTipoOperacion = jsonResult.idTipoOperacion;
     oMonet.idSubTipoOperacion = jsonResult.idSubTipoOperacion;
     oMonet.segmento = parseInt(jsonResult.segmento,10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers)
+    // oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers)
     oMonet.montoMonetizacion = parseInt(jsonResult.montoMonetizacion,10);
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
-    oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
+    // oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura =="true");
     oMonet.indicadorOperacion = jsonResult.indicadorOperacion == true ? "P" : "C";
-    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
+    // oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(jsonResult.fechaFinVigencia);
     console.log(oMonet);

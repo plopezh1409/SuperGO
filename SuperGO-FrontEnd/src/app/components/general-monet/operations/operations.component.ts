@@ -13,6 +13,7 @@ import { FormOperationsService } from '@app/core/services/operations/formOperati
 //MODELS
 import { Container } from '@app/core/models/capture/container.model';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-operations',
@@ -29,10 +30,12 @@ export class OperationsComponent implements OnInit {
   alignContent='horizontal';
   public dataInfo:Operaciones[];
   public channelCatalog:any[];
+  public idSolicitud: string | null;
 
   @ViewChild(OperationsTableComponent) catalogsTable:OperationsTableComponent;
 
-  constructor(private readonly appComponent: AppComponent, private injector:Injector) {
+  constructor(private readonly appComponent: AppComponent, private injector:Injector,
+    private readonly _route: ActivatedRoute) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new OperationsTableComponent();
@@ -42,11 +45,16 @@ export class OperationsComponent implements OnInit {
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
+    this.idSolicitud=null;
   }
 
   ngOnInit() {
-    this.fillDataPage();
-  }
+    this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
+    if(this.idSolicitud!=null)
+      this.fillDataPage();
+  
+    }
+    
 
   onSubmit(value:any)
   {
@@ -140,7 +148,7 @@ export class OperationsComponent implements OnInit {
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.formCatService.getForm().toPromise().catch((err) =>{
+    let dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
     var dataOper = await this.formCatService.getInfoOperation().toPromise().catch((err) =>{

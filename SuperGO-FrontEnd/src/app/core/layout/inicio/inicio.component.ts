@@ -59,8 +59,7 @@ export class InicioComponent implements OnInit {
   }
  
   ngOnInit(): void {
-    this.Auth = false;
-    this.init = false;
+   
     //--------REDIRECTION --- GO -> SUPERGO-------------
     if (this.tk) {
       if (this.authService.isAuthenticated()) {
@@ -72,6 +71,8 @@ export class InicioComponent implements OnInit {
         });
         this.router.navigate(['/']);
       } else {
+        this.Auth = false;
+        this.init = false;
         this.authService.guardarToken(this.tk);
         this.authService.guardarUsuario(this.tk);
         this.initLoginWithToken(this.authService.usuario);
@@ -79,6 +80,8 @@ export class InicioComponent implements OnInit {
     }
     //--------------------------------------------------
     else {
+      this.Auth = false;
+      this.init = false;
       let actMk = this.authService.isActiveMasterKey;
       if (isObservable(actMk)) {
         this.appComponent.showLoader(true);
@@ -243,7 +246,6 @@ export class InicioComponent implements OnInit {
         cantidad: this.cardsTop.length
       }
     });
-
     dialogRef.afterClosed()
       .pipe(finalize(() => { this.appComponent.showLoader(false); }))
       .subscribe((result: any) => {
@@ -259,6 +261,7 @@ export class InicioComponent implements OnInit {
           }
         }
       });
+
   }
 
   deleteTarget(index: any) {

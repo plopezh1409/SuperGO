@@ -9,7 +9,7 @@ import { OperationsComponent } from './operations/operations.component';
 import { MonetizationComponent } from './monetization/monetization.component';
 import { AccountingComponent } from './accounting/accounting.component';
 
-const principalMonetizaor = '/monetizador';
+const principalMonetizaor = '/solicitud';
 const routes: Routes = [
   {
   path: '', component: generalmonetComponent, canActivate: [AuthGuard], 
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   
   {
-    path: 'invoices',
+    path: 'especifica/:idSolicitud/invoices',
     component: invoicesComponent, 
     data:{
       title:'Catalogos',
@@ -52,7 +52,7 @@ const routes: Routes = [
     }   
   },
   {
-    path: 'societies',
+    path: 'especifica/:idSolicitud/societies',
     component: societiescomponent,   
     data:{
       title:'Solicitud',
@@ -73,7 +73,7 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'operations',
+    path: 'especifica/:idSolicitud/operations',
     component: OperationsComponent,   
     data:{
       title:'Solicitud',
@@ -94,7 +94,7 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'accounting',
+    path: 'especifica/:idSolicitud/accounting',
     component: AccountingComponent,   
     data:{
       title:'Solicitud',
@@ -115,7 +115,7 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'monetization',
+    path: 'especifica/:idSolicitud/monetization',
     component: MonetizationComponent,   
     data:{
       title:'Solicitud',

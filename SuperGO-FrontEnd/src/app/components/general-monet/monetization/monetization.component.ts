@@ -12,9 +12,10 @@ import { Control } from '@app/core/models/capture/controls.model';
 
 //SERVICES
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
+import { ActivatedRoute } from '@angular/router';
 
-import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
-import { MonetizationModule } from '@app/core/helper/monetization/monetization.module';
+// import { PeriodicityModule } from '@app/core/helper/periodicity/periodicity.module';
+// import { MonetizationModule } from '@app/core/helper/monetization/monetization.module';
 
 
 @Component({
@@ -33,13 +34,15 @@ export class MonetizationComponent implements OnInit {
   public showButtonAdd: boolean;
   private selectedValRequest: any;
   public principalContainers: Container[];
-  private periodicity: PeriodicityModule;
-  private monetModule: MonetizationModule;
+  public idSolicitud: string | null;
+  // private periodicity: PeriodicityModule;
+  // private monetModule: MonetizationModule;
   
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
-  constructor(private readonly appComponent: AppComponent, private injector: Injector) {
+  constructor(private readonly appComponent: AppComponent, private injector: Injector,
+    private readonly _route: ActivatedRoute) {
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new MonetizationTableComponent(this.injector);
@@ -51,12 +54,15 @@ export class MonetizationComponent implements OnInit {
     this.showButtonAdd = false;
     this.selectedValRequest = null;
     this.principalContainers = [];
-    this.periodicity = new PeriodicityModule();
-    this.monetModule = new MonetizationModule()
+    this.idSolicitud= null;
+    // this.periodicity = new PeriodicityModule();
+    // this.monetModule = new MonetizationModule()
   }
 
   ngOnInit(): void {
-    this.fillDataPage();
+    this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
+    if(this.idSolicitud!=null)
+      this.fillDataPage();
   }
 
 
@@ -91,13 +97,13 @@ export class MonetizationComponent implements OnInit {
     oMonet.idTipoOperacion = dataForm.idTipoOperacion;
     oMonet.idSubTipoOperacion = dataForm.idSubTipoOperacion;
     oMonet.segmento = parseInt(dataForm.segmento,10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
+    //oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
     oMonet.montoMonetizacion = parseInt(dataForm.montoMonetizacion,10);
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto,10);
-    oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
+    //oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
     oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? "P" : "C";
-    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
+    //oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(dataForm.fechaFinVigencia);
     console.log(oMonet);
@@ -186,7 +192,7 @@ export class MonetizationComponent implements OnInit {
 
   async fillDataPage() {
     this.appComponent.showLoader(true);
-    let dataForm = await this.monetService.getForm().toPromise().catch((err) => {
+    let dataForm = await this.monetService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) => {
       return err;
     });
     var dataOper = await this.monetService.getDataMonetization().toPromise().catch((err) => {

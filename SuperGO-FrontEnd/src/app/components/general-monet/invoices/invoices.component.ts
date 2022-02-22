@@ -7,6 +7,7 @@ import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.se
 import { invoicesTableComponent } from './invoices-table/invoices-table.component';
 import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-invoices',
@@ -21,11 +22,13 @@ export class invoicesComponent implements OnInit {
   maxNumControls=10;
   alignContent='horizontal';
   public dataInfo:Facturas[];
+  public idSolicitud : string |null;
 
   @ViewChild(invoicesTableComponent) catalogsTable:invoicesTableComponent;
 
 
-  constructor( private readonly appComponent: AppComponent, private injector:Injector) { 
+  constructor( private readonly appComponent: AppComponent, private injector:Injector,
+    private readonly _route: ActivatedRoute) { 
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new invoicesTableComponent();
@@ -34,15 +37,18 @@ export class invoicesComponent implements OnInit {
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
+    this.idSolicitud=null;
   }
 
   ngOnInit(): void {
-    this.fillDataPage();
+    this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
+    if(this.idSolicitud!=null)
+      this.fillDataPage();
   }
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.formInvoicesService.getForm().toPromise().catch((err) =>{
+    let dataForm = await this.formInvoicesService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
     var dataOper = await this.formInvoicesService.getInfoInvoices().toPromise().catch((err) =>{

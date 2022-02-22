@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-societies',
@@ -25,10 +26,12 @@ export class societiescomponent implements OnInit {
   alignContent='horizontal';
   public dataInfo:Sociedad[];
   public showLoad: boolean = false;
+  public idSolicitud : string | null;
 
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
 
-  constructor(private injector:Injector, private appComponent: AppComponent) { 
+  constructor(private injector:Injector, private appComponent: AppComponent,
+    private readonly _route: ActivatedRoute) { 
     this.formCatService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new SocietiesTableComponent(this.injector);
@@ -37,10 +40,13 @@ export class societiescomponent implements OnInit {
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
+    this.idSolicitud=null;
   }
   
   ngOnInit() {
-    this.fillDataPage();
+    this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
+    if(this.idSolicitud!=null)
+      this.fillDataPage();
   }
 
   onSubmit(value:any)
@@ -138,7 +144,7 @@ export class societiescomponent implements OnInit {
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.formCatService.getForm().toPromise().catch((err) =>{
+    let dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
     var dataOper = await this.formCatService.getInfoSocieties().toPromise().catch((err) =>{

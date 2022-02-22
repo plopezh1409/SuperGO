@@ -7,6 +7,7 @@ import { FormAccountingsService } from '@app/core/services/accountings/formAccou
 import { AccountingTablesComponent } from './accounting-tables/accounting-tables.component';
 import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-accounting',
@@ -22,11 +23,13 @@ export class AccountingComponent implements OnInit {
   maxNumControls=10;
   alignContent='horizontal';
   public dataInfo:Contabilidad[];
+  public idSolicitud: string | null;
 
   @ViewChild(AccountingTablesComponent) catalogsTable:AccountingTablesComponent;
 
 
-  constructor( private readonly appComponent: AppComponent, private injector:Injector) { 
+  constructor( private readonly appComponent: AppComponent, private injector:Injector,
+    private readonly _route: ActivatedRoute) { 
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new AccountingTablesComponent(this.injector);
@@ -35,10 +38,13 @@ export class AccountingComponent implements OnInit {
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
+    this.idSolicitud=null;
   }
 
   ngOnInit(): void {
-    this.fillDataPage();
+    this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
+    if(this.idSolicitud!=null)
+      this.fillDataPage();
   }
 
   onSubmit(value:any)
@@ -135,7 +141,7 @@ export class AccountingComponent implements OnInit {
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.accountService.getForm().toPromise().catch((err) =>{
+    let dataForm = await this.accountService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
     var dataAcco = await this.accountService.getInfoAccounting().toPromise().catch((err) =>{

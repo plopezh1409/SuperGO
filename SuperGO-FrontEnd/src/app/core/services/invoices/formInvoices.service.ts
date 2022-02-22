@@ -39,9 +39,9 @@ export class FormInvoicesService {
     }
 	
 	
-	getForm():Observable<any>
+	getForm(solicitud:any):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
 
     getInfoInvoices(){

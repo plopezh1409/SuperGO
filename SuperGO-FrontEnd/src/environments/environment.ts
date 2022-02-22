@@ -4,14 +4,25 @@ export const environment = {
   production: false,
 
 
-  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
-  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
+  //urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
+   urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+U6xLg0YYxE8L81zVy8v9TE=', //Javi
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+VoLmmMRyh3XY8hTT45PK0iWB5fyLVdvHXYgjTlrmxDM',
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
   // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRNp8iKdSLdJQMML5C6HVhyw=', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
   // K1L0
+
+    // urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=',                          //8R4V0  (APIGO/)
+    //  urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lSLHxyniQWcnPxr2f6KMKCW+JriD5u07KT2x6XBkkzLe',      //8R4V0  (GestorOperaAPI/)
+  //  urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lQgiayB5M25RiU11WKAcDx8=',                          //D3LT4  (APIGO/)
+   //urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lY311RbMLQjk4O1WLmEhaWEfJ7oXV42HyIQLFaWKzRjP',      //M1K3   (GestorOperaAPI/)
+  //  urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lRxMhuxiOJDDP2WDmmBqyHDjcJUAX6M/kSQWVczXJuTn',      //JUL13T (GestorOperaAPI/)
+  //  urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lZtW6Ah58ybmJlUYWQqDcSicCW0eP43rHigGwOwDdeQ7',      //L1M4   (APIGO/)
+  //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+YOoPWlqsC7LdSrviJY7O/YgEjb8oExGkT6Gtt2Cys0D',      //60L7   (APIGO/)
+  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+c8LHShnP0T7CnArANVFAzYAiprr9BUvqFo2TYKaKLSX',
+
+
   urlAuthGS: 'https://authns.desadsi.gs/nidp/oauth/nam/authz',
   urlAuthGSLogOut: 'https://authns.desadsi.gs/nidp/jsp/logoutSuccess_latest.jsp',
 
@@ -20,7 +31,8 @@ export const environment = {
   client_secret: 'U03HO+hqrMDDTFnShe7WvFuvOsmiVtBadJd9srCARHCGxz9k05OfpGBXzilrz9QYY9IH3ChJkUHTT5+iSOTqeJoU4ZiSqFwLUCxX17KZeEIFgRzRd/dtXwXKcLTvk9nS',
   // redirect_uri: 'LIypVu/8YZZ2Zfe87MFBdIeXj4+cSfnpNl5O8AulU94=', //localhost
   // redirect_uri:'qnuLv7SMRPSjOanKK3t3lXzW8mdNX45lbxcL6DDk2DfDjlTeJdaj2X7Yys9kBtQH', //8R4V0 PORT 80
-  redirect_uri: 'qnuLv7SMRPSjOanKK3t3lYRsuhqMUdhDG3cGzPu1SFQzVRD2rKy/S4wf2zIP4IKu',//L1M4 PORT 8080
+   redirect_uri: 'qnuLv7SMRPSjOanKK3t3lYRsuhqMUdhDG3cGzPu1SFQzVRD2rKy/S4wf2zIP4IKu',//L1M4 PORT 8080
+  // redirect_uri: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK',
   scope: 'N6dUbSZB+8hTTHT0ierTK05E/4TLuzMyuSPoLNjOTAw=',
   acr_values: 'LwWwChy9aHCL8lz7Kh2wQyfuaGjhVu4g0QLnj0s46us=',
   rp: '3L5Q91pQlcjsr8u28kgRfcAZHnuriGeKNPCEQ/McuHw=',

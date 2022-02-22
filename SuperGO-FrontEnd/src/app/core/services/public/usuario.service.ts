@@ -13,7 +13,6 @@ export class UsuarioService {
     }
 
     modifyTop(top: any,type:string): Observable<any> {
-        console.log("modifyTop",top);
          return this.http.post(`${this.urlEndPoint}top/${type}`, top);
     }
 

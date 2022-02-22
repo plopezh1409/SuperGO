@@ -38,9 +38,9 @@ export class FormOperationsService{
         return { "idRequest": "14" };
     }
 
-    getForm():Observable<any>
+    getForm(solicitud:any):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, this._requestForm);
+        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
 
     // getInfoOperation():Observable<any>
