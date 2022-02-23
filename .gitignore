@@ -46,3 +46,5 @@ SuperGO-FrontEnd/.scannerwork/css-bundle/bin/server
 *.txt
 SuperGO-FrontEnd/src/.scannerwork/.sonar_lock
 SuperGO-FrontEnd/src/.scannerwork/css-bundle/bin/server
+SuperGO-FrontEnd/.scannerwork/css-bundle/lib/src/server.d.ts
+SuperGO-FrontEnd/src/.scannerwork/css-bundle/lib/src/server.d.ts
