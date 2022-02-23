@@ -59,7 +59,7 @@ export class InicioComponent implements OnInit {
   }
  
   ngOnInit(): void {
-   
+   debugger;
     //--------REDIRECTION --- GO -> SUPERGO-------------
     if (this.tk) {
       if (this.authService.isAuthenticated()) {
