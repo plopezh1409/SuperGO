@@ -1,0 +1,28 @@
+{
+    "code": 200,
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response": {
+        "registroContable":
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA",
+                "idTipoOperacion": 1,
+                "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
+                "idSubTipoOperacion": 2,
+                "descSubTipoOperacion": "GENERAL",
+                "indicadorOperacion": 1,
+                "numeroApunte":10,
+                "contabilidadDiaria":"D",
+                "indicadorIVA":"AA",
+                "tipoCuenta":"M",
+                "claseDocumento":"SA",
+                "concepto":"COMISION PAGO SERVICIOS",
+                "centroDestino":"0629",
+                "sociedadGl":"G",
+                "cuentaSAP":"1309213442",
+                "idReglaMonetizacion": 1,
+                "fechaInicioVigencia": "2021-11-01",
+                "fechaFinVigencia": "9999-12-01"
+            }
+    }
+}

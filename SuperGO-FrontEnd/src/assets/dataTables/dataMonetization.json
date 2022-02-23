@@ -1,0 +1,87 @@
+{
+    "code": 200,
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response": {
+        "reglasMonetizacion":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA",
+                "idTipoOperacion": 1,
+                "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
+                "idSubTipoOperacion": 2,
+                "descSubTipoOperacion": "GENERAL",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial": "UPAX S.A. DE C.V.",
+                "idTipoOperacion": 2,
+                "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
+                "idSubTipoOperacion": 1,
+                "descSubTipoOperacion": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
+                "idTipoOperacion": 3,
+                "descripcionTipoOperacion": "NOTICIAS",
+                "idSubTipoOperacion": 1,
+                "descSubTipoOperacion": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            }
+        ],
+        "sociedades":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial":"UPAX S.A. DE C.V."
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V."
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+            }
+        ],
+        "operaciones":[
+            {
+                "idOperacion": 1,
+                "descripcionOperacion":"COLOCACION DE CREDITO - CLIENTES NUEVOS"
+            },
+            {
+                "idOperacion": 2,
+                "descripcionOperacion":"CHAT Y RED SOCIAL"
+            },
+            {
+                "idOperacion": 3,
+                "descripcionOperacion":"NOTICIAS"
+            },
+            {
+                "idOperacion": 4,
+                "descripcionOperacion":"VENTA DE SEGUROS"
+            }
+        ],
+        "subOperaciones":[
+            {
+                "idSubOperacion": 1,
+                "descripcionSubOperacion":"GENERICO" 
+            },
+            {
+                "idOperacion": 2,
+                "descripcionOperacion":"GENERAL"
+            }
+    ]
+    }
+}

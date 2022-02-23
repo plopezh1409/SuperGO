@@ -1,0 +1,26 @@
+{
+    "code": 200,
+    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "response": {
+        "reglasMonetizacion":
+        {
+            "idSociedad": 1,
+            "razonSocial": "ELEKTRA",
+            "idTipoOperacion": 1,
+            "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
+            "idSubTipoOperacion": 2,
+            "descSubTipoOperacion": "GENERAL",
+            "indicadorOperacion": "C",
+            "montoMonetizacion": 200.5,
+            "tipoMontoMonetizacion": "F",
+            "idTipoImpuesto": 1,
+            "emisionFactura": true,
+            "segmento": 1245,
+            "codigoDivisa": "MXP",
+            "periodicidadCorte": "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=8",
+            "fechaInicioVigencia": "01-11-2021",
+            "fechaFinVigencia": "01-11-2021",
+            "idReglaMonetizacion": 46738
+        }
+    }  
+}

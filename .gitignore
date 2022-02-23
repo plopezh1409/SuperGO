@@ -38,7 +38,6 @@ node/
 *.js
 *.map
 *.tsbuildinfo
-*.json
 *.pb
 SuperGO-FrontEnd/.scannerwork/.sonar_lock
 SuperGO-FrontEnd/.scannerwork/css-bundle/bin/server
