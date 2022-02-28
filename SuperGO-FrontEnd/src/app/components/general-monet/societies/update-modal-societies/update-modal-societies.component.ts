@@ -43,7 +43,6 @@ export class UpdateModalSocietiesComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.refData?.updateSize('70%');
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.reactiveForm.setContainers(this.containers);

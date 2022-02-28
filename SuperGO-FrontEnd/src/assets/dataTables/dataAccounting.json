@@ -87,26 +87,6 @@
                 "idOperacion": 4,
                 "descripcionOperacion":"VENTA DE SEGUROS"
             }
-        ],
-        "subOperacion":[
-            {
-                "idSubOperacion": 1,
-                "descripcionSubOperacion":"GENERICO" 
-            },
-            {
-                "idOperacion": 2,
-                "descripcionOperacion":"GENERAL"
-            }
-        ],
-        "monetizacion":[
-            {
-                "idMonetizacion": 1,
-                "descripcionMonetizacion":"1"
-            },
-            {
-                "idMonetizacion": 2,
-                "descripcionMonetizacion":"2"
-            }
         ]
     }
     }

@@ -87,16 +87,6 @@
           "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-DISPERSIONES-POST",
           "status": "A"
         }
-      ],
-      "canal": [
-        {
-          "ky": 54,
-          "value": "54"
-        },
-        {
-          "ky": 1,
-          "value": "1"
-        }
       ]
     }
   }

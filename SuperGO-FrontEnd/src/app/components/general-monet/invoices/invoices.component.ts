@@ -63,6 +63,7 @@ export class invoicesComponent implements OnInit {
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
+      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
@@ -150,9 +151,9 @@ export class invoicesComponent implements OnInit {
   addDataDropdown(dataForm:any, dataContent:any){
     var cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.facturas
-    Object.entries(cpDataContent).map(([key, value]:any, idx:number) =>{
+    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).map(([key, value]:any, idx:number) => {
+        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
           if(typeof value === 'number'){
             ele['ky'] = ele[key];
             delete ele[key];

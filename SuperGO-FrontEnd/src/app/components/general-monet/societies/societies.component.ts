@@ -202,7 +202,7 @@ export class societiescomponent implements OnInit {
     
     dataContent.forEach((element:any) => {
       var oDropdown:DropdownModel = new DropdownModel();
-      Object.entries(element).map(([key, value]:any, idx:number) => {
+      Object.entries(element).forEach(([key, value]:any, idx:number) => {
         if(typeof value === 'number')
           oDropdown.ky = value;
         else

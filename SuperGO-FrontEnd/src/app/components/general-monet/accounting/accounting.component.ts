@@ -167,9 +167,9 @@ export class AccountingComponent implements OnInit {
   addDataDropdown(dataForm:any, dataContent:any){
     var cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.registrosContables
-    Object.entries(cpDataContent).map(([key, value]:any, idx:number) =>{
+    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).map(([key, value]:any, idx:number) => {
+        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
           if(typeof value === 'number'){
             ele['ky'] = ele[key];
             delete ele[key];
@@ -192,14 +192,10 @@ export class AccountingComponent implements OnInit {
             ctrl.content.contentList = cpDataContent.operaciones;
             ctrl.content.options = cpDataContent.operaciones;
           }
-          else if (ctrl.ky === 'idSubTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.subOperacion;
-            ctrl.content.options = cpDataContent.subOperacion;
-          }
-          else if (ctrl.ky === 'idReglaMonetizacion'){
-            ctrl.content.contentList = cpDataContent.monetizacion;
-            ctrl.content.options = cpDataContent.monetizacion;
-          }
+          // else if (ctrl.ky === 'idSubTipoOperacion'){
+          //   ctrl.content.contentList = cpDataContent.subOperacion;
+          //   ctrl.content.options = cpDataContent.subOperacion;
+          // }
         }
       });
     });

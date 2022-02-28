@@ -254,9 +254,9 @@ export class MonetizationComponent implements OnInit {
   addDataDropdown(dataForm:any, dataContent:any){
     var cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.reglasMonetizacion;
-    Object.entries(cpDataContent).map(([key, value]:any, idx:number) =>{
+    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).map(([key, value]:any, idx:number) => {
+        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
           if(typeof value === 'number'){
             ele['ky'] = ele[key];
             delete ele[key];

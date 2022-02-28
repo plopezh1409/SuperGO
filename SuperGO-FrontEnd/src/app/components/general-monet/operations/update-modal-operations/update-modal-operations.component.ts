@@ -39,7 +39,6 @@ export class UpdateModalOperationsComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.authService = this.injector.get<AuthService>(AuthService);
-    this.refData?.updateSize('70%');
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;

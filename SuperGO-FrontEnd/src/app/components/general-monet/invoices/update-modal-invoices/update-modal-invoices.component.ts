@@ -31,7 +31,6 @@ export class UpdateModalInvoicesComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector,public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formInvService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
-    this.refData?.updateSize('70%');
     this.containers=[];
     this.loaderDuration = 100;
   }

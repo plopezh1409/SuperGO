@@ -162,7 +162,7 @@ export class OperationsComponent implements OnInit {
       this.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.canal);
+      this.containers = dataForm.response.reactiveForm;//this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.canal);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));

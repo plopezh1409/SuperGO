@@ -71,23 +71,29 @@ export class MonetizationTableComponent implements OnInit {
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion == "C"?"false":"true";
       var _auxForm = this.disabledFields(this.containers);
-      var matDialog = this.refData?.open(UpdateModalMonetizationComponent,{
-        data:{
-          dataModal:oMonet,
-          auxForm:_auxForm
-        }
-      });
-    
-      matDialog?.afterClosed().subscribe((oData:any)=>{
-        if(oData !== undefined)
-          if(oData.status === true){
-            this.dataInfo = oData.data;
-            this.onLoadTable(this.dataInfo);
-          }
-      });
-      matDialog?.afterOpened().subscribe(()=>{
-        setTimeout(()=> { matDialog?.close(); }, this.timeOutModal) });
+      return (this.dialogUpdate(oMonet, _auxForm));
       }
+  }
+
+  dialogUpdate(oMonet:any, _auxForm:any
+    ){
+    var matDialog = this.refData?.open(UpdateModalMonetizationComponent,{
+      data:{
+        dataModal:oMonet,
+        auxForm:_auxForm
+      }
+    });
+  
+     matDialog?.afterClosed().subscribe((oData:any)=>{
+      if(oData !== undefined)
+        if(oData.status === true){
+          this.dataInfo = oData.data;
+          this.onLoadTable(this.dataInfo);
+        }
+    });
+    matDialog?.afterOpened().subscribe(()=>{
+      setTimeout(()=> { matDialog?.close(); }, this.timeOutModal) });
+    
   }
 
   async show(element:Monetizacion){
