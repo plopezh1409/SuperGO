@@ -129,7 +129,7 @@ const routes: Routes = [
           url: principalMonetizaor
         },
         {
-          label: 'Monetización',
+          label: 'Reglas de Monetización',
           url: ''
         }
       ]

@@ -4,13 +4,13 @@ export const environment = {
   production: false,
 
 
-  //urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
+   urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+U6xLg0YYxE8L81zVy8v9TE=', //Javi
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+VoLmmMRyh3XY8hTT45PK0iWB5fyLVdvHXYgjTlrmxDM',
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
   // urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRNp8iKdSLdJQMML5C6HVhyw=', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
-  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
+  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
   // K1L0
 
     // urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=',                          //8R4V0  (APIGO/)

@@ -17,7 +17,7 @@ export class PeriodicityModule {
         switch(descPer[0].split("=")[1]){
           case 'YEARLY':
             var day = descPer[1].split("=")[1];
-            let month = this.getMonth(parseInt(descPer[2].split("=")[1]));
+            let month = this.getMonth(parseInt(descPer[2].split("=")[1], 10));
             periodicity = periodicity.concat(`ANUAL - CADA ${day.padStart(2,'0')} DE ${month}`);
             break;
     

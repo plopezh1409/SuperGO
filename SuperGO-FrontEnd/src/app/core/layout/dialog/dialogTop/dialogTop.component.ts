@@ -97,7 +97,6 @@ export class DialogTop {
             this.selected.forEach(element => {
                 arr2.push(element.data);
             });
-            debugger;
             this.showLoad = true;
             this.userService.modifyTop({tops:arr2},'create')
             .pipe(pluck('response'), finalize(()=>{this.showLoad=false;}))
