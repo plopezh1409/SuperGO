@@ -9,7 +9,7 @@ import { OperationsComponent } from './operations/operations.component';
 import { MonetizationComponent } from './monetization/monetization.component';
 import { AccountingComponent } from './accounting/accounting.component';
 
-const principalMonetizaor = '/solicitud';
+const principalMonetizaor = '/monetizador';
 const routes: Routes = [
   {
   path: '', component: generalmonetComponent, canActivate: [AuthGuard], 

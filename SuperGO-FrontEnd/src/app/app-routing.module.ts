@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'inicio/:token', component: InicioComponent  
   },
   {
-    path: 'solicitud',
+    path: 'monetizador',
     loadChildren: () => import('@app/components/general-monet/general-monet.module').then(m => m.GeneralMonetModule), canLoad:[ModuleGuard],
   },
   {

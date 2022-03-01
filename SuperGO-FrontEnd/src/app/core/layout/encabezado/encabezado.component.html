@@ -62,10 +62,12 @@
                 <div id="menu">
                     <ul class="l-navegacion nivel1">
                         <li><a routerLink="/" (click)="changeRole(null,snav)">
-                                <div class="four">
-                                    <img class="svgIcono" src="assets/image/home-24px.svg" alt="" width="25px" height="25px" />
-                                    <h4 class="labelMain"> Inicio </h4>
-                                </div>
+                            <div class="four">
+                                <mat-icon class="MenuIconos">
+                                    home
+                                </mat-icon> 
+                                <h4 class="labelMain"> Inicio </h4>
+                            </div>
                             </a>
                         </li>
                         <ng-container *ngIf="listaMenu.length>0">
