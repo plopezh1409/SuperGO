@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import { UpdateModalAccountingComponent } from '../update-modal-accounting/update-modal-accounting.component';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 import { finalize } from 'rxjs/operators';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
  
 @Component({
@@ -19,6 +20,7 @@ export class AccountingTablesComponent implements OnInit {
 
   @Input()dataInfo:Contabilidad[];
   accountService:FormAccountingsService;
+  messageError: MessageErrorModule;
   dataSource:MatTableDataSource<Contabilidad>;
   displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number = 0;
@@ -31,6 +33,7 @@ export class AccountingTablesComponent implements OnInit {
   
   constructor(private injector:Injector,public refData?:MatDialog) {    
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
+    this.messageError = new MessageErrorModule();
     this.dataInfo=[];    
     this.dataSource = new MatTableDataSource<Contabilidad>();
     this.pageEvent= new PageEvent();   
@@ -60,7 +63,7 @@ export class AccountingTablesComponent implements OnInit {
     });
     this.showLoader(false);
     if (data.code !== 200) {
-      this.showMessageError(data.message, data.code);
+      this.messageError.showMessageError(data.message, data.code);
       return;
     }
     else{
@@ -69,6 +72,7 @@ export class AccountingTablesComponent implements OnInit {
       oConta.indicadorIVA = oConta.indicadorIVA == "AA"?"true":"false";
       var _auxForm = this.disabledFields(this.containers);
       return( this.refData?.open(UpdateModalAccountingComponent,{
+        width: '70%',
         data:{
           dataModal:oConta,
           auxForm:_auxForm
@@ -90,7 +94,7 @@ export class AccountingTablesComponent implements OnInit {
     });
     this.showLoader(false);
     if (data.code !== 200) {
-      this.showMessageError(data.message, data.code);
+      this.messageError.showMessageError(data.message, data.code);
       return;
     }
     else{
@@ -114,9 +118,7 @@ export class AccountingTablesComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Centro Destino </b></td><td style="padding:5px"> `+ oConta.centroDestino +` </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> IVA </b></td><td style="padding:5px"> `+ oConta.indicadorIVA +` </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Cuenta SAP </b></td><td style="padding:5px"> `+ oConta.cuentaSAP +` </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Monetización </b></td><td style="padding:5px"> `+ oConta.idReglaMonetizacion +` </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Inicio De Vigencia </b></td><td style="padding:5px"> `+ oConta.fechaInicioVigencia +` </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Fin De Vigencia </b></td><td style="padding:5px"> `+ oConta.fechaFinVigencia +` </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Monetización </b></td><td style="padding:5px"> `+ oConta.idReglaMonetizacion +` </td></tr>`);
       swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
@@ -149,35 +151,8 @@ export class AccountingTablesComponent implements OnInit {
     }, this.loaderDuration);
   }
 
-  showMessageError(menssage:string, code:number){
-    switch (code) {
-      case 400: //Solicitud incorrecta
-        swal.fire({
-          icon: 'warning',
-          title: 'Solicitud incorrecta',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 404://No autorizado
-        swal.fire({
-          icon: 'warning',
-          title: 'No autorizado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 500://Error Inesperado
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      default:
-        break;
-    }
+    ngOnDestroy(): void {
+    this.refData?.closeAll();
   }
 
 }

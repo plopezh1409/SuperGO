@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
 import { OperationsTableComponent } from './operations-table/operations-table.component';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 //SERVICES
 import { FormOperationsService } from '@app/core/services/operations/formOperations.service';
@@ -25,6 +26,7 @@ export class OperationsComponent implements OnInit {
 
   formCatService:FormOperationsService;
   reactiveForm:ReactiveForm;
+  messageError:MessageErrorModule;
   containers:Container[];
   maxNumControls=10;
   alignContent='horizontal';
@@ -38,6 +40,7 @@ export class OperationsComponent implements OnInit {
     private readonly _route: ActivatedRoute) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();
+    this.messageError = new MessageErrorModule();
     this.catalogsTable = new OperationsTableComponent();
     this.containers=[];
     this.dataInfo=[];
@@ -52,9 +55,7 @@ export class OperationsComponent implements OnInit {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
     if(this.idSolicitud!=null)
       this.fillDataPage();
-  
-    }
-    
+  }
 
   onSubmit(value:any)
   {
@@ -67,27 +68,23 @@ export class OperationsComponent implements OnInit {
       });
       return;
     }
-
     let dataBody;
     for(var datas of Object.values(value)){
       dataBody = Object(datas);
     }
     var obOpe:Operaciones =  new Operaciones();
-    obOpe.descripcionTipoOperacion = dataBody.descripcion
-    obOpe.idCanal = dataBody.canal
-    obOpe.topicoKafka = dataBody.topicoKafka
-    obOpe.status = dataBody.estatus === true ?"A":"I"
-
+    obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
+    obOpe.idCanal = dataBody.idCanal;
+    obOpe.topicoKafka = dataBody.topicoKafka;
+    obOpe.status = dataBody.status === true ?"A":"I";
     this.appComponent.showLoader(true);
     this.formCatService.insertOperation(obOpe).pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
-      console.log(data);
-      switch (data.code) {
-        case 201: //Solicitud correcta
+      if(data.code == 201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.menssage,
+          text: data.message,
           heightAuto: false,
           confirmButtonText: "Ok",
           allowOutsideClick: false
@@ -97,53 +94,13 @@ export class OperationsComponent implements OnInit {
             this.updateTable();
           }
         });
-          break;
-        case 400: //Solicitud incorrecta
-          swal.fire({
-            icon: 'warning',
-            title: 'Solicitud incorrecta',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 401://No autorizado
-          swal.fire({
-            icon: 'warning',
-            title: 'No autorizado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 500://Error Inesperado
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        default:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: "Intente mas tarde",
-            heightAuto: false
-          });
-          break;
-        }
+      }
+      else{
+        this.messageError.showMessageError(data.message, data.code);
+      }
+    },(err:any) => {
+      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
-  }
-
-  addDataDropdown(dataForm:any, dataContent:any){
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          ctrl.content.contentList = dataContent;
-          ctrl.content.options = dataContent;
-        }
-      });
-    });
-    return dataForm;
   }
 
   async fillDataPage(){
@@ -156,62 +113,33 @@ export class OperationsComponent implements OnInit {
     });
     this.appComponent.showLoader(false);
     if(dataForm.code !== 200){
-      this.showMessageError(dataForm.message, dataForm.code);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
     else if(dataOper.code !== 200) {
-      this.showMessageError(dataOper.message, dataOper.code);
+      this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = dataForm.response.reactiveForm;//this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.canal);
+      this.containers = dataForm.response.reactiveForm;
+      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
-
-  showMessageError(menssage:string, code:number){
-        switch (code) {
-          case 400: //Solicitud incorrecta
-            swal.fire({
-              icon: 'warning',
-              title: 'Solicitud incorrecta',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          case 404://No autorizado
-            swal.fire({
-              icon: 'warning',
-              title: 'No autorizado',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          case 500://Error Inesperado
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          default:
-            break;
-        }
-      }
-
-      updateTable(){
-        this.appComponent.showLoader(true);
-        this.formCatService.getInfoOperation().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-        subscribe((data:any)=>{
-          switch (data.code) {
-            case 200:
-              this.dataInfo = data.response;
-              this.catalogsTable.onLoadTable(this.dataInfo);
-            break;
-        case 400: //Solicitud incorrecta
+  
+  updateTable(){
+    this.appComponent.showLoader(true);
+    this.formCatService.getInfoOperation().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    subscribe((data:any)=>{
+      switch (data.code) {
+        case 200:
+          this.dataInfo = data.response;
+          this.catalogsTable.onLoadTable(this.dataInfo);
+        break;
+        case 400:
         case 401:
+        case 404:
         case 500:
         default:
           swal.fire({
@@ -221,15 +149,14 @@ export class OperationsComponent implements OnInit {
             heightAuto: false
           });
         break;
-        }
+      }
     },(err:any) => {
       swal.fire({
-        icon: 'error',
-        title: 'Error inesperado',
-        text: "Ocurrió un error al cargar los datos, intente mas tarde.",
-        heightAuto: false
-      });      
-    });
+      icon: 'error',
+      title: 'Error inesperado',
+      text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+      heightAuto: false
+    });      
+  });
   }
-
 }

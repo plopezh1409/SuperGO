@@ -17,9 +17,6 @@ export class Contabilidad
     centroDestino:string;
     indicadorIVA:string;
     cuentaSAP:string;
-    fechaInicioVigencia: string;
-    fechaFinVigencia:string;
-
 
     constructor(){
         this.idSociedad = 0;
@@ -39,8 +36,6 @@ export class Contabilidad
         this.razonSocial = "";
         this.descripcionTipoOperacion="";
         this.descSubTipoOperacion = "";
-        this.fechaInicioVigencia = "";
-        this.fechaFinVigencia = "";
     }
 
 }

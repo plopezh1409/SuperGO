@@ -62,6 +62,7 @@ export class invoicesTableComponent implements OnInit {
     var _auxForm = this.disabledFields(this.containers);
     return(
       this.refData?.open(UpdateModalInvoicesComponent,{
+        width: '70%',
         data:{
           dataModal:oEle,
           auxForm:_auxForm
@@ -110,6 +111,10 @@ export class invoicesTableComponent implements OnInit {
           ctrl.disabled = true;
         }
     return _auxForm;
+  }
+
+  ngOnDestroy(): void {
+    this.refData?.closeAll();
   }
 
 }

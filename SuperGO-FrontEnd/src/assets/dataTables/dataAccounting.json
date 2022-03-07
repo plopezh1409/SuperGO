@@ -69,24 +69,6 @@
                 "idSociedad": 4,
                 "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
             }
-        ],
-        "operaciones":[
-            {
-                "idOperacion": 1,
-                "descripcionOperacion":"COLOCACION DE CREDITO - CLIENTES NUEVOS"
-            },
-            {
-                "idOperacion": 2,
-                "descripcionOperacion":"CHAT Y RED SOCIAL"
-            },
-            {
-                "idOperacion": 3,
-                "descripcionOperacion":"NOTICIAS"
-            },
-            {
-                "idOperacion": 4,
-                "descripcionOperacion":"VENTA DE SEGUROS"
-            }
         ]
     }
     }

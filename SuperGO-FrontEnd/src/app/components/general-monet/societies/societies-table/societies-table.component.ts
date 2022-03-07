@@ -17,7 +17,7 @@ import { AngularSecurity } from '@app/core/services/public/angularSecurity.servi
 export class SocietiesTableComponent implements OnInit {
   dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
-  displayedColumns: string[] = ['razonSocial', 'rfc', 'descripcionTipoSociedad', 'options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'RFC', 'descripcionTipoSociedad', 'options', 'options2'];
   totalRows:number = 0;
   containers:any;
   angularSecurity:AngularSecurity;
@@ -47,6 +47,7 @@ export class SocietiesTableComponent implements OnInit {
 
   open(element:any){
     return( this.refData?.open(UpdateModalSocietiesComponent,{
+      width: '70%',
       data:{
         dataModal:element,
         auxForm:this.containers
@@ -65,7 +66,7 @@ export class SocietiesTableComponent implements OnInit {
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Razón Social </b></td><td style="padding:5px"> `+ oSociedad.razonSocial +` </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> RFC </b></td><td style="padding:5px"> `+ oSociedad.rfc +` </td></tr>`);            
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> RFC </b></td><td style="padding:5px"> `+ oSociedad.RFC +` </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo De Sociedad </b></td><td style="padding:5px"> `+ oSociedad.descripcionTipoSociedad +` </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
@@ -76,6 +77,9 @@ export class SocietiesTableComponent implements OnInit {
     });
   }
 
-  
+  ngOnDestroy(): void {
+    this.refData?.closeAll();
+  }
+
 }
 

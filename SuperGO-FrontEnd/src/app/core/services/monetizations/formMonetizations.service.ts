@@ -35,25 +35,30 @@ export class FormMonetizationsService{
         }
     }
 
-    private get _requestForm(){
-        return { "idRequest": "17" };
-    }
-
     getForm(solicitud:any):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
-
 
     getDataMonetization():Observable<any>
     {
         return this.httpClient.get('assets/dataTables/dataMonetization.json');
     }
 
-    getDataMonetizationById(dataMonetization:Monetizacion):Observable<any>
+    getDataMonetizationById(oMonetization:Monetizacion):Observable<any>
     {
         return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
                 // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataMonetization);
+    }
+
+    insertMonetization(oMonetization:Monetizacion):Observable<any>
+    {
+        return this.httpClient.post(`${this.urlEnviroment}insert`, oMonetization);
+    }
+
+    updateMonetization(oMonetization:Monetizacion):Observable<any>
+    {
+        return this.httpClient.post(`${this.urlEnviroment}insert`, oMonetization);
     }
 
 }

@@ -8,6 +8,7 @@ import { Control } from '@app/core/models/capture/controls.model';
 import swal from 'sweetalert2'
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
   selector: 'app-update-modal-accounting',
@@ -19,6 +20,7 @@ export class UpdateModalAccountingComponent implements OnInit {
 
   accountingService:FormAccountingsService;
   reactiveForm:ReactiveForm;
+  messageError: MessageErrorModule;
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
@@ -31,6 +33,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
+    this.messageError = new MessageErrorModule();
   }
 
   ngOnInit(): void {
@@ -41,7 +44,8 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.objIds = {
       idSociedad: this.dataModal.dataModal.idSociedad,
       idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
-      idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion
+      idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
+      idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion
     }
   }
 
@@ -64,79 +68,51 @@ export class UpdateModalAccountingComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
     var oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = jsonResult.idSociedad;
-    oConta.idTipoOperacion = jsonResult.idTipoOperacion;
-    oConta.idSubtipoOperacion = jsonResult.idSubTipoOperacion;
-    oConta.idReglaMonetizacion = jsonResult.idReglaMonetizacion;
+    oConta.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
+    oConta.idSubtipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
+    oConta.idReglaMonetizacion = parseInt(this.objIds.idReglaMonetizacion,10);
     oConta.numeroApunte = parseInt(jsonResult.numeroApunte,10);
-    oConta.sociedadGl = jsonResult.sociedadGl;
-    oConta.tipoCuenta = jsonResult.tipoCuenta;
-    oConta.cuentaSAP = jsonResult.cuentaSAP;
-    oConta.claseDocumento = jsonResult.claseDocumento;
-    oConta.concepto = jsonResult.concepto;
-    oConta.centroDestino = jsonResult.centroDestino;
+    oConta.sociedadGl = jsonResult.sociedadGl.trim();
+    oConta.tipoCuenta = jsonResult.tipoCuenta.trim();
+    oConta.cuentaSAP = jsonResult.cuentaSAP.trim();
+    oConta.claseDocumento = jsonResult.claseDocumento.trim();
+    oConta.concepto = jsonResult.concepto.trim();
+    oConta.centroDestino = jsonResult.centroDestino.trim();
     oConta.contabilidadDiaria = jsonResult.contabilidadDiaria == "true"?"D":"C";
     oConta.indicadorIVA = jsonResult.indicadorIVA == "true"? "AA":"NA";
     oConta.indicadorOperacion = jsonResult.indicadorOperacion == '1' ? "C": "A";
-
     console.log(oConta);
-    /*this.showLoader(true);
-    this.accountingService.updateAccounting(oConta)
-      .pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
-        console.log(response.code)
-        switch (response.code) {
-          case 200: //Se modifico el registro correctamente
-            swal.fire({
-              icon: 'success',
-              title: 'Solicitud correcta',
-              text: response.mensaje,
-              heightAuto: false,
-              allowOutsideClick: false,
-              confirmButtonText: "Ok"
-            }).then((result)=>{
-              if(result.isConfirmed){
-                this.getDataTable();
-              }
-            });;
-            break;
-          case 400: //Solicitud incorrecta
-            swal.fire({
-              icon: 'warning',
-              title: 'Solicitud incorrecta',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          case 401://No autorizado
-            swal.fire({
-              icon: 'warning',
-              title: 'No autorizado',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          case 500://Error Inesperado
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          default: break;
-        }
-      }, (err:any) => {
+    this.showLoader(true);
+    this.accountingService.updateAccounting(oConta).pipe(finalize(() => { this.showLoader(false); }))
+    .subscribe((response:any) => {
+      if(response.code == 200){
+        swal.fire({
+          icon: 'success',
+          title: 'Solicitud correcta',
+          text: response.mensaje,
+          heightAuto: false,
+          allowOutsideClick: false,
+          confirmButtonText: "Ok"
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.getDataTable();
+          }
+        });
+      }
+      else{
+        this.messageError.showMessageError(response.message, response.code);
+      }
+    }, (err:any) => {
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
-          text: 'Por el momento no podemos proporcionar tu Solicitud.',
+          text: 'Por el momento no podemos proporcionar su Solicitud.',
           heightAuto: false
         });
-      });*/
+      });
   }
 
   getDataTable(){
@@ -145,31 +121,30 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.accountingService.getInfoAccounting().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
-          case 200: //Se modifico el registro correctamente
+          case 200:
           return(
             oResponse.status = true,
             oResponse.data = response.response,
             this.refData?.close(oResponse)
           );
-          case 400:
-          case 401:
+          case 400: case 401: case 404:
           case 500:
-          default:
             return(
               this.refData?.close(oResponse),
               swal.fire({
                 icon: 'error',
-                title:'Error',
-                text: 'Ocurrio un error inesperado, intente más tarde.',
+                title: 'Error',
+                text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
                 heightAuto: false
               })
             );
+            default: break;
         }
       }, (err:any) => {
         swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Ocurrio un error inesperado, intente más tarde.',
+          text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
           heightAuto: false
         });
       });
@@ -203,8 +178,5 @@ export class UpdateModalAccountingComponent implements OnInit {
         else if(ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
-      }
-
-
-
+  }
 }

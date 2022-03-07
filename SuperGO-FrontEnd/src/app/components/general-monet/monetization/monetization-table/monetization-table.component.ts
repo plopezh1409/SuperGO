@@ -26,8 +26,7 @@ export class MonetizationTableComponent implements OnInit {
   monetService:FormMonetizationsService;
   private showLoad: boolean = false;
   private loaderDuration: number;
-  // private periodicity: PeriodicityModule;
-  private timeOutModal: number = 240000;
+  private periodicity: PeriodicityModule;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -37,7 +36,7 @@ export class MonetizationTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Monetizacion>(); 
     this.pageEvent= new PageEvent();   
     this.loaderDuration = 100;
-    // this.periodicity = new PeriodicityModule();  
+    this.periodicity = new PeriodicityModule();  
    }
 
   ngOnInit(): void {    
@@ -71,29 +70,22 @@ export class MonetizationTableComponent implements OnInit {
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion == "C"?"false":"true";
       var _auxForm = this.disabledFields(this.containers);
-      return (this.dialogUpdate(oMonet, _auxForm));
+      return (
+        this.refData?.open(UpdateModalMonetizationComponent,{
+          width: '70%',
+          data:{
+            dataModal:oMonet,
+            auxForm:_auxForm
+          }
+        }).afterClosed().subscribe((oData:any)=>{
+          if(oData !== undefined)
+            if(oData.status === true){
+              this.dataInfo = oData.data;
+              this.onLoadTable(this.dataInfo);
+            }
+        })
+      );
       }
-  }
-
-  dialogUpdate(oMonet:any, _auxForm:any
-    ){
-    var matDialog = this.refData?.open(UpdateModalMonetizationComponent,{
-      data:{
-        dataModal:oMonet,
-        auxForm:_auxForm
-      }
-    });
-  
-     matDialog?.afterClosed().subscribe((oData:any)=>{
-      if(oData !== undefined)
-        if(oData.status === true){
-          this.dataInfo = oData.data;
-          this.onLoadTable(this.dataInfo);
-        }
-    });
-    matDialog?.afterOpened().subscribe(()=>{
-      setTimeout(()=> { matDialog?.close(); }, this.timeOutModal) });
-    
   }
 
   async show(element:Monetizacion){
@@ -124,7 +116,7 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Divisa </b></td><td style="padding:5px"> ${oMonet.codigoDivisa} </td></tr>`);            
-      // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
       swal.fire({             
@@ -189,4 +181,9 @@ export class MonetizationTableComponent implements OnInit {
         break;
     }
   }
+
+  ngOnDestroy(): void {
+    this.refData?.closeAll();
+  }
+
 }

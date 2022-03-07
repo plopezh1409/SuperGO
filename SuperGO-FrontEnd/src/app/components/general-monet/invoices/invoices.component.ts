@@ -8,6 +8,7 @@ import { invoicesTableComponent } from './invoices-table/invoices-table.componen
 import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
   selector: 'app-invoices',
@@ -18,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 export class invoicesComponent implements OnInit {
   formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
+  messageError:MessageErrorModule;
   containers:Container[];
   maxNumControls=10;
   alignContent='horizontal';
@@ -32,6 +34,7 @@ export class invoicesComponent implements OnInit {
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new invoicesTableComponent();
+    this.messageError = new MessageErrorModule();
     this.containers=[];
     this.dataInfo=[];
     this.appComponent.showInpImage(false);
@@ -56,10 +59,10 @@ export class invoicesComponent implements OnInit {
     });
     this.appComponent.showLoader(false);
     if(dataForm.code !== 200){
-      this.showMessageError(dataForm.message, dataForm.code);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
     else if(dataOper.code !== 200) {
-      this.showMessageError(dataOper.message, dataOper.code);
+      this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
@@ -83,24 +86,19 @@ export class invoicesComponent implements OnInit {
       });
       return;
     }
-
     let dataBody;
     for(var datas of Object.values(value)){
       dataBody = Object(datas);
     }
     var oInvoice:Facturas =  dataBody;
-    console.log(oInvoice);
-
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
-      console.log(data);
-      switch (data.code) {
-        case 201: //Solicitud correcta
+      if(data.code == 200){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.menssage,
+          text: data.message,
           heightAuto: false,
           confirmButtonText: "Ok",
           allowOutsideClick: false
@@ -110,40 +108,12 @@ export class invoicesComponent implements OnInit {
             this.updateTable();
           }
         });
-          break;
-        case 400: //Solicitud incorrecta
-          swal.fire({
-            icon: 'warning',
-            title: 'Solicitud incorrecta',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 401://No autorizado
-          swal.fire({
-            icon: 'warning',
-            title: 'No autorizado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 500://Error Inesperado
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        default:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: "Intente mas tarde",
-            heightAuto: false
-          });
-          break;
-        }
+      }
+      else{
+        this.messageError.showMessageError(data.message, data.code)
+      }
+    },(err:any) => {
+      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
 
   }
@@ -172,61 +142,10 @@ export class invoicesComponent implements OnInit {
             ctrl.content.contentList = cpDataContent.sociedades;
             ctrl.content.options = cpDataContent.sociedades;
           }
-          else if (ctrl.ky === 'idTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.operaciones;
-            ctrl.content.options = cpDataContent.operaciones;
-          }
-          else if (ctrl.ky === 'idSubTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.subOperacion;
-            ctrl.content.options = cpDataContent.subOperacion;
-          }
-          else if (ctrl.ky === 'tipoComprobante'){
-            ctrl.content.contentList = cpDataContent.tipoComprobante;
-            ctrl.content.options = cpDataContent.tipoComprobante;
-          }
-          else if (ctrl.ky === 'tipoFactura'){
-            ctrl.content.contentList = cpDataContent.tipoFactura;
-            ctrl.content.options = cpDataContent.tipoFactura;
-          }
-          else if (ctrl.ky === 'idReglaMonetizacion'){
-            ctrl.content.contentList = cpDataContent.monetizacion;
-            ctrl.content.options = cpDataContent.monetizacion;  
-          }
         }
       });
     });
     return dataForm;
-  }
-
-  showMessageError(menssage:string, code:number){
-    switch (code) {
-      case 400: //Solicitud incorrecta
-        swal.fire({
-          icon: 'warning',
-          title: 'Solicitud incorrecta',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 404://No autorizado
-        swal.fire({
-          icon: 'warning',
-          title: 'No autorizado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 500://Error Inesperado
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   updateTable(){
@@ -238,10 +157,10 @@ export class invoicesComponent implements OnInit {
           this.dataInfo = data.response;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
-    case 400: //Solicitud incorrecta
+    case 400:
     case 401:
+    case 404:
     case 500:
-    default:
       swal.fire({
         icon: 'error',
         title: 'Error inesperado',
@@ -249,6 +168,8 @@ export class invoicesComponent implements OnInit {
         heightAuto: false
       });
     break;
+    default:
+      break;
     }
 },(err:any) => {
   swal.fire({

@@ -92,7 +92,6 @@ export class MaskDirective {
     elemento = $event.target;
     valor = elemento.value;
     pos = elemento.selectionStart;
-
     if ($event.target.value.length == 1 && !this.regExpr.test(elemento.value))
     {
       this.valorAnterior = '';

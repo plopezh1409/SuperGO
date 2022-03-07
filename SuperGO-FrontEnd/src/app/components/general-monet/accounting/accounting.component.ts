@@ -8,6 +8,7 @@ import { AccountingTablesComponent } from './accounting-tables/accounting-tables
 import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
   selector: 'app-accounting',
@@ -19,6 +20,7 @@ export class AccountingComponent implements OnInit {
 
   accountService:FormAccountingsService;
   reactiveForm:ReactiveForm;
+  messageError:MessageErrorModule;
   containers:Container[];
   maxNumControls=10;
   alignContent='horizontal';
@@ -32,6 +34,7 @@ export class AccountingComponent implements OnInit {
     private readonly _route: ActivatedRoute) { 
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
+    this.messageError = new MessageErrorModule();
     this.catalogsTable = new AccountingTablesComponent(this.injector);
     this.containers=[];
     this.dataInfo=[];
@@ -63,31 +66,26 @@ export class AccountingComponent implements OnInit {
     for(var datas of Object.values(value)){
       dataBody = Object(datas);
     }
-
     var oConta:Contabilidad =  new Contabilidad();
-
     oConta.idSociedad = dataBody.idSociedad;
-    oConta.idTipoOperacion = dataBody.idTipoOperacion;
-    oConta.idSubtipoOperacion = dataBody.idSubTipoOperacion;
-    oConta.idReglaMonetizacion = dataBody.idReglaMonetizacion;
+    oConta.idTipoOperacion = parseInt(dataBody.idTipoOperacion,10);
+    oConta.idSubtipoOperacion = parseInt(dataBody.idSubTipoOperacion,10);
     oConta.numeroApunte = parseInt(dataBody.numeroApunte,10);
-    oConta.sociedadGl = dataBody.sociedadGl;
-    oConta.tipoCuenta = dataBody.tipoCuenta;
-    oConta.cuentaSAP = dataBody.cuentaSAP;
-    oConta.claseDocumento = dataBody.claseDocumento;
-    oConta.concepto = dataBody.concepto;
-    oConta.centroDestino = dataBody.centroDestino;
+    oConta.sociedadGl = dataBody.sociedadGl.trim();
+    oConta.tipoCuenta = dataBody.tipoCuenta.trim();
+    oConta.cuentaSAP = dataBody.cuentaSAP.trim();
+    oConta.claseDocumento = dataBody.claseDocumento.trim();
+    oConta.concepto = dataBody.concepto.trim();
+    oConta.centroDestino = dataBody.centroDestino.trim();
     oConta.contabilidadDiaria = dataBody.contabilidadDiaria == true?"D":"C";
     oConta.indicadorIVA = dataBody.indicadorIVA == true? "AA":"NA";
     oConta.indicadorOperacion = dataBody.indicadorOperacion == '1' ? "C": "A";
     console.log(oConta);
 
-    /*this.appComponent.showLoader(true);
+    this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
-      console.log(data);
-      switch (data.code) {
-        case 201: //Solicitud correcta
+      if(data.code == 201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
@@ -101,41 +99,13 @@ export class AccountingComponent implements OnInit {
             this.updateTable();
           }
         });
-          break;
-        case 400: //Solicitud incorrecta
-          swal.fire({
-            icon: 'warning',
-            title: 'Solicitud incorrecta',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 401://No autorizado
-          swal.fire({
-            icon: 'warning',
-            title: 'No autorizado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        case 500://Error Inesperado
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: data.menssage,
-            heightAuto: false
-          });
-          break;
-        default:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: "Intente mas tarde",
-            heightAuto: false
-          });
-          break;
-        }
-    });*/
+      }
+      else{
+        this.messageError.showMessageError(data.message, data.code);
+      }
+    },(err:any) => {
+      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+    });
 
   }
 
@@ -149,10 +119,10 @@ export class AccountingComponent implements OnInit {
     });
     this.appComponent.showLoader(false);
     if(dataForm.code !== 200){
-      this.showMessageError(dataForm.message, dataForm.code);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
     else if(dataAcco.code !== 200) {
-      this.showMessageError(dataAcco.message, dataAcco.code);
+      this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
@@ -188,71 +158,31 @@ export class AccountingComponent implements OnInit {
             ctrl.content.contentList = cpDataContent.sociedades;
             ctrl.content.options = cpDataContent.sociedades;
           }
-          else if (ctrl.ky === 'idTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.operaciones;
-            ctrl.content.options = cpDataContent.operaciones;
-          }
-          // else if (ctrl.ky === 'idSubTipoOperacion'){
-          //   ctrl.content.contentList = cpDataContent.subOperacion;
-          //   ctrl.content.options = cpDataContent.subOperacion;
-          // }
         }
       });
     });
     return dataForm;
   }
 
-
-  showMessageError(menssage:string, code:number){
-        switch (code) {
-          case 400: //Solicitud incorrecta
-            swal.fire({
-              icon: 'warning',
-              title: 'Solicitud incorrecta',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          case 404://No autorizado
-            swal.fire({
-              icon: 'warning',
-              title: 'No autorizado',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          case 500://Error Inesperado
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: menssage,
-              heightAuto: false
-            });
-            break;
-          default:
-            break;
-        }
-      }
-
-      updateTable(){
-        this.appComponent.showLoader(true);
-        this.accountService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-        subscribe((data:any)=>{
-          switch (data.code) {
-            case 200:
-              this.dataInfo = data.response;
-              this.catalogsTable.onLoadTable(this.dataInfo);
-            break;
-        case 400: //Solicitud incorrecta
-        case 401:
+  updateTable(){
+    this.appComponent.showLoader(true);
+    this.accountService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
+    subscribe((data:any)=>{
+      switch (data.code) {
+        case 200:
+            this.dataInfo = data.response;
+            this.catalogsTable.onLoadTable(this.dataInfo);
+          break;
+        case 400: case 401: case 404:
         case 500:
-        default:
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',
             text: "Ocurrió un error al cargar los datos, intente mas tarde.",
             heightAuto: false
           });
+          break;
+        default:
         break;
         }
     },(err:any) => {

@@ -16,6 +16,7 @@ import { MonetizationModule } from '../helper/monetization/monetization.module';
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
 
 import { AppComponent } from '@app/app.component';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -27,6 +28,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   monetService:FormMonetizationsService;
   reactiveForm:ReactiveForm;
+  messageError: MessageErrorModule;
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
@@ -43,6 +45,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,private injector:Injector,public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.appComp = this.injector.get<AppComponent>(AppComponent);
+    this.messageError = new MessageErrorModule();
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
@@ -57,15 +60,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.dataModal.dataModal.codigoDivisa = this.getValueDivisa(this.dataModal.dataModal.codigoDivisa);
-    // let cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
-    // this.control.setDataToControls(this.containers,cpyModal);
+    let cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
+    this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     this.principalContainers = this.containers;
     this.changePeridicity(this.containers);
     this.objIds = {
-      // idSociedad: cpyModal.idSociedad,
-      // idTipoOperacion: cpyModal.idTipoOperacion,
-      // idSubTipoOperacion: cpyModal.idSubTipoOperacion
+      idSociedad: cpyModal.idSociedad,
+      idTipoOperacion: cpyModal.idTipoOperacion,
+      idSubTipoOperacion: cpyModal.idSubTipoOperacion
     }
   }
 
@@ -127,13 +130,12 @@ export class UpdateModalMonetizationComponent implements OnInit {
     }
     // jsonResult
     var oMonet:Monetizacion =  new Monetizacion();
-
     oMonet.idSociedad = jsonResult.idSociedad;
-    oMonet.idTipoOperacion = jsonResult.idTipoOperacion;
-    oMonet.idSubTipoOperacion = jsonResult.idSubTipoOperacion;
+    oMonet.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
+    oMonet.idSubTipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
     oMonet.segmento = parseInt(jsonResult.segmento,10);
     oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers)
-    oMonet.montoMonetizacion = parseInt(jsonResult.montoMonetizacion,10);
+    oMonet.montoMonetizacion = parseFloat(jsonResult.montoMonetizacion);
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura =="true");
@@ -142,60 +144,33 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(jsonResult.fechaFinVigencia);
     console.log(oMonet);
-    /*this.showLoader(true);
-    this.accountingService.updateAccounting(oConta)
-      .pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
-        console.log(response.code)
-        switch (response.code) {
-          case 200: //Se modifico el registro correctamente
-            swal.fire({
-              icon: 'success',
-              title: 'Solicitud correcta',
-              text: response.mensaje,
-              heightAuto: false,
-              allowOutsideClick: false,
-              confirmButtonText: "Ok"
-            }).then((result)=>{
-              if(result.isConfirmed){
-                this.getDataTable();
-              }
-            });;
-            break;
-          case 400: //Solicitud incorrecta
-            swal.fire({
-              icon: 'warning',
-              title: 'Solicitud incorrecta',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          case 401://No autorizado
-            swal.fire({
-              icon: 'warning',
-              title: 'No autorizado',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          case 500://Error Inesperado
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: response.mensaje,
-              heightAuto: false
-            });
-            break;
-          default: break;
-        }
-      }, (err:any) => {
+    this.showLoader(true);
+    this.monetService.updateMonetization(oMonet).pipe(finalize(() => { this.showLoader(false); }))
+    .subscribe((response:any) => {
+      if(response.code == 200){
+        swal.fire({
+          icon: 'success',
+          title: 'Solicitud correcta',
+          text: response.mensaje,
+          heightAuto: false,
+          allowOutsideClick: false,
+          confirmButtonText: "Ok"
+        }).then((result)=>{
+          if(result.isConfirmed)
+            this.getDataTable();
+        });
+      }
+      else{
+        this.messageError.showMessageError(response.message, response.code);
+      }
+    }, (err:any) => {
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
           text: 'Por el momento no podemos proporcionar tu Solicitud.',
           heightAuto: false
         });
-      });*/
+      });
   }
 
   getDateTime(date:string){
@@ -219,7 +194,6 @@ export class UpdateModalMonetizationComponent implements OnInit {
           case 400:
           case 401:
           case 500:
-          default:
             return(
               this.refData?.close(oResponse),
               swal.fire({
@@ -229,6 +203,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
                 heightAuto: false
               })
             );
+            default:
+              break;
         }
       }, (err:any) => {
         swal.fire({
@@ -331,10 +307,10 @@ export class UpdateModalMonetizationComponent implements OnInit {
             if(ctrl !== 'periodicidad')
               if(control && valueCtrl != null){
                 if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
-                  control?.setAttributeValueByNameDropdown('value', valueCtrl);
+                  control.setAttributeValueByNameDropdown('value', valueCtrl);
                 }
                 else
-                  control?.setAttributeValueByName('value', valueCtrl);
+                  control.setAttributeValueByName('value', valueCtrl);
               }
           }
           newContainer.controls = this.sortControls(filterControls, pcont);        

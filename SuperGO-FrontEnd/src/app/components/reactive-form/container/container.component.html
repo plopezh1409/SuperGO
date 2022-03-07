@@ -4,7 +4,7 @@
   </div>
   <div class="subtitles" *ngIf="container.name== '' ">
   </div>
-  <div  [ngClass]="{'dvContHorizontal': alignContent === 'horizontal','dvContVertical': alignContent === 'vertical'}">  
+  <div  [ngClass]="{'dvContHorizontal': alignContent === 'horizontal','dvContVertical': alignContent === 'vertical'}" style="padding-bottom: 1%;">  
       <div class="ctrlDiv" *ngFor="let ctrl of container.controls; let i = index">
         <app-text-box-control *ngIf="
                 ctrl.controlType == 'textbox' || ctrl.controlType == 'decimal' || ctrl.controlType == 'textboxLink'"

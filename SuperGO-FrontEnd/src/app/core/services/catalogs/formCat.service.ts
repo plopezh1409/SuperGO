@@ -34,10 +34,6 @@ export class FormCatService{
         }
     }
 
-    private get _requestForm(){
-        return { "idRequest": "13" };
-    }
-
     getForm(solicitud:any):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
@@ -48,24 +44,13 @@ export class FormCatService{
         return this.httpClient.get('/assets/dataTables/dataCatalog.json');
     }
 
-    insertSociety(catalog:any):Observable<any>
+    insertSociety(newSociety:any):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,newSociety);
     }
 
-    updateSociety(catalog:any):Observable<any>
+    updateSociety(updateSociety:any):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,catalog);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,updateSociety);
     }
-
-    // getForm():Observable<any> //JSON de prueba local FORMULARIO
-    // {
-    //     return this.httpClient.get('assets/json/jsonSociedades.json');
-    // }
-
-    // getInfoSocieties():Observable<any>
-    // {
-    //     return this.httpClient.post<Sociedad>('http://10.112.209.251:8081/sociedades/test', body, this.httpHeaders);
-    // }
-
 }

@@ -16,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { PeriodicityModule } from './helper/periodicity/periodicity.module';
 import { MonetizationModule } from './helper/monetization/monetization.module';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -26,6 +28,7 @@ import { MonetizationModule } from './helper/monetization/monetization.module';
 
 export class MonetizationComponent implements OnInit {
   monetService: FormMonetizationsService;
+  messageError: MessageErrorModule;
   reactiveForm: ReactiveForm;
   containers: Container[];
   maxNumControls = 10;
@@ -37,13 +40,14 @@ export class MonetizationComponent implements OnInit {
   public idSolicitud: string | null;
   private periodicity: PeriodicityModule;
   private monetModule: MonetizationModule;
-  
+
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
   constructor(private readonly appComponent: AppComponent, private injector: Injector,
     private readonly _route: ActivatedRoute) {
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
+    this.messageError = new MessageErrorModule();
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new MonetizationTableComponent(this.injector);
     this.containers = [];
@@ -54,22 +58,20 @@ export class MonetizationComponent implements OnInit {
     this.showButtonAdd = false;
     this.selectedValRequest = null;
     this.principalContainers = [];
-    this.idSolicitud= null;
+    this.idSolicitud = null;
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule()
   }
 
   ngOnInit(): void {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
-    if(this.idSolicitud!=null)
+    if (this.idSolicitud != null)
       this.fillDataPage();
   }
 
-
-
-  onSubmit(oElement:any) {
+  onSubmit(oElement: any) {
     let dataForm;
-    for(var datas of Object.values(oElement)){
+    for (var datas of Object.values(oElement)) {
       dataForm = Object(datas);
     }
     if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa == '') {
@@ -81,104 +83,69 @@ export class MonetizationComponent implements OnInit {
       });
       return;
     }
-
-    if( (Date.parse(dataForm.fechaInicioVigencia)+1) > Date.parse(dataForm.fechaFinVigencia)){
+    if ((Date.parse(dataForm.fechaInicioVigencia) + 1) > Date.parse(dataForm.fechaFinVigencia)) {
       swal.fire({
         icon: 'warning',
         title: 'Fechas de Vigencia',
         text: 'Seleccione un rango de fechas de validas.',
         heightAuto: false
       });
-      return; 
+      return;
     }
-
     let oMonet: Monetizacion = new Monetizacion();
     oMonet.idSociedad = dataForm.idSociedad;
-    oMonet.idTipoOperacion = dataForm.idTipoOperacion;
-    oMonet.idSubTipoOperacion = dataForm.idSubTipoOperacion;
-    oMonet.segmento = parseInt(dataForm.segmento,10);
+    oMonet.idTipoOperacion = parseInt(dataForm.idTipoOperacion,10);
+    oMonet.idSubTipoOperacion = parseInt(dataForm.idSubTipoOperacion,10);
+    oMonet.segmento = parseInt(dataForm.segmento, 10);
     oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
-    oMonet.montoMonetizacion = parseInt(dataForm.montoMonetizacion,10);
-    oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto,10);
+    oMonet.montoMonetizacion = parseFloat(dataForm.montoMonetizacion);
+    oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto, 10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
     oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? "P" : "C";
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
-    oMonet.fechaFinVigencia =  this.getDateTime(dataForm.fechaFinVigencia);
+    oMonet.fechaFinVigencia = this.getDateTime(dataForm.fechaFinVigencia);
     console.log(oMonet);
-    // this.appComponent.showLoader(true);
-    // this.monetService.insertOperation(obOpe).pipe(finalize(() => { this.appComponent.showLoader(false); }))
-    // .subscribe((data:any)=>{
-    //   console.log(data);
-    //   switch (data.code) {
-    //     case 201: //Solicitud correcta
-    //     swal.fire({
-    //       icon: 'success',
-    //       title: 'Solicitud correcta',
-    //       text: data.menssage,
-    //       heightAuto: false,
-    //       confirmButtonText: "Ok",
-    //       allowOutsideClick: false
-    //     }).then((result)=>{
-    //       if(result.isConfirmed){
-    //         this.reactiveForm.setContainers(this.containers);
-    //         this.updateTable();
-    //       }
-    //     });
-    //       break;
-    //     case 400: //Solicitud incorrecta
-    //       swal.fire({
-    //         icon: 'warning',
-    //         title: 'Solicitud incorrecta',
-    //         text: data.menssage,
-    //         heightAuto: false
-    //       });
-    //       break;
-    //     case 401://No autorizado
-    //       swal.fire({
-    //         icon: 'warning',
-    //         title: 'No autorizado',
-    //         text: data.menssage,
-    //         heightAuto: false
-    //       });
-    //       break;
-    //     case 500://Error Inesperado
-    //       swal.fire({
-    //         icon: 'error',
-    //         title: 'Error inesperado',
-    //         text: data.menssage,
-    //         heightAuto: false
-    //       });
-    //       break;
-    //     default:
-    //       swal.fire({
-    //         icon: 'error',
-    //         title: 'Error inesperado',
-    //         text: "Intente mas tarde",
-    //         heightAuto: false
-    //       });
-    //       break;
-    //     }
-    // });
-
+    this.appComponent.showLoader(true);
+    this.monetService.insertMonetization(oMonet).pipe(finalize(() => { this.appComponent.showLoader(false); }))
+    .subscribe((data:any)=>{
+      if(data.code == 201){
+        swal.fire({
+          icon: 'success',
+          title: 'Solicitud correcta',
+          text: data.menssage,
+          heightAuto: false,
+          confirmButtonText: "Ok",
+          allowOutsideClick: false
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.reactiveForm.setContainers(this.containers);
+            this.updateTable();
+          }
+        });
+      }
+      else{
+        this.messageError.showMessageError(data.message, data.code);
+      }
+    });
   }
 
-  getDateTime(date:string){
-    var dateTime:Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(2,'0') + '-' + (dateTime.getMonth()+1).toString().padStart(2,'0') + "-" +  dateTime.getFullYear();
+  getDateTime(date: string) {
+    var dateTime: Date = new Date(date);
+    date = dateTime.getDate().toString().padStart(2, '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(2, '0') + "-" + dateTime.getFullYear();
     return date;
   }
 
-  getDay(type:string){
+  getDay(type: string) {
     let dataForm = this.containers;
     let typeMonet = "";
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'nombreDia'){
-            for(let data of ctrl.content.contentList){
-              if(data.ky === type){
+    dataForm.forEach((element: any) => {
+      element.controls.forEach((ctrl: any) => {
+        if (ctrl.controlType === 'dropdown') {
+          if (ctrl.ky === 'nombreDia') {
+            for (let data of ctrl.content.contentList) {
+              if (data.ky === type) {
                 typeMonet = data.value;
                 break;
               }
@@ -192,7 +159,7 @@ export class MonetizationComponent implements OnInit {
 
   async fillDataPage() {
     this.appComponent.showLoader(true);
-    let dataForm = await this.monetService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) => {
+    let dataForm = await this.monetService.getForm({ idRequest: this.idSolicitud }).toPromise().catch((err) => {
       return err;
     });
     var dataOper = await this.monetService.getDataMonetization().toPromise().catch((err) => {
@@ -200,13 +167,13 @@ export class MonetizationComponent implements OnInit {
     });
     this.appComponent.showLoader(false);
     if (dataForm.code !== 200) {
-      this.showMessageError(dataForm.message, dataForm.code);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== 200) {
-      this.showMessageError(dataOper.message, dataOper.code);
+    else if (dataOper.code !== 200) {
+      this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
       console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.principalContainers = this.containers;
@@ -218,70 +185,29 @@ export class MonetizationComponent implements OnInit {
 
   }
 
-  showMessageError(menssage:string, code:number){
-    switch (code) {
-      case 400: //Solicitud incorrecta
-        swal.fire({
-          icon: 'warning',
-          title: 'Solicitud incorrecta',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 404://No autorizado
-        swal.fire({
-          icon: 'warning',
-          title: 'No autorizado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 500://Error Inesperado
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      default:
-        break;
-    }
-  }
-
-
-
-  addDataDropdown(dataForm:any, dataContent:any){
-    var cpDataContent = Object.assign({},dataContent);
+  addDataDropdown(dataForm: any, dataContent: any) {
+    var cpDataContent = Object.assign({}, dataContent);
     delete cpDataContent.reglasMonetizacion;
-    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
-      value.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
-          if(typeof value === 'number'){
+    Object.entries(cpDataContent).forEach(([key, value]: any, idx: number) => {
+      value.forEach((ele: any) => {
+        Object.entries(ele).forEach(([key, value]: any, idx: number) => {
+          if (typeof value === 'number') {
             ele['ky'] = ele[key];
             delete ele[key];
           }
-          else{
+          else {
             ele['value'] = ele[key];
             delete ele[key];
           }
         });
       });
     });
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'idSociedad'){
+    dataForm.forEach((element: any) => {
+      element.controls.forEach((ctrl: any) => {
+        if (ctrl.controlType === 'dropdown') {
+          if (ctrl.ky === 'idSociedad') {
             ctrl.content.contentList = cpDataContent.sociedades;
             ctrl.content.options = cpDataContent.sociedades;
-          }
-          else if (ctrl.ky === 'idTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.operaciones;
-            ctrl.content.options = cpDataContent.operaciones;
-          }
-          else if (ctrl.ky === 'idSubTipoOperacion'){
-            ctrl.content.contentList = cpDataContent.subOperaciones;
-            ctrl.content.options = cpDataContent.subOperaciones;
           }
         }
       });
@@ -289,13 +215,13 @@ export class MonetizationComponent implements OnInit {
     return dataForm;
   }
 
-  changePeridicity(dataForm:any){
+  changePeridicity(dataForm: any) {
     var idContainer = dataForm[0].idContainer;
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'periodicidad'){
-            var selectedValRequest:any = { control: ctrl, idContainer: idContainer }
+    dataForm.forEach((element: any) => {
+      element.controls.forEach((ctrl: any) => {
+        if (ctrl.controlType === 'dropdown') {
+          if (ctrl.ky === 'periodicidad') {
+            var selectedValRequest: any = { control: ctrl, idContainer: idContainer }
             this.onChangeCatsPetition(selectedValRequest);
           }
         }
@@ -303,64 +229,94 @@ export class MonetizationComponent implements OnInit {
     });
   }
 
+  updateTable(){
+    this.appComponent.showLoader(true);
+    this.monetService.getDataMonetization().pipe(finalize(() => { this.appComponent.showLoader(false); }))
+    .subscribe((data:any)=>{
+      switch (data.code) {
+        case 200:
+          this.dataInfo = data.response;
+          this.catalogsTable.onLoadTable(this.dataInfo);
+        break;
+        case 400:
+        case 401:
+        case 404:
+        case 500:
+        default:
+          swal.fire({
+            icon: 'error',
+            title: 'Error inesperado',
+            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            heightAuto: false
+          });
+        break;
+      }
+    },(err:any) => {
+      swal.fire({
+      icon: 'error',
+      title: 'Error inesperado',
+      text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+      heightAuto: false
+    });      
+  });
+  }
+
+
   // metodos de visibility//
-  onChangeCatsPetition($event: any) {     
-    if(!$event.control.visibility || $event.control.visibility.length <= 0)
-    {
+  onChangeCatsPetition($event: any) {
+    if (!$event.control.visibility || $event.control.visibility.length <= 0) {
       return;
     }
     this.showButtonAdd = true;
-    this.selectedValRequest = $event;    
+    this.selectedValRequest = $event;
     const formaux = this.reactiveForm.principalForm?.get(this.selectedValRequest.idContainer) as FormGroup;
-    const selectedVal = formaux.controls[this.selectedValRequest.control.ky].value; 
+    const selectedVal = formaux.controls[this.selectedValRequest.control.ky].value;
     //busqueda del codigo
-    if(this.selectedValRequest.control.content)
-    {
-      const finder = this.selectedValRequest.control.content!.options.find((option:any)=> option.ky===selectedVal);
+    if (this.selectedValRequest.control.content) {
+      let finder = this.selectedValRequest.control.content!.options.find((option: any) => option.ky === selectedVal);
       let valueControls = this.reactiveForm.principalForm?.value;
       this.reactiveForm.principalForm = null;
-      this.containers=[];  
+      this.containers = [];
+      if (finder == "" || finder == undefined) {
+        finder = {value:"0-"};
+      }
       this.createNewForm(
-      this.selectedValRequest.control.visibility.filter((x:any) =>
-        x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, valueControls);
-    }               
+        this.selectedValRequest.control.visibility.filter((x: any) =>
+          x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, valueControls);
+    }
   }
 
-  createNewForm(filter:any,selectedVal:any, valueControls:any)
-  {
-    if(filter)
-    {
-      this.principalContainers.forEach(pcont=>{
-        const newContainer = Object.assign({}, pcont);           
-        const filterControls = pcont.controls.filter(x => 
-          filter.find((y:any)=> Number(y.idControl)===Number(x.idControl) && Number(y.idContainer) === Number(pcont.idContainer)));
-        if(filterControls && filterControls.length>0)
-        {            
-          const control = newContainer.controls.find(x=>x.ky === this.selectedValRequest.control.ky);        
-          if(control)
-          {
+  createNewForm(filter: any, selectedVal: any, valueControls: any) {
+    if (filter) {
+      this.principalContainers.forEach(pcont => {
+        const newContainer = Object.assign({}, pcont);
+        const filterControls = pcont.controls.filter(x =>
+          filter.find((y: any) => Number(y.idControl) === Number(x.idControl) && Number(y.idContainer) === Number(pcont.idContainer)));
+        if (filterControls && filterControls.length > 0) {
+          const control = newContainer.controls.find(x => x.ky === this.selectedValRequest.control.ky);
+          if (control) {
             control.setAttributeValueByName('value', selectedVal);
           }
           let dataForm;
-          for(var datas of Object.values(valueControls)){
+          for (var datas of Object.values(valueControls)) {
             dataForm = Object(datas);
           }
-          let ctrl:any;
-          for(ctrl in dataForm){
-            const control = newContainer.controls.find(x=>x.ky === ctrl);
-            var valueCtrl = dataForm[ctrl] == null? '':dataForm[ctrl];
-            if(typeof valueCtrl == 'boolean')
-               valueCtrl = valueCtrl.toString();
-            if(ctrl !== 'Periocidad')
-              if(control && valueCtrl != ''){
-                if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
-                  control?.setAttributeValueByNameDropdown('value', valueCtrl);
+          let ctrl: any;
+          for (ctrl in dataForm) {
+            const control = newContainer.controls.find(x => x.ky === ctrl);
+            var valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
+            if (typeof valueCtrl == 'boolean')
+              valueCtrl = valueCtrl.toString();
+            if (ctrl !== 'Periocidad')
+              if (control && valueCtrl != '') {
+                if (control.controlType == 'dropdown' || control.controlType == 'autocomplete') {
+                  control.setAttributeValueByNameDropdown('value', valueCtrl);
                 }
                 else
-                  control?.setAttributeValueByName('value', valueCtrl);
+                  control.setAttributeValueByName('value', valueCtrl);
               }
           }
-          newContainer.controls = this.sortControls(filterControls, pcont);        
+          newContainer.controls = this.sortControls(filterControls, pcont);
           this.containers.push(newContainer);
         }
       });
@@ -368,21 +324,17 @@ export class MonetizationComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
   }
 
-  sortControls(filterControls:Control[], filterCont:Container)
-    {        
-      return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
-        if(a.order && b.order)
-        {
-          if(Number(a.order) > Number(b.order))
-          {
-            return 1;
-          }
-          if (Number(a.order) < Number(b.order))
-          {
-            return -1;
-          }
+  sortControls(filterControls: Control[], filterCont: Container) {
+    return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a, b) => {
+      if (a.order && b.order) {
+        if (Number(a.order) > Number(b.order)) {
+          return 1;
         }
-        return 0;
-      });        
-    }
+        if (Number(a.order) < Number(b.order)) {
+          return -1;
+        }
+      }
+      return 0;
+    });
+  }
 }

@@ -8,7 +8,7 @@
             "razonSocial": "ELEKTRA",
             "idTipoOperacion": 1,
             "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-            "idSubTipoOperacion": 2,
+            "idSubTipoOperacion": 1,
             "descSubTipoOperacion": "GENERAL",
             "indicadorOperacion": "C",
             "montoMonetizacion": 200.5,

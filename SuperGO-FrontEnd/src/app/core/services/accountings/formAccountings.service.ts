@@ -35,14 +35,9 @@ export class FormAccountingsService{
         }
     }
 
-    private get _requestForm(){
-        return { "idRequest": "16" };
-    }
-
     getForm(solicitud:any):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
-
     }
 
     getInfoAccounting()
@@ -54,7 +49,6 @@ export class FormAccountingsService{
     {
         return this.httpClient.get('/assets/dataTables/dataAccountingBusqueda.json');
         // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
-   
     }
 
     insertAccounting(dataAccounting:Contabilidad)

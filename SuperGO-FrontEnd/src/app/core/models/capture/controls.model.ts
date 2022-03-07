@@ -75,7 +75,7 @@ export class Control {
   }
 
   configValidators(validations: Validation[]): ValidatorFn[] {
-    let validationsFn: ValidatorFn[] = [];
+    const validationsFn: ValidatorFn[] = [];
     validations.forEach((val: Validation) => {
       if (Number(val.type) === 1) {
         switch (val.validate) {
@@ -102,9 +102,10 @@ export class Control {
             validationsFn.push(Validators.minLength(minlength || 0));
             break;
           case 'pattern':
-            let [pattern] = this.validations!.filter((v) => {
-              return v.type === 2;
-            });
+            const type = 2;
+            const [pattern] = this.validations ? this.validations.filter((v) => {
+              return Number(v.type) === type;
+            }):[];
             if (pattern) {
               validationsFn.push(Validators.pattern(pattern.validate || ''));
             }

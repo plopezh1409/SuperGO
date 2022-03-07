@@ -51,6 +51,7 @@ export class OperationsTableComponent implements OnInit {
 open(element:any){
   return(
     this.refData?.open(UpdateModalOperationsComponent,{
+      width: '70%',
       data:{
         dataModal:element,
         auxForm:this.containers
@@ -63,7 +64,6 @@ open(element:any){
         }
     })
   );
-   
   }
 
   show(obOperation:Operaciones):void{
@@ -82,6 +82,10 @@ open(element:any){
     }).then(result=>{
       if (result.isConfirmed) {}
     });
+  }
+
+  ngOnDestroy(): void {
+    this.refData?.closeAll();
   }
 
 }

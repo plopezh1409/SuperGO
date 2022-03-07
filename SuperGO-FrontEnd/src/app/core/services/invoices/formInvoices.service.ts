@@ -33,11 +33,6 @@ export class FormInvoicesService {
             return this._urlEnviroment;
         }
     }
-
-    private get _requestForm(){
-        return { "idRequest": "15" };
-    }
-	
 	
 	getForm(solicitud:any):Observable<any>
     {
@@ -55,10 +50,5 @@ export class FormInvoicesService {
     updateInvoce(dataInvoice:any){
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
     }
-
-    // getForm():Observable<any>
-    // {
-    //     return this.httpClient.get('assets/json/jsonFacturas.json');
-    // }
 
 }
