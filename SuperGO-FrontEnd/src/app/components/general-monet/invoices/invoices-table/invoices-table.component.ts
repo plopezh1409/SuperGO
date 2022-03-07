@@ -114,7 +114,7 @@ export class invoicesTableComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.refData?.closeAll();
+    return( this.refData?.closeAll());
   }
 
 }

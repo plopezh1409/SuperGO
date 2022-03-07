@@ -85,7 +85,7 @@ open(element:any){
   }
 
   ngOnDestroy(): void {
-    this.refData?.closeAll();
+    return( this.refData?.closeAll());
   }
 
 }
