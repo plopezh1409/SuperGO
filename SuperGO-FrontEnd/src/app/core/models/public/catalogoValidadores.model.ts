@@ -14,7 +14,6 @@ export class CatalogoValidadores {
     input.forEach((val) => {
       switch (val) {
         case 'Validators.required':
-          console.log("CatalogoValidadores required")
           validaciones.push(Validators.required);
           if(control.controlType!=='autocomplete')
           {

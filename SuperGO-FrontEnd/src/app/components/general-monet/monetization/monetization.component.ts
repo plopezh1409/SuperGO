@@ -106,7 +106,6 @@ export class MonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
     oMonet.fechaFinVigencia = this.getDateTime(dataForm.fechaFinVigencia);
-    console.log(oMonet);
     this.appComponent.showLoader(true);
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
@@ -174,7 +173,6 @@ export class MonetizationComponent implements OnInit {
     }
     else {
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
-      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);

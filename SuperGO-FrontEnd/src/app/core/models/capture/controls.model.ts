@@ -168,7 +168,6 @@ export class Control {
           this.content.filter = this.content.contentList[0].value;
           break;
         default:
-          console.log('configContent, Method not implemented.');
           break;
       }
     }
@@ -209,7 +208,6 @@ export class Control {
     let formatValor = '';
     let decimal = '';
     let validarDec: number = 0;
-    console.log("getDecimalValue");
 
     formatValor = _form.controls[this.ky!].value.toString().replace(/[$,]/g, '');
     if (this.validations!.filter((v) => { return v.type === 1 && v.validate === 'format_0'; }).length > 0) {

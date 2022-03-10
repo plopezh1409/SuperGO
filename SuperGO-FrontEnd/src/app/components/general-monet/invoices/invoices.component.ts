@@ -66,7 +66,6 @@ export class invoicesComponent implements OnInit {
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
-      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));

@@ -143,7 +143,6 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(jsonResult.fechaFinVigencia);
-    console.log(oMonet);
     this.showLoader(true);
     this.monetService.updateMonetization(oMonet).pipe(finalize(() => { this.showLoader(false); }))
     .subscribe((response:any) => {

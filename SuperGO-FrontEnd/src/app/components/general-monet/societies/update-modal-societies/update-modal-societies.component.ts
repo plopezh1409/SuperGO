@@ -67,7 +67,6 @@ export class UpdateModalSocietiesComponent implements OnInit {
     oSociety.idTipoSociedad = parseInt(dataForm.idTipoSociedad,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
     oSociety.RFC = dataForm.RFC;
-    console.log(oSociety);
     this.societyService.updateSociety(oSociety).pipe(finalize(() => {  }))
       .subscribe((response:any) => {
         if(response.code === 201){

@@ -22,15 +22,16 @@ export class AccountingComponent implements OnInit {
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
   containers:Container[];
-  maxNumControls=10;
+  maxNumControls:number;
   alignContent='horizontal';
   public dataInfo:Contabilidad[];
   public idSolicitud: string | null;
+  private codeResponse200: number = 200;
 
   @ViewChild(AccountingTablesComponent) catalogsTable:AccountingTablesComponent;
 
 
-  constructor( private readonly appComponent: AppComponent, private injector:Injector,
+  constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
@@ -42,15 +43,17 @@ export class AccountingComponent implements OnInit {
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
     this.idSolicitud=null;
+    this.maxNumControls=10;
   }
 
   ngOnInit(): void {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
-    if(this.idSolicitud!=null)
+    if(this.idSolicitud!=null){
       this.fillDataPage();
+    }
   }
 
-  onSubmit(value:any)
+  onSubmit(value:Contabilidad)
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -63,10 +66,10 @@ export class AccountingComponent implements OnInit {
     }
     
     let dataBody;
-    for(var datas of Object.values(value)){
+    for(let datas of Object.values(value)){
       dataBody = Object(datas);
     }
-    var oConta:Contabilidad =  new Contabilidad();
+    let oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = dataBody.idSociedad;
     oConta.idTipoOperacion = parseInt(dataBody.idTipoOperacion,10);
     oConta.idSubtipoOperacion = parseInt(dataBody.idSubTipoOperacion,10);
@@ -77,21 +80,20 @@ export class AccountingComponent implements OnInit {
     oConta.claseDocumento = dataBody.claseDocumento.trim();
     oConta.concepto = dataBody.concepto.trim();
     oConta.centroDestino = dataBody.centroDestino.trim();
-    oConta.contabilidadDiaria = dataBody.contabilidadDiaria == true?"D":"C";
-    oConta.indicadorIVA = dataBody.indicadorIVA == true? "AA":"NA";
-    oConta.indicadorOperacion = dataBody.indicadorOperacion == '1' ? "C": "A";
-    console.log(oConta);
-
+    oConta.contabilidadDiaria = dataBody.contabilidadDiaria === true?"D":"C";
+    oConta.indicadorIVA = dataBody.indicadorIVA === true? "AA":"NA";
+    oConta.indicadorOperacion = dataBody.indicadorOperacion === '1' ? "C": "A";
     this.appComponent.showLoader(true);
-    this.accountService.insertAccounting(oConta).pipe(finalize(() => { this.appComponent.showLoader(false); }))
-    .subscribe((data:any)=>{
-      if(data.code == 201){
+    this.accountService.insertAccounting(oConta).pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:any)=>{
+      if(data.code === 201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
           text: data.menssage,
           heightAuto: false,
-          confirmButtonText: "Ok",
+          confirmButtonText: 'Ok',
           allowOutsideClick: false
         }).then((result)=>{
           if(result.isConfirmed){
@@ -103,7 +105,7 @@ export class AccountingComponent implements OnInit {
       else{
         this.messageError.showMessageError(data.message, data.code);
       }
-    },(err:any) => {
+    },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
 
@@ -111,53 +113,50 @@ export class AccountingComponent implements OnInit {
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.accountService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
+    const dataForm = await this.accountService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
-    var dataAcco = await this.accountService.getInfoAccounting().toPromise().catch((err) =>{
+    const dataAcco = await this.accountService.getInfoAccounting().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== 200){
+    if(dataForm.code !== this.codeResponse200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataAcco.code !== 200) {
+    else if(dataAcco.code !== this.codeResponse200) {
       this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
-      console.log(this.containers);
       this.dataInfo = dataAcco.response.registrosContables;
       this.reactiveForm.setContainers(this.containers);
-      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
 
   addDataDropdown(dataForm:any, dataContent:any){
-    var cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.registrosContables
-    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
+    let cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.registrosContables;
+    Object.entries(cpDataContent).forEach(([key, value]:any[], idx:number) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
-          if(typeof value === 'number'){
-            ele['ky'] = ele[key];
-            delete ele[key];
+        Object.entries(ele).forEach(([_key, _value]:any[], idx:number) => {
+          if(typeof _value === 'number'){
+            ele['ky'] = ele[_key];
+            delete ele[_key];
           }
           else{
-            ele['value'] = ele[key];
-            delete ele[key];
+            ele['value'] = ele[_key];
+            delete ele[_key];
           }
         });
       });
     });
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'idSociedad'){
-            ctrl.content.contentList = cpDataContent.sociedades;
-            ctrl.content.options = cpDataContent.sociedades;
-          }
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad'){
+          ctrl.content.contentList = cpDataContent.sociedades;
+          ctrl.content.options = cpDataContent.sociedades;
         }
       });
     });
@@ -166,8 +165,9 @@ export class AccountingComponent implements OnInit {
 
   updateTable(){
     this.appComponent.showLoader(true);
-    this.accountService.getInfoAccounting().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
+    this.accountService.getInfoAccounting().pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:any)=>{
       switch (data.code) {
         case 200:
             this.dataInfo = data.response;
@@ -178,18 +178,18 @@ export class AccountingComponent implements OnInit {
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',
-            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
             heightAuto: false
           });
           break;
         default:
         break;
         }
-    },(err:any) => {
+    },() => {
       swal.fire({
         icon: 'error',
         title: 'Error inesperado',
-        text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+        text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
         heightAuto: false
       });      
     });

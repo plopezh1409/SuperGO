@@ -41,11 +41,11 @@
           </app-datepicker-control>
         </div>
       
-        <div *ngIf="ctrl.controlType=='autocomplete'">
+        <div *ngIf="ctrl.controlType=='autocomplete'" class="ctrlAutocomplete">
           <app-autocomplete-control [control]="ctrl" [formulario]="formGroup"></app-autocomplete-control>
         </div>
     
-        <div *ngIf="ctrl.controlType=='textarea'">
+        <div *ngIf="ctrl.controlType=='textarea'" class="ctrlTextarea">
           <app-text-area-control [control]="ctrl" [form]="formGroup"></app-text-area-control>      
         </div>
         

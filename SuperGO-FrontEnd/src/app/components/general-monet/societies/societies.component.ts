@@ -116,7 +116,6 @@ export class societiescomponent implements OnInit {
     }
     else{
       this.containers = dataForm.response.reactiveForm; 
-      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));

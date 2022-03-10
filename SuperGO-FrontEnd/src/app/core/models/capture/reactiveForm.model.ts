@@ -180,7 +180,6 @@ export class ReactiveForm{
           _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
           _formAux.reset();      
           let ctrls = cont.controls.filter(c=> c.getAttributeValueByName('value'));
-          console.log(ctrls);
         });
       }
 

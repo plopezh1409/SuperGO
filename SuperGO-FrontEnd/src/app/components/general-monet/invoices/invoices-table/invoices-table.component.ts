@@ -45,7 +45,6 @@ export class invoicesTableComponent implements OnInit {
 
   onLoadTable(dataInfo:any)  
   {
-    console.log("onLoadTable");
     var auxForm:any = localStorage.getItem("_auxForm");
     this.containers = JSON.parse(auxForm);
     this.dataInfo=dataInfo.facturas;  

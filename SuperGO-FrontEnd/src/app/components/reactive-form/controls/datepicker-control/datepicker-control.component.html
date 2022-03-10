@@ -2,7 +2,7 @@
 floatLabel="always" 
 [formGroup]="formulario" 
 [ngClass]="(formulario.get(control.ky!)?.errors?.required!=undefined && formulario.get(control.ky!)?.errors?.required == true)? 
-'form-react-form-field-Color':'form-react-form-field'">
+'form-react-form-field-Color':'form-react-form-field'" class="controlSize">
     <mat-label *ngIf="control.label" [attr.for]="control.ky!">{{control.label}}</mat-label>
     
     <input matInput [formControlName]="control.ky!" [attributes]=control.attributes! [matDatepicker]="index"

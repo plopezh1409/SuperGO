@@ -74,7 +74,7 @@ export class OperationsComponent implements OnInit {
     }
     var obOpe:Operaciones =  new Operaciones();
     obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
-    obOpe.idCanal = dataBody.idCanal;
+    obOpe.idCanal = parseInt(dataBody.idCanal,10);
     obOpe.topicoKafka = dataBody.topicoKafka;
     obOpe.status = dataBody.status === true ?"A":"I";
     this.appComponent.showLoader(true);
@@ -120,7 +120,6 @@ export class OperationsComponent implements OnInit {
     }
     else{
       this.containers = dataForm.response.reactiveForm;
-      console.log(this.containers);
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem("_auxForm",JSON.stringify(this.containers));

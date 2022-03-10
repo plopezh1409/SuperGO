@@ -55,7 +55,6 @@ export class AngularSecurity {
       encrypted += cipher.final('base64');
       return encrypted;
     } catch (error) {
-      console.log(error);
       return '';
     }
   }
@@ -76,8 +75,7 @@ export class AngularSecurity {
         decrypted += decipher.final().toString();
         return decrypted;
       }      
-    } catch (error) {
-      console.log(error);      
+    } catch (error) {     
     }
     return '';
 
@@ -103,7 +101,6 @@ export class AngularSecurity {
       return { texto: encrypted, llave: keyToHEX };
 
     } catch (error) {
-      console.log(error);
       return '';
     }
   }
@@ -120,7 +117,6 @@ export class AngularSecurity {
         return decrypted;
       }
     } catch (error) {
-      console.log(error);
       return '';
     }
   }

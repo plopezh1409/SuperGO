@@ -24,16 +24,21 @@ export class UpdateModalAccountingComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean = false;
-  private loaderDuration: number;
-  private objIds:any;
+  private showLoad: boolean;
+  private readonly loaderDuration: number;
+  private objIds:{};
+  idReglaMonetizacion:number;
   
-  constructor(private changeDetectorRef: ChangeDetectorRef,private injector:Injector,public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
+      public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.accountingService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
     this.messageError = new MessageErrorModule();
+    this.showLoad = false;
+    this.objIds = {};
+    this.idReglaMonetizacion = 0;
   }
 
   ngOnInit(): void {
@@ -41,20 +46,21 @@ export class UpdateModalAccountingComponent implements OnInit {
     delete this.dataModal.auxForm;
     this.control.setDataToControls(this.containers,this.dataModal.dataModal);
     this.reactiveForm.setContainers(this.containers);
+    this.idReglaMonetizacion = parseInt(this.dataModal.dataModal.idReglaMonetizacion,10);
     this.objIds = {
       idSociedad: this.dataModal.dataModal.idSociedad,
       idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
       idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
       idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion
-    }
+    };
   }
 
   update(){
     this.disabledFieldSociety(false);
     let cpyModal = this.reactiveForm.getDataForm(this.containers);
     cpyModal = {...cpyModal, ...this.objIds};
-    cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria == true? 'true':'false';
-    cpyModal.indicadorIVA = cpyModal.indicadorIVA == true? 'true':'false';
+    cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
+    cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
@@ -64,16 +70,16 @@ export class UpdateModalAccountingComponent implements OnInit {
         text: 'Complete los campos faltantes',
         heightAuto: false
       });
-      this.disabledFieldSociety(true)
+      this.disabledFieldSociety(true);
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
-    var oConta:Contabilidad =  new Contabilidad();
+    const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    const oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = jsonResult.idSociedad;
     oConta.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
     oConta.idSubtipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
-    oConta.idReglaMonetizacion = parseInt(this.objIds.idReglaMonetizacion,10);
+    oConta.idReglaMonetizacion = this.idReglaMonetizacion;
     oConta.numeroApunte = parseInt(jsonResult.numeroApunte,10);
     oConta.sociedadGl = jsonResult.sociedadGl.trim();
     oConta.tipoCuenta = jsonResult.tipoCuenta.trim();
@@ -81,13 +87,13 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.claseDocumento = jsonResult.claseDocumento.trim();
     oConta.concepto = jsonResult.concepto.trim();
     oConta.centroDestino = jsonResult.centroDestino.trim();
-    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria == "true"?"D":"C";
-    oConta.indicadorIVA = jsonResult.indicadorIVA == "true"? "AA":"NA";
-    oConta.indicadorOperacion = jsonResult.indicadorOperacion == '1' ? "C": "A";
-    console.log(oConta);
+    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === "true"?"D":"C";
+    oConta.indicadorIVA = jsonResult.indicadorIVA === "true"? "AA":"NA";
+    oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? "C": "A";
     this.showLoader(true);
-    this.accountingService.updateAccounting(oConta).pipe(finalize(() => { this.showLoader(false); }))
-    .subscribe((response:any) => {
+    this.accountingService.updateAccounting(oConta).pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:any) => {
       if(response.code == 200){
         swal.fire({
           icon: 'success',
@@ -140,7 +146,7 @@ export class UpdateModalAccountingComponent implements OnInit {
             );
             default: break;
         }
-      }, (err:any) => {
+      },() => {
         swal.fire({
           icon: 'error',
           title: 'Error',
@@ -167,16 +173,12 @@ export class UpdateModalAccountingComponent implements OnInit {
 
   disabledFieldSociety(disabled:boolean){
     let element:any; let ctrl:any;
-    for(element of this.containers)
-      for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
+    for(element of this.containers){
+      for(ctrl of element.controls){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = disabled;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
-          ctrl.disabled = disabled;
-        }
+      } 
+    }
   }
 }

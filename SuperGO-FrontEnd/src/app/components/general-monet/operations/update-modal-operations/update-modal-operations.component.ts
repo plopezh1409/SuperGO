@@ -76,8 +76,8 @@ export class UpdateModalOperationsComponent implements OnInit {
      obOpe.idTipoOperacion = this.idOperation;
      obOpe.descripcionTipoOperacion = jsonResult.descripcionTipoOperacion.trim();
      obOpe.idCanal = parseInt(jsonResult.idCanal,10);
-     obOpe.topicoKafka = jsonResult.topicoKafka.trim()
-     obOpe.status = jsonResult.estatus === true ?"A":"I"
+     obOpe.topicoKafka = jsonResult.topicoKafka.trim();
+     obOpe.status = jsonResult.status === true ?"A":"I";
     this.showLoader(true);
     this.formCatService.updateOperation(obOpe).pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {

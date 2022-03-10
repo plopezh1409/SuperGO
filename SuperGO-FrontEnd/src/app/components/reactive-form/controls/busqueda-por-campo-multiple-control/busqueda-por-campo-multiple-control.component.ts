@@ -97,11 +97,9 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
         }        
 
         this.objetosDependenciaBusquedaVsInfo.forEach((elem:any) => {
-          console.log("objetosDependenciaBusquedaVsInfo",elem);
           let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() == elem.dependency.trim().toUpperCase();});
           if(field)
           {
-            console.log("objetosDependenciaBusquedaVsInfo data[field]",data[field]);
             this.formulario.controls[elem.ky].setValue(data[field]);
           }
         });       
@@ -124,7 +122,6 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
       url = str[0];
       obj = str[1];
     }
-    console.log("enviarConsulta", url,"obj",obj);
     this.formularioService.getFieldQuery(url, obj) 
     .pipe(finalize(()=>{ this.mostrarLoaderInput = false;}))
     .subscribe((data: any) => {        

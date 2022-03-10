@@ -8,6 +8,8 @@ import { UpdateModalAccountingComponent } from '../update-modal-accounting/updat
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 import { finalize } from 'rxjs/operators';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
  
 @Component({
@@ -22,86 +24,88 @@ export class AccountingTablesComponent implements OnInit {
   accountService:FormAccountingsService;
   messageError: MessageErrorModule;
   dataSource:MatTableDataSource<Contabilidad>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion','fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
-  totalRows:number = 0;
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion',
+    'fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
+  totalRows:number;
   pageEvent: PageEvent;
-  containers:any;
-  private showLoad: boolean = false;
-  private loaderDuration: number;
+  containers: Container[];
+  private showLoad: boolean;
+  private readonly loaderDuration: number;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
-  constructor(private injector:Injector,public refData?:MatDialog) {    
+  constructor(private readonly injector:Injector,public refData?:MatDialog) {    
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.messageError = new MessageErrorModule();
-    this.dataInfo=[];    
+    this.containers = []
+    this.dataInfo=[];
     this.dataSource = new MatTableDataSource<Contabilidad>();
     this.pageEvent= new PageEvent();   
     this.loaderDuration = 100;
+    this.showLoad = false;
+    this.totalRows = 0;
    }
 
   ngOnInit(): void {
-    if(this.dataInfo.length !== 0)
-      this.onLoadTable(this.dataInfo);
+    if(this.dataInfo.length !== 0){
+      this.onLoadTable(this.dataInfo); 
+    }
   }
 
   onLoadTable(dataInfo:Contabilidad[])  
   {
-    console.log("onLoadTable");
-    var auxForm:any = localStorage.getItem("_auxForm");
-    this.containers = JSON.parse(auxForm);
+    this.containers = JSON.parse(localStorage.getItem("_auxForm") || "");
     this.dataInfo=dataInfo;  
-    this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
+    this.dataSource = new MatTableDataSource<Contabilidad>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
   async open(element:Contabilidad){
     this.showLoader(true);
-    let data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
+    const data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
       return err;
     });
     this.showLoader(false);
     if (data.code !== 200) {
-      this.messageError.showMessageError(data.message, data.code);
-      return;
+      return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      let oConta:Contabilidad = data.response.registroContable;
-      oConta.contabilidadDiaria = oConta.contabilidadDiaria == "D"?"true":"false";
-      oConta.indicadorIVA = oConta.indicadorIVA == "AA"?"true":"false";
-      var _auxForm = this.disabledFields(this.containers);
+      const oConta:Contabilidad = data.response.registroContable;
+      oConta.contabilidadDiaria = oConta.contabilidadDiaria === "D"?"true":"false";
+      oConta.indicadorIVA = oConta.indicadorIVA === "AA"?"true":"false";
+      let _auxForm = this.disabledFields(this.containers);
       return( this.refData?.open(UpdateModalAccountingComponent,{
         width: '70%',
         data:{
           dataModal:oConta,
           auxForm:_auxForm
         }
-      }).afterClosed().subscribe((oData:any)=>{
-        if(oData !== undefined)
+      }).afterClosed().subscribe((oData:ResponseTable)=>{
+        if(oData !== undefined){
           if(oData.status === true){
             this.dataInfo = oData.data;
             this.onLoadTable(this.dataInfo);
           }
+        }
       }));
     }
   }
 
   async show(element:Contabilidad){
     this.showLoader(true);
-    let data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
+    const data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
       return err;
     });
     this.showLoader(false);
     if (data.code !== 200) {
-      this.messageError.showMessageError(data.message, data.code);
-      return;
+      return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      let oConta:Contabilidad = data.response.registroContable;
-      oConta.contabilidadDiaria = oConta.contabilidadDiaria == "D"?"CONTABILIDAD DIARIA":"CONTABILIDAD AL CORTE";
-      oConta.indicadorIVA = oConta.indicadorIVA == "AA"?"APLICA IVA":"NO APLICA IVA";
-      oConta.indicadorOperacion = oConta.indicadorOperacion == "C"?"CARGO":"ABONO";
+      const oConta:Contabilidad = data.response.registroContable;
+      oConta.contabilidadDiaria = oConta.contabilidadDiaria === "D"?"CONTABILIDAD DIARIA":"CONTABILIDAD AL CORTE";
+      oConta.indicadorIVA = oConta.indicadorIVA === "AA"?"APLICA IVA":"NO APLICA IVA";
+      oConta.indicadorOperacion = oConta.indicadorOperacion === "C"?"CARGO":"ABONO";
       let registro:string='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
@@ -123,25 +127,19 @@ export class AccountingTablesComponent implements OnInit {
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
-      }).then(result=>{
-        if (result.isConfirmed) {}
       });
   }
   }
 
   disabledFields(_auxForm:any){
     let element:any; let ctrl:any;
-    for(element of _auxForm)
-      for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
+    for(element of _auxForm){
+      for(ctrl of element.controls) {
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = true;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
-          ctrl.disabled = true;
-        }
+      }
+    }
     return _auxForm;
   }
 
