@@ -126,14 +126,12 @@ export class PeriodicityModule {
         let ky:string = '';
         dataForm.forEach((element:any) => {
           element.controls.forEach((ctrl:any) => {
-            if(ctrl.controlType === 'dropdown'){
-              if(ctrl.ky === 'periodicidad'){
-                let data:any;
-                for(data of ctrl.content.contentList){
-                  if(data.value.includes(frequency)){
-                    ky = data.ky;
-                    break;
-                  }
+            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
+              let data:any;
+              for(data of ctrl.content.contentList){
+                if(data.value.includes(frequency)){
+                  ky = data.ky;
+                  break;
                 }
               }
             }
@@ -146,13 +144,11 @@ export class PeriodicityModule {
         let kyDay = '';
         dataForm.forEach((element:any) => {
           element.controls.forEach((ctrl:any) => {
-            if(ctrl.controlType === 'dropdown'){
-              if(ctrl.ky === 'nombreDia'){
-                for(let data of ctrl.content.contentList){
-                  if(data.value === day){
-                    kyDay = data.ky;
-                    break;
-                  }
+            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia'){
+              for(let data of ctrl.content.contentList){
+                if(data.value === day){
+                  kyDay = data.ky;
+                  break;
                 }
               }
             }

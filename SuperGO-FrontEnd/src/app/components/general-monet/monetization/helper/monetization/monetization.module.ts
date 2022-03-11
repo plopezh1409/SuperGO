@@ -15,11 +15,10 @@ export class MonetizationModule {
     let typeMonet = '';
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown'){
-          if(ctrl.ky === 'tipoMontoMonetizacion'){
-            for(let data of ctrl.content.contentList){
-              if(data.ky === type)
-                typeMonet = data.value.charAt(0);
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'tipoMontoMonetizacion'){
+          for(let data of ctrl.content.contentList){
+            if(data.ky === type){
+              typeMonet = data.value.charAt(0);
             }
           }
         }

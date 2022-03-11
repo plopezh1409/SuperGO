@@ -270,19 +270,21 @@ export class MonetizationComponent implements OnInit {
     //busqueda del codigo
     if (this.selectedValRequest.control.content) {
       let finder = this.selectedValRequest.control.content!.options.find((option: any) => option.ky === selectedVal);
-      let valueControls = this.reactiveForm.principalForm?.value;
+      let dataForm;
+      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
+        dataForm = Object(datas);
+      }
       this.reactiveForm.principalForm = null;
       this.containers = [];
-      if (finder == '' || finder == undefined) {
-        finder = {value:'0-'};
-      }
+      finder = finder == ''? {value:'0-'} : finder == undefined ? {value:'0-'} : finder;
+
       this.createNewForm(
         this.selectedValRequest.control.visibility.filter((x: any) =>
-          x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, valueControls);
+          x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
     }
   }
 
-  createNewForm(filter: any, selectedVal: any, valueControls: any) {
+  createNewForm(filter: any, selectedVal: any, dataForm: any) {
     if (filter) {
       this.principalContainers.forEach(pcont => {
         const newContainer = Object.assign({}, pcont);
@@ -293,31 +295,29 @@ export class MonetizationComponent implements OnInit {
           if (control) {
             control.setAttributeValueByName('value', selectedVal);
           }
-          let dataForm;
-          for (var datas of Object.values(valueControls)) {
-            dataForm = Object(datas);
-          }
-          let ctrl: any;
-          for (ctrl in dataForm) {
-            const control = newContainer.controls.find(x => x.ky === ctrl);
-            var valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
-            if (typeof valueCtrl == 'boolean')
-              valueCtrl = valueCtrl.toString();
-            if (ctrl !== 'Periocidad')
-              if (control && valueCtrl != '') {
-                if (control.controlType == 'dropdown' || control.controlType == 'autocomplete') {
-                  control.setAttributeValueByNameDropdown('value', valueCtrl);
-                }
-                else
-                  control.setAttributeValueByName('value', valueCtrl);
-              }
-          }
+          this.setControls(dataForm, newContainer);
           newContainer.controls = this.sortControls(filterControls, pcont);
           this.containers.push(newContainer);
         }
       });
     }
     this.reactiveForm.setContainers(this.containers);
+  }
+
+  setControls(dataForm:any, newContainer:Container){
+    for (let ctrl in dataForm) {
+      const control = newContainer.controls.find((x:any) => x.ky === ctrl);
+      var valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
+      valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+        if (control && valueCtrl != '' && ctrl !== 'Periocidad') {
+          if (control.controlType == 'dropdown' || control.controlType == 'autocomplete') {
+            control.setAttributeValueByNameDropdown('value', valueCtrl);
+          }
+          else{
+            control.setAttributeValueByName('value', valueCtrl);
+          }
+        }
+    }
   }
 
   sortControls(filterControls: Control[], filterCont: Container) {

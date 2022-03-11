@@ -79,13 +79,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
     let typeMonet:String = '';
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'autocomplete'){
-          if(ctrl.ky === 'codigoDivisa'){
-            for(let data of ctrl.content.contentList){
-              if(data.value.includes(type)){
-                typeMonet = data;
-                break;
-              }
+        if(ctrl.controlType === 'autocomplete' && ctrl.ky === 'codigoDivisa'){
+          for(let data of ctrl.content.contentList){
+            if(data.value.includes(type)){
+              typeMonet = data;
+              break;
             }
           }
         }
@@ -266,16 +264,19 @@ export class UpdateModalMonetizationComponent implements OnInit {
     if(this.selectedValRequest.control.content)
     {
       const finder = this.selectedValRequest.control.content!.options.find((option:any)=> option.ky===selectedVal);
-      let valueControls = this.reactiveForm.principalForm?.value;
+      let dataForm;
+      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
+        dataForm = Object(datas);
+      }
       this.reactiveForm.principalForm = null;
       this.containers=[];  
       this.createNewForm(
       this.selectedValRequest.control.visibility.filter((x:any) =>
-        x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, valueControls);
+        x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
     }               
   }
 
-  createNewForm(filter:any,selectedVal:any, valueControls:any)
+  createNewForm(filter:any,selectedVal:any, dataForm:any)
   {
     if(filter)
     {
@@ -290,35 +291,29 @@ export class UpdateModalMonetizationComponent implements OnInit {
           {
             control.setAttributeValueByName('value', selectedVal);
           }
-          let dataForm;
-          for(var datas of Object.values(valueControls)){
-            dataForm = Object(datas);
-          }
-          let ctrl:any;
-          for(ctrl in dataForm){
-            const control = newContainer.controls.find(x=>x.ky === ctrl);
-            if(dataForm[ctrl] == 'undefined')
-              valueCtrl = '';
-            else
-              var valueCtrl = dataForm[ctrl] == null? '': dataForm[ctrl];
-            var as = dataForm[ctrl];
-            if(typeof valueCtrl == 'boolean')
-               valueCtrl = valueCtrl.toString();
-            if(ctrl !== 'periodicidad')
-              if(control && valueCtrl != null){
-                if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
-                  control.setAttributeValueByNameDropdown('value', valueCtrl);
-                }
-                else
-                  control.setAttributeValueByName('value', valueCtrl);
-              }
-          }
+          this.setControls(dataForm, newContainer);
           newContainer.controls = this.sortControls(filterControls, pcont);        
           this.containers.push(newContainer);
         }
       });
     }
     this.reactiveForm.setContainers(this.containers);
+  }
+
+  setControls(dataForm:any, newContainer:Container){
+    for(let ctrl in dataForm){
+      const control = newContainer.controls.find(x=>x.ky === ctrl);
+      var valueCtrl = dataForm[ctrl] == 'undefined'? '' : dataForm[ctrl] == null? '': dataForm[ctrl];
+      valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+      if(control && valueCtrl != null && ctrl !== 'periodicidad'){
+        if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
+          control.setAttributeValueByNameDropdown('value', valueCtrl);
+        }
+        else{
+          control.setAttributeValueByName('value', valueCtrl);
+        }
+      }
+    }
   }
 
   sortControls(filterControls:Control[], filterCont:Container)
