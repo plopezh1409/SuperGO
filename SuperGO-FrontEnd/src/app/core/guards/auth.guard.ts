@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate {
         {            
           //En el metodo canActivate se puede regresar un Observable<bool>(lo ejecuta en automatico) o un tipo booleano          
           return this.authService.tokenRefresh(this.authService.token)
-          .pipe(pluck("response"), map(data=> {                      
+          .pipe(pluck('response'), map(data=> {                      
             if (data !== null && data.length > 0)
             {
               this.authService.guardarToken(data);  
@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate {
             }
             else
             {
-              this.logger.info("Terminar Sesion canActivate observable");
+              this.logger.info('Terminar Sesion canActivate observable');
               this.authService.terminarSesion('/login', '¡Necesitas iniciar sesión!');  
               return false;
             }}));
@@ -61,7 +61,7 @@ export class AuthGuard implements CanActivate {
       }
       else
       {
-        this.logger.info("Terminar Sesion canActivate");
+        this.logger.info('Terminar Sesion canActivate');
         this.authService.terminarSesion('/login', '¡Necesitas iniciar sesión!');               
         return false;    
       }

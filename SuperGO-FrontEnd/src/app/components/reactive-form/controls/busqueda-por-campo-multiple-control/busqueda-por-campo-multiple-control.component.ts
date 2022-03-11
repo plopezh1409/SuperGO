@@ -107,7 +107,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
       else
       {        
         this.objetosDependenciaBusquedaVsInfo.forEach((ctrl:Control) =>{
-          this.formulario.controls[ctrl.ky!].setValue("");
+          this.formulario.controls[ctrl.ky!].setValue('');
         });
       }
     }    
@@ -221,7 +221,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   onChangeInput() {
     setTimeout(() => {
       if(this.setError) {
-        this.formulario.controls[this.control.ky!].setValue("");
+        this.formulario.controls[this.control.ky!].setValue('');
         this.setError = false;
       }
     }, 100);

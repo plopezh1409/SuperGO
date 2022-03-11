@@ -77,9 +77,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {   
       swal.fire({
-        html: `<div class="titModal">Aviso</div>
+        html: `<div class='titModal'>Aviso</div>
         <br/>
-        <span class="material-icons error-icon">
+        <span class='material-icons error-icon'>
           error
         </span>
         <br/>
@@ -159,6 +159,7 @@ export class LoginComponent implements OnInit {
       } else if (result.isDenied) {    //CERRAR SESIÓN
         this.authService.limpiarSesion();
         this.router.navigate(['/login']);
+      }else {
       }
     });
   }
@@ -199,7 +200,7 @@ export class LoginComponent implements OnInit {
           default: break;
         }
       }, err => {
-        this.appComponent.logger.info("LOGIN error:", err);
+        this.appComponent.logger.info('LOGIN error:', err);
         if (err.status == 400) {
           swal.fire({
             icon: 'error',
@@ -215,7 +216,7 @@ export class LoginComponent implements OnInit {
     this.validateAllFormFields(this.actualizaForm);
     let p4ssA = atob(this.usuario.p4ss);
     let regex = new RegExp(this.regex);
-    if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === "") {
+    if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === '') {
       this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false)
     }
     else if (this.p4ss1 != p4ssA) {
@@ -241,7 +242,7 @@ export class LoginComponent implements OnInit {
     } else {
       swal.fire({
         title: 'Último paso!',
-        text: "¿Seguro que deseas actualizar la contraseña?",
+        text: '¿Seguro que deseas actualizar la contraseña?',
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar',
         showCancelButton: true,
@@ -263,7 +264,7 @@ export class LoginComponent implements OnInit {
                 this.logIn(usuario);
               },
               err => {
-                this.appComponent.logger.error("actualizarP4ss error", err.error.errors);
+                this.appComponent.logger.error('actualizarP4ss error', err.error.errors);
                 swal.fire('Hubo un problema', `${err.error.message} ,intente de nuevo`, 'error');
                 swal.fire({
                   icon: 'error',
@@ -310,7 +311,7 @@ export class LoginComponent implements OnInit {
   }
 
   emptyFields(): boolean {
-    if (this.usuario.employee == null || this.usuario.employee == "") {
+    if (this.usuario.employee == null || this.usuario.employee == '') {
       swal.fire({
         icon: 'error',
         title: 'Lo sentimos',
@@ -318,7 +319,7 @@ export class LoginComponent implements OnInit {
         heightAuto: false
       });
       return true;
-    } else if (this.usuario.p4ss == null || this.usuario.p4ss == "") {
+    } else if (this.usuario.p4ss == null || this.usuario.p4ss == '') {
       swal.fire({
         icon: 'error',
         title: 'Lo sentimos',
@@ -355,7 +356,7 @@ export class LoginComponent implements OnInit {
 
   reload() {
     this.authService.logout().subscribe(() => {
-      this.router.navigate(["/login"]);
+      this.router.navigate(['/login']);
       this.ngOnInit();
     });
   }

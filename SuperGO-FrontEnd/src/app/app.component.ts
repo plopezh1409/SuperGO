@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       if (this.authService.isAuthenticated()) 
       {
         this.authService.logout().subscribe(() => {
-          this.authService.terminarSesion('/login', "¡Necesitas iniciar sesión nuevamente!");          
+          this.authService.terminarSesion('/login', '¡Necesitas iniciar sesión nuevamente!');          
           this.isAuth = false;
         });
       }
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
     let isValid: boolean = true;
     if (!this.authService.isAuthenticated() || this.authService.isTokenExpirado())
     {
-      this.authService.terminarSesion('/',"¡Necesitas iniciar sesión nuevamente!");
+      this.authService.terminarSesion('/','¡Necesitas iniciar sesión nuevamente!');
       isValid = false;
     }    
 

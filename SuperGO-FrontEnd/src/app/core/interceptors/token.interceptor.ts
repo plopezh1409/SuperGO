@@ -90,7 +90,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 });
                 break;
         }      
-        this.logger.info("SEND BACKEND" , "time", this.intercepUtils.getTime());
+        this.logger.info('SEND BACKEND' , 'time', this.intercepUtils.getTime());
         return next.handle(authReq);
     }
 

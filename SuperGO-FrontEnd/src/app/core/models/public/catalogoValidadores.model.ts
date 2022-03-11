@@ -27,12 +27,12 @@ export class CatalogoValidadores {
           validaciones.push(Validators.max(control.max! || 0));
           break;
         case 'Validators.maxlenght':
-          if(control.controlType! !== "texboxLink") {
+          if(control.controlType! !== 'texboxLink') {
             validaciones.push(Validators.maxLength(control.maxLength!));
           }
           break;
         case 'Validators.minlength':
-          if(control.controlType! !== "textboxLink") {
+          if(control.controlType! !== 'textboxLink') {
             validaciones.push(Validators.minLength(control.minlength!));
           }
           break;

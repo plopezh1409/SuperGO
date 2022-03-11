@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
 
   private userService: UsuarioService;
   private llaveMaestraService: MasterKeyService;
-  inputSearch: string = "";
+  inputSearch: string = '';
   showImage = true;
   init: boolean = false;
   cardsTop: any[] = [];
@@ -187,6 +187,7 @@ export class InicioComponent implements OnInit {
         this.authService.logout().subscribe(() => {
           this.router.navigate(['/login']);
         });
+      }else {
       }
 
       this.appComponent.showLoader(false);

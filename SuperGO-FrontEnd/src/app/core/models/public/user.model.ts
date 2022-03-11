@@ -36,14 +36,14 @@ export class User {
     usuario: string; */
 
     constructor() {
-        this.employee = "";
-        this.name = "";
+        this.employee = '';
+        this.name = '';
         this.direction = {} as Direction;
         this.country = {} as Country;
-        this.company = "";
+        this.company = '';
         this.modules = [];
         this.top = [];
-        this.user = "";   
-        this.p4ss = "";   
+        this.user ='';   
+        this.p4ss = '';   
     }
 }

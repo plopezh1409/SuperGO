@@ -26,19 +26,19 @@ export class ModuleGuard implements CanLoad {
           }else{            
             //En el metodo canLoad se puede regresar un Observable<bool>(lo ejecuta en automatico) o un tipo booleano          
             return this.authService.tokenRefresh(this.authService.token)
-            .pipe(pluck("response"), map(data=> {                      
+            .pipe(pluck('response'), map(data=> {                      
               if (data !== null && data.length > 0){
                 this.authService.guardarToken(data);  
                 this.authService.guardarUsuario(data);  
                 return this.isUserModuleValid(this.getFullpath(segments));
               }else{
-                this.logger.info("Terminar Sesion canLoad observable");
+                this.logger.info('Terminar Sesion canLoad observable');
                 this.authService.terminarSesion('/login', '¡Necesitas iniciar sesión!');  
                 return false;
               }}));
           }         
         }else{
-          this.logger.info("Terminar Sesion canLoad");
+          this.logger.info('Terminar Sesion canLoad');
           this.authService.terminarSesion('/login', '¡Necesitas iniciar sesión!');               
           return false;    
         }

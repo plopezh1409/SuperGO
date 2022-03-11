@@ -12,6 +12,6 @@ export class SolicitudCarga {
     private subTipoSolicitud:string,
     private rolActivo:string 
   ) {
-    this.requiereEvidencia = "1";
+    this.requiereEvidencia = '1';
   }
 }

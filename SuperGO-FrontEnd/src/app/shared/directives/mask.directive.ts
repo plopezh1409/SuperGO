@@ -48,7 +48,7 @@ export class MaskDirective {
     if(this.controlesBackEnd && this.controlesBackEnd.controlType === 'decimal')
     {      
       let valorConFormato = this.maskDecimal.obtenerStrConFormato($event.target.value);
-      let clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate != "pattern" })];
+      let clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate != 'pattern' })];
       let validadoresDeCatalogo = this.controlesBackEnd.configValidators(clonValidadores);
       if (this.control.control) {
         this.control.control.setValidators(validadoresDeCatalogo);
@@ -112,7 +112,7 @@ export class MaskDirective {
       elemento.selectionStart = elemento.selectionEnd = pos - 1;
     } 
     else {
-      let maxlength = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName("maxlength"):null;
+      let maxlength = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('maxlength'):null;
       if (maxlength && valor.length > Number(maxlength)) 
       {
         elemento.selectionStart = elemento.selectionEnd = pos - 1;

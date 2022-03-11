@@ -299,39 +299,39 @@ export class Control {
     containers.forEach((cont: Container) => {
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        var key = ctrl.ky?.toString() === undefined? "": ctrl.ky?.toString();
+        var key = ctrl.ky?.toString() === undefined? '': ctrl.ky?.toString();
         var value = dataModal[key];
-        if(key !== "")
+        if(key !== '')
           switch (ctrl.controlType) {
             case 'datepicker':
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
             case 'decimal':
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
 
             case 'label':
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
 
             case 'checkbox':
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
 
             case 'dropdown':
-              ctrl.setAttributeValueByNameDropdown("value", ctrl.setDropDownValue(ctrl,value));
+              ctrl.setAttributeValueByNameDropdown('value', ctrl.setDropDownValue(ctrl,value));
               break;
 
             case 'textboxInfo':
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
 
             case 'autocomplete':
-              ctrl.setAttributeValueByNameDropdown("value", value);
+              ctrl.setAttributeValueByNameDropdown('value', value);
               break;
 
             default:
-              ctrl.setAttributeValueByName("value",value);
+              ctrl.setAttributeValueByName('value',value);
               break;
           }
       });
@@ -347,8 +347,8 @@ export class Control {
       _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        var ky = ctrl.ky !== undefined ? ctrl.ky : "";
-        var value = ctrl.getAttributeValueByName("value");
+        var ky = ctrl.ky !== undefined ? ctrl.ky : '';
+        var value = ctrl.getAttributeValueByName('value');
         dataCatalog[ky.toString()] = value;
         var a = ctrl.getInfoValue(_formAux)
       });

@@ -214,7 +214,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
       if(this.setError) {
         if(this.control.ky)
         {
-          this.formulario.controls[this.control.ky].setValue("");          
+          this.formulario.controls[this.control.ky].setValue('');          
         } 
 
         this.setError = false;       

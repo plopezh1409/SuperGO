@@ -9,11 +9,11 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 })
 export class SearchComponent implements OnInit {
   @Input() showImage: boolean;
-  inputSearch: String = "";
+  inputSearch: String = '';
   @Input() boolImg: boolean;
   @Input() initIN: boolean;
   placeHolderInput: boolean = false;
-  valueInput: string = ""
+  valueInput: string = '';
   modules: any[] = []
   petitions: any[] = []
   copyPetitions: any[] = []
@@ -29,11 +29,11 @@ export class SearchComponent implements OnInit {
       let mod = element.module;
       if (mod.operation) {
         mod.operation.forEach((elemen: any) => {
-          if (elemen.id != "") {
+          if (elemen.id != '') {
             this.petitions.push({
               categories: mod,
               subcategories: elemen,
-              string: mod.name + "  /" + elemen.name
+              string: mod.name + '  /' + elemen.name
             })
           }
         });
@@ -72,17 +72,17 @@ export class SearchComponent implements OnInit {
   }
 
   clean(target: any) {
-    this.inputSearch = "";
+    this.inputSearch = '';
     this.placeHolderInput = false;
-    target.parentElement.children[1].value = "";
+    target.parentElement.children[1].value = '';
     if (this.boolImg) {
       this.showImage = true;
     }
   }
 
   redirect(searchModule: any) {
-    this.inputSearch = "";
-    this.valueInput = "";
+    this.inputSearch = '';
+    this.valueInput = '';
     this.placeHolderInput = false;
     if (this.boolImg) {
       this.showImage = true;

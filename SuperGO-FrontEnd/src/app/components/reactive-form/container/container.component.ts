@@ -21,7 +21,7 @@ export class ContainerComponent {
   public cambioSeleccionEnDropdown = false;
 
   constructor() {
-    this.alignContent="vertical";
+    this.alignContent='vertical';
     this.container = {} as Container;
     this.formGroup = new FormGroup({});
     this.onChangeDropDown = new EventEmitter();    

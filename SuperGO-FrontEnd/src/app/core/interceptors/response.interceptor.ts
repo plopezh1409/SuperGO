@@ -44,7 +44,7 @@ export class ResponseInterceptor implements HttpInterceptor {
                         evt.body.response = bodyDecrypt;
                     }
                     
-                    this.logger.info("RECEIVE BACKEND", "time", this.intercepUtils.getTime());
+                    this.logger.info('RECEIVE BACKEND', 'time', this.intercepUtils.getTime());
                 }
             }));
     }    

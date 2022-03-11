@@ -26,7 +26,7 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
     this.intercepUtils = new InterceptorUtils();
   }
 
-  palabrasNoPermitidasImprimir = ["http", "com", "mx", "wwww", "https"]
+  palabrasNoPermitidasImprimir = ['http', 'com', 'mx', 'wwww', 'https']
 
   intercept(
     req: HttpRequest<any>,
@@ -34,15 +34,15 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(      
       catchError((exception: HttpErrorResponse) => {        
-        this.logger.info("errorServidor.intercept BACKEND", exception," time ",this.intercepUtils.getTime());
+        this.logger.info('errorServidor.intercept BACKEND', exception,' time ',this.intercepUtils.getTime());
         switch (exception.status) {
           case 0:
-            this.logger.error("Error 0",exception);
+            this.logger.error('Error 0',exception);
             this.errorMessage = 'Sin conexión a Internet';
             break;
           case 400:
-            this.logger.error("Error 400",exception);
-            this.errorMessage = exception.error?.message !== undefined? exception.error?.message:"Solicitud Inválida";
+            this.logger.error('Error 400',exception);
+            this.errorMessage = exception.error?.message !== undefined? exception.error?.message:'Solicitud Inválida';
             break;
           case 401:  
           case 403:
@@ -53,15 +53,15 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
             break;
           case 404:
             //MENSAJE DESDE BACKEND
-            this.logger.error("Error 404",exception);
-            this.errorMessage = exception.error?.message !== undefined? exception.error?.message:"Recurso no encontrado";
+            this.logger.error('Error 404',exception);
+            this.errorMessage = exception.error?.message !== undefined? exception.error?.message:'Recurso no encontrado';
             break;
           case 500:                      
-            this.logger.error("Error 500",exception);
-            this.errorMessage = "Error interno del servidor, contacte a soporte del gestor de operaciones";
+            this.logger.error('Error 500',exception);
+            this.errorMessage = 'Error interno del servidor, contacte a soporte del gestor de operaciones';
             break;
           default:
-            this.logger.error("Error " + exception.status, exception);
+            this.logger.error('Error ' + exception.status, exception);
             this.errorMessage = exception.message;
         }
 

@@ -12,16 +12,16 @@ export class GlobalErrorHandler implements ErrorHandler {
         const chunkFailedMessage = /Loading chunk [\d]+ failed/;
 
         if (chunkFailedMessage.test(error.message)) {
-            this.logger.error("Error Lazy Load hard Reload forzado ");
+            this.logger.error('Error Lazy Load hard Reload forzado ');
             window.location.reload();
           }
 
         if (!(error instanceof HttpErrorResponse)) {
-            this.logger.error("GlobalErrorHandler",error);
+            this.logger.error('GlobalErrorHandler',error);
             
             if(error!==undefined && typeof error === 'object')
             {
-                if(!error.message.includes("HttpErrorResponse"))
+                if(!error.message.includes('HttpErrorResponse'))
                 {
                     Swal.fire({
                         html: `<div class="titModal">Aviso</div><br/>
