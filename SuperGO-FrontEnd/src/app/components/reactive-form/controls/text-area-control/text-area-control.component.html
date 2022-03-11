@@ -1,14 +1,14 @@
 <mat-form-field  appearance="outline" floatLabel="always" [formGroup]="form" class="controlSize" >
     <mat-label>{{ control.label }}</mat-label>
-    <!-- <label [for]="control.ky!"> -->
-    <textarea matInput 
-    [id]="control.ky!" 
-    [name]="control.ky!" 
-    [formControlName]="control.ky!" 
-    [attributes]="control.attributes!" 
-    autocomplete="off" [mask]="mask"
-    class="reactiveTextarea"></textarea>
-    <!-- </label> -->
+    <label [for]="control.ky!">
+      <textarea matInput 
+      [id]="control.ky!" 
+      [name]="control.ky!" 
+      [formControlName]="control.ky!" 
+      [attributes]="control.attributes!" 
+      autocomplete="off" [mask]="mask"
+      class="reactiveTextarea"></textarea>
+    </label>
     <mat-error *ngIf="form">
         <span *ngIf="form.get(control.ky!)?.errors?.required">
           El campo {{ control.label }} es requerido

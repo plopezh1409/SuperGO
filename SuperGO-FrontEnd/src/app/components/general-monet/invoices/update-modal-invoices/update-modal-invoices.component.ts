@@ -9,6 +9,7 @@ import { Facturas } from '@app/core/models/facturas/facturas.model'
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-invoices',
@@ -25,16 +26,19 @@ export class UpdateModalInvoicesComponent implements OnInit {
   alignContent='horizontal';
   public control:Control = new Control;
   public formas:any;
-  public showLoad: boolean = false;
+  public showLoad: boolean;
   private loaderDuration: number;
   private objIds:any;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   
-  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector,public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
+      public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.formInvService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.containers=[];
     this.loaderDuration = 100;
+    this.showLoad = false;
   }
 
   ngOnInit(): void {
@@ -67,28 +71,30 @@ export class UpdateModalInvoicesComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-    var oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
+    let oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
     oInvoice.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
-    this.formInvService.updateInvoce(oInvoice).pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
-        if(response.code == 200){
+    this.formInvService.updateInvoce(oInvoice).pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:any) => {
+        if(response.code === this.codeResponse.RESPONSE_CODE_200){
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta',
             text: response.mensaje,
             heightAuto: false,
             allowOutsideClick: false,
-            confirmButtonText: "Ok"
+            confirmButtonText: 'Ok'
           }).then((result)=>{
-            if(result.isConfirmed)
+            if(result.isConfirmed){
               this.getDataTable();
+            }
           });
         }
         else{
           this.messageError.showMessageError(response.message ,response.code)
         }
-      }, (err:any) => {
+      }, (err) => {
         this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
       });
   }
@@ -114,12 +120,14 @@ export class UpdateModalInvoicesComponent implements OnInit {
     this.formInvService.getInfoInvoices().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
-          case 200: //Se modifico el registro correctamente
+          case this.codeResponse.RESPONSE_CODE_200:
             oResponse.status = true;
             oResponse.data = response.response;
             return(this.refData?.close(oResponse));
-          case 400: case 401: case 404:
-          case 500:
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
             return(
               this.refData?.close(oResponse),
               swal.fire({
@@ -129,10 +137,10 @@ export class UpdateModalInvoicesComponent implements OnInit {
                 heightAuto: false
               })
             );
-            default:
-              break;
+          default:
+            break;
         }
-      }, (err:any) => {
+      }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Error',
@@ -143,18 +151,15 @@ export class UpdateModalInvoicesComponent implements OnInit {
   }
 
   disabledFieldSociety(disabled:boolean){
-    let element:any; let ctrl:any;
-    for(element of this.containers)
-      for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
+    let element:any;
+    let ctrl:any;
+    for(element of this.containers){
+      for(ctrl of element.controls) {
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = disabled;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
-          ctrl.disabled = disabled;
-        }
+      }
+    }
   }
 
 }

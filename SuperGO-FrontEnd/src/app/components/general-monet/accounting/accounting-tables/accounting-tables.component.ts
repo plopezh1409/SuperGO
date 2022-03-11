@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
  
 @Component({
@@ -31,13 +32,14 @@ export class AccountingTablesComponent implements OnInit {
   containers: Container[];
   private showLoad: boolean;
   private readonly loaderDuration: number;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(private readonly injector:Injector,public refData?:MatDialog) {    
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.messageError = new MessageErrorModule();
-    this.containers = []
+    this.containers = [];
     this.dataInfo=[];
     this.dataSource = new MatTableDataSource<Contabilidad>();
     this.pageEvent= new PageEvent();   
@@ -54,7 +56,7 @@ export class AccountingTablesComponent implements OnInit {
 
   onLoadTable(dataInfo:Contabilidad[])  
   {
-    this.containers = JSON.parse(localStorage.getItem("_auxForm") || "");
+    this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo=dataInfo;  
     this.dataSource = new MatTableDataSource<Contabilidad>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
@@ -67,14 +69,14 @@ export class AccountingTablesComponent implements OnInit {
       return err;
     });
     this.showLoader(false);
-    if (data.code !== 200) {
+    if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
       const oConta:Contabilidad = data.response.registroContable;
-      oConta.contabilidadDiaria = oConta.contabilidadDiaria === "D"?"true":"false";
-      oConta.indicadorIVA = oConta.indicadorIVA === "AA"?"true":"false";
-      let _auxForm = this.disabledFields(this.containers);
+      oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'true':'false';
+      oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'true':'false';
+      const _auxForm = this.disabledFields(this.containers);
       return( this.refData?.open(UpdateModalAccountingComponent,{
         width: '70%',
         data:{
@@ -82,7 +84,7 @@ export class AccountingTablesComponent implements OnInit {
           auxForm:_auxForm
         }
       }).afterClosed().subscribe((oData:ResponseTable)=>{
-        if(oData !== undefined){
+        if(oData != undefined){
           if(oData.status === true){
             this.dataInfo = oData.data;
             this.onLoadTable(this.dataInfo);
@@ -98,14 +100,14 @@ export class AccountingTablesComponent implements OnInit {
       return err;
     });
     this.showLoader(false);
-    if (data.code !== 200) {
+    if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
       const oConta:Contabilidad = data.response.registroContable;
-      oConta.contabilidadDiaria = oConta.contabilidadDiaria === "D"?"CONTABILIDAD DIARIA":"CONTABILIDAD AL CORTE";
-      oConta.indicadorIVA = oConta.indicadorIVA === "AA"?"APLICA IVA":"NO APLICA IVA";
-      oConta.indicadorOperacion = oConta.indicadorOperacion === "C"?"CARGO":"ABONO";
+      oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'CONTABILIDAD DIARIA':'CONTABILIDAD AL CORTE';
+      oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'APLICA IVA':'NO APLICA IVA';
+      oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'?'CARGO':'ABONO';
       let registro:string='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
@@ -132,7 +134,8 @@ export class AccountingTablesComponent implements OnInit {
   }
 
   disabledFields(_auxForm:any){
-    let element:any; let ctrl:any;
+    let element:any;
+    let ctrl:any;
     for(element of _auxForm){
       for(ctrl of element.controls) {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){

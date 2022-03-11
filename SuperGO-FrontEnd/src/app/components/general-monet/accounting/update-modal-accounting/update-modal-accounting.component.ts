@@ -9,6 +9,7 @@ import swal from 'sweetalert2'
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-accounting',
@@ -28,6 +29,8 @@ export class UpdateModalAccountingComponent implements OnInit {
   private readonly loaderDuration: number;
   private objIds:{};
   idReglaMonetizacion:number;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+
   
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
       public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
@@ -87,21 +90,21 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.claseDocumento = jsonResult.claseDocumento.trim();
     oConta.concepto = jsonResult.concepto.trim();
     oConta.centroDestino = jsonResult.centroDestino.trim();
-    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === "true"?"D":"C";
-    oConta.indicadorIVA = jsonResult.indicadorIVA === "true"? "AA":"NA";
-    oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? "C": "A";
+    oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === 'true'?'D':'C';
+    oConta.indicadorIVA = jsonResult.indicadorIVA === 'true'? 'AA':'NA';
+    oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? 'C': 'A';
     this.showLoader(true);
     this.accountingService.updateAccounting(oConta).pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:any) => {
-      if(response.code == 200){
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
           text: response.mensaje,
           heightAuto: false,
           allowOutsideClick: false,
-          confirmButtonText: "Ok"
+          confirmButtonText: 'Ok'
         }).then((result)=>{
           if(result.isConfirmed){
             this.getDataTable();
@@ -111,7 +114,7 @@ export class UpdateModalAccountingComponent implements OnInit {
       else{
         this.messageError.showMessageError(response.message, response.code);
       }
-    }, (err:any) => {
+    }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
@@ -122,19 +125,22 @@ export class UpdateModalAccountingComponent implements OnInit {
   }
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();
+    const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.accountingService.getInfoAccounting().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
+    this.accountingService.getInfoAccounting().pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:any) => {
         switch (response.code) {
-          case 200:
+          case this.codeResponse.RESPONSE_CODE_200:
+            oResponse.status = true;
+            oResponse.data = response.response;
           return(
-            oResponse.status = true,
-            oResponse.data = response.response,
             this.refData?.close(oResponse)
-          );
-          case 400: case 401: case 404:
-          case 500:
+            );
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
             return(
               this.refData?.close(oResponse),
               swal.fire({

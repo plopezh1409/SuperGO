@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-accounting',
@@ -26,7 +27,8 @@ export class AccountingComponent implements OnInit {
   alignContent='horizontal';
   public dataInfo:Contabilidad[];
   public idSolicitud: string | null;
-  private codeResponse200: number = 200;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+
 
   @ViewChild(AccountingTablesComponent) catalogsTable:AccountingTablesComponent;
 
@@ -53,7 +55,7 @@ export class AccountingComponent implements OnInit {
     }
   }
 
-  onSubmit(value:Contabilidad)
+  onSubmit(value:any)
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -69,7 +71,7 @@ export class AccountingComponent implements OnInit {
     for(let datas of Object.values(value)){
       dataBody = Object(datas);
     }
-    let oConta:Contabilidad =  new Contabilidad();
+    const oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = dataBody.idSociedad;
     oConta.idTipoOperacion = parseInt(dataBody.idTipoOperacion,10);
     oConta.idSubtipoOperacion = parseInt(dataBody.idSubTipoOperacion,10);
@@ -80,14 +82,14 @@ export class AccountingComponent implements OnInit {
     oConta.claseDocumento = dataBody.claseDocumento.trim();
     oConta.concepto = dataBody.concepto.trim();
     oConta.centroDestino = dataBody.centroDestino.trim();
-    oConta.contabilidadDiaria = dataBody.contabilidadDiaria === true?"D":"C";
-    oConta.indicadorIVA = dataBody.indicadorIVA === true? "AA":"NA";
-    oConta.indicadorOperacion = dataBody.indicadorOperacion === '1' ? "C": "A";
+    oConta.contabilidadDiaria = dataBody.contabilidadDiaria === true?'D':'C';
+    oConta.indicadorIVA = dataBody.indicadorIVA === true? 'AA':'NA';
+    oConta.indicadorOperacion = dataBody.indicadorOperacion === '1' ? 'C': 'A';
     this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:any)=>{
-      if(data.code === 201){
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
@@ -120,10 +122,10 @@ export class AccountingComponent implements OnInit {
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataAcco.code !== this.codeResponse200) {
+    else if(dataAcco.code !== this.codeResponse.RESPONSE_CODE_200) {
       this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
@@ -169,18 +171,20 @@ export class AccountingComponent implements OnInit {
       this.appComponent.showLoader(false);
     })).subscribe((data:any)=>{
       switch (data.code) {
-        case 200:
+        case this.codeResponse.RESPONSE_CODE_200:
             this.dataInfo = data.response;
             this.catalogsTable.onLoadTable(this.dataInfo);
           break;
-        case 400: case 401: case 404:
-        case 500:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-            heightAuto: false
-          });
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
+            swal.fire({
+              icon: 'error',
+              title: 'Error inesperado',
+              text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
+              heightAuto: false
+            });
           break;
         default:
         break;

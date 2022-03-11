@@ -16,8 +16,8 @@ import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
-import { SwalDirective } from '@sweetalert2/ngx-sweetalert2';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-operations',
@@ -33,29 +33,33 @@ export class UpdateModalOperationsComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private idOperation:number=0;
-  public showLoad: boolean = false;
+  private idOperation:number;
+  public showLoad: boolean;
   private loaderDuration: number;
   private authService:AuthService;
   messageError:MessageErrorModule;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private injector:Injector, public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
+      public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.authService = this.injector.get<AuthService>(AuthService);
     this.messageError = new MessageErrorModule;
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
     this.loaderDuration = 100;
+    this.showLoad = false;
+    this.idOperation = 0;
   }
 
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.reactiveForm.setContainers(this.containers);
-    this.dataModal.dataModal.status = this.dataModal.dataModal.status == "A"?"true":"false";
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status == 'A'? 'true' : 'false';
     this.idOperation = this.idOperation = parseInt(this.dataModal?.dataModal.idTipoOperacion,10);
     this.control.setDataToControls(this.containers,this.dataModal.dataModal);
-    this.dataModal.dataModal.status = this.dataModal.dataModal.status == "true"?"A":"I";
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status == 'true' ? 'A' : 'I';
     this.reactiveForm.setContainers(this.containers);
   }
 
@@ -72,32 +76,34 @@ export class UpdateModalOperationsComponent implements OnInit {
       return;
     }
     let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
-     var obOpe:Operaciones = new Operaciones();
-     obOpe.idTipoOperacion = this.idOperation;
-     obOpe.descripcionTipoOperacion = jsonResult.descripcionTipoOperacion.trim();
-     obOpe.idCanal = parseInt(jsonResult.idCanal,10);
-     obOpe.topicoKafka = jsonResult.topicoKafka.trim();
-     obOpe.status = jsonResult.status === true ?"A":"I";
+    let obOpe:Operaciones = new Operaciones();
+    obOpe.idTipoOperacion = this.idOperation;
+    obOpe.descripcionTipoOperacion = jsonResult.descripcionTipoOperacion.trim();
+    obOpe.idCanal = parseInt(jsonResult.idCanal,10);
+    obOpe.topicoKafka = jsonResult.topicoKafka.trim();
+    obOpe.status = jsonResult.status === true ?'A':'I';
     this.showLoader(true);
-    this.formCatService.updateOperation(obOpe).pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
-        if(response.code == 200){
+    this.formCatService.updateOperation(obOpe).pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response) => {
+        if(response.code == this.codeResponse.RESPONSE_CODE_200){
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta',
             text: response.mensaje,
             heightAuto: false,
             allowOutsideClick: false,
-            confirmButtonText: "Ok"
+            confirmButtonText: 'Ok'
           }).then((result)=>{
-            if(result.isConfirmed)
+            if(result.isConfirmed){
               this.getDataTable();
+            }
           });
         }
         else{
           this.messageError.showMessageError(response.message ,response.code);
         }
-      }, (err:any) => {
+      }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
@@ -128,18 +134,18 @@ export class UpdateModalOperationsComponent implements OnInit {
     let oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
     this.formCatService.getInfoOperation().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
+      .subscribe((response) => {
         switch (response.code) {
-          case 200:
-          return(
-            oResponse.status = true,
-            oResponse.data = response.response,
-            this.refData?.close(oResponse)
-          );
-          case 400:
-          case 401:
-          case 404:
-          case 500:
+          case this.codeResponse.RESPONSE_CODE_200:
+            return(
+              oResponse.status = true,
+              oResponse.data = response.response,
+              this.refData?.close(oResponse)
+            );
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
             return(
               this.refData?.close(oResponse),
               swal.fire({
@@ -149,10 +155,10 @@ export class UpdateModalOperationsComponent implements OnInit {
                 heightAuto: false
               })
             );
-            default:
-              break;
+          default:
+            break;
         }
-      }, (err:any) => {
+      }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Error',

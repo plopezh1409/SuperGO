@@ -8,10 +8,10 @@ import swal from 'sweetalert2';
 
 //MODELS 
 import { Control } from '@app/core/models/capture/controls.model';
-import { AuthService } from '@app/core/services/sesion/auth.service';
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-societies',
@@ -26,18 +26,20 @@ export class UpdateModalSocietiesComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean = false;
+  private showLoad: boolean;
   private loaderDuration: number;
-  private authService:AuthService;
-  private idSociety:any;
+  private idSociety:number;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
-  constructor(private injector:Injector,public refData?:MatDialogRef<UpdateModalSocietiesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private readonly injector:Injector, public refData?:MatDialogRef<UpdateModalSocietiesComponent>,
+      @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.societyService = this.injector.get<FormCatService>(FormCatService);
-    this.authService = this.injector.get<AuthService>(AuthService)
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.containers=[];
     this.loaderDuration = 100;
+    this.showLoad = false;
+    this.idSociety = 0;
   }
   
 
@@ -69,7 +71,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
     oSociety.RFC = dataForm.RFC;
     this.societyService.updateSociety(oSociety).pipe(finalize(() => {  }))
       .subscribe((response:any) => {
-        if(response.code === 201){
+        if(response.code === this.codeResponse.RESPONSE_CODE_200){
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
@@ -77,7 +79,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
             text: response.mensaje,
             heightAuto: false,
             allowOutsideClick: false,
-            confirmButtonText: "Ok"
+            confirmButtonText: 'Ok'
           }).then((result)=>{
             if(result.isConfirmed){
               this.getDataTable();
@@ -87,28 +89,28 @@ export class UpdateModalSocietiesComponent implements OnInit {
         else{
           this.messageError.showMessageError(response.mensaje, response.code);
         }
-      }, (err:any) => {
-        if (err.status == 500 || err.status == 400)
-          this.messageError.showMessageError('Por el momento no podemos proporcionar tu Solicitud.', err.status);      
+      }, (err) => {
+        this.messageError.showMessageError('Por el momento no podemos proporcionar tu Solicitud.', err.status);      
       });
   }
 
   getDataTable(){
     let oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.societyService.getInfoSocieties().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
+    this.societyService.getInfoSocieties().pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response) => {
         switch(response.code){
-          case 200:
+          case this.codeResponse.RESPONSE_CODE_200:
             return(
               oResponse.status = true,
               oResponse.data = response.response,
               this.refData?.close(oResponse)
             );
-          case 400:
-          case 401:
-          case 404:
-          case 500:
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
             return(
               this.refData?.close(oResponse),
               swal.fire({
@@ -121,7 +123,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           default:
           break;
         }
-      }, (err:any) => {
+      }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Error',

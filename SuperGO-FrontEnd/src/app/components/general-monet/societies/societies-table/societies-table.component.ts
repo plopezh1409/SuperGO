@@ -6,7 +6,7 @@ import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import Swal from 'sweetalert2';
 import { UpdateModalSocietiesComponent } from '../update-modal-societies/update-modal-societies.component';
 //SERVICES
-import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-societies-table',
@@ -18,38 +18,38 @@ export class SocietiesTableComponent implements OnInit {
   dataInfo:Sociedad[];
   dataSource:MatTableDataSource<Sociedad>;
   displayedColumns: string[] = ['razonSocial', 'RFC', 'descripcionTipoSociedad', 'options', 'options2'];
-  totalRows:number = 0;
-  containers:any;
-  angularSecurity:AngularSecurity;
+  totalRows:number;
+  containers:Container[];
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(private injector:Injector, public refData?:MatDialog) {    
     this.dataInfo=[];
+    this.containers = [];
+    this.totalRows = 0;
     this.dataSource = new MatTableDataSource<Sociedad>();
-    this.angularSecurity = this.injector.get<AngularSecurity>(AngularSecurity);
    }
 
   ngOnInit(): void {     
-    if(this.dataInfo.length !== 0)
+    if(this.dataInfo.length !== 0){
       this.onLoadTable(this.dataInfo);
+    }
   }
 
   onLoadTable(dataInfo:any)  
   {
-    var auxForm:any = localStorage.getItem("_auxForm");
-    this.containers = JSON.parse(auxForm);
+    this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo = dataInfo.sociedades;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
-  open(element:any){
+  open(oSociedad:Sociedad){
     return( this.refData?.open(UpdateModalSocietiesComponent,{
       width: '70%',
       data:{
-        dataModal:element,
+        dataModal:oSociedad,
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:any)=>{
@@ -72,8 +72,6 @@ export class SocietiesTableComponent implements OnInit {
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
-    }).then(result=>{
-      if (result.isConfirmed) {}
     });
   }
 

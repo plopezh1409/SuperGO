@@ -11,6 +11,7 @@ import { UpdateModalOperationsComponent } from '../update-modal-operations/updat
 
 //MODELS
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
+import { Container } from '@app/core/models/capture/container.model';
 
 @Component({
   selector: 'app-operations-table',
@@ -23,37 +24,39 @@ export class OperationsTableComponent implements OnInit {
   @Input()dataInfo:Operaciones[];
   dataSource:MatTableDataSource<Operaciones>;
   displayedColumns: string[] = ['descripcionTipoOperacion', 'idCanal', 'topicoKafka', 'status','options', 'options2'];
-  totalRows:number = 0;
-  containers:any;
+  totalRows:number;
+  containers:Container[];
   
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(public refData?:MatDialog) {
-    this.dataInfo=[];    
+    this.dataInfo=[];
+    this.containers = [];
+    this.totalRows = 0;   
     this.dataSource = new MatTableDataSource<Operaciones>();
    }
 
   ngOnInit(): void {
-    if (this.dataInfo.length !== 0)
+    if (this.dataInfo.length !== 0){
       this.onLoadTable(this.dataInfo);
+    }
   }
 
   onLoadTable(dataInfo:any)  
   {
-    var auxForm:any = localStorage.getItem("_auxForm");
-    this.containers = JSON.parse(auxForm);
+    this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo=dataInfo.tipoOperacion;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
-open(element:any){
+open(obOperation:Operaciones){
   return(
     this.refData?.open(UpdateModalOperationsComponent,{
       width: '70%',
       data:{
-        dataModal:element,
+        dataModal:obOperation,
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:any)=>{
@@ -67,7 +70,6 @@ open(element:any){
   }
 
   show(obOperation:Operaciones):void{
-    let titulos:string[]=["IdSociedad","Descripción","Canal","Tópico KAFKA","Estatus"]
     let registro:string='';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
@@ -79,8 +81,6 @@ open(element:any){
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
-    }).then(result=>{
-      if (result.isConfirmed) {}
     });
   }
 

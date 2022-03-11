@@ -21,7 +21,7 @@ import { PetitionRoutingModule } from './general-monet-routing.module';
 import { generalmonetComponent } from './general-monet.component';
 import { societiescomponent } from './societies/societies.component';
 import { invoicesComponent } from './invoices/invoices.component';
-import { invoicesTableComponent } from './invoices/invoices-table/invoices-table.component';
+import { InvoicesTableComponent } from './invoices/invoices-table/invoices-table.component';
 import { OperationsComponent } from './operations/operations.component';
 import { AccountingComponent } from './accounting/accounting.component';
 import { MonetizationComponent } from './monetization/monetization.component';
@@ -43,7 +43,7 @@ import { AppComponent } from '@app/app.component';
     generalmonetComponent,
     societiescomponent,
     invoicesComponent,    
-    invoicesTableComponent,
+    InvoicesTableComponent,
     OperationsComponent,
     AccountingComponent,
     MonetizationComponent,

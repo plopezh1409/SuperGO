@@ -17,6 +17,7 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 
 import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -32,7 +33,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean = false;
+  private showLoad: boolean;
   private loaderDuration: number;
   public showButtonAdd: boolean;
   private selectedValRequest: any;
@@ -40,11 +41,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
   private periodicity:PeriodicityModule;
   private monetModule:MonetizationModule;
   private objIds:any;
-  private appComp:AppComponent;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,private injector:Injector,public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
+      public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
-    this.appComp = this.injector.get<AppComponent>(AppComponent);
     this.messageError = new MessageErrorModule();
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
@@ -52,6 +53,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.showButtonAdd = false;
     this.selectedValRequest = null;
     this.principalContainers = [];
+    this.showLoad = false;
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule();
   }
@@ -74,7 +76,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   getValueDivisa(type:string){
     let dataForm = this.containers;
-    let typeMonet = "";
+    let typeMonet:String = "";
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
         if(ctrl.controlType === 'autocomplete'){
@@ -102,7 +104,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     cpyModal.indicadorOperacion = cpyModal.indicadorOperacion == true? 'true':'false';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa == '' || (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
       if( (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
         swal.fire({
@@ -128,8 +130,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-    // jsonResult
-    var oMonet:Monetizacion =  new Monetizacion();
+    let oMonet:Monetizacion =  new Monetizacion();
     oMonet.idSociedad = jsonResult.idSociedad;
     oMonet.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
     oMonet.idSubTipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
@@ -138,31 +139,33 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.montoMonetizacion = parseFloat(jsonResult.montoMonetizacion);
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
-    oMonet.emisionFactura = (jsonResult.emisionFactura =="true");
-    oMonet.indicadorOperacion = jsonResult.indicadorOperacion == true ? "P" : "C";
+    oMonet.emisionFactura = (jsonResult.emisionFactura == 'true');
+    oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
     oMonet.fechaFinVigencia =  this.getDateTime(jsonResult.fechaFinVigencia);
     this.showLoader(true);
-    this.monetService.updateMonetization(oMonet).pipe(finalize(() => { this.showLoader(false); }))
-    .subscribe((response:any) => {
-      if(response.code == 200){
+    this.monetService.updateMonetization(oMonet).pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:any) => {
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
           text: response.mensaje,
           heightAuto: false,
           allowOutsideClick: false,
-          confirmButtonText: "Ok"
+          confirmButtonText: 'Ok'
         }).then((result)=>{
-          if(result.isConfirmed)
+          if(result.isConfirmed){
             this.getDataTable();
+          }
         });
       }
       else{
         this.messageError.showMessageError(response.message, response.code);
       }
-    }, (err:any) => {
+    }, (err) => {
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
@@ -184,15 +187,16 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.monetService.getDataMonetization().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
         switch (response.code) {
-          case 200: //Se modifico el registro correctamente
+          case this.codeResponse.RESPONSE_CODE_200: //Se modifico el registro correctamente
           return(
             oResponse.status = true,
             oResponse.data = response.response,
             this.refData?.close(oResponse)
           );
-          case 400:
-          case 401:
-          case 500:
+          case this.codeResponse.RESPONSE_CODE_400:
+          case this.codeResponse.RESPONSE_CODE_401:
+          case this.codeResponse.RESPONSE_CODE_404:
+          case this.codeResponse.RESPONSE_CODE_500:
             return(
               this.refData?.close(oResponse),
               swal.fire({
@@ -202,8 +206,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
                 heightAuto: false
               })
             );
-            default:
-              break;
+          default:
+            break;
         }
       }, (err:any) => {
         swal.fire({
@@ -216,19 +220,16 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   disabledFieldSociety(disabled:boolean){
-    let element:any; let ctrl:any;
-    for(element of this.containers)
-      for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
-          ctrl.disabled = disabled;
-        }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = disabled;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
+    let element:any;
+    let ctrl:any;
+    for(element of this.containers){
+      for(ctrl of element.controls){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
       }
+    }
+  }
 
   close(){
     return( this.refData?.close());

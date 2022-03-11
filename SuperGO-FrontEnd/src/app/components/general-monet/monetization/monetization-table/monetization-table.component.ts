@@ -8,6 +8,9 @@ import swal from 'sweetalert2';
 import { UpdateModalMonetizationComponent } from '../update-modal-monetization/update-modal-monetization.component';
 import { finalize, timeout } from 'rxjs/operators';
 import { PeriodicityModule } from '../helper/periodicity/periodicity.module';
+import { Container } from '@app/core/models/capture/container.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
   selector: 'app-monetization-table',
@@ -20,55 +23,61 @@ export class MonetizationTableComponent implements OnInit {
   @Input()dataInfo:Monetizacion[];
   dataSource:MatTableDataSource<Monetizacion>;
   displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion', 'fechaInicio','fechaFin','options', 'options2'];
-  totalRows:number = 0;
+  totalRows:number;
   pageEvent: PageEvent;
-  containers:any;
+  containers:Container[];
   monetService:FormMonetizationsService;
-  private showLoad: boolean = false;
+  messageError:MessageErrorModule;
+  private showLoad: boolean;
   private loaderDuration: number;
   private periodicity: PeriodicityModule;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(private injector:Injector,public refData?:MatDialog) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
-    this.dataInfo=[];    
+    this.dataInfo=[];
+    this.containers = [];
+    this.totalRows = 0; 
+    this.showLoad = false;
     this.dataSource = new MatTableDataSource<Monetizacion>(); 
     this.pageEvent= new PageEvent();   
     this.loaderDuration = 100;
     this.periodicity = new PeriodicityModule();  
+    this.messageError = new MessageErrorModule();
    }
 
   ngOnInit(): void {    
-    if(this.dataInfo.length !== 0) 
+    if(this.dataInfo.length !== 0){
       this.onLoadTable(this.dataInfo);
+    }
   }
 
   onLoadTable(dataInfo:any)  
   {
-    var auxForm:any = localStorage.getItem("_auxForm");
-    this.containers = JSON.parse(auxForm);
+    this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo = dataInfo.reglasMonetizacion;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
   
-  async open(element:Monetizacion){
+  async open(obData:Monetizacion){
     this.showLoader(true);
-    let data = await this.monetService.getDataMonetizationById(element).toPromise().catch((err) => {
+    const data = await this.monetService.getDataMonetizationById(obData).toPromise().catch((err) => {
       return err;
     });
     this.showLoader(false);
-    if (data.code !== 200) {
-      this.showMessageError(data.message, data.code);
-      return;
+    if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
+      return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      var oMonet:any = data.response.reglasMonetizacion;
-      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion == 'P'?  1 : 'F'? 2 : 3;
+      let oMonet:any = data.response.reglasMonetizacion;
+      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? 2 : 3;
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion == "C"?"false":"true";
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
       var _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
@@ -88,15 +97,14 @@ export class MonetizationTableComponent implements OnInit {
       }
   }
 
-  async show(element:Monetizacion){
+  async show(oElement:Monetizacion){
     this.showLoader(true);
-    let data = await this.monetService.getDataMonetizationById(element).toPromise().catch((err) => {
+    let data = await this.monetService.getDataMonetizationById(oElement).toPromise().catch((err) => {
       return err;
     });
     this.showLoader(false);
-    if (data.code !== 200) {
-      this.showMessageError(data.message, data.code);
-      return;
+    if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
+      return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
       var oMonet:any = data.response.reglasMonetizacion;
@@ -119,13 +127,11 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
-      swal.fire({             
+      return( swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
-      }).then(result=>{
-        if (result.isConfirmed) {}
-      });
+      }));
     }
   } 
 
@@ -133,13 +139,7 @@ export class MonetizationTableComponent implements OnInit {
     let element:any; let ctrl:any;
     for(element of _auxForm)
       for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
-          ctrl.disabled = true;
-        }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = true;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
     return _auxForm;
@@ -149,37 +149,6 @@ export class MonetizationTableComponent implements OnInit {
     setTimeout(() => {
       this.showLoad = showLoad;
     }, this.loaderDuration);
-  }
-
-  showMessageError(menssage:string, code:number){
-    switch (code) {
-      case 400: //Solicitud incorrecta
-        swal.fire({
-          icon: 'warning',
-          title: 'Solicitud incorrecta',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 404://No autorizado
-        swal.fire({
-          icon: 'warning',
-          title: 'No autorizado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      case 500://Error Inesperado
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: menssage,
-          heightAuto: false
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   ngOnDestroy(): void {

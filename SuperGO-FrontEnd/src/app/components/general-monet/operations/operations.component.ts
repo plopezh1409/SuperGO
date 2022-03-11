@@ -15,6 +15,7 @@ import { FormOperationsService } from '@app/core/services/operations/formOperati
 import { Container } from '@app/core/models/capture/container.model';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { ActivatedRoute } from '@angular/router';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-operations',
@@ -28,11 +29,12 @@ export class OperationsComponent implements OnInit {
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
   containers:Container[];
-  maxNumControls=10;
+  maxNumControls:number;
   alignContent='horizontal';
   public dataInfo:Operaciones[];
   public channelCatalog:any[];
   public idSolicitud: string | null;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   @ViewChild(OperationsTableComponent) catalogsTable:OperationsTableComponent;
 
@@ -49,12 +51,14 @@ export class OperationsComponent implements OnInit {
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
     this.idSolicitud=null;
+    this.maxNumControls = 10;
   }
 
   ngOnInit() {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
-    if(this.idSolicitud!=null)
+    if(this.idSolicitud!=null){
       this.fillDataPage();
+    }
   }
 
   onSubmit(value:any)
@@ -76,17 +80,17 @@ export class OperationsComponent implements OnInit {
     obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
     obOpe.idCanal = parseInt(dataBody.idCanal,10);
     obOpe.topicoKafka = dataBody.topicoKafka;
-    obOpe.status = dataBody.status === true ?"A":"I";
+    obOpe.status = dataBody.status === true ?'A':'I';
     this.appComponent.showLoader(true);
     this.formCatService.insertOperation(obOpe).pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
-      if(data.code == 201){
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
           text: data.message,
           heightAuto: false,
-          confirmButtonText: "Ok",
+          confirmButtonText: 'Ok',
           allowOutsideClick: false
         }).then((result)=>{
           if(result.isConfirmed){
@@ -98,62 +102,64 @@ export class OperationsComponent implements OnInit {
       else{
         this.messageError.showMessageError(data.message, data.code);
       }
-    },(err:any) => {
+    },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
   }
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
+    const dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
-    var dataOper = await this.formCatService.getInfoOperation().toPromise().catch((err) =>{
+    const dataOper = await this.formCatService.getInfoOperation().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== 200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== 200) {
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
       this.containers = dataForm.response.reactiveForm;
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
-      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
   
   updateTable(){
     this.appComponent.showLoader(true);
-    this.formCatService.getInfoOperation().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
+    this.formCatService.getInfoOperation().pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:any)=>{
       switch (data.code) {
-        case 200:
+        case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
-        case 400:
-        case 401:
-        case 404:
-        case 500:
-        default:
+        case this.codeResponse.RESPONSE_CODE_400:
+        case this.codeResponse.RESPONSE_CODE_401:
+        case this.codeResponse.RESPONSE_CODE_404:
+        case this.codeResponse.RESPONSE_CODE_500:
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',
-            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
             heightAuto: false
           });
         break;
+        default:
+        break;
       }
-    },(err:any) => {
+    },(err) => {
       swal.fire({
       icon: 'error',
       title: 'Error inesperado',
-      text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
       heightAuto: false
     });      
   });

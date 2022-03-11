@@ -18,6 +18,7 @@ import { PeriodicityModule } from './helper/periodicity/periodicity.module';
 import { MonetizationModule } from './helper/monetization/monetization.module';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { finalize } from 'rxjs/operators';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class MonetizationComponent implements OnInit {
   messageError: MessageErrorModule;
   reactiveForm: ReactiveForm;
   containers: Container[];
-  maxNumControls = 10;
+  maxNumControls: number;
   alignContent = 'horizontal';
   public dataInfo: Monetizacion[];
   public showButtonAdd: boolean;
@@ -40,7 +41,7 @@ export class MonetizationComponent implements OnInit {
   public idSolicitud: string | null;
   private periodicity: PeriodicityModule;
   private monetModule: MonetizationModule;
-
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
@@ -59,14 +60,16 @@ export class MonetizationComponent implements OnInit {
     this.selectedValRequest = null;
     this.principalContainers = [];
     this.idSolicitud = null;
+    this.maxNumControls = 10;
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule()
   }
 
   ngOnInit(): void {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
-    if (this.idSolicitud != null)
+    if (this.idSolicitud != null){
       this.fillDataPage();
+    }
   }
 
   onSubmit(oElement: any) {
@@ -92,7 +95,7 @@ export class MonetizationComponent implements OnInit {
       });
       return;
     }
-    let oMonet: Monetizacion = new Monetizacion();
+    const oMonet: Monetizacion = new Monetizacion();
     oMonet.idSociedad = dataForm.idSociedad;
     oMonet.idTipoOperacion = parseInt(dataForm.idTipoOperacion,10);
     oMonet.idSubTipoOperacion = parseInt(dataForm.idSubTipoOperacion,10);
@@ -102,20 +105,21 @@ export class MonetizationComponent implements OnInit {
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto, 10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
-    oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? "P" : "C";
+    oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
     oMonet.fechaFinVigencia = this.getDateTime(dataForm.fechaFinVigencia);
     this.appComponent.showLoader(true);
-    this.monetService.insertMonetization(oMonet).pipe(finalize(() => { this.appComponent.showLoader(false); }))
-    .subscribe((data:any)=>{
-      if(data.code == 201){
+    this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:any)=>{
+      if(data.code == this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
           text: data.menssage,
           heightAuto: false,
-          confirmButtonText: "Ok",
+          confirmButtonText: 'Ok',
           allowOutsideClick: false
         }).then((result)=>{
           if(result.isConfirmed){
@@ -132,22 +136,20 @@ export class MonetizationComponent implements OnInit {
 
   getDateTime(date: string) {
     var dateTime: Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(2, '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(2, '0') + "-" + dateTime.getFullYear();
+    date = dateTime.getDate().toString().padStart(2, '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(2, '0') + '-' + dateTime.getFullYear();
     return date;
   }
 
   getDay(type: string) {
     let dataForm = this.containers;
-    let typeMonet = "";
+    let typeMonet = '';
     dataForm.forEach((element: any) => {
       element.controls.forEach((ctrl: any) => {
-        if (ctrl.controlType === 'dropdown') {
-          if (ctrl.ky === 'nombreDia') {
-            for (let data of ctrl.content.contentList) {
-              if (data.ky === type) {
-                typeMonet = data.value;
-                break;
-              }
+        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia') {
+          for (let data of ctrl.content.contentList) {
+            if (data.ky === type) {
+              typeMonet = data.value;
+              break;
             }
           }
         }
@@ -158,17 +160,17 @@ export class MonetizationComponent implements OnInit {
 
   async fillDataPage() {
     this.appComponent.showLoader(true);
-    let dataForm = await this.monetService.getForm({ idRequest: this.idSolicitud }).toPromise().catch((err) => {
+    const dataForm = await this.monetService.getForm({ idRequest: this.idSolicitud }).toPromise().catch((err) => {
       return err;
     });
-    var dataOper = await this.monetService.getDataMonetization().toPromise().catch((err) => {
+    const dataOper = await this.monetService.getDataMonetization().toPromise().catch((err) => {
       return err;
     });
     this.appComponent.showLoader(false);
-    if (dataForm.code !== 200) {
+    if (dataForm.code !== this.codeResponse.RESPONSE_CODE_200) {
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if (dataOper.code !== 200) {
+    else if (dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
@@ -176,7 +178,7 @@ export class MonetizationComponent implements OnInit {
       this.dataInfo = dataOper.response;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
-      localStorage.setItem("_auxForm", JSON.stringify(this.containers));
+      localStorage.setItem('_auxForm', JSON.stringify(this.containers));
       this.changePeridicity(this.containers);
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
@@ -202,11 +204,9 @@ export class MonetizationComponent implements OnInit {
     });
     dataForm.forEach((element: any) => {
       element.controls.forEach((ctrl: any) => {
-        if (ctrl.controlType === 'dropdown') {
-          if (ctrl.ky === 'idSociedad') {
-            ctrl.content.contentList = cpDataContent.sociedades;
-            ctrl.content.options = cpDataContent.sociedades;
-          }
+        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad') {
+          ctrl.content.contentList = cpDataContent.sociedades;
+          ctrl.content.options = cpDataContent.sociedades;
         }
       });
     });
@@ -217,11 +217,9 @@ export class MonetizationComponent implements OnInit {
     var idContainer = dataForm[0].idContainer;
     dataForm.forEach((element: any) => {
       element.controls.forEach((ctrl: any) => {
-        if (ctrl.controlType === 'dropdown') {
-          if (ctrl.ky === 'periodicidad') {
-            var selectedValRequest: any = { control: ctrl, idContainer: idContainer }
-            this.onChangeCatsPetition(selectedValRequest);
-          }
+        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
+          var selectedValRequest: any = { control: ctrl, idContainer: idContainer }
+          this.onChangeCatsPetition(selectedValRequest);
         }
       });
     });
@@ -236,29 +234,29 @@ export class MonetizationComponent implements OnInit {
           this.dataInfo = data.response;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
-        case 400:
-        case 401:
-        case 404:
-        case 500:
-        default:
+        case this.codeResponse.RESPONSE_CODE_400:
+        case this.codeResponse.RESPONSE_CODE_401:
+        case this.codeResponse.RESPONSE_CODE_404:
+        case this.codeResponse.RESPONSE_CODE_500:
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',
-            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
             heightAuto: false
           });
         break;
+        default:
+        break;
       }
-    },(err:any) => {
+    },(err) => {
       swal.fire({
       icon: 'error',
       title: 'Error inesperado',
-      text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
       heightAuto: false
     });      
   });
   }
-
 
   // metodos de visibility//
   onChangeCatsPetition($event: any) {
@@ -275,8 +273,8 @@ export class MonetizationComponent implements OnInit {
       let valueControls = this.reactiveForm.principalForm?.value;
       this.reactiveForm.principalForm = null;
       this.containers = [];
-      if (finder == "" || finder == undefined) {
-        finder = {value:"0-"};
+      if (finder == '' || finder == undefined) {
+        finder = {value:'0-'};
       }
       this.createNewForm(
         this.selectedValRequest.control.visibility.filter((x: any) =>

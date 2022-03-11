@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Facturas } from '@app/core/models/facturas/facturas.model';
 import Swal from 'sweetalert2';
 import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-modal-invoices.component';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-invoices-table',
@@ -21,57 +22,56 @@ import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-mo
     ]),
   ],
 })
-export class invoicesTableComponent implements OnInit {
+export class InvoicesTableComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
   displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion','descSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
-  totalRows:number = 0;
+  totalRows:number;
   pageEvent: PageEvent;
-  containers:any;
+  containers:Container[];
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(public refData?:MatDialog) {    
-    this.dataInfo=[];    
+    this.dataInfo=[];
+    this.containers = [];
+    this.totalRows = 0;
     this.dataSource = new MatTableDataSource<Facturas>();
     this.pageEvent= new PageEvent();   
    }
 
   ngOnInit(): void {
-    if(this.dataInfo.length !== 0)
+    if(this.dataInfo.length !== 0){
       this.onLoadTable(this.dataInfo);
+    }
   }
 
   onLoadTable(dataInfo:any)  
   {
-    var auxForm:any = localStorage.getItem("_auxForm");
-    this.containers = JSON.parse(auxForm);
+    this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo=dataInfo.facturas;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);
     this.totalRows = this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
 
-  open(element:any){
-    let oEle = Object.assign({}, element);
-    delete oEle.razonSocial;
-    delete oEle.descripcionTipoOperacion
-    delete oEle.descSubTipoOperacion
-    var _auxForm = this.disabledFields(this.containers);
+  open(oInvoice:Facturas){
+    const _auxForm = this.disabledFields(this.containers);
     return(
       this.refData?.open(UpdateModalInvoicesComponent,{
         width: '70%',
         data:{
-          dataModal:oEle,
+          dataModal:oInvoice,
           auxForm:_auxForm
         }
       }).afterClosed().subscribe((oData:any)=> {
-        if(oData !== undefined)
+        if(oData !== undefined){
           if(oData.status === true){
             this.dataInfo = oData.data;
             this.onLoadTable(this.dataInfo);
           }
+        }
       })
     );
   }
@@ -90,25 +90,19 @@ export class invoicesTableComponent implements OnInit {
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
-    }).then(result=>{
-      if (result.isConfirmed) {}
     });
-
   }
 
   disabledFields(_auxForm:any){
-    let element:any; let ctrl:any;
-    for(element of _auxForm)
-      for(ctrl of element.controls) 
-        if(ctrl.ky === 'idSociedad'){
+    let element:any;
+    let ctrl:any;
+    for(element of _auxForm){
+      for(ctrl of element.controls){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
-        else if(ctrl.ky === 'idTipoOperacion'){
-          ctrl.disabled = true;
-        }
-        else if(ctrl.ky === 'idSubTipoOperacion'){
-          ctrl.disabled = true;
-        }
+      }
+    }
     return _auxForm;
   }
 
