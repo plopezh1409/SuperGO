@@ -1,4 +1,4 @@
-import { ErrorHandler, NgModule, Optional, SkipSelf } from "@angular/core";
+import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -9,23 +9,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 
 //COMPONENTES
-import { EncabezadoComponent } from "./layout/encabezado/encabezado.component";
-import { InicioComponent } from "./layout/inicio/inicio.component";
-import { PieDePaginaComponent } from "./layout/pie-de-pagina/pie-de-pagina.component";
-import { DialogTop } from "./layout/dialog/dialogTop/dialogTop.component";
+import { EncabezadoComponent } from './layout/encabezado/encabezado.component';
+import { InicioComponent } from './layout/inicio/inicio.component';
+import { PieDePaginaComponent } from './layout/pie-de-pagina/pie-de-pagina.component';
+import { DialogTop } from './layout/dialog/dialogTop/dialogTop.component';
 
 //INTERCEPTORES
-import { GlobalErrorHandler } from "./interceptors/globalErrorHandler.interceptor";
-import { ErrorServidorInterceptor } from "./interceptors/errorServidor.interceptor";
-import { TokenInterceptor } from "./interceptors/token.interceptor";
-import { ResponseInterceptor } from "./interceptors/response.interceptor";
+import { GlobalErrorHandler } from './interceptors/globalErrorHandler.interceptor';
+import { ErrorServidorInterceptor } from './interceptors/errorServidor.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 //DEPENDENCIAS
-import {MatBreadcrumbModule} from "mat-breadcrumb";
+import {MatBreadcrumbModule} from 'mat-breadcrumb';
 
 //SERVICIOS
-import { SharedModule } from "@app/shared/shared.module";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { SharedModule } from '@app/shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({

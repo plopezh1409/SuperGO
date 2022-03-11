@@ -81,7 +81,7 @@ export class societiescomponent implements OnInit {
             title: 'Correcto  ',
             text: response.mensaje,
             heightAuto: false,
-            confirmButtonText: "Ok",
+            confirmButtonText: 'Ok',
             allowOutsideClick: false
           }).then((result)=>{
             if(result.isConfirmed){
@@ -118,7 +118,7 @@ export class societiescomponent implements OnInit {
       this.containers = dataForm.response.reactiveForm; 
       this.dataInfo = dataOper.response;
       this.reactiveForm.setContainers(this.containers);
-      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
+      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
@@ -139,7 +139,7 @@ export class societiescomponent implements OnInit {
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',
-            text: "Ocurrió un error al cargar los datos, intente mas tarde.",
+            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
             heightAuto: false
           });
         break;
@@ -150,7 +150,7 @@ export class societiescomponent implements OnInit {
       swal.fire({
         icon: 'error',
         title: 'Error inesperado',
-        text: "Ocurrió un error al cargar la informacion, intente mas tarde.",
+        text: 'Ocurrió un error al cargar la informacion, intente mas tarde.',
         heightAuto: false
       });
     });
