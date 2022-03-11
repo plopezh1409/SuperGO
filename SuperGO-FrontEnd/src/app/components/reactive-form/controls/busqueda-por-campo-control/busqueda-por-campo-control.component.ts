@@ -32,7 +32,6 @@ export class BusquedaPorCampoControlComponent implements OnInit
   private banderaBlur = false;
   private banderaClick = false;
   
-  //icono de status: -1 = "no mostrar" 0 = "error", 1 = "valido", cualquier otro = "icono buscar"
   public setIconoStatus:number;
   public mostrarLoaderInput = false;
   controlClass='';

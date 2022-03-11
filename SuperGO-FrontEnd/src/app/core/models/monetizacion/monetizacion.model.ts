@@ -19,21 +19,21 @@ export class Monetizacion
 
     constructor(){
         this.idSociedad = 0;
-        this.razonSocial = "";
+        this.razonSocial = '';
         this.idTipoOperacion = 0;
-        this.descripcionTipoOperacion = "";
+        this.descripcionTipoOperacion = '';
         this.idSubTipoOperacion = 0;
-        this.descSubTipoOperacion = "";
+        this.descSubTipoOperacion = '';
         this.segmento = 0;
-        this.tipoMontoMonetizacion = "";
+        this.tipoMontoMonetizacion = '';
         this.montoMonetizacion = 0;
         this.idTipoImpuesto = 0;
-        this.codigoDivisa = "";
+        this.codigoDivisa = '';
         this.emisionFactura = false;
-        this.indicadorOperacion = "";
-        this.periodicidadCorte = "";
-        this.fechaFinVigencia = "01/01/0001";
-        this.fechaInicioVigencia = "01/01/0001";
+        this.indicadorOperacion = '';
+        this.periodicidadCorte = '';
+        this.fechaFinVigencia = '01/01/0001';
+        this.fechaInicioVigencia = '01/01/0001';
     }
     
 }

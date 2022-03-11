@@ -108,9 +108,9 @@ export class MonetizationTableComponent implements OnInit {
     }
     else{
       var oMonet:any = data.response.reglasMonetizacion;
-      oMonet.emisionFactura = oMonet.emisionFactura == true? "SI":"NO";
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion == "C"?"COBRO":"PAGO";
-      oMonet.tipoMonto = oMonet.tipoMonto === 'P'? "PORCENTAJE" : 'F' ? "FIJO" : "UNIDADES";
+      oMonet.emisionFactura = oMonet.emisionFactura == true? 'SI':'NO';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'COBRO':'PAGO';
+      oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
       let registro:string='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);

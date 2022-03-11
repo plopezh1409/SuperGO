@@ -23,19 +23,19 @@ export class Contabilidad
         this.idTipoOperacion = 0;
         this.idSubtipoOperacion = 0;
         this.idReglaMonetizacion = 0;
-        this.contabilidadDiaria = "";
+        this.contabilidadDiaria = '';
         this.numeroApunte = 0;
-        this.sociedadGl = "";
-        this.tipoCuenta = "";
-        this.cuentaSAP = "";
-        this.claseDocumento = "";
-        this.concepto = "";
-        this.centroDestino = "";
-        this.indicadorIVA = "";
-        this.indicadorOperacion = "";
-        this.razonSocial = "";
-        this.descripcionTipoOperacion="";
-        this.descSubTipoOperacion = "";
+        this.sociedadGl = '';
+        this.tipoCuenta = '';
+        this.cuentaSAP = '';
+        this.claseDocumento = '';
+        this.concepto = '';
+        this.centroDestino = '';
+        this.indicadorIVA = '';
+        this.indicadorOperacion = '';
+        this.razonSocial = '';
+        this.descripcionTipoOperacion='';
+        this.descSubTipoOperacion = '';
     }
 
 }

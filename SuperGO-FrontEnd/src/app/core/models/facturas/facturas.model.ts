@@ -17,9 +17,9 @@ export class Facturas
         this.idReglaMonetizacion = 0;
         this.tipoComprobante = 0;
         this.tipoFactura = 0;
-        this.razonSocial = "";
-        this.descSubTipoOperacion = "";
-        this.descripcionTipoOperacion = "";
+        this.razonSocial = '';
+        this.descSubTipoOperacion = '';
+        this.descripcionTipoOperacion = '';
     }
 
 }

@@ -1,7 +1,7 @@
-import {CurrencyPipe} from "@angular/common"
+import {CurrencyPipe} from '@angular/common'
 export class ControlDecimal {
 
-    private currencyPipe:CurrencyPipe = new CurrencyPipe("en-US");
+    private currencyPipe:CurrencyPipe = new CurrencyPipe('en-US');
 
     obtenerStrSinFormato(input:string): string {        
         if (input.indexOf('$') !== -1) {

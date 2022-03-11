@@ -76,7 +76,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   getValueDivisa(type:string){
     let dataForm = this.containers;
-    let typeMonet:String = "";
+    let typeMonet:String = '';
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
         if(ctrl.controlType === 'autocomplete'){
@@ -177,7 +177,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   getDateTime(date:string){
     var dateTime:Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(2,'0') + '-' + (dateTime.getMonth()+1).toString().padStart(2,'0') + "-" +  dateTime.getFullYear();
+    date = dateTime.getDate().toString().padStart(2,'0') + '-' + (dateTime.getMonth()+1).toString().padStart(2,'0') + '-' +  dateTime.getFullYear();
     return date;
   }
 
@@ -355,7 +355,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
     getDay(type:string){
       let dataForm = this.containers;
-      let typeMonet = "";
+      let typeMonet = '';
       dataForm.forEach((element:any) => {
         element.controls.forEach((ctrl:any) => {
           if(ctrl.controlType === 'dropdown'){

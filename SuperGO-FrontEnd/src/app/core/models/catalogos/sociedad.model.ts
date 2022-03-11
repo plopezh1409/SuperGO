@@ -8,9 +8,9 @@ export class Sociedad
 
     constructor(){
         this.idSociedad = 0;
-        this.razonSocial = "";
-        this.RFC = "";
-        this.descripcionTipoSociedad = "";
+        this.razonSocial = '';
+        this.RFC = '';
+        this.descripcionTipoSociedad = '';
         this.idTipoSociedad = 0;
     }
 }

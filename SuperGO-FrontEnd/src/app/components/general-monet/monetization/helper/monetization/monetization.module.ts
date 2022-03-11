@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class MonetizationModule { 
 
   getTypeOfMonetization(type:string, dataForm:any){
-    let typeMonet = "";
+    let typeMonet = '';
     dataForm.forEach((element:any) => {
       element.controls.forEach((ctrl:any) => {
         if(ctrl.controlType === 'dropdown'){
@@ -29,8 +29,8 @@ export class MonetizationModule {
   }
   
   getDivisa(divisa:string){
-    let arrDivisa = divisa.split("(")[1];
-    return arrDivisa.replace(")", '');;
+    let arrDivisa = divisa.split('(')[1];
+    return arrDivisa.replace(')', '');;
   }
 
 }

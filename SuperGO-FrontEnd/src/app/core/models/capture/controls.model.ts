@@ -413,7 +413,7 @@ export class Control {
     }
     else {
       if (this.attributes) {
-        this.attributes.push(JSON.parse(`{"${name}":"${value}"}`));
+        this.attributes.push(JSON.parse(`{"${name}':'${value}"}`));
       }
     }
   }

@@ -8,10 +8,10 @@ export class Operaciones
 
     constructor(){
         this.idTipoOperacion = 0;
-        this.descripcionTipoOperacion = "";
+        this.descripcionTipoOperacion = '';
         this.idCanal=0;
-        this.topicoKafka="";
-        this.status="I";
+        this.topicoKafka='';
+        this.status='I';
     }
 
 }

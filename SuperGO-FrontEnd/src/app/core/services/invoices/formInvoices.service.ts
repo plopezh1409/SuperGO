@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, Injector } from "@angular/core";
-import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { Observable } from 'rxjs';
 //ENVIROMENT
 import { environment } from '@env/environment';
 //SERVICIOS

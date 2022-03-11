@@ -12,29 +12,29 @@ import { CommonModule } from '@angular/common';
 export class PeriodicityModule { 
 
     getPeriodicity_show(periodicidadCorte:string){
-        let descPer = periodicidadCorte.split(";");
-        let periodicity:string = "";
-        switch(descPer[0].split("=")[1]){
+        let descPer = periodicidadCorte.split(';');
+        let periodicity:string = '';
+        switch(descPer[0].split('=')[1]){
           case 'YEARLY':
-            var day = descPer[1].split("=")[1];
-            let month = this.getMonth(parseInt(descPer[2].split("=")[1], 10));
+            var day = descPer[1].split('=')[1];
+            let month = this.getMonth(parseInt(descPer[2].split('=')[1], 10));
             periodicity = periodicity.concat(`ANUAL - CADA ${day.padStart(2,'0')} DE ${month}`);
             break;
     
           case 'MONTHLY':
-            var day = descPer[1].split("=")[1];
-            var numMonth = descPer[2].split("=")[1];
+            var day = descPer[1].split('=')[1];
+            var numMonth = descPer[2].split('=')[1];
             periodicity = periodicity.concat(`MENSUAL - CADA ${numMonth} MES(ES) EL DIA ${day}`);
             break;
     
           case 'WEEKLY':
-            var day = descPer[1].split("=")[1];
-            var numWeek = descPer[2].split("=")[1];
+            var day = descPer[1].split('=')[1];
+            var numWeek = descPer[2].split('=')[1];
             periodicity = periodicity.concat(`SEMANAL - CADA ${numWeek} SEMANA(S) EL DIA ${day}`);
             break;
     
           case 'DAILY':
-            var day = descPer[1].split("=")[1];
+            var day = descPer[1].split('=')[1];
             periodicity = periodicity.concat(`DIARIO - CADA ${day} DIA(S)`);
           break;
     
@@ -47,7 +47,7 @@ export class PeriodicityModule {
 
 
       getPeriodicity_insert(dataForm:any, day:string){
-        let periodicity:string = "FREQ=";
+        let periodicity:string = 'FREQ=';
         switch(dataForm.periodicidad){
           case '1':
             periodicity = periodicity.concat(`YEARLY;BYMONTH=${dataForm.meses};BYMONTHDAY=${dataForm.numeroDia}`);
@@ -73,12 +73,12 @@ export class PeriodicityModule {
       }
 
       deserializeControlPeriodicity(dataModal:any, dataForm:any){
-        let descPer = dataModal.periodicidadCorte.split(";");
+        let descPer = dataModal.periodicidadCorte.split(';');
         var oNewFields:any;
-        switch(descPer[0].split("=")[1]){
+        switch(descPer[0].split('=')[1]){
           case 'YEARLY':
-            var day = descPer[1].split("=")[1];
-            let month = descPer[2].split("=")[1];
+            var day = descPer[1].split('=')[1];
+            let month = descPer[2].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('ANUAL', dataForm),
               meses:month,
@@ -86,8 +86,8 @@ export class PeriodicityModule {
             }
             break;
           case 'MONTHLY':
-            var day = descPer[1].split("=")[1];
-            var numMonth = descPer[2].split("=")[1];
+            var day = descPer[1].split('=')[1];
+            var numMonth = descPer[2].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('MENSUAL',dataForm),
               repetirMensual:numMonth,
@@ -96,8 +96,8 @@ export class PeriodicityModule {
             break;
     
           case 'WEEKLY':
-            var days = descPer[1].split("=")[1];
-            var dayOfWeek = descPer[2].split("=")[1];
+            var days = descPer[1].split('=')[1];
+            var dayOfWeek = descPer[2].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('SEMANAL',dataForm),
               repetirSemanal: days,
@@ -106,7 +106,7 @@ export class PeriodicityModule {
             break;
     
           case 'DAILY':
-            var day = descPer[1].split("=")[1];
+            var day = descPer[1].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('DIARIA',dataForm),
               repetirDias: dayOfWeek
@@ -162,43 +162,43 @@ export class PeriodicityModule {
       }
 
       getMonth(month:number){
-        let monthName:string = "";
+        let monthName:string = '';
         switch(month){
           case 1:
-            monthName = "ENERO"
+            monthName = 'ENERO'
             break;
           case 2:
-            monthName = "FEBRERO"
+            monthName = 'FEBRERO'
           break;
           case 3:
-            monthName = "MARZO"
+            monthName = 'MARZO'
           break;
           case 4:
-            monthName = "ABRIL"
+            monthName = 'ABRIL'
           break;
           case 5:
-            monthName = "MAYO"
+            monthName = 'MAYO'
           break;
           case 6:
-            monthName = "JUNIO"
+            monthName = 'JUNIO'
           break;
           case 7:
-            monthName = "JULIO"
+            monthName = 'JULIO'
           break;
           case 8:
-            monthName = "AGOSTO"
+            monthName = 'AGOSTO'
           break;
           case 9:
-            monthName = "SEPTIEMBRE"
+            monthName = 'SEPTIEMBRE'
           break;
           case 10:
-            monthName = "OCTUBRE"
+            monthName = 'OCTUBRE'
           break;
           case 11:
-            monthName = "NOVIEMBRE"
+            monthName = 'NOVIEMBRE'
           break;
           case 12:
-            monthName = "DICIEMBRE"
+            monthName = 'DICIEMBRE'
             break;
         }
         return monthName;

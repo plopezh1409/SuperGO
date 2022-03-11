@@ -1,12 +1,12 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, Injector } from "@angular/core";
-import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { Observable } from 'rxjs';
 //ENVIROMENT
 import { environment } from '@env/environment';
 
 //SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
-import { Monetizacion } from "@app/core/models/monetizacion/monetizacion.model";
+import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
 
 @Injectable({
     providedIn:'root'

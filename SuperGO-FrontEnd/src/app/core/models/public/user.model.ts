@@ -1,6 +1,6 @@
-import { Country } from "./country.model";
-import { Direction } from "./direction.model";
-import { Page } from "./page.module";
+import { Country } from './country.model';
+import { Direction } from './direction.model';
+import { Page } from './page.module';
 
 
 export class User {
