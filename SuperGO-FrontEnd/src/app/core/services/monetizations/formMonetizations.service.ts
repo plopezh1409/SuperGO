@@ -35,7 +35,7 @@ export class FormMonetizationsService{
         }
     }
 
-    getForm(solicitud:any):Observable<any>
+    getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 //SERVICES
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
+import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 
 @Injectable({
     providedIn:'root'
@@ -33,7 +34,7 @@ export class FormOperationsService{
         }
     }
 
-    getForm(solicitud:any):Observable<any>
+    getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
@@ -44,11 +45,11 @@ export class FormOperationsService{
         return this.httpClient.get('/assets/dataTables/dataOperation.json');
     }
 
-    insertOperation(dataBody:any):Observable<any>{
+    insertOperation(dataBody:Operaciones):Observable<any>{
         return this.httpClient.post(`http://10.112.211.114:8080/Monetizador-0.0.1/tipoOperacion/post`, dataBody);
     }
 
-    updateOperation(dataBody:any):Observable<any>{
+    updateOperation(dataBody:Operaciones):Observable<any>{
         return this.httpClient.put(`http://10.112.211.114:8080/Monetizador-0.0.1/tipoOperacion/put`, dataBody);
     }
 

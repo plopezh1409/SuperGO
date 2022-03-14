@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { UpdateModalSocietiesComponent } from '../update-modal-societies/update-modal-societies.component';
 //SERVICES
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
 @Component({
   selector: 'app-societies-table',
@@ -36,10 +37,10 @@ export class SocietiesTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:any)  
+  onLoadTable(dataInfo:Sociedad[])  
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo = dataInfo.sociedades;
+    this.dataInfo = dataInfo;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -52,7 +53,7 @@ export class SocietiesTableComponent implements OnInit {
         dataModal:oSociedad,
         auxForm:this.containers
       }
-    }).afterClosed().subscribe((oData:any)=>{
+    }).afterClosed().subscribe((oData:ResponseTable)=>{
       if(oData !== undefined)
         if(oData.status === true){
           this.dataInfo = oData.data;

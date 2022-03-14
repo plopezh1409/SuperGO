@@ -104,7 +104,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           case this.codeResponse.RESPONSE_CODE_200:
             return(
               oResponse.status = true,
-              oResponse.data = response.response,
+              oResponse.data = response.response.sociedades,
               this.refData?.close(oResponse)
             );
           case this.codeResponse.RESPONSE_CODE_400:

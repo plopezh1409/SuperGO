@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { Control } from '@app/core/models/capture/controls.model';
 
 @Component({
   selector: 'app-invoices',
@@ -122,8 +123,8 @@ export class invoicesComponent implements OnInit {
 
   }
 
-  addDataDropdown(dataForm:any, dataContent:any){
-    let cpDataContent = Object.assign({},dataContent);
+  addDataDropdown(dataForm:Container[], dataContent:any){
+    var cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.facturas
     Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {
@@ -139,11 +140,12 @@ export class invoicesComponent implements OnInit {
         });
       });
     });
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
+
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
         if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad'){
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+          ctrl.content!.contentList = cpDataContent.sociedades;
+          ctrl.content!.options = cpDataContent.sociedades;
         }
       });
     });

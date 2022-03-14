@@ -10,6 +10,7 @@ import { finalize, timeout } from 'rxjs/operators';
 import { PeriodicityModule } from '../helper/periodicity/periodicity.module';
 import { Container } from '@app/core/models/capture/container.model';
 import { ServiceResponseCodes, ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { Control } from '@app/core/models/capture/controls.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
@@ -137,12 +138,13 @@ export class MonetizationTableComponent implements OnInit {
   } 
 
   disabledFields(_auxForm:any){
-    let element:any; let ctrl:any;
-    for(element of _auxForm)
-      for(ctrl of element.controls) 
+    _auxForm.forEach((cont: Container) => {
+      cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
+      });
+    });
     return _auxForm;
   }
   

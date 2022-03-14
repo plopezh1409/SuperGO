@@ -59,7 +59,7 @@ export class UpdateModalAccountingComponent implements OnInit {
   }
 
   update(){
-    this.disabledFieldSociety(false);
+    this.disabledFields(false);
     let cpyModal = this.reactiveForm.getDataForm(this.containers);
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
@@ -73,7 +73,7 @@ export class UpdateModalAccountingComponent implements OnInit {
         text: 'Complete los campos faltantes',
         heightAuto: false
       });
-      this.disabledFieldSociety(true);
+      this.disabledFields(true);
       this.reactiveForm.setContainers(this.containers);
       return;
     }
@@ -177,14 +177,14 @@ export class UpdateModalAccountingComponent implements OnInit {
     }, this.loaderDuration);
   }
 
-  disabledFieldSociety(disabled:boolean){
-    let element:any; let ctrl:any;
-    for(element of this.containers){
-      for(ctrl of element.controls){
+  disabledFields(disabled:boolean){
+    this.containers.forEach((cont: Container) => {
+      cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
-      } 
-    }
+      });
+    });
   }
+
 }

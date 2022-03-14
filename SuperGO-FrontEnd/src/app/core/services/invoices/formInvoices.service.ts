@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 //SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
+import { Facturas } from '@app/core/models/facturas/facturas.model';
 
 @Injectable({
     providedIn:'root'
@@ -34,7 +35,7 @@ export class FormInvoicesService {
         }
     }
 	
-	getForm(solicitud:any):Observable<any>
+	getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
@@ -43,11 +44,11 @@ export class FormInvoicesService {
         return this.httpClient.get('/assets/dataTables/dataInvoices.json');
     }
 
-    insertInvoice(dataInvoice:any){
+    insertInvoice(dataInvoice:Facturas){
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
     }
 
-    updateInvoce(dataInvoice:any){
+    updateInvoce(dataInvoice:Facturas){
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
     }
 

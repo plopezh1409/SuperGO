@@ -124,7 +124,7 @@ export class OperationsComponent implements OnInit {
     }
     else{
       this.containers = dataForm.response.reactiveForm;
-      this.dataInfo = dataOper.response;
+      this.dataInfo = dataOper.response.tipoOperacion;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
@@ -138,7 +138,7 @@ export class OperationsComponent implements OnInit {
     })).subscribe((data:any)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response;
+          this.dataInfo = data.response.tipoOperacion;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
         case this.codeResponse.RESPONSE_CODE_400:

@@ -8,7 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Facturas } from '@app/core/models/facturas/facturas.model';
 import Swal from 'sweetalert2';
 import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-modal-invoices.component';
-import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { Control } from '@app/core/models/capture/controls.model';
+import { Container } from '@app/core/models/capture/container.model';
+
 
 @Component({
   selector: 'app-invoices-table',
@@ -94,15 +96,13 @@ export class InvoicesTableComponent implements OnInit {
   }
 
   disabledFields(_auxForm:any){
-    let element:any;
-    let ctrl:any;
-    for(element of _auxForm){
-      for(ctrl of element.controls){
+    _auxForm.forEach((cont: Container) => {
+      cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = true;
         }
-      }
-    }
+      });
+    });
     return _auxForm;
   }
 

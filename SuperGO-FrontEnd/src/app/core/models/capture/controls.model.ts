@@ -416,7 +416,7 @@ export class Control {
     }
     else {
       if (this.attributes) {
-        this.attributes.push(JSON.parse(`{"${name}':'${value}"}`));
+        this.attributes.push(JSON.parse(`{"${name}":"${value}"}`));
       }
     }
   }
@@ -428,8 +428,7 @@ export class Control {
     }
     else {
       if (this.attributes) {
-        let data:any;
-        for(data of this.attributes){
+        for(let data of this.attributes){
           if (Object.keys(data).length === 0){
             data.value = value;
             break;

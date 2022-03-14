@@ -34,7 +34,7 @@ export class FormCatService{
         }
     }
 
-    getForm(solicitud:any):Observable<any>
+    getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
@@ -44,13 +44,13 @@ export class FormCatService{
         return this.httpClient.get('/assets/dataTables/dataCatalog.json');
     }
 
-    insertSociety(newSociety:any):Observable<any>
+    insertSociety(society:Sociedad):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,newSociety);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,society);
     }
 
-    updateSociety(updateSociety:any):Observable<any>
+    updateSociety(society:Sociedad):Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}metodo`,updateSociety);
+        return this.httpClient.post(`${this.urlEnviroment}metodo`,society);
     }
 }

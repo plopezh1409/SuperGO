@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { Control } from '@app/core/models/capture/controls.model';
 
 @Component({
   selector: 'app-accounting',
@@ -68,7 +69,7 @@ export class AccountingComponent implements OnInit {
       return;
     }
     
-    let dataBody;
+    var dataBody;
     for(let datas of Object.values(value)){
       dataBody = Object(datas);
     }
@@ -138,7 +139,7 @@ export class AccountingComponent implements OnInit {
     }
   }
 
-  addDataDropdown(dataForm:any, dataContent:any){
+  addDataDropdown(dataForm:Container[], dataContent:any){
     let cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.registrosContables;
     Object.entries(cpDataContent).forEach(([key, value]:any[], idx:number) =>{
@@ -155,11 +156,12 @@ export class AccountingComponent implements OnInit {
         });
       });
     });
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
+    
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
         if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad'){
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+          ctrl.content!.contentList = cpDataContent.sociedades;
+          ctrl.content!.options = cpDataContent.sociedades;
         }
       });
     });

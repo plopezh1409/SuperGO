@@ -93,7 +93,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   update(){
-    this.disabledFieldSociety(false);
+    this.disabledFields(false);
     let cpyModal = this.reactiveForm.getDataForm(this.containers);
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
@@ -119,7 +119,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
           heightAuto: false
         });
       }
-      this.disabledFieldSociety(true);
+      this.disabledFields(true);
       let cpyModal = this.reactiveForm.getDataForm(this.containers);
       cpyModal = {...cpyModal, ...this.objIds};
       cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
@@ -217,16 +217,14 @@ export class UpdateModalMonetizationComponent implements OnInit {
       });
   }
 
-  disabledFieldSociety(disabled:boolean){
-    let element:any;
-    let ctrl:any;
-    for(element of this.containers){
-      for(ctrl of element.controls){
+  disabledFields(disabled:boolean){
+    this.containers.forEach((cont: Container) => {
+      cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
           ctrl.disabled = disabled;
         }
-      }
-    }
+      });
+    });
   }
 
   close(){
@@ -264,8 +262,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
     if(this.selectedValRequest.control.content)
     {
       const finder = this.selectedValRequest.control.content!.options.find((option:any)=> option.ky===selectedVal);
-      let dataForm;
-      for (let datas of Object.values(this.reactiveForm.principalForm?.value)) {
+      let dataForm:Object={};
+      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;
@@ -276,7 +274,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     }               
   }
 
-  createNewForm(filter:any,selectedVal:any, dataForm:any)
+  createNewForm(filter:any,selectedVal:any, dataForm:Object)
   {
     if(filter)
     {
@@ -334,32 +332,28 @@ export class UpdateModalMonetizationComponent implements OnInit {
       });        
     }    
 
-    changePeridicity(dataForm:any){
-      let idContainer = dataForm[0].idContainer;
-      dataForm.forEach((element:any) => {
-        element.controls.forEach((ctrl:any) => {
-          if(ctrl.controlType === 'dropdown'){
-            if(ctrl.ky === 'periodicidad'){
-              let selectedValRequest:any = { control: ctrl, idContainer: idContainer }
-              this.onChangeCatsPetition(selectedValRequest);
-            }
+    changePeridicity(dataForm:Container[]){
+      var idContainer = dataForm[0].idContainer;
+      dataForm.forEach((element:Container) => {
+        element.controls.forEach((ctrl:Control) => {
+          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
+            var selectedValRequest:Object = { control: ctrl, idContainer: idContainer }
+            this.onChangeCatsPetition(selectedValRequest);
+            
           }
         });
       });
     }
 
     getDay(type:string){
-      let dataForm = this.containers;
       let typeMonet = '';
-      dataForm.forEach((element:any) => {
-        element.controls.forEach((ctrl:any) => {
-          if(ctrl.controlType === 'dropdown'){
-            if(ctrl.ky === 'nombreDia'){
-              for(let data of ctrl.content.contentList){
-                if(data.ky === type){
-                  typeMonet = data.value;
-                  break;
-                }
+      this.containers.forEach((element:Container) => {
+        element.controls.forEach((ctrl:Control) => {
+          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia'){
+            for(let data of ctrl.content!.contentList){
+              if(data.ky === type){
+                typeMonet = data.value;
+                break;
               }
             }
           }

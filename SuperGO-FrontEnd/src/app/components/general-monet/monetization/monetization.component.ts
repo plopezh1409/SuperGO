@@ -186,8 +186,8 @@ export class MonetizationComponent implements OnInit {
 
   }
 
-  addDataDropdown(dataForm: any, dataContent: any) {
-    let cpDataContent = Object.assign({}, dataContent);
+  addDataDropdown(dataForm: Container[], dataContent: any) {
+    var cpDataContent = Object.assign({}, dataContent);
     delete cpDataContent.reglasMonetizacion;
     Object.entries(cpDataContent).forEach(([key, value]: any, idx: number) => {
       value.forEach((ele: any) => {
@@ -203,11 +203,11 @@ export class MonetizationComponent implements OnInit {
         });
       });
     });
-    dataForm.forEach((element: any) => {
-      element.controls.forEach((ctrl: any) => {
+    dataForm.forEach((element: Container) => {
+      element.controls.forEach((ctrl: Control) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad') {
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+          ctrl.content!.contentList = cpDataContent.sociedades;
+          ctrl.content!.options = cpDataContent.sociedades;
         }
       });
     });
@@ -259,7 +259,7 @@ export class MonetizationComponent implements OnInit {
   });
   }
 
-  // metodos de visibility//
+  // // metodos de visibility//
   onChangeCatsPetition($event: any) {
     if (!$event.control.visibility || $event.control.visibility.length <= 0) {
       return;
@@ -278,12 +278,30 @@ export class MonetizationComponent implements OnInit {
       this.reactiveForm.principalForm = null;
       this.containers = [];
       finder = finder == ''? {value:'0-'} : finder == undefined ? {value:'0-'} : finder;
-
       this.createNewForm(
         this.selectedValRequest.control.visibility.filter((x: any) =>
           x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
     }
   }
+
+  sortControls(filterControls:Control[], filterCont:Container)
+    {        
+      return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
+        if(a.order && b.order)
+        {
+          if(Number(a.order) > Number(b.order))
+          {
+            return 1;
+          }
+          if (Number(a.order) < Number(b.order))
+          {
+            return -1;
+          }
+        }
+        return 0;
+      });        
+    }
+
 
   createNewForm(filter: any, selectedVal: any, dataForm: any) {
     if (filter) {
@@ -294,7 +312,7 @@ export class MonetizationComponent implements OnInit {
         if (filterControls && filterControls.length > 0) {
           const control = newContainer.controls.find(x => x.ky === this.selectedValRequest.control.ky);
           if (control) {
-            control.setAttributeValueByName('value', selectedVal);
+            control.setAttributeValueByNameDropdown('value', selectedVal);
           }
           this.setControls(dataForm, newContainer);
           newContainer.controls = this.sortControls(filterControls, pcont);
@@ -305,7 +323,7 @@ export class MonetizationComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
   }
 
-  setControls(dataForm:any, newContainer:Container){
+  setControls(dataForm:any, newContainer:any){
     for (let ctrl in dataForm) {
       const control = newContainer.controls.find((x:any) => x.ky === ctrl);
       let valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
@@ -321,17 +339,4 @@ export class MonetizationComponent implements OnInit {
     }
   }
 
-  sortControls(filterControls: Control[], filterCont: Container) {
-    return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a, b) => {
-      if (a.order && b.order) {
-        if (Number(a.order) > Number(b.order)) {
-          return 1;
-        }
-        if (Number(a.order) < Number(b.order)) {
-          return -1;
-        }
-      }
-      return 0;
-    });
-  }
 }

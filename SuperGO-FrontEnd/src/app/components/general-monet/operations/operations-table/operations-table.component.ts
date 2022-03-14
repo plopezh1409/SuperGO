@@ -12,6 +12,7 @@ import { UpdateModalOperationsComponent } from '../update-modal-operations/updat
 //MODELS
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { Container } from '@app/core/models/capture/container.model';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
 @Component({
   selector: 'app-operations-table',
@@ -42,10 +43,10 @@ export class OperationsTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:any)  
+  onLoadTable(dataInfo:Operaciones[])  
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo=dataInfo.tipoOperacion;  
+    this.dataInfo=dataInfo;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -59,7 +60,7 @@ open(obOperation:Operaciones){
         dataModal:obOperation,
         auxForm:this.containers
       }
-    }).afterClosed().subscribe((oData:any)=>{
+    }).afterClosed().subscribe((oData:ResponseTable)=>{
       if(oData !== undefined)
         if(oData.status === true){
           this.dataInfo = oData.data;
