@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { Control } from '@app/core/models/capture/controls.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { FormService } from '@app/core/services/capture/form.service';
 import { finalize } from 'rxjs/operators';
 
@@ -11,6 +12,8 @@ import { finalize } from 'rxjs/operators';
 })
 export class BusquedaPorCampoControlComponent implements OnInit 
 {
+
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   @Input() control!: Control;
   @Input() formulario!: FormGroup;
   @Input() controlesDesdeBackend!: any;
@@ -105,7 +108,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
     .pipe(finalize(()=>{ this.mostrarLoaderInput = false;}))
     .subscribe(
       (data: any) => {
-        if (data.code == 200) {
+        if (data.code == this.codeResponse.RESPONSE_CODE_200) {
           const {response} = data;          
           //this.formulario.controls[this.control.ky!].setValue(response[this.control.ky!.toLowerCase()]);          
           this.setIconoStatus = 1;          

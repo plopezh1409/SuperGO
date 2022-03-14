@@ -9,7 +9,7 @@ import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
-import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-accounting',
@@ -19,6 +19,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 
 export class AccountingComponent implements OnInit {
 
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   accountService:FormAccountingsService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
@@ -45,7 +46,7 @@ export class AccountingComponent implements OnInit {
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
     this.idSolicitud=null;
-    this.maxNumControls=10;
+    this.maxNumControls= Number(this.codeResponseMagic.NoMagigNumber_10);
   }
 
   ngOnInit(): void {

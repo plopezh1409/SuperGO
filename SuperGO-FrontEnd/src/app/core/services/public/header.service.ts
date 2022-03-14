@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { Observable, Observer } from 'rxjs';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class HeaderService {
         this.titulo = '';
     }
 
+    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
     myObservable = Observable.create((observer: Observer<Array<string | number>>) => {
         setInterval(() => {
             let date = new Date();
@@ -24,7 +26,7 @@ export class HeaderService {
                 }
                 observer.next(fechaHora);
             }
-        }, 1000)
+        }, Number(this.codeResponseMagic.NoMagigNumber_1000))
     });
 
     showMenuLogOut(){

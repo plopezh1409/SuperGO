@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 
@@ -10,31 +11,39 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class PeriodicityModule { 
-
+  private readonly codeResponse: ServiceNoMagigNumber = new ServiceNoMagigNumber();
     getPeriodicity_show(periodicidadCorte:string){
-        let descPer = periodicidadCorte.split(';');
-        let periodicity:string = '';
+        let descPer;
+        descPer = periodicidadCorte.split(';');
+        let periodicity;
+        periodicity = '';
+        let day;
+        let numMonth;
+        let numWeek;
+        let month;
         switch(descPer[0].split('=')[1]){
           case 'YEARLY':
-            var day = descPer[1].split('=')[1];
-            let month = this.getMonth(parseInt(descPer[2].split('=')[1], 10));
-            periodicity = periodicity.concat(`ANUAL - CADA ${day.padStart(2,'0')} DE ${month}`);
+           
+            day = descPer[1].split('=')[1];
+            
+            month = this.getMonth(parseInt(descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1], 10));
+            periodicity = periodicity.concat(`ANUAL - CADA ${day.padStart(Number(this.codeResponse.NoMagigNumber_2),'0')} DE ${month}`);
             break;
     
           case 'MONTHLY':
-            var day = descPer[1].split('=')[1];
-            var numMonth = descPer[2].split('=')[1];
+            day = descPer[1].split('=')[1];
+            numMonth = descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1];
             periodicity = periodicity.concat(`MENSUAL - CADA ${numMonth} MES(ES) EL DIA ${day}`);
             break;
     
           case 'WEEKLY':
-            var day = descPer[1].split('=')[1];
-            var numWeek = descPer[2].split('=')[1];
+            day = descPer[1].split('=')[1];
+            numWeek = descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1];
             periodicity = periodicity.concat(`SEMANAL - CADA ${numWeek} SEMANA(S) EL DIA ${day}`);
             break;
     
           case 'DAILY':
-            var day = descPer[1].split('=')[1];
+            day = descPer[1].split('=')[1];
             periodicity = periodicity.concat(`DIARIO - CADA ${day} DIA(S)`);
           break;
     
@@ -49,23 +58,23 @@ export class PeriodicityModule {
       getPeriodicity_insert(dataForm:any, day:string){
         let periodicity:string = 'FREQ=';
         switch(dataForm.periodicidad){
-          case '1':
+          case this.codeResponse.NoMagigNumber_1:
             periodicity = periodicity.concat(`YEARLY;BYMONTH=${dataForm.meses};BYMONTHDAY=${dataForm.numeroDia}`);
             break;
     
-          case '2':
+          case this.codeResponse.NoMagigNumber_2:
             periodicity = periodicity.concat(`MONTHLY;BYMONTHDAY=${dataForm.numeroDia};INTERVAL=${dataForm.repetirMensual}`);
           break;
     
-          case '3':
+          case this.codeResponse.NoMagigNumber_3:
             periodicity = periodicity.concat(`WEEKLY;BYDAY=${day};INTERVAL=${dataForm.repetirSemanal}`);
             break;
     
-          case '4':
+          case this.codeResponse.NoMagigNumber_4:
             periodicity = periodicity.concat(`DAILY;INTERVAL=${dataForm.repetirDias}`);
           break;
     
-          case '5':
+          case this.codeResponse.NoMagigNumber_5:
             periodicity = periodicity.concat(`BIWEEKLY;`);
             break;
         }
@@ -73,12 +82,16 @@ export class PeriodicityModule {
       }
 
       deserializeControlPeriodicity(dataModal:any, dataForm:any){
-        let descPer = dataModal.periodicidadCorte.split(';');
-        var oNewFields:any;
+        let descPer; 
+        descPer = dataModal.periodicidadCorte.split(';');
+        let oNewFields:any;
+        
         switch(descPer[0].split('=')[1]){
           case 'YEARLY':
-            var day = descPer[1].split('=')[1];
-            let month = descPer[2].split('=')[1];
+            let month;
+            let day;
+            day = descPer[1].split('=')[1];
+            month = descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('ANUAL', dataForm),
               meses:month,
@@ -86,8 +99,8 @@ export class PeriodicityModule {
             }
             break;
           case 'MONTHLY':
-            var day = descPer[1].split('=')[1];
-            var numMonth = descPer[2].split('=')[1];
+            day = descPer[1].split('=')[1];
+            let numMonth = descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('MENSUAL',dataForm),
               repetirMensual:numMonth,
@@ -96,17 +109,18 @@ export class PeriodicityModule {
             break;
     
           case 'WEEKLY':
-            var days = descPer[1].split('=')[1];
-            var dayOfWeek = descPer[2].split('=')[1];
+            day = descPer[1].split('=')[1];
+            let dayOfWeek;
+            dayOfWeek = descPer[Number(this.codeResponse.NoMagigNumber_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('SEMANAL',dataForm),
-              repetirSemanal: days,
+              repetirSemanal: day,
               nombreDia: this.getDay(dayOfWeek,dataForm)
             }
             break;
     
           case 'DAILY':
-            var day = descPer[1].split('=')[1];
+            day = descPer[1].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('DIARIA',dataForm),
               repetirDias: dayOfWeek
@@ -160,40 +174,40 @@ export class PeriodicityModule {
       getMonth(month:number){
         let monthName:string = '';
         switch(month){
-          case 1:
+          case this.codeResponse.NoMagigNumber_1:
             monthName = 'ENERO'
             break;
-          case 2:
+          case this.codeResponse.NoMagigNumber_2:
             monthName = 'FEBRERO'
           break;
-          case 3:
+          case this.codeResponse.NoMagigNumber_3:
             monthName = 'MARZO'
           break;
-          case 4:
+          case this.codeResponse.NoMagigNumber_4:
             monthName = 'ABRIL'
           break;
-          case 5:
+          case this.codeResponse.NoMagigNumber_5:
             monthName = 'MAYO'
           break;
-          case 6:
+          case this.codeResponse.NoMagigNumber_6:
             monthName = 'JUNIO'
           break;
-          case 7:
+          case this.codeResponse.NoMagigNumber_7:
             monthName = 'JULIO'
           break;
-          case 8:
+          case this.codeResponse.NoMagigNumber_8:
             monthName = 'AGOSTO'
           break;
-          case 9:
+          case this.codeResponse.NoMagigNumber_9:
             monthName = 'SEPTIEMBRE'
           break;
-          case 10:
+          case this.codeResponse.NoMagigNumber_10:
             monthName = 'OCTUBRE'
           break;
-          case 11:
+          case this.codeResponse.NoMagigNumber_11:
             monthName = 'NOVIEMBRE'
           break;
-          case 12:
+          case this.codeResponse.NoMagigNumber_12:
             monthName = 'DICIEMBRE'
             break;
         }

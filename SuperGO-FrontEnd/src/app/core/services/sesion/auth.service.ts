@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
 import { StorageService } from '@app/core/services/public/storage.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 //MODELOS
 import { Sesion } from '../../models/sesion/sesion.model';
@@ -20,14 +21,14 @@ import { environment } from '@env/environment';
 import { Page } from '@app/core/models/public/page.module';
 
 
-const codeOkResult = 200;
-const millisec = 1000;
-const minuteAjustTime = 120;
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {   
+
+    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+    private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
     private readonly _rol:any;
     private readonly storage: any;
     private readonly storageService: StorageService;
@@ -45,7 +46,9 @@ export class AuthService {
     deviceInfo: any = null;
     roleName: Observable<any>;
     isClosed: Observable<any>;
-    private minuteAjustTime=120;
+    private minuteAjustTime= 0;
+    private millisec= 0;
+    private codeOkResult =0;
 
     constructor(
         public injector:Injector,
@@ -57,7 +60,7 @@ export class AuthService {
         this._payload = null;
         this._payloadAjustado = 0;
 
-        //token es necesario en nulo para llevar a cabo la validacion de la propiedad get Token correctamente 
+        //token es necesario en nulo para llelet a cabo la validacion de la propiedad get Token correctamente 
         this._token = null;
         this._urlEnviroment = null;
         this.activateMasterKey = null;
@@ -69,6 +72,9 @@ export class AuthService {
         this._isClosed = new BehaviorSubject('');
         this.isClosed = this._isClosed.asObservable();
         this.deviceInfo = this.deviceService.getDeviceInfo();
+        this.minuteAjustTime = Number(this.codeResponseMagic.NoMagigNumber_120);
+        this.millisec=  Number(this.codeResponseMagic.NoMagigNumber_1000);
+        this.codeOkResult = Number(this.codeResponse.RESPONSE_CODE_200);
     }
 
     public get usuario(): User {
@@ -173,7 +179,7 @@ export class AuthService {
     {
         if(this.payload)
         {
-            this._payloadAjustado = ((this.payload.exp) - minuteAjustTime) || 0;
+            this._payloadAjustado = ((this.payload.exp) - this.minuteAjustTime) || 0;
         }
         
         return this._payloadAjustado;
@@ -238,11 +244,11 @@ export class AuthService {
     isTokenExpirado()
     {       
         // HORA DE EXPIRACIÓN DEL TOKEN        
-        // -> SE RESTAN 2 MINUTOS PARA RENOVAR ANTES DE QUE SE ACABE EL TIEMPO REAL DEL TOKEN
-        this._payloadAjustado = ((this.payload.exp) - minuteAjustTime) || 0; 
-        const now = (new Date().getTime() / millisec); //HORA LOCAL ACTUAL
-        this.logger.info('AuthService isTokenExpirado, TiempoExp:', new Date(this.payload.exp*millisec),
-        'TiempoAjust', new Date(this._payloadAjustado*millisec), 'TiempoActual',new Date(now*millisec));
+        // -> SE RESTAN 2 MINUTOS PARA RENOlet ANTES DE QUE SE ACABE EL TIEMPO REAL DEL TOKEN
+        this._payloadAjustado = ((this.payload.exp) - this.minuteAjustTime) || 0; 
+        const now = (new Date().getTime() / this.millisec); //HORA LOCAL ACTUAL
+        this.logger.info('AuthService isTokenExpirado, TiempoExp:', new Date(this.payload.exp*this.millisec),
+        'TiempoAjust', new Date(this._payloadAjustado*this.millisec), 'TiempoActual',new Date(now*this.millisec));
 
         if (this._payloadAjustado < now) {
           return true;
@@ -265,9 +271,9 @@ export class AuthService {
     }
 
     newSession(token: any): Observable<any>  {
-        this.logger.info('Nueva session AuthService, llamando a renovar token');
+        this.logger.info('Nueva session AuthService, llamando a renolet token');
         return this.tokenRefresh(token).pipe(map(data=>{
-            if (data.code === codeOkResult && data.response !== null && data.response.length > 0) {
+            if (data.code === this.codeOkResult && data.response !== null && data.response.length > 0) {
                 this.logger.info('Nueva session AuthService,NUEVO TOKEN ',data.response);                
                 this.guardarToken(data.response);
                 this.guardarUsuario(data.response);                                                        

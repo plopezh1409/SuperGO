@@ -5,6 +5,7 @@ import { FormService } from '@app/core/services/capture/form.service';
 import Swal from 'sweetalert2';
 import { Control } from '@app/core/models/capture/controls.model';
 import { element } from 'protractor';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-busqueda-por-campo-multiple-control',
@@ -12,6 +13,8 @@ import { element } from 'protractor';
   styleUrls: ['./busqueda-por-campo-multiple-control.component.sass']
 })
 export class BusquedaPorCampoMultipleControlComponent implements OnInit {
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   @Input() control!: Control;
   @Input() formulario!: FormGroup;
   @Input() controlesDesdeBackend!: any;
@@ -33,7 +36,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   private banderaBlur: boolean = false;
   private banderaClick: boolean = false;
   
-  public setIconoStatus = 2;
+  public setIconoStatus = Number(this.codeResponseMagic.NoMagigNumber_2);
   public mostrarLoaderInput = false;
   controlClass:string='';
   constructor(formularioService: FormService) {
@@ -43,7 +46,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   ngOnInit(): void {
     this.mask = this.control.getMask();
     this.control.isVerify = -1;   
-    this.controlClass = (this.formulario.get(this.control.ky!)?.errors?.required!=undefined && this.formulario.get(this.control.ky!)?.errors?.required == true)? 
+    this.controlClass = (this.formulario.get(this.control.ky!)?.errors?.required!=undefined && this.formulario.get(this.control.ky!)?.errors?.required === true)? 
     'form-react-form-field-Color':'form-react-form-field';     
   }
 
@@ -67,8 +70,8 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     }
 
     // Validando las dependencias que tiene la consulta
-    this.consulta = this.control.content!.endpoint!.split('|').length>=2? this.control.content!.endpoint!.split('|')[1]:this.control.content!.endpoint!;
-    this.consulta = this.consulta.split('[').length>=2?this.consulta.split('[')[1].replace('[','').replace(']',''):this.consulta;
+    this.consulta = this.control.content!.endpoint!.split('|').length>this.codeResponseMagic.NoMagigNumber_2? this.control.content!.endpoint!.split('|')[1]:this.control.content!.endpoint!;
+    this.consulta = this.consulta.split('[').length>=this.codeResponseMagic.NoMagigNumber_2?this.consulta.split('[')[1].replace('[','').replace(']',''):this.consulta;
     this.consulta.split(',').forEach((key, index) => {
       this.nombresCampos.push(key.split(':')[1].replace('{','').replace('}','').replace('[','').replace(']','').replace(/[']/g,''));
     });
@@ -116,7 +119,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     // lanzar la consulta de validacion
     let str:string[] = url.split('|');
     let obj:any = null;
-    if(str.length>=2)
+    if(str.length>this.codeResponseMagic.NoMagigNumber_2)
     {
       url = str[0];
       obj = str[1];
@@ -124,7 +127,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     this.formularioService.getFieldQuery(url, obj) 
     .pipe(finalize(()=>{ this.mostrarLoaderInput = false;}))
     .subscribe((data: any) => {        
-        if(data.code==200)
+        if(data.code === this.codeResponse.RESPONSE_CODE_200)
         {
           this.setIconoStatus = 1;          
           this.buscarCamposInfo(data.response);
@@ -146,7 +149,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     if (!this.banderaBlur) {
       this.banderaBlur = false;
       this.banderaClick = true;
-      if (this.nombresCampos.length == 0) {
+      if (this.nombresCampos.length === 0) {
         this.validarDependenciasDeCampos(this.formulario);
       }
       this.pintarComoErrorDependencias();
@@ -156,7 +159,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   onBlurInput() {
     this.banderaBlur = true;
 
-    if (this.nombresCampos.length == 0) {
+    if (this.nombresCampos.length === 0) {
       this.validarDependenciasDeCampos(this.formulario);
     }
     this.pintarComoErrorDependencias();
@@ -181,7 +184,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
       this.setIconoStatus = 2;      
       this.buscarCamposInfo();
     }
-    if(this.formulario.get(this.control.ky!)?.errors && this.setIconoStatus == 1 ) {
+    if(this.formulario.get(this.control.ky!)?.errors && this.setIconoStatus === 1 ) {
       this.setIconoStatus = 2;      
       this.buscarCamposInfo();
     }
@@ -210,7 +213,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
           this.formulario.controls[key].markAsTouched();
         }
   
-        if (index == this.nombresCampos.length - 1 && this.errorSet === false) {
+        if (index === this.nombresCampos.length - 1 && this.errorSet === false) {
           this.errorSet = false;
         }
       }      
@@ -223,7 +226,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
         this.formulario.controls[this.control.ky!].setValue('');
         this.setError = false;
       }
-    }, 100);
+    }, Number(this.codeResponseMagic.NoMagigNumber_100));
    
   }
 }

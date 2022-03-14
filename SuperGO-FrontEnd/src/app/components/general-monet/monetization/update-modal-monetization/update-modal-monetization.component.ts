@@ -17,7 +17,7 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 
 import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
-import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -26,7 +26,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 })
 
 export class UpdateModalMonetizationComponent implements OnInit {
-
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   monetService:FormMonetizationsService;
   reactiveForm:ReactiveForm;
   messageError: MessageErrorModule;
@@ -174,8 +174,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   getDateTime(date:string){
-    var dateTime:Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(2,'0') + '-' + (dateTime.getMonth()+1).toString().padStart(2,'0') + '-' +  dateTime.getFullYear();
+    let dateTime:Date = new Date(date);
+    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2),'0') + '-' + (dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2),'0') + '-' +  dateTime.getFullYear();
     return date;
   }
 
@@ -245,7 +245,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   getIdData(){
     let oData:{[k:string]:any}={};
-    var key = this.dataModal?.keys[0];
+    let key = this.dataModal?.keys[0];
     oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
@@ -265,7 +265,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     {
       const finder = this.selectedValRequest.control.content!.options.find((option:any)=> option.ky===selectedVal);
       let dataForm;
-      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
+      for (let datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;
@@ -303,7 +303,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   setControls(dataForm:any, newContainer:Container){
     for(let ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      var valueCtrl = dataForm[ctrl] == 'undefined'? '' : dataForm[ctrl] == null? '': dataForm[ctrl];
+      let valueCtrl = dataForm[ctrl] == 'undefined'? '' : dataForm[ctrl] == null? '': dataForm[ctrl];
       valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
         if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
@@ -335,12 +335,12 @@ export class UpdateModalMonetizationComponent implements OnInit {
     }    
 
     changePeridicity(dataForm:any){
-      var idContainer = dataForm[0].idContainer;
+      let idContainer = dataForm[0].idContainer;
       dataForm.forEach((element:any) => {
         element.controls.forEach((ctrl:any) => {
           if(ctrl.controlType === 'dropdown'){
             if(ctrl.ky === 'periodicidad'){
-              var selectedValRequest:any = { control: ctrl, idContainer: idContainer }
+              let selectedValRequest:any = { control: ctrl, idContainer: idContainer }
               this.onChangeCatsPetition(selectedValRequest);
             }
           }

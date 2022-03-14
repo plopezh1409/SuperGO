@@ -1,10 +1,13 @@
 import { Directive, HostListener, Input, Optional } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Directive({
     selector: '[maskText]'
   })
   export class MaskTextDirective {
+
+    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
     private valorAnterior: string;
     private regExpr: any;
     @Optional() private control: NgControl;
@@ -32,7 +35,7 @@ import { NgControl } from '@angular/forms';
       noEsIgual = (valor && !(this.regExpr.test(mismoValor)));
       if (noEsIgual) {
         elemento.selectionStart = elemento.selectionEnd = pos - 1;
-        if (elemento.value.length < this.valorAnterior.length && pos === 0) {  pos = 2; }
+        if (elemento.value.length < this.valorAnterior.length && pos === 0) {  pos = this.codeResponseMagic.NoMagigNumber_2; }
         if (this.control !== null) {
           if (this.control.control !== null) {  this.control.control.setValue(this.valorAnterior, { emit: false });}
         }

@@ -12,11 +12,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { InterceptorUtils } from '../models/public/interceptorUtils.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { AuthService } from '../services/sesion/auth.service';
 
 @Injectable()
 export class ErrorServidorInterceptor implements HttpInterceptor {
   errorMessage = '';
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+
   private intercepUtils:InterceptorUtils;
   constructor(
     private logger: NGXLogger,    
@@ -40,23 +43,23 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
             this.logger.error('Error 0',exception);
             this.errorMessage = 'Sin conexión a Internet';
             break;
-          case 400:
+          case this.codeResponse.RESPONSE_CODE_400:
             this.logger.error('Error 400',exception);
             this.errorMessage = exception.error?.message !== undefined? exception.error?.message:'Solicitud Inválida';
             break;
-          case 401:  
-          case 403:
+          case this.codeResponse.RESPONSE_CODE_401:  
+          case this.codeResponse.RESPONSE_CODE_403:
             this.errorMessage = `¡No tienes acceso a este recurso o tu sesión fue cerrada!`;
             this.authService.limpiarSesion();          
             this.authService.IsCloseSystem();
             this.router.navigate(['/inicio']);
             break;
-          case 404:
+          case this.codeResponse.RESPONSE_CODE_404:
             //MENSAJE DESDE BACKEND
             this.logger.error('Error 404',exception);
             this.errorMessage = exception.error?.message !== undefined? exception.error?.message:'Recurso no encontrado';
             break;
-          case 500:                      
+          case this.codeResponse.RESPONSE_CODE_500:                      
             this.logger.error('Error 500',exception);
             this.errorMessage = 'Error interno del servidor, contacte a soporte del gestor de operaciones';
             break;

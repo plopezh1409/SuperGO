@@ -7,6 +7,7 @@ import { SocietiesTableComponent } from './societies-table/societies-table.compo
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
@@ -19,15 +20,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class societiescomponent implements OnInit {
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   societyService:FormCatService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
   containers:Container[];
-  maxNumControls=10;
+  maxNumControls= Number(this.codeResponseMagic.NoMagigNumber_10);
   alignContent='horizontal';
   public dataInfo:Sociedad[];
   public showLoad: boolean = false;
   public idSolicitud : string | null;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
 
@@ -63,7 +66,7 @@ export class societiescomponent implements OnInit {
       return;
     }
     let dataForm:any;
-    for(var datas of Object.values(value)){
+    for(let datas of Object.values(value)){
       dataForm = Object(datas);
     }
     let oSociety:Sociedad = new Sociedad();
@@ -74,7 +77,7 @@ export class societiescomponent implements OnInit {
     this.societyService.insertSociety(oSociety)
       .pipe(finalize(() => { this.appComponent.showLoader(false); }))
       .subscribe((response:any) => {
-        if(response.code === 200){
+        if(response.code === this.codeResponse.RESPONSE_CODE_200){
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
@@ -94,7 +97,7 @@ export class societiescomponent implements OnInit {
           this.messageError.showMessageError(response.mensaje, response.code);
         }
       }, (err:any) => {
-        if (err.status == 500 || err.status == 400)
+        if (err.status == this.codeResponse.RESPONSE_CODE_500 || err.status == this.codeResponse.RESPONSE_CODE_400)
           this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
       });
   }
@@ -104,14 +107,14 @@ export class societiescomponent implements OnInit {
     let dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
-    var dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
+    let dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== 200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== 200) {
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
@@ -128,14 +131,14 @@ export class societiescomponent implements OnInit {
     this.societyService.getInfoSocieties().pipe(finalize(() => { this.appComponent.showLoader(false); })).
     subscribe((data:any)=>{
       switch (data.code) {
-        case 200:
+        case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
-        case 400:
-        case 401:
-        case 404:
-        case 500:
+        case this.codeResponse.RESPONSE_CODE_400:
+        case this.codeResponse.RESPONSE_CODE_401:
+        case this.codeResponse.RESPONSE_CODE_404:
+        case this.codeResponse.RESPONSE_CODE_500:
           swal.fire({
             icon: 'error',
             title: 'Error inesperado',

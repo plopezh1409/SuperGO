@@ -6,6 +6,7 @@ import { AuthService } from './core/services/sesion/auth.service';
 import swal from 'sweetalert2';
 import { MatBreadcrumbService } from 'mat-breadcrumb';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ServiceNoMagigNumber } from './core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   providedIn: 'root'
 })
 export class AppComponent implements OnInit {
+  private readonly codeResponse: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   title = 'SuperGO';
   public showLoad: boolean = false;
   public showLogo: boolean = false;
@@ -106,8 +108,8 @@ export class AppComponent implements OnInit {
   }
 
   setTimeout() {
-    this.userActicity = setTimeout(() => this.userInactive.next(), Number(600000)); //TIEMPO DE 10 MINUTOS DE INACTIVIDAD CIERRE DE SESIÓN
-    this.userActivityPerMinute = setTimeout(() => this.userInactivePerMinute.next(), Number(540000)); //TIEMPO DE 9 MINUTOS DE INACTIVIDAD MENSAJE DE AVISO        
+    this.userActicity = setTimeout(() => this.userInactive.next(), Number(this.codeResponse.NoMagigNumber_600000)); //TIEMPO DE 10 MINUTOS DE INACTIVIDAD CIERRE DE SESIÓN
+    this.userActivityPerMinute = setTimeout(() => this.userInactivePerMinute.next(), Number(this.codeResponse.NoMagigNumber_540000)); //TIEMPO DE 9 MINUTOS DE INACTIVIDAD MENSAJE DE AVISO        
   }
 
   @HostListener('window:mousemove') refreshUserState() {
@@ -138,11 +140,11 @@ export class AppComponent implements OnInit {
   {
     if(this.authService.sessionTime>0)
     {
-      let timeToast = this.authService.sessionTime -300;// HORA DE LA SESSION MENOS 5 MINUTOS
-      let now = (new Date().getTime() / 1000); //HORA LOCAL ACTUAL     
+      let timeToast = this.authService.sessionTime - Number(this.codeResponse.NoMagigNumber_300);// HORA DE LA SESSION MENOS 5 MINUTOS
+      let now = (new Date().getTime() / Number(this.codeResponse.NoMagigNumber_1000)); //HORA LOCAL ACTUAL     
       if(timeToast > now)
       {
-        this.userActivityToast = setTimeout(()=> this.warningExpiredSessionTime.next(), ((timeToast - now) * 1000));
+        this.userActivityToast = setTimeout(()=> this.warningExpiredSessionTime.next(), ((timeToast - now) * Number(this.codeResponse.NoMagigNumber_1000)));
       }      
     } 
   }

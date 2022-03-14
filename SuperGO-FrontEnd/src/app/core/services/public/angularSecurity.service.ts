@@ -7,15 +7,21 @@ import cryptoRandomString from 'crypto-random-string';
 import { AngularSecurityRSAService } from '@app/core/services/public/angularSecurityRSA.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
  
 @Injectable({
   providedIn: 'root',
 })
 export class AngularSecurity {
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  
   private keyAES: string = environment.urlCryptoGS_AES;
   private urlEndPoint = environment.urlCryptoGS_AES;
-  private iterations = 65536;
-  private keylen = 32;
+  private iterations = Number(this.codeResponseMagic.NoMagigNumber_65536);
+  private keylen = Number(this.codeResponseMagic.NoMagigNumber_32);
+  
+  
   constructor(protected http: HttpClient, private angularSecurityRSA: AngularSecurityRSAService) {}  
 
   public get getKeyAES(): Observable<any> {
@@ -47,7 +53,7 @@ export class AngularSecurity {
       const salt = secretKey;
       const digest = 'sha256';
 
-      let iv = Buffer.from(salt.substr(0, 16))
+      let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.NoMagigNumber_16));
 
       const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
       const cipher = crypto.createCipheriv(algorithm, key, iv);
@@ -66,7 +72,7 @@ export class AngularSecurity {
         const salt = secretKey;
         const digest = 'sha256';
 
-        let iv = Buffer.from(salt.substr(0, 16))
+        let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.NoMagigNumber_16));
 
         const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
 
@@ -126,7 +132,7 @@ export class AngularSecurity {
     return this.http.get(`${this.urlEndPoint}`).pipe(
 
       catchError(e => {
-        if (e.status == 400) {
+        if (e.status == this.codeResponse.RESPONSE_CODE_400) {
           return throwError(e);
         }
         if (e.error.mensaje) {

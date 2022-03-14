@@ -9,7 +9,7 @@ import { UpdateModalMonetizationComponent } from '../update-modal-monetization/u
 import { finalize, timeout } from 'rxjs/operators';
 import { PeriodicityModule } from '../helper/periodicity/periodicity.module';
 import { Container } from '@app/core/models/capture/container.model';
-import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceResponseCodes, ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
@@ -32,6 +32,7 @@ export class MonetizationTableComponent implements OnInit {
   private loaderDuration: number;
   private periodicity: PeriodicityModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
 
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -75,10 +76,10 @@ export class MonetizationTableComponent implements OnInit {
     }
     else{
       let oMonet:any = data.response.reglasMonetizacion;
-      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? 2 : 3;
+      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.NoMagigNumber_2 : this.codeResponseMagic.NoMagigNumber_3;
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
-      var _auxForm = this.disabledFields(this.containers);
+      let _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
           width: '70%',
@@ -107,7 +108,7 @@ export class MonetizationTableComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      var oMonet:any = data.response.reglasMonetizacion;
+      let oMonet:any = data.response.reglasMonetizacion;
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'SI':'NO';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';

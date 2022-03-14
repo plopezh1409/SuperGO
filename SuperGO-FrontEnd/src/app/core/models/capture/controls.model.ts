@@ -1,12 +1,15 @@
 import { JsonPipe } from '@angular/common';
 import { FormArray, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import moment from 'moment';
+import { ServiceNoMagigNumber } from '../ServiceResponseCodes/service-response-codes.model';
 import { Container } from './container.model';
 import { Content } from './content.model';
 import { Mask } from './mask.model';
 import { Validation } from './validation.model';
 
 export class Control {
+
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
   public idControl?:number;
   public ky?: string; //*
   public label?: string; //*
@@ -151,20 +154,20 @@ export class Control {
   configContent() {
     if (this.content && this.content.contentList.length > 0) {
       switch (Number(this.content.type)) {
-        case 1:
+        case this.codeResponseMagic.NoMagigNumber_1:
           this.content.endpoint = this.content.contentList[0].value;
           break;
-        case 2:
+        case this.codeResponseMagic.NoMagigNumber_2:
           this.content.dependency = this.content.contentList[0].value;
           break;
-        case 3:
+        case this.codeResponseMagic.NoMagigNumber_3:
           this.content.options = this.content.contentList;
           break;
-        case 4:
+        case this.codeResponseMagic.NoMagigNumber_4:
           this.content.dependency = this.content.name;
           this.content.options = this.content.contentList;
           break;
-        case 5:
+        case this.codeResponseMagic.NoMagigNumber_5:
           this.content.filter = this.content.contentList[0].value;
           break;
         default:
@@ -217,7 +220,7 @@ export class Control {
         formatValor = formatValor.substring(0, formatValor.indexOf('.'));
       }
 
-      decimal = decimal.padEnd(2, '0');
+      decimal = decimal.padEnd(Number(this.codeResponseMagic.NoMagigNumber_2), '0');
       let maxlength = this.getAttributeValueByName('maxlength');
       formatValor = (formatValor + decimal).padStart(maxlength, '0');
     }
@@ -299,8 +302,8 @@ export class Control {
     containers.forEach((cont: Container) => {
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        var key = ctrl.ky?.toString() === undefined? '': ctrl.ky?.toString();
-        var value = dataModal[key];
+        let key = ctrl.ky?.toString() === undefined? '': ctrl.ky?.toString();
+        let value = dataModal[key];
         if(key !== '')
           switch (ctrl.controlType) {
             case 'datepicker':
@@ -340,17 +343,17 @@ export class Control {
 
 
   getDataToControls( containers:Container[]) {
-    var dataCatalog:{[k:string]:any}={};
+    let dataCatalog:{[k:string]:any}={};
     
     let _formAux:FormGroup;
     containers.forEach((cont: Container) => {
       _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        var ky = ctrl.ky !== undefined ? ctrl.ky : '';
-        var value = ctrl.getAttributeValueByName('value');
+        let ky = ctrl.ky !== undefined ? ctrl.ky : '';
+        let value = ctrl.getAttributeValueByName('value');
         dataCatalog[ky.toString()] = value;
-        var a = ctrl.getInfoValue(_formAux)
+        let a = ctrl.getInfoValue(_formAux)
       });
     });
 
@@ -425,7 +428,7 @@ export class Control {
     }
     else {
       if (this.attributes) {
-        var data:any;
+        let data:any;
         for(data of this.attributes){
           if (Object.keys(data).length === 0){
             data.value = value;
@@ -443,7 +446,7 @@ export class Control {
 
   getMask(): Mask {
     let mask: Mask = {} as Mask;
-    let pattern = this.validations!.find((v) => { return v.type == 2; });
+    let pattern = this.validations!.find((v) => { return v.type == this.codeResponseMagic.NoMagigNumber_2; });
     if (pattern) {
       mask = {
         regex: pattern.validate,

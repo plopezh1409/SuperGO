@@ -16,6 +16,7 @@ import { AppComponent } from '@app/app.component';
 
 //MODULES
 import { Page } from '../../models/public/page.module';
+import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-encabezado',
@@ -23,6 +24,8 @@ import { Page } from '../../models/public/page.module';
   styleUrls: ['./encabezado.component.sass']
 })
 export class EncabezadoComponent implements OnInit {  
+
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
   mobileQuery: MediaQueryList;
   fillerNav = ['Nueva solicitud', 'Seguimiento de solicitudes-------', 'Ayuda'];  
 
@@ -96,7 +99,7 @@ export class EncabezadoComponent implements OnInit {
         {
           this.appComponent.isAuth = false;
         }        
-      }, 100);      
+      }, Number(this.codeResponseMagic.NoMagigNumber_100));      
     });
   } 
    

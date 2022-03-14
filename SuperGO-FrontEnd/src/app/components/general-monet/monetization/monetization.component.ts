@@ -18,7 +18,7 @@ import { PeriodicityModule } from './helper/periodicity/periodicity.module';
 import { MonetizationModule } from './helper/monetization/monetization.module';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { finalize } from 'rxjs/operators';
-import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 @Component({
@@ -28,6 +28,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 })
 
 export class MonetizationComponent implements OnInit {
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
   monetService: FormMonetizationsService;
   messageError: MessageErrorModule;
   reactiveForm: ReactiveForm;
@@ -74,7 +75,7 @@ export class MonetizationComponent implements OnInit {
 
   onSubmit(oElement: any) {
     let dataForm;
-    for (var datas of Object.values(oElement)) {
+    for (let datas of Object.values(oElement)) {
       dataForm = Object(datas);
     }
     if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa == '') {
@@ -135,8 +136,8 @@ export class MonetizationComponent implements OnInit {
   }
 
   getDateTime(date: string) {
-    var dateTime: Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(2, '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(2, '0') + '-' + dateTime.getFullYear();
+    let dateTime: Date = new Date(date);
+    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2), '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2), '0') + '-' + dateTime.getFullYear();
     return date;
   }
 
@@ -186,7 +187,7 @@ export class MonetizationComponent implements OnInit {
   }
 
   addDataDropdown(dataForm: any, dataContent: any) {
-    var cpDataContent = Object.assign({}, dataContent);
+    let cpDataContent = Object.assign({}, dataContent);
     delete cpDataContent.reglasMonetizacion;
     Object.entries(cpDataContent).forEach(([key, value]: any, idx: number) => {
       value.forEach((ele: any) => {
@@ -214,11 +215,11 @@ export class MonetizationComponent implements OnInit {
   }
 
   changePeridicity(dataForm: any) {
-    var idContainer = dataForm[0].idContainer;
+    let idContainer = dataForm[0].idContainer;
     dataForm.forEach((element: any) => {
       element.controls.forEach((ctrl: any) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
-          var selectedValRequest: any = { control: ctrl, idContainer: idContainer }
+          let selectedValRequest: any = { control: ctrl, idContainer: idContainer }
           this.onChangeCatsPetition(selectedValRequest);
         }
       });
@@ -230,7 +231,7 @@ export class MonetizationComponent implements OnInit {
     this.monetService.getDataMonetization().pipe(finalize(() => { this.appComponent.showLoader(false); }))
     .subscribe((data:any)=>{
       switch (data.code) {
-        case 200:
+        case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
@@ -271,7 +272,7 @@ export class MonetizationComponent implements OnInit {
     if (this.selectedValRequest.control.content) {
       let finder = this.selectedValRequest.control.content!.options.find((option: any) => option.ky === selectedVal);
       let dataForm;
-      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
+      for (let datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;
@@ -307,7 +308,7 @@ export class MonetizationComponent implements OnInit {
   setControls(dataForm:any, newContainer:Container){
     for (let ctrl in dataForm) {
       const control = newContainer.controls.find((x:any) => x.ky === ctrl);
-      var valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
+      let valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
       valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
         if (control && valueCtrl != '' && ctrl !== 'Periocidad') {
           if (control.controlType == 'dropdown' || control.controlType == 'autocomplete') {

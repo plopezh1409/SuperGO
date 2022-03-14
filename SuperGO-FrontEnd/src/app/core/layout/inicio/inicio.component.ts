@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogTop } from '@app/core/layout/dialog/dialogTop/dialogTop.component';
 import { UsuarioService } from '@app/core/services/public/usuario.service';
 import { element } from 'protractor';
+import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-inicio',
@@ -24,6 +25,8 @@ import { element } from 'protractor';
   styleUrls: ['./inicio.component.sass']
 })
 export class InicioComponent implements OnInit {
+
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
   private authService: AuthService;
 
   private userService: UsuarioService;
@@ -114,7 +117,7 @@ export class InicioComponent implements OnInit {
     this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
     this.getFavoriteTop();
     this.init = true;
-    }, 100);
+    }, Number(this.codeResponseMagic.NoMagigNumber_100));
     
   }
   isActiveMasterKey() {
@@ -229,7 +232,7 @@ export class InicioComponent implements OnInit {
   calculateAdd() {
     this.cardsTopRes = [];
     let can = this.cardsTop.length;
-    for (let i = 0; i < 5 - can; i++) {
+    for (let i = 0; i < Number(this.codeResponseMagic.NoMagigNumber_5) - can; i++) {
       this.cardsTopRes.push(i);
 
     }

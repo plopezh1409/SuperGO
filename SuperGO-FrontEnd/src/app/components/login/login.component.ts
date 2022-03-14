@@ -18,6 +18,7 @@ import { AuthService } from '../../core/services/sesion/auth.service';
 import { MasterKeyService } from '../../core/services/sesion/masterKey.service';
 import { isObservable } from 'rxjs';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
+import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 
@@ -27,7 +28,8 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-
+  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private authService: AuthService;
   private UsuarioService: UsuarioService;
   private llaveMaestraService: MasterKeyService;
@@ -149,7 +151,7 @@ export class LoginComponent implements OnInit {
       denyButtonText: `Cerrar sesión`,
       heightAuto: false
     }).then((result) => {
-      //RENOVAR TOKEN
+      //RENOlet TOKEN
       if (result.isConfirmed) {
         this.appComponent.showLoader(true);
         this.authService.newSession(data).pipe(finalize(()=>{this.appComponent.showLoader(false)}))
@@ -185,23 +187,23 @@ export class LoginComponent implements OnInit {
       .subscribe(response => {
         this.appComponent.logger.info('LOGIN response', response);
         switch (response.code) {
-          case 200://LOGUEO EXITOSO
+          case this.codeResponse.RESPONSE_CODE_200://LOGUEO EXITOSO
             this.authService.guardarUsuario(response.response);
             this.authService.guardarToken(response.response);            
             this.logIn(this.authService.usuario);            
             break;
-          case 207://NECESITA CAMBIO DE PASSWORD
+          case this.codeResponse.RESPONSE_CODE_207://NECESITA CAMBIO DE PASSWORD
             this.firstStart = true;
             this.codesResult = response.message;
             break;
-          case 227://SE IDENTIFICO SESION ACTIVA EN OTRO LUGAR
+          case this.codeResponse.RESPONSE_CODE_227://SE IDENTIFICO SESION ACTIVA EN OTRO LUGAR
             this.validateActiveSession(response.response);
             break;
           default: break;
         }
       }, err => {
         this.appComponent.logger.info('LOGIN error:', err);
-        if (err.status == 400) {
+        if (err.status == this.codeResponse.RESPONSE_CODE_400) {
           swal.fire({
             icon: 'error',
             title: 'Lo sentimos',
@@ -225,7 +227,7 @@ export class LoginComponent implements OnInit {
     else if (this.p4ss2 == null || this.p4ss2 == '') {
       this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña nueva', false)
     }
-    else if (this.p4ss2.length < 10 || this.p4ss2.length > 10) {
+    else if (this.p4ss2.length < this.codeResponseMagic.NoMagigNumber_10 || this.p4ss2.length > this.codeResponseMagic.NoMagigNumber_10) {
       this.sweet('error', 'lo sentimos', 'La contraseña debe ser de 10 caracteres', false)
     }
     else if (this.p4ss2 == p4ssA) {
@@ -379,7 +381,7 @@ export class LoginComponent implements OnInit {
     else {
       setTimeout(() => {
         window.location.href = this.llaveMaestraService.getUrlAuthz();
-      }, 1500);
+      }, Number(this.codeResponseMagic.NoMagigNumber_1500));
     }
   }
   

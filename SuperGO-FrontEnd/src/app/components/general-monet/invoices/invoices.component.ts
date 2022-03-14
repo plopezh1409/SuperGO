@@ -90,7 +90,7 @@ export class invoicesComponent implements OnInit {
       return;
     }
     let dataBody;
-    for(var datas of Object.values(value)){
+    for(let datas of Object.values(value)){
       dataBody = Object(datas);
     }
     const oInvoice:Facturas =  dataBody;
@@ -123,7 +123,7 @@ export class invoicesComponent implements OnInit {
   }
 
   addDataDropdown(dataForm:any, dataContent:any){
-    var cpDataContent = Object.assign({},dataContent);
+    let cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.facturas
     Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {

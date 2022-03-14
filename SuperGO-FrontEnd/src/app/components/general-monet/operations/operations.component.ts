@@ -73,10 +73,10 @@ export class OperationsComponent implements OnInit {
       return;
     }
     let dataBody;
-    for(var datas of Object.values(value)){
+    for(let datas of Object.values(value)){
       dataBody = Object(datas);
     }
-    var obOpe:Operaciones =  new Operaciones();
+    let obOpe:Operaciones =  new Operaciones();
     obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
     obOpe.idCanal = parseInt(dataBody.idCanal,10);
     obOpe.topicoKafka = dataBody.topicoKafka;
