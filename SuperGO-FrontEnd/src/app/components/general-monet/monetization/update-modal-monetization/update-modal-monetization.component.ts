@@ -17,7 +17,7 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 
 import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
-import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -26,7 +26,7 @@ import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/Ser
 })
 
 export class UpdateModalMonetizationComponent implements OnInit {
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   monetService:FormMonetizationsService;
   reactiveForm:ReactiveForm;
   messageError: MessageErrorModule;
@@ -175,7 +175,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   getDateTime(date:string){
     let dateTime:Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2),'0') + '-' + (dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.NoMagigNumber_2),'0') + '-' +  dateTime.getFullYear();
+    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0') + '-' + (dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0') + '-' +  dateTime.getFullYear();
     return date;
   }
 

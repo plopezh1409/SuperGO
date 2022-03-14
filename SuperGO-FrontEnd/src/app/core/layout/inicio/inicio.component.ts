@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogTop } from '@app/core/layout/dialog/dialogTop/dialogTop.component';
 import { UsuarioService } from '@app/core/services/public/usuario.service';
 import { element } from 'protractor';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-inicio',
@@ -26,7 +26,8 @@ import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/serv
 })
 export class InicioComponent implements OnInit {
 
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes(); 
   private authService: AuthService;
 
   private userService: UsuarioService;
@@ -117,7 +118,7 @@ export class InicioComponent implements OnInit {
     this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
     this.getFavoriteTop();
     this.init = true;
-    }, Number(this.codeResponseMagic.NoMagigNumber_100));
+    }, Number(this.codeResponseMagic.RESPONSE_CODE_100));
     
   }
   isActiveMasterKey() {
@@ -131,9 +132,9 @@ export class InicioComponent implements OnInit {
       this.llaveMaestraService.getUserInfo(llaveMaestraObject.code)
         .pipe(finalize(() => this.appComponent.showLoader(false)))
         .subscribe((response: ResponseServer) => {
-          if (response.code === 200) {
+          if (response.code === this.codeResponse.RESPONSE_CODE_200) {
             this.getUserMasterKey(response.response);
-          } else if (response.code === 227) {
+          } else if (response.code === this.codeResponse.RESPONSE_CODE_227) {
             this.isActiveSession(response.response);
           }
         }, (error: any) => {
@@ -232,7 +233,7 @@ export class InicioComponent implements OnInit {
   calculateAdd() {
     this.cardsTopRes = [];
     let can = this.cardsTop.length;
-    for (let i = 0; i < Number(this.codeResponseMagic.NoMagigNumber_5) - can; i++) {
+    for (let i = 0; i < Number(this.codeResponseMagic.RESPONSE_CODE_5) - can; i++) {
       this.cardsTopRes.push(i);
 
     }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Content } from '@app/core/models/capture/content.model';
 import { Control } from '@app/core/models/capture/controls.model';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Component({
   selector: 'app-text-box-control',
@@ -11,7 +11,7 @@ import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/serv
 })
 export class TextBoxControlComponent implements OnInit {
 
-   private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
   @Input() control!: Control;
   @Input() form!: FormGroup;
   @Input() controlesDesdeBackend!: any;
@@ -54,7 +54,7 @@ export class TextBoxControlComponent implements OnInit {
         this.form.controls[this.control.ky!].setValue('');
         this.setError = false;
       }
-    }, Number(this.codeResponseMagic.NoMagigNumber_100));
+    }, Number(this.codeResponseMagic.RESPONSE_CODE_100));
   }  
 
   ngOnInit(): void {

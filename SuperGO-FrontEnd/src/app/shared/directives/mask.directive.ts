@@ -3,14 +3,14 @@ import { NgControl } from '@angular/forms';
 import { Mask } from '@app/core/models/capture/mask.model';
 import { CatalogoValidadores } from '@app/core/models/public/catalogoValidadores.model';
 import { ControlDecimal } from '@app/core/models/public/control-decimal.model';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 @Directive({
   selector: '[mask]',
 })
 export class MaskDirective {
 
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
   private valorAnterior: string;
   private regExpr: any;
   private maskDecimal: ControlDecimal;
@@ -104,7 +104,7 @@ export class MaskDirective {
     {
       elemento.selectionStart = elemento.selectionEnd = pos - 1;
       if (elemento.value.length < this.valorAnterior.length && pos === 0) {
-        pos = this.codeResponseMagic.NoMagigNumber_2;
+        pos = this.codeResponseMagic.RESPONSE_CODE_2;
       }
 
       if (this.control.control) {
@@ -120,7 +120,7 @@ export class MaskDirective {
       {
         elemento.selectionStart = elemento.selectionEnd = pos - 1;
         if (elemento.value.length < this.valorAnterior.length && pos === 0) {
-          pos = this.codeResponseMagic.NoMagigNumber_2;
+          pos = this.codeResponseMagic.RESPONSE_CODE_2;
         }
 
         if (this.control.control) {

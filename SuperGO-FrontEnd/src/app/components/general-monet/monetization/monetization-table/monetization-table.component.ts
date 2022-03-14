@@ -9,7 +9,7 @@ import { UpdateModalMonetizationComponent } from '../update-modal-monetization/u
 import { finalize, timeout } from 'rxjs/operators';
 import { PeriodicityModule } from '../helper/periodicity/periodicity.module';
 import { Container } from '@app/core/models/capture/container.model';
-import { ServiceResponseCodes, ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceResponseCodes, ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 @Component({
@@ -32,7 +32,7 @@ export class MonetizationTableComponent implements OnInit {
   private loaderDuration: number;
   private periodicity: PeriodicityModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
 
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -76,7 +76,7 @@ export class MonetizationTableComponent implements OnInit {
     }
     else{
       let oMonet:any = data.response.reglasMonetizacion;
-      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.NoMagigNumber_2 : this.codeResponseMagic.NoMagigNumber_3;
+      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
       oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
       let _auxForm = this.disabledFields(this.containers);

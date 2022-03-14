@@ -1,8 +1,8 @@
 import {CurrencyPipe} from '@angular/common'
-import { ServiceNoMagigNumber } from '../ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '../ServiceResponseCodes/service-response-codes.model';
 export class ControlDecimal {
 
-    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+    private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
     private currencyPipe:CurrencyPipe = new CurrencyPipe('en-US');
 
     obtenerStrSinFormato(input:string): string {        
@@ -10,7 +10,7 @@ export class ControlDecimal {
             let regex2CerosDespuesPuntoDecimal = new RegExp(/(\d+)(\.00)/g);
             let valorDecimal= input.replace(/[$,]/g, '');
             if(regex2CerosDespuesPuntoDecimal.test(valorDecimal)) {
-                return valorDecimal.substring(0,valorDecimal.length-(Number(this.codeResponseMagic.NoMagigNumber_3)));
+                return valorDecimal.substring(0,valorDecimal.length-(Number(this.codeResponseMagic.RESPONSE_CODE_3)));
               } else {
                   return valorDecimal;
               }

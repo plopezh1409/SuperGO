@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { FormArray, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import moment from 'moment';
-import { ServiceNoMagigNumber } from '../ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '../ServiceResponseCodes/service-response-codes.model';
 import { Container } from './container.model';
 import { Content } from './content.model';
 import { Mask } from './mask.model';
@@ -9,7 +9,7 @@ import { Validation } from './validation.model';
 
 export class Control {
 
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
   public idControl?:number;
   public ky?: string; //*
   public label?: string; //*
@@ -154,20 +154,20 @@ export class Control {
   configContent() {
     if (this.content && this.content.contentList.length > 0) {
       switch (Number(this.content.type)) {
-        case this.codeResponseMagic.NoMagigNumber_1:
+        case this.codeResponseMagic.RESPONSE_CODE_1:
           this.content.endpoint = this.content.contentList[0].value;
           break;
-        case this.codeResponseMagic.NoMagigNumber_2:
+        case this.codeResponseMagic.RESPONSE_CODE_2:
           this.content.dependency = this.content.contentList[0].value;
           break;
-        case this.codeResponseMagic.NoMagigNumber_3:
+        case this.codeResponseMagic.RESPONSE_CODE_3:
           this.content.options = this.content.contentList;
           break;
-        case this.codeResponseMagic.NoMagigNumber_4:
+        case this.codeResponseMagic.RESPONSE_CODE_4:
           this.content.dependency = this.content.name;
           this.content.options = this.content.contentList;
           break;
-        case this.codeResponseMagic.NoMagigNumber_5:
+        case this.codeResponseMagic.RESPONSE_CODE_5:
           this.content.filter = this.content.contentList[0].value;
           break;
         default:
@@ -220,7 +220,7 @@ export class Control {
         formatValor = formatValor.substring(0, formatValor.indexOf('.'));
       }
 
-      decimal = decimal.padEnd(Number(this.codeResponseMagic.NoMagigNumber_2), '0');
+      decimal = decimal.padEnd(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0');
       let maxlength = this.getAttributeValueByName('maxlength');
       formatValor = (formatValor + decimal).padStart(maxlength, '0');
     }
@@ -282,7 +282,7 @@ export class Control {
     
   }
 
-  deleteValuesForSettings(dataModal:any,indexF:Number,indexL:Number){
+  deleteValuesForSettings(dataModal:any,indexF:number,indexL:number){
     dataModal = Object.values(dataModal).map((data:any) =>{
       return dataModal[data] = Object.values(data).slice(1|1);
     });
@@ -290,7 +290,7 @@ export class Control {
     return dataModal;
   }
 
-  getValueForSettings(dataModal:any,indexF:Number,indexL:Number){
+  getValueForSettings(dataModal:any,indexF:number,indexL:number){
     dataModal = Object.values(dataModal).map((data:any) =>{
       return dataModal[data] = Object.values(data);
     });
@@ -446,7 +446,7 @@ export class Control {
 
   getMask(): Mask {
     let mask: Mask = {} as Mask;
-    let pattern = this.validations!.find((v) => { return v.type == this.codeResponseMagic.NoMagigNumber_2; });
+    let pattern = this.validations!.find((v) => { return v.type == this.codeResponseMagic.RESPONSE_CODE_2; });
     if (pattern) {
       mask = {
         regex: pattern.validate,

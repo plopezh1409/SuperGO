@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import moment from 'moment';
 
 @Pipe({
@@ -7,7 +7,7 @@ import moment from 'moment';
 })
 export class FechaNombreMesPipe implements PipeTransform {
 
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
 
   transform(value: any): any {         
     if (value) {
@@ -18,40 +18,40 @@ export class FechaNombreMesPipe implements PipeTransform {
         let anio  = fecha.format('YYYY');        
         switch(Number(mes))
         {
-            case this.codeResponseMagic.NoMagigNumber_1: 
+            case this.codeResponseMagic.RESPONSE_CODE_1: 
             nuevaFecha = 'ENE';
             break;
-            case this.codeResponseMagic.NoMagigNumber_2: 
+            case this.codeResponseMagic.RESPONSE_CODE_2: 
             nuevaFecha = 'FEB';
             break;
-            case this.codeResponseMagic.NoMagigNumber_3: 
+            case this.codeResponseMagic.RESPONSE_CODE_3: 
             nuevaFecha = 'MAR';
             break;
-            case this.codeResponseMagic.NoMagigNumber_4: 
+            case this.codeResponseMagic.RESPONSE_CODE_4: 
             nuevaFecha = 'ABR';
             break;
-            case this.codeResponseMagic.NoMagigNumber_5: 
+            case this.codeResponseMagic.RESPONSE_CODE_5: 
             nuevaFecha = 'MAY';
             break;
-            case this.codeResponseMagic.NoMagigNumber_6: 
+            case this.codeResponseMagic.RESPONSE_CODE_6: 
             nuevaFecha = 'JUN';
             break;
-            case this.codeResponseMagic.NoMagigNumber_7: 
+            case this.codeResponseMagic.RESPONSE_CODE_7: 
             nuevaFecha = 'JUL';
             break;
-            case this.codeResponseMagic.NoMagigNumber_8: 
+            case this.codeResponseMagic.RESPONSE_CODE_8: 
             nuevaFecha = 'AGO';
             break;
-            case this.codeResponseMagic.NoMagigNumber_9: 
+            case this.codeResponseMagic.RESPONSE_CODE_9: 
             nuevaFecha = 'SEP';
             break;
-            case this.codeResponseMagic.NoMagigNumber_10: 
+            case this.codeResponseMagic.RESPONSE_CODE_10: 
             nuevaFecha = 'OCT';
             break;            
-            case this.codeResponseMagic.NoMagigNumber_11: 
+            case this.codeResponseMagic.RESPONSE_CODE_11: 
             nuevaFecha = 'NOV';
             break;
-            case this.codeResponseMagic.NoMagigNumber_12: 
+            case this.codeResponseMagic.RESPONSE_CODE_12: 
             nuevaFecha = 'DIC';
             break;
         }

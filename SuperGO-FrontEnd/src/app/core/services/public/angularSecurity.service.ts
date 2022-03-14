@@ -7,19 +7,19 @@ import cryptoRandomString from 'crypto-random-string';
 import { AngularSecurityRSAService } from '@app/core/services/public/angularSecurityRSA.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
  
 @Injectable({
   providedIn: 'root',
 })
 export class AngularSecurity {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   
   private keyAES: string = environment.urlCryptoGS_AES;
   private urlEndPoint = environment.urlCryptoGS_AES;
-  private iterations = Number(this.codeResponseMagic.NoMagigNumber_65536);
-  private keylen = Number(this.codeResponseMagic.NoMagigNumber_32);
+  private iterations = Number(this.codeResponseMagic.RESPONSE_CODE_65536);
+  private keylen = Number(this.codeResponseMagic.RESPONSE_CODE_32);
   
   
   constructor(protected http: HttpClient, private angularSecurityRSA: AngularSecurityRSAService) {}  
@@ -53,7 +53,7 @@ export class AngularSecurity {
       const salt = secretKey;
       const digest = 'sha256';
 
-      let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.NoMagigNumber_16));
+      let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
 
       const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
       const cipher = crypto.createCipheriv(algorithm, key, iv);
@@ -72,7 +72,7 @@ export class AngularSecurity {
         const salt = secretKey;
         const digest = 'sha256';
 
-        let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.NoMagigNumber_16));
+        let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
 
         const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
 

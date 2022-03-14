@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
 import { StorageService } from '@app/core/services/public/storage.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 //MODELOS
 import { Sesion } from '../../models/sesion/sesion.model';
@@ -27,7 +27,7 @@ import { Page } from '@app/core/models/public/page.module';
 })
 export class AuthService {   
 
-    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+    private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
     private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
     private readonly _rol:any;
     private readonly storage: any;
@@ -72,8 +72,8 @@ export class AuthService {
         this._isClosed = new BehaviorSubject('');
         this.isClosed = this._isClosed.asObservable();
         this.deviceInfo = this.deviceService.getDeviceInfo();
-        this.minuteAjustTime = Number(this.codeResponseMagic.NoMagigNumber_120);
-        this.millisec=  Number(this.codeResponseMagic.NoMagigNumber_1000);
+        this.minuteAjustTime = Number(this.codeResponseMagic.RESPONSE_CODE_120);
+        this.millisec=  Number(this.codeResponseMagic.RESPONSE_CODE_1000);
         this.codeOkResult = Number(this.codeResponse.RESPONSE_CODE_200);
     }
 

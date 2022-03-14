@@ -7,7 +7,7 @@ import { SocietiesTableComponent } from './societies-table/societies-table.compo
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
-import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
@@ -20,12 +20,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class societiescomponent implements OnInit {
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   societyService:FormCatService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
   containers:Container[];
-  maxNumControls= Number(this.codeResponseMagic.NoMagigNumber_10);
+  maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
   public dataInfo:Sociedad[];
   public showLoad: boolean = false;

@@ -3,7 +3,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Control } from '@app/core/models/capture/controls.model';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import moment from 'moment';
 export const FORMATOS_FECHA = {
   parse: {
@@ -32,7 +32,7 @@ export const FORMATOS_FECHA = {
 })
 export class DatepickerControlComponent  implements OnInit{ 
   
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber(); 
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
   @Input() control!: Control;
   @Input() formulario!: FormGroup;
   @Input() index!: any;
@@ -61,7 +61,7 @@ export class DatepickerControlComponent  implements OnInit{
     {      
       this.dateFilter = (d: any | null): boolean => {
         const day= (moment(d).toDate()||new Date()).getDay();        
-        return day !== 0 && day !== this.codeResponseMagic.NoMagigNumber_6;
+        return day !== 0 && day !== this.codeResponseMagic.RESPONSE_CODE_6;
       };
     }
   }

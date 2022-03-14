@@ -18,7 +18,7 @@ import { AuthService } from '../../core/services/sesion/auth.service';
 import { MasterKeyService } from '../../core/services/sesion/masterKey.service';
 import { isObservable } from 'rxjs';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
-import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 
@@ -28,7 +28,7 @@ import { ServiceNoMagigNumber, ServiceResponseCodes } from '@app/core/models/Ser
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private authService: AuthService;
   private UsuarioService: UsuarioService;
@@ -227,7 +227,7 @@ export class LoginComponent implements OnInit {
     else if (this.p4ss2 == null || this.p4ss2 == '') {
       this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña nueva', false)
     }
-    else if (this.p4ss2.length < this.codeResponseMagic.NoMagigNumber_10 || this.p4ss2.length > this.codeResponseMagic.NoMagigNumber_10) {
+    else if (this.p4ss2.length < this.codeResponseMagic.RESPONSE_CODE_10 || this.p4ss2.length > this.codeResponseMagic.RESPONSE_CODE_10) {
       this.sweet('error', 'lo sentimos', 'La contraseña debe ser de 10 caracteres', false)
     }
     else if (this.p4ss2 == p4ssA) {
@@ -381,7 +381,7 @@ export class LoginComponent implements OnInit {
     else {
       setTimeout(() => {
         window.location.href = this.llaveMaestraService.getUrlAuthz();
-      }, Number(this.codeResponseMagic.NoMagigNumber_1500));
+      }, Number(this.codeResponseMagic.RESPONSE_CODE_1500));
     }
   }
   

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ServiceNoMagigNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { environment } from 'src/environments/environment';
 const forge = require('node-forge');
 
@@ -9,7 +9,7 @@ const forge = require('node-forge');
   })
 export class AngularSecurityRSAService{
 
-    private readonly codeResponseMagic: ServiceNoMagigNumber = new ServiceNoMagigNumber();
+    private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
     publicKey:string;
     privateKey:string;
 
@@ -44,8 +44,8 @@ export class AngularSecurityRSAService{
     {    
         let finalString = '';
         while(str.length > 0) {
-        finalString += str.substring(0, Number(this.codeResponseMagic.NoMagigNumber_64)) + '\n';
-        str = str.substring(Number(this.codeResponseMagic.NoMagigNumber_64));
+        finalString += str.substring(0, Number(this.codeResponseMagic.RESPONSE_CODE_64)) + '\n';
+        str = str.substring(Number(this.codeResponseMagic.RESPONSE_CODE_64));
         }
     
         return finalString;

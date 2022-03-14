@@ -8,10 +8,16 @@ import { AngularSecurity } from '../services/public/angularSecurity.service';
 import { AngularSecurityRSAService } from '../services/public/angularSecurityRSA.service';
 import { NGXLogger } from 'ngx-logger';
 import { InterceptorUtils } from '../models/public/interceptorUtils.model';
+import { ServiceResponseCodes } from '../models/ServiceResponseCodes/service-response-codes.model';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-    responseOK = [200, 201, 207, 227];
+
+    private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+    
+    responseOK = [this.codeResponse.RESPONSE_CODE_200,this.codeResponse.RESPONSE_CODE_201, 
+        this.codeResponse.RESPONSE_CODE_207, this.codeResponse.RESPONSE_CODE_227];
+        
     private intercepUtils:InterceptorUtils;
 
     constructor(
