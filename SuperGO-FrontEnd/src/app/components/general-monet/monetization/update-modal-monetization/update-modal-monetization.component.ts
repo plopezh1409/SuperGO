@@ -40,7 +40,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   public principalContainers: Container[];
   private periodicity:PeriodicityModule;
   private monetModule:MonetizationModule;
-  private objIds:any;
+  private objIds:{};
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
@@ -54,6 +54,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.selectedValRequest = null;
     this.principalContainers = [];
     this.showLoad = false;
+    this.objIds = {};
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule();
   }
@@ -62,7 +63,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.dataModal.dataModal.codigoDivisa = this.getValueDivisa(this.dataModal.dataModal.codigoDivisa);
-    let cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
+    const cpyModal = this.periodicity.deserializeControlPeriodicity(this.dataModal.dataModal, this.containers);
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     this.principalContainers = this.containers;
@@ -75,12 +76,12 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   getValueDivisa(type:string){
-    let dataForm = this.containers;
-    let typeMonet:String = '';
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'autocomplete' && ctrl.ky === 'codigoDivisa'){
-          for(let data of ctrl.content.contentList){
+    const dataForm = this.containers;
+    let typeMonet = '';
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'autocomplete' && ctrl.ky === 'codigoDivisa' && ctrl.content){
+          for(const data of ctrl.content.contentList){
             if(data.value.includes(type)){
               typeMonet = data;
               break;
@@ -94,8 +95,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
 
   update(){
     this.disabledFields(false);
-    let cpyModal = this.reactiveForm.getDataForm(this.containers);
-    cpyModal = {...cpyModal, ...this.objIds};
+    const cpyModal = { ...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
     cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
     cpyModal.fechaInicioVigencia = this.getDateTime(cpyModal.fechaInicioVigencia);
     cpyModal.emisionFactura = cpyModal.emisionFactura === true? 'true':'false';
@@ -120,15 +120,14 @@ export class UpdateModalMonetizationComponent implements OnInit {
         });
       }
       this.disabledFields(true);
-      let cpyModal = this.reactiveForm.getDataForm(this.containers);
-      cpyModal = {...cpyModal, ...this.objIds};
+      const cpyModal = { ...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
       cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
       cpyModal.fechaInicioVigencia = this.getDateTime(cpyModal.fechaInicioVigencia);
       this.control.setDataToControls(this.containers,cpyModal);
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-    let oMonet:Monetizacion =  new Monetizacion();
+    const oMonet:Monetizacion =  new Monetizacion();
     oMonet.idSociedad = jsonResult.idSociedad;
     oMonet.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
     oMonet.idSubTipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
@@ -174,13 +173,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   getDateTime(date:string){
-    let dateTime:Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0') + '-' + (dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0') + '-' +  dateTime.getFullYear();
+    const dateTime:Date = new Date(date);
+    date = `${dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0')} - 
+    ${(dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0')}
+    - ${dateTime.getFullYear()}`;
     return date;
   }
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();
+    const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
     this.monetService.getDataMonetization().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {
@@ -207,7 +208,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
           default:
             break;
         }
-      }, (err:any) => {
+      }, () => {
         swal.fire({
           icon: 'error',
           title: 'Error',
@@ -242,8 +243,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   getIdData(){
-    let oData:{[k:string]:any}={};
-    let key = this.dataModal?.keys[0];
+    const oData:{[k:string]:any}={};
+    const key = this.dataModal?.keys[0];
     oData[key] = parseInt(this.dataModal?.dataModal[key],10);
     return oData;
   }
@@ -261,7 +262,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     //busqueda del codigo
     if(this.selectedValRequest.control.content)
     {
-      const finder = this.selectedValRequest.control.content!.options.find((option:any)=> option.ky===selectedVal);
+      const finder = this.selectedValRequest.control.content.options.find((option:any)=> option.ky===selectedVal);
       let dataForm:Object={};
       for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
@@ -338,7 +339,10 @@ export class UpdateModalMonetizationComponent implements OnInit {
         element.controls.forEach((ctrl:any) => {
           if(ctrl.controlType === 'dropdown'){
             if(ctrl.ky === 'periodicidad'){
-              let selectedValRequest:any = { control: ctrl, idContainer: idContainer };
+              const selectedValRequest:{} ={
+                control: ctrl,
+                idContainer: idContainer
+              };
               this.onChangeCatsPetition(selectedValRequest);
             }
           }

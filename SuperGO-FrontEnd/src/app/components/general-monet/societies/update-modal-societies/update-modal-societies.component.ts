@@ -63,13 +63,16 @@ export class UpdateModalSocietiesComponent implements OnInit {
       });
       return;
     }
-    let dataForm = this.reactiveForm.getModifyContainers(this.containers);
-    let oSociety:Sociedad = new Sociedad();
+    const dataForm = this.reactiveForm.getModifyContainers(this.containers);
+    const oSociety:Sociedad = new Sociedad();
     oSociety.idSociedad = this.idSociety;
     oSociety.idTipoSociedad = parseInt(dataForm.idTipoSociedad,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
     oSociety.RFC = dataForm.RFC;
-    this.societyService.updateSociety(oSociety).pipe(finalize(() => {  }))
+    this.showLoader(true);
+    this.societyService.updateSociety(oSociety).pipe(finalize(() => {
+      this.showLoader(false);
+      }))
       .subscribe((response:any) => {
         if(response.code === this.codeResponse.RESPONSE_CODE_200){
           this.reactiveForm.setContainers(this.containers);
@@ -95,7 +98,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
   }
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();
+    const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
     this.societyService.getInfoSocieties().pipe(finalize(() => {
       this.showLoader(false);

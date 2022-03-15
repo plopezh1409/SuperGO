@@ -57,7 +57,7 @@ export class PeriodicityModule {
 
 
       getPeriodicity_insert(dataForm:any, day:string){
-        let periodicity:string = 'FREQ=';
+        let periodicity = 'FREQ=';
         switch(dataForm.periodicidad){
           case this.codeResponse.RESPONSE_CODE_1:
             periodicity = periodicity.concat(`YEARLY;BYMONTH=${dataForm.meses};BYMONTHDAY=${dataForm.numeroDia}`);
@@ -134,7 +134,7 @@ export class PeriodicityModule {
       }
 
       getKeyPeriodicity(frequency:string, dataForm:Container[]){
-        let ky:string = '';
+        let ky = '';
         dataForm.forEach((element:Container) => {
           element.controls.forEach((ctrl:Control) => {
             if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad' && ctrl.content){
@@ -168,7 +168,7 @@ export class PeriodicityModule {
       }
 
       getMonth(month:number){
-        let monthName:string = '';
+        let monthName = '';
         switch(month){
           case this.codeResponse.RESPONSE_CODE_1:
             monthName = 'ENERO';

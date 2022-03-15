@@ -137,7 +137,8 @@ export class MonetizationComponent implements OnInit {
 
   getDateTime(date: string) {
     const dateTime: Date = new Date(date);
-    date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0') + '-' + dateTime.getFullYear();
+    date = `${dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')} - ${(dateTime.getMonth() + 1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')}
+      - ${dateTime.getFullYear()}`;
     return date;
   }
 
@@ -215,11 +216,14 @@ export class MonetizationComponent implements OnInit {
   }
 
   changePeridicity(dataForm: Container[]) {
-    let idContainer = dataForm[0].idContainer;
+    const idContainer = dataForm[0].idContainer;
     dataForm.forEach((element: Container) => {
       element.controls.forEach((ctrl: Control) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
-          let selectedValRequest: {} = { control: ctrl, idContainer: idContainer }
+          const selectedValRequest: {} = {
+            control: ctrl,
+            idContainer: idContainer
+          };
           this.onChangeCatsPetition(selectedValRequest);
         }
       });
@@ -270,7 +274,7 @@ export class MonetizationComponent implements OnInit {
     const selectedVal = formaux.controls[this.selectedValRequest.control.ky].value;
     //busqueda del codigo
     if (this.selectedValRequest.control.content) {
-      let finder = this.selectedValRequest.control.content!.options.find((option: any) => option.ky === selectedVal);
+      let finder = this.selectedValRequest.control.content.options.find((option: any) => option.ky === selectedVal);
       let dataForm;
       for (const datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
@@ -303,7 +307,7 @@ export class MonetizationComponent implements OnInit {
     }
 
 
-  createNewForm(filter: any, selectedVal: any, dataForm: any) {
+  createNewForm(filter: any, selectedVal: any, dataForm: Object) {
     if (filter) {
       this.principalContainers.forEach(pcont => {
         const newContainer = Object.assign({}, pcont);
@@ -323,9 +327,9 @@ export class MonetizationComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
   }
 
-  setControls(dataForm:any, newContainer:any){
-    for (let ctrl in dataForm) {
-      const control = newContainer.controls.find((x:any) => x.ky === ctrl);
+  setControls(dataForm:any, newContainer:Container){
+    for (const ctrl in dataForm) {
+      const control = newContainer.controls.find((x:Control) => x.ky === ctrl);
       let valueCtrl = dataForm[ctrl] === null ? '' : dataForm[ctrl];
       valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
         if (control && valueCtrl != '' && ctrl !== 'Periocidad') {

@@ -61,7 +61,7 @@ export class OperationsComponent implements OnInit {
     }
   }
 
-  onSubmit(value:any)
+  onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -73,10 +73,10 @@ export class OperationsComponent implements OnInit {
       return;
     }
     let dataBody;
-    for(let datas of Object.values(value)){
+    for(const datas of Object.values(value)){
       dataBody = Object(datas);
     }
-    let obOpe:Operaciones =  new Operaciones();
+    const obOpe:Operaciones =  new Operaciones();
     obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
     obOpe.idCanal = parseInt(dataBody.idCanal,10);
     obOpe.topicoKafka = dataBody.topicoKafka;

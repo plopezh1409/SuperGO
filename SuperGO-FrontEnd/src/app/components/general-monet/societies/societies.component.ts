@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./societies.component.sass']
 })
 
-export class societiescomponent implements OnInit {
+export class SocietiesComponent implements OnInit {
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   societyService:FormCatService;
   reactiveForm:ReactiveForm;
@@ -28,7 +28,7 @@ export class societiescomponent implements OnInit {
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
   public dataInfo:Sociedad[];
-  public showLoad: boolean = false;
+  public showLoad: boolean;
   public idSolicitud : string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
@@ -46,15 +46,17 @@ export class societiescomponent implements OnInit {
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
     this.idSolicitud=null;
+    this.showLoad = false;
   }
   
   ngOnInit() {
     this.idSolicitud = this._route.snapshot.paramMap.get('idSolicitud');
-    if(this.idSolicitud!=null)
+    if(this.idSolicitud!=null){
       this.fillDataPage();
+    }
   }
 
-  onSubmit(value:any)
+  onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -65,11 +67,11 @@ export class societiescomponent implements OnInit {
       });
       return;
     }
-    let dataForm:any;
-    for(let datas of Object.values(value)){
+    let dataForm;
+    for(const datas of Object.values(value)){
       dataForm = Object(datas);
     }
-    let oSociety:Sociedad = new Sociedad();
+    const oSociety:Sociedad = new Sociedad();
     oSociety.idTipoSociedad = parseInt(dataForm.idTipoSociedad,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
     oSociety.RFC = dataForm.RFC;
@@ -96,18 +98,17 @@ export class societiescomponent implements OnInit {
         else{
           this.messageError.showMessageError(response.mensaje, response.code);
         }
-      }, (err:any) => {
-        if (err.status  === this.codeResponse.RESPONSE_CODE_500 || err.status === this.codeResponse.RESPONSE_CODE_400)
+      }, (err) => {
           this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
       });
   }
 
   async fillDataPage(){
     this.appComponent.showLoader(true);
-    let dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
+    const dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
-    let dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
+    const dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
@@ -121,7 +122,7 @@ export class societiescomponent implements OnInit {
       this.containers = dataForm.response.reactiveForm; 
       this.dataInfo = dataOper.response.sociedades;
       this.reactiveForm.setContainers(this.containers);
-      localStorage.setItem("_auxForm",JSON.stringify(this.containers));
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
@@ -149,7 +150,7 @@ export class societiescomponent implements OnInit {
         default:
         break;
       }
-    },(err:any) => {
+    },(err) => {
       swal.fire({
         icon: 'error',
         title: 'Error inesperado',

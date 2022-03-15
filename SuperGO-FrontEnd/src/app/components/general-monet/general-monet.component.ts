@@ -6,7 +6,7 @@ import { AppComponent } from '@app/app.component';
   templateUrl: './general-monet.component.html',
   styleUrls: ['./general-monet.component.sass']
 })
-export class generalmonetComponent implements OnInit{
+export class GeneralmonetComponent implements OnInit{
 
   constructor(private readonly appComponent:AppComponent) {
     this.appComponent.showInpImage(false);

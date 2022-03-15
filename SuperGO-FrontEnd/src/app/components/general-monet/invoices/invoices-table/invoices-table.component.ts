@@ -84,17 +84,17 @@ export class InvoicesTableComponent implements OnInit {
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 
     2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Sociedad </b></td><td style="padding:5px"> `+ oInvoice.razonSocial +` </td></tr>`);            
+     Sociedad </b></td><td style="padding:5px"> ${oInvoice.razonSocial} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Operación </b></td><td style="padding:5px"> `+ oInvoice.descripcionTipoOperacion +` </td></tr>`);            
+     Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionTipoOperacion} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Sub-Operación </b></td><td style="padding:5px"> `+ oInvoice.descSubTipoOperacion +` </td></tr>`);            
+    Sub-Operación </b></td><td style="padding:5px"> ${oInvoice.descSubTipoOperacion} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Monetización </b></td><td style="padding:5px"> `+ oInvoice.idReglaMonetizacion +` </td></tr>`);            
+     Monetización </b></td><td style="padding:5px"> ${oInvoice.idReglaMonetizacion} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Tipo de Comprobante </b></td><td style="padding:5px"> `+ oInvoice.tipoComprobante +` </td></tr>`);            
+    Tipo de Comprobante </b></td><td style="padding:5px"> ${oInvoice.tipoComprobante} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Tipo de Factura </b></td><td style="padding:5px"> `+ oInvoice.tipoFactura +` </td></tr>`);            
+     Tipo de Factura </b></td><td style="padding:5px"> ${oInvoice.tipoFactura} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
        Datos de la contabilidad </div><br/> <br/>${registro}`,

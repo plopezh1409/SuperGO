@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
-import { societiescomponent } from './societies/societies.component';
+import { SocietiesComponent } from './societies/societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
-import { generalmonetComponent } from './general-monet.component';
-import { invoicesComponent } from './invoices/invoices.component';
+import { GeneralmonetComponent } from './general-monet.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 import { OperationsComponent } from './operations/operations.component';
 import { MonetizationComponent } from './monetization/monetization.component';
 import { AccountingComponent } from './accounting/accounting.component';
@@ -12,7 +12,7 @@ import { AccountingComponent } from './accounting/accounting.component';
 const principalMonetizaor = '/monetizador';
 const routes: Routes = [
   {
-  path: '', component: generalmonetComponent, canActivate: [AuthGuard], 
+  path: '', component: GeneralmonetComponent, canActivate: [AuthGuard], 
   children:[{
     path: '', component: HomeMonetizerComponent, 
     data:{
@@ -32,7 +32,7 @@ const routes: Routes = [
   
   {
     path: 'especifica/:idSolicitud/invoices',
-    component: invoicesComponent, 
+    component: InvoicesComponent, 
     data:{
       title:'Catalogos',
       breadcrumb:[
@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'especifica/:idSolicitud/societies',
-    component: societiescomponent,   
+    component: SocietiesComponent,   
     data:{
       title:'Solicitud',
       breadcrumb:[

@@ -113,33 +113,33 @@ export class AccountingTablesComponent implements OnInit {
       width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; 
       text-align:center;"><b><i>Descripción</i></b></td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sociedad </b></td><td style="padding:5px"> `+ oConta.razonSocial +` </td></tr>`);            
+      Sociedad </b></td><td style="padding:5px"> ${oConta.razonSocial} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-       Operación </b></td><td style="padding:5px"> `+ oConta.descripcionTipoOperacion +` </td></tr>`);            
+       Operación </b></td><td style="padding:5px">  ${oConta.descripcionTipoOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sub-Operación </b></td><td style="padding:5px"> `+ oConta.descSubTipoOperacion +` </td></tr>`);            
+      Sub-Operación </b></td><td style="padding:5px">  ${oConta.descSubTipoOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Contabilidad </b></td><td style="padding:5px"> `+ oConta.contabilidadDiaria +` </td></tr>`);            
+      Contabilidad </b></td><td style="padding:5px">  ${oConta.contabilidadDiaria} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Número de Apunte </b></td><td style="padding:5px"> `+ oConta.numeroApunte +` </td></tr>`);            
+      Número de Apunte </b></td><td style="padding:5px">  ${oConta.numeroApunte} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sociedad GL </b></td><td style="padding:5px"> `+ oConta.sociedadGl +` </td></tr>`);            
+      Sociedad GL </b></td><td style="padding:5px">  ${oConta.sociedadGl} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Tipo de Cuenta </b></td><td style="padding:5px"> `+ oConta.tipoCuenta +` </td></tr>`);            
+      Tipo de Cuenta </b></td><td style="padding:5px">  ${oConta.tipoCuenta} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Indicador de Operación </b></td><td style="padding:5px"> `+ oConta.indicadorOperacion +` </td></tr>`);            
+      Indicador de Operación </b></td><td style="padding:5px">  ${oConta.indicadorOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Clase de Documento </b></td><td style="padding:5px"> `+ oConta.claseDocumento +` </td></tr>`);            
+      Clase de Documento </b></td><td style="padding:5px">  ${oConta.claseDocumento} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Concepto </b></td><td style="padding:5px"> `+ oConta.concepto +` </td></tr>`);            
+      Concepto </b></td><td style="padding:5px">  ${oConta.concepto} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Centro Destino </b></td><td style="padding:5px"> `+ oConta.centroDestino +` </td></tr>`);            
+      Centro Destino </b></td><td style="padding:5px">  ${oConta.centroDestino} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      IVA </b></td><td style="padding:5px"> `+ oConta.indicadorIVA +` </td></tr>`);            
+      IVA </b></td><td style="padding:5px">  ${oConta.indicadorIVA} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-       Cuenta SAP </b></td><td style="padding:5px"> `+ oConta.cuentaSAP +` </td></tr>`);            
+       Cuenta SAP </b></td><td style="padding:5px">  ${oConta.cuentaSAP} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Monetización </b></td><td style="padding:5px"> `+ oConta.idReglaMonetizacion +` </td></tr>`);
+      Monetización </b></td><td style="padding:5px">  ${oConta.idReglaMonetizacion} </td></tr>`);
       swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la contabilidad </div><br/> <br/>${registro}`,

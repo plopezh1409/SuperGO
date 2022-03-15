@@ -1,14 +1,12 @@
-import { Component, Inject, Injector, OnInit, Injectable } from '@angular/core';
+import { Component, Inject, Injector, OnInit, Injectable, ChangeDetectorRef } from '@angular/core';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { finalize } from 'rxjs/operators';
-import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
 
 //MATERIAL
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 //SERVICES
-import { AuthService } from '@app/core/services/sesion/auth.service';
 import { FormOperationsService } from '@app/core/services/operations/formOperations.service';
 
 //MODELS
@@ -36,14 +34,12 @@ export class UpdateModalOperationsComponent implements OnInit {
   private idOperation:number;
   public showLoad: boolean;
   private loaderDuration: number;
-  private authService:AuthService;
   messageError:MessageErrorModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
       public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
-    this.authService = this.injector.get<AuthService>(AuthService);
     this.messageError = new MessageErrorModule;
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
@@ -64,8 +60,6 @@ export class UpdateModalOperationsComponent implements OnInit {
   }
 
   update(){
-    if(!this.authService.isAuthenticated())
-      this.close();
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
         icon: 'warning',
@@ -75,8 +69,8 @@ export class UpdateModalOperationsComponent implements OnInit {
       });
       return;
     }
-    let jsonResult = this.reactiveForm.getModifyContainers(this.containers);
-    let obOpe:Operaciones = new Operaciones();
+    const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    const obOpe:Operaciones = new Operaciones();
     obOpe.idTipoOperacion = this.idOperation;
     obOpe.descripcionTipoOperacion = jsonResult.descripcionTipoOperacion.trim();
     obOpe.idCanal = parseInt(jsonResult.idCanal,10);
@@ -114,7 +108,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   }
 
   close(){
-    let oResponse:ResponseTable= new ResponseTable();
+    const oResponse:ResponseTable= new ResponseTable();
     return(
     this.refData?.close(oResponse)
     );
@@ -131,7 +125,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   }
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();
+    const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
     this.formCatService.getInfoOperation().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response) => {

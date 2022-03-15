@@ -269,17 +269,12 @@ export class Control {
 
   
   setDropDownValue(control: Control, valor:any) {
-
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.ky === valor;
+        return opcion.ky == valor;
         }).map((opcion) => {
           return opcion.ky;
           });
-
-         
-    
     return filter[0];
-    
   }
 
   deleteValuesForSettings(dataModal:any,indexF:number,indexL:number){

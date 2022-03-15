@@ -57,7 +57,7 @@ export class AccountingComponent implements OnInit {
     }
   }
 
-  onSubmit(value:any)
+  onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({

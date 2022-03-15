@@ -61,27 +61,28 @@ open(obOperation:Operaciones){
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:ResponseTable)=>{
-      if(oData !== undefined && oData.status === true)
+      if(oData !== undefined && oData.status === true){
         this.dataInfo = oData.data;
         this.onLoadTable(this.dataInfo);
+      }
     })
   );
   }
 
   show(obOperation:Operaciones):void{
-    let registro:string='';
+    let registro = '';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  
     style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Descripción </b></td><td style="padding:5px"> `+ obOperation.descripcionTipoOperacion +` </td></tr>`);            
+    Descripción </b></td><td style="padding:5px">  ${obOperation.descripcionTipoOperacion} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Topíco KAFKA </b></td><td style="padding:5px"> `+ obOperation.topicoKafka +` </td></tr>`);            
+    Topíco KAFKA </b></td><td style="padding:5px">  ${obOperation.topicoKafka} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Canal </b></td><td style="padding:5px"> `+ obOperation.idCanal +` </td></tr>`);            
+    Canal </b></td><td style="padding:5px">  ${obOperation.idCanal} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Estatus </b></td><td style="padding:5px"> `+ obOperation.status +` </td></tr>`);            
+    Estatus </b></td><td style="padding:5px">  ${obOperation.status} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
       Datos de la contabilidad </div><br/> <br/>${registro}`,

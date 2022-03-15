@@ -5,7 +5,7 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
 import swal from 'sweetalert2';
-import { Facturas } from '@app/core/models/facturas/facturas.model'
+import { Facturas } from '@app/core/models/facturas/facturas.model';
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
@@ -50,7 +50,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
       idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
       idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
       idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion,
-    }
+    };
   }
 
   update(){

@@ -7,7 +7,7 @@
                 "idSociedad": 17,
                 "razonSocial": "EMPRESA PRUEBA9",
                 "RFC": "XAXX010101000",
-                "idTipoSociedad": 1,
+                "idTipoSociedad": "1",
                 "descripcionTipoSociedad": "BAZ SUPERAPP"
             },
             {

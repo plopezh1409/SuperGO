@@ -18,7 +18,7 @@ import { Control } from '@app/core/models/capture/controls.model';
   styleUrls: ['./invoices.component.sass']
 })
 
-export class invoicesComponent implements OnInit {
+export class InvoicesComponent implements OnInit {
   formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
@@ -79,7 +79,7 @@ export class invoicesComponent implements OnInit {
   }
 
   
-  onSubmit(value:any)
+  onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
       swal.fire({
@@ -125,7 +125,7 @@ export class invoicesComponent implements OnInit {
 
   addDataDropdown(dataForm:Container[], dataContent:any){
     var cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.facturas
+    delete cpDataContent.facturas;
     Object.entries(cpDataContent).forEach(([key, value]:any) =>{
       value.forEach((ele:any) => {
         Object.entries(ele).forEach(([key, value]:any) => {

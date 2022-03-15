@@ -31,7 +31,7 @@ export class MonetizationModule {
   
   getDivisa(divisa:string){
     const arrDivisa = divisa.split('(')[1];
-    return arrDivisa.replace(')', '');;
+    return arrDivisa.replace(')', '');
   }
 
 }

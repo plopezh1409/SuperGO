@@ -18,9 +18,9 @@ import { PetitionRoutingModule } from './general-monet-routing.module';
 //SERVICES
 
 //COMPONENTS
-import { generalmonetComponent } from './general-monet.component';
-import { societiescomponent } from './societies/societies.component';
-import { invoicesComponent } from './invoices/invoices.component';
+import { GeneralmonetComponent } from './general-monet.component';
+import { SocietiesComponent } from './societies/societies.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 import { InvoicesTableComponent } from './invoices/invoices-table/invoices-table.component';
 import { OperationsComponent } from './operations/operations.component';
 import { AccountingComponent } from './accounting/accounting.component';
@@ -40,9 +40,9 @@ import { AppComponent } from '@app/app.component';
 
 @NgModule({
   declarations: [
-    generalmonetComponent,
-    societiescomponent,
-    invoicesComponent,    
+    GeneralmonetComponent,
+    SocietiesComponent,
+    InvoicesComponent,    
     InvoicesTableComponent,
     OperationsComponent,
     AccountingComponent,

@@ -54,9 +54,10 @@ export class SocietiesTableComponent implements OnInit {
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:ResponseTable)=>{
-      if(oData !== undefined && oData.status === true)
+      if(oData !== undefined && oData.status === true){
         this.dataInfo = oData.data;
         this.onLoadTable(this.dataInfo);
+      }
     }));
   }
 
@@ -67,11 +68,11 @@ export class SocietiesTableComponent implements OnInit {
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  
     style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Razón Social </b></td><td style="padding:5px"> `+ oSociedad.razonSocial +` </td></tr>`);            
+    Razón Social </b></td><td style="padding:5px">  ${oSociedad.razonSocial} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    RFC </b></td><td style="padding:5px"> `+ oSociedad.RFC +` </td></tr>`);            
+    RFC </b></td><td style="padding:5px">  ${oSociedad.RFC} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Tipo De Sociedad </b></td><td style="padding:5px"> `+ oSociedad.descripcionTipoSociedad +` </td></tr>`);            
+    Tipo De Sociedad </b></td><td style="padding:5px">  ${oSociedad.descripcionTipoSociedad} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
       Datos de la contabilidad </div><br/> <br/>${registro}`,
