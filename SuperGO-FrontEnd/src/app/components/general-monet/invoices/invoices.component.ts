@@ -91,8 +91,8 @@ export class invoicesComponent implements OnInit {
       return;
     }
     let dataBody;
-    for(let datas of Object.values(value)){
-      dataBody = Object(datas);
+    for(const data of Object.values(value)){
+      dataBody = Object(data);
     }
     const oInvoice:Facturas =  dataBody;
     this.appComponent.showLoader(true);
@@ -123,12 +123,12 @@ export class invoicesComponent implements OnInit {
 
   }
 
-  addDataDropdown(dataForm:any, dataContent:any){
-    let cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.facturas;
-    Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
+  addDataDropdown(dataForm:Container[], dataContent:any){
+    var cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.facturas
+    Object.entries(cpDataContent).forEach(([key, value]:any) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any, idx:number) => {
+        Object.entries(ele).forEach(([key, value]:any) => {
           if(typeof value === 'number'){
             ele['ky'] = ele[key];
             delete ele[key];
@@ -143,9 +143,9 @@ export class invoicesComponent implements OnInit {
 
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad'){
-          ctrl.content!.contentList = cpDataContent.sociedades;
-          ctrl.content!.options = cpDataContent.sociedades;
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
+          ctrl.content.contentList = cpDataContent.sociedades;
+          ctrl.content.options = cpDataContent.sociedades;
         }
       });
     });

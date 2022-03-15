@@ -69,8 +69,8 @@ export class AccountingComponent implements OnInit {
       return;
     }
     
-    var dataBody;
-    for(let datas of Object.values(value)){
+    let dataBody;
+    for(const datas of Object.values(value)){
       dataBody = Object(datas);
     }
     const oConta:Contabilidad =  new Contabilidad();
@@ -140,11 +140,11 @@ export class AccountingComponent implements OnInit {
   }
 
   addDataDropdown(dataForm:Container[], dataContent:any){
-    let cpDataContent = Object.assign({},dataContent);
+    const cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.registrosContables;
-    Object.entries(cpDataContent).forEach(([key, value]:any[], idx:number) =>{
+    Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
       value.forEach((ele:any) => {
-        Object.entries(ele).forEach(([_key, _value]:any[], idx:number) => {
+        Object.entries(ele).forEach(([_key, _value]:any[]) => {
           if(typeof _value === 'number'){
             ele['ky'] = ele[_key];
             delete ele[_key];
@@ -159,9 +159,9 @@ export class AccountingComponent implements OnInit {
     
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad'){
-          ctrl.content!.contentList = cpDataContent.sociedades;
-          ctrl.content!.options = cpDataContent.sociedades;
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
+          ctrl.content.contentList = cpDataContent.sociedades;
+          ctrl.content.options = cpDataContent.sociedades;
         }
       });
     });

@@ -25,10 +25,9 @@ export class UpdateModalInvoicesComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  public formas:any;
   public showLoad: boolean;
   private loaderDuration: number;
-  private objIds:any;
+  private objIds:any={};
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   
   constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
@@ -71,7 +70,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
       this.reactiveForm.setContainers(this.containers);
       return;
     }
-    let oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
+    const oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
     oInvoice.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
     this.formInvService.updateInvoce(oInvoice).pipe(finalize(() => {
@@ -100,7 +99,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
   }
 
   close(){
-    let oResponse:ResponseTable= new ResponseTable();
+    const oResponse:ResponseTable= new ResponseTable();
     return(this.refData?.close(oResponse));
   }
     
@@ -115,7 +114,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
   }
 
   getDataTable(){
-    let oResponse:ResponseTable = new ResponseTable();
+    const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
     this.formInvService.getInfoInvoices().pipe(finalize(() => { this.showLoader(false); }))
       .subscribe((response:any) => {

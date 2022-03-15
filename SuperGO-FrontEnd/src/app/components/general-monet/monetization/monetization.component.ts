@@ -75,7 +75,7 @@ export class MonetizationComponent implements OnInit {
 
   onSubmit(oElement: any) {
     let dataForm;
-    for (let datas of Object.values(oElement)) {
+    for (const datas of Object.values(oElement)) {
       dataForm = Object(datas);
     }
     if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa === '') {
@@ -136,18 +136,18 @@ export class MonetizationComponent implements OnInit {
   }
 
   getDateTime(date: string) {
-    let dateTime: Date = new Date(date);
+    const dateTime: Date = new Date(date);
     date = dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0') + '-' + (dateTime.getMonth() + 1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0') + '-' + dateTime.getFullYear();
     return date;
   }
 
   getDay(type: string) {
-    let dataForm = this.containers;
+    const dataForm = this.containers;
     let typeMonet = '';
-    dataForm.forEach((element: any) => {
-      element.controls.forEach((ctrl: any) => {
-        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia') {
-          for (let data of ctrl.content.contentList) {
+    dataForm.forEach((element: Container) => {
+      element.controls.forEach((ctrl: Control) => {
+        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content) {
+          for (const data of ctrl.content.contentList) {
             if (data.ky === type) {
               typeMonet = data.value;
               break;
@@ -176,7 +176,7 @@ export class MonetizationComponent implements OnInit {
     }
     else {
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
-      this.dataInfo = dataOper.response;
+      this.dataInfo = dataOper.response.reglasMonetizacion;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm', JSON.stringify(this.containers));
@@ -187,11 +187,11 @@ export class MonetizationComponent implements OnInit {
   }
 
   addDataDropdown(dataForm: Container[], dataContent: any) {
-    var cpDataContent = Object.assign({}, dataContent);
+    let cpDataContent = Object.assign({}, dataContent);
     delete cpDataContent.reglasMonetizacion;
-    Object.entries(cpDataContent).forEach(([key, value]: any, idx: number) => {
+    Object.entries(cpDataContent).forEach(([key, value]: any) => {
       value.forEach((ele: any) => {
-        Object.entries(ele).forEach(([key, value]: any, idx: number) => {
+        Object.entries(ele).forEach(([key, value]: any) => {
           if (typeof value === 'number') {
             ele['ky'] = ele[key];
             delete ele[key];
@@ -205,21 +205,21 @@ export class MonetizationComponent implements OnInit {
     });
     dataForm.forEach((element: Container) => {
       element.controls.forEach((ctrl: Control) => {
-        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad') {
-          ctrl.content!.contentList = cpDataContent.sociedades;
-          ctrl.content!.options = cpDataContent.sociedades;
+        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content) {
+          ctrl.content.contentList = cpDataContent.sociedades;
+          ctrl.content.options = cpDataContent.sociedades;
         }
       });
     });
     return dataForm;
   }
 
-  changePeridicity(dataForm: any) {
+  changePeridicity(dataForm: Container[]) {
     let idContainer = dataForm[0].idContainer;
-    dataForm.forEach((element: any) => {
-      element.controls.forEach((ctrl: any) => {
+    dataForm.forEach((element: Container) => {
+      element.controls.forEach((ctrl: Control) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
-          let selectedValRequest: any = { control: ctrl, idContainer: idContainer };
+          let selectedValRequest: {} = { control: ctrl, idContainer: idContainer }
           this.onChangeCatsPetition(selectedValRequest);
         }
       });
@@ -232,7 +232,7 @@ export class MonetizationComponent implements OnInit {
     .subscribe((data:any)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response;
+          this.dataInfo = data.response.reglasMonetizacion;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
         case this.codeResponse.RESPONSE_CODE_400:
@@ -272,7 +272,7 @@ export class MonetizationComponent implements OnInit {
     if (this.selectedValRequest.control.content) {
       let finder = this.selectedValRequest.control.content!.options.find((option: any) => option.ky === selectedVal);
       let dataForm;
-      for (let datas of Object.values(this.reactiveForm.principalForm?.value)) {
+      for (const datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Container } from '@app/core/models/capture/container.model';
+import { Control } from '@app/core/models/capture/controls.model';
 
 
 
@@ -11,12 +13,12 @@ import { CommonModule } from '@angular/common';
 })
 export class MonetizationModule { 
 
-  getTypeOfMonetization(type:string, dataForm:any){
+  getTypeOfMonetization(type:string, dataForm:Container[]){
     let typeMonet = '';
-    dataForm.forEach((element:any) => {
-      element.controls.forEach((ctrl:any) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'tipoMontoMonetizacion'){
-          for(let data of ctrl.content.contentList){
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'tipoMontoMonetizacion' && ctrl.content){
+          for(const data of ctrl.content.contentList){
             if(data.ky === type){
               typeMonet = data.value.charAt(0);
             }
@@ -28,7 +30,7 @@ export class MonetizationModule {
   }
   
   getDivisa(divisa:string){
-    let arrDivisa = divisa.split('(')[1];
+    const arrDivisa = divisa.split('(')[1];
     return arrDivisa.replace(')', '');;
   }
 

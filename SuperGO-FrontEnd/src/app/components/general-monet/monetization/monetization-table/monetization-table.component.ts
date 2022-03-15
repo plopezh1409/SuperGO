@@ -12,6 +12,7 @@ import { Container } from '@app/core/models/capture/container.model';
 import { ServiceResponseCodes, ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
 @Component({
   selector: 'app-monetization-table',
@@ -57,10 +58,10 @@ export class MonetizationTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:any)  
+  onLoadTable(dataInfo:Monetizacion[])  
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo = dataInfo.reglasMonetizacion;
+    this.dataInfo = dataInfo;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -76,11 +77,11 @@ export class MonetizationTableComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      let oMonet:any = data.response.reglasMonetizacion;
+      const oMonet:any = data.response.reglasMonetizacion;
       oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
-      oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
-      let _auxForm = this.disabledFields(this.containers);
+      oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
+      const _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
           width: '70%',
@@ -88,12 +89,10 @@ export class MonetizationTableComponent implements OnInit {
             dataModal:oMonet,
             auxForm:_auxForm
           }
-        }).afterClosed().subscribe((oData:any)=>{
-          if(oData !== undefined)
-            if(oData.status === true){
-              this.dataInfo = oData.data;
-              this.onLoadTable(this.dataInfo);
-            }
+        }).afterClosed().subscribe((oData:ResponseTable)=>{
+          if(oData !== undefined && oData.status === true)
+            this.dataInfo = oData.data;
+            this.onLoadTable(this.dataInfo);
         })
       );
       }
@@ -109,9 +108,9 @@ export class MonetizationTableComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      let oMonet:any = data.response.reglasMonetizacion;
-      oMonet.emisionFactura = oMonet.emisionFactura === true? 'SI':'NO';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
+      const oMonet:any = data.response.reglasMonetizacion;
+      oMonet.emisionFactura = oMonet.emisionFactura == true? 'SI':'NO';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
       let registro:string='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
@@ -153,7 +152,7 @@ export class MonetizationTableComponent implements OnInit {
     }
   } 
 
-  disabledFields(_auxForm:any){
+  disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){

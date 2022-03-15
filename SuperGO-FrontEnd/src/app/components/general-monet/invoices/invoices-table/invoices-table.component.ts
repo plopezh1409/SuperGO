@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-modal-invoices.component';
 import { Control } from '@app/core/models/capture/controls.model';
 import { Container } from '@app/core/models/capture/container.model';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 
 
 @Component({
@@ -67,12 +68,10 @@ export class InvoicesTableComponent implements OnInit {
           dataModal:oInvoice,
           auxForm:_auxForm
         }
-      }).afterClosed().subscribe((oData:any)=> {
-        if(oData !== undefined){
-          if(oData.status === true){
-            this.dataInfo = oData.data;
-            this.onLoadTable(this.dataInfo);
-          }
+      }).afterClosed().subscribe((oData:ResponseTable)=> {
+        if(oData !== undefined && oData.status === true){
+          this.dataInfo = oData.data;
+          this.onLoadTable(this.dataInfo);
         }
       })
     );

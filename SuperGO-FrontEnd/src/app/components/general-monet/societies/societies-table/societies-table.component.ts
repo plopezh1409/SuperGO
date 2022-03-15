@@ -54,16 +54,14 @@ export class SocietiesTableComponent implements OnInit {
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:ResponseTable)=>{
-      if(oData !== undefined)
-        if(oData.status === true){
-          this.dataInfo = oData.data;
-          this.onLoadTable(this.dataInfo);
-        }
+      if(oData !== undefined && oData.status === true)
+        this.dataInfo = oData.data;
+        this.onLoadTable(this.dataInfo);
     }));
   }
 
   show(oSociedad:Sociedad):void{
-    let registro:string=''; 
+    let registro='';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  

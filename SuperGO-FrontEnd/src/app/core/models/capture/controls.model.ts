@@ -428,12 +428,11 @@ export class Control {
     }
     else {
       if (this.attributes) {
-        for(let data of this.attributes){
+        this.attributes.forEach( data =>{
           if (Object.keys(data).length === 0){
             data.value = value;
-            break;
           }
-        }
+        });
       }
     }
   }

@@ -350,8 +350,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
       let typeMonet = '';
       this.containers.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
-          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia'){
-            for(let data of ctrl.content!.contentList){
+          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content){
+            for(let data of ctrl.content.contentList){
               if(data.ky === type){
                 typeMonet = data.value;
                 break;

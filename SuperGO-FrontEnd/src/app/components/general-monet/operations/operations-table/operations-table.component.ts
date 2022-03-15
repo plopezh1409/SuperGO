@@ -61,11 +61,9 @@ open(obOperation:Operaciones){
         auxForm:this.containers
       }
     }).afterClosed().subscribe((oData:ResponseTable)=>{
-      if(oData !== undefined)
-        if(oData.status === true){
-          this.dataInfo = oData.data;
-          this.onLoadTable(this.dataInfo);
-        }
+      if(oData !== undefined && oData.status === true)
+        this.dataInfo = oData.data;
+        this.onLoadTable(this.dataInfo);
     })
   );
   }

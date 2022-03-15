@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { Container } from '@app/core/models/capture/container.model';
+import { Control } from '@app/core/models/capture/controls.model';
 
 
 
@@ -13,8 +15,7 @@ import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/serv
 export class PeriodicityModule { 
   private readonly codeResponse: ServiceNoMagicNumber = new ServiceNoMagicNumber();
     getPeriodicity_show(periodicidadCorte:string){
-        let descPer;
-        descPer = periodicidadCorte.split(';');
+        const descPer = periodicidadCorte.split(';');
         let periodicity;
         periodicity = '';
         let day;
@@ -81,17 +82,14 @@ export class PeriodicityModule {
         return periodicity;
       }
 
-      deserializeControlPeriodicity(dataModal:any, dataForm:any){
-        let descPer; 
-        descPer = dataModal.periodicidadCorte.split(';');
-        let oNewFields:any;
-        
+      deserializeControlPeriodicity(dataModal:any, dataForm:Container[]){
+        const descPer = dataModal.periodicidadCorte.split(';');
+        let oNewFields:{} = {};
+        let day;
         switch(descPer[0].split('=')[1]){
           case 'YEARLY':
-            let month;
-            let day;
             day = descPer[1].split('=')[1];
-            month = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
+            const month = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('ANUAL', dataForm),
               meses:month,
@@ -100,7 +98,7 @@ export class PeriodicityModule {
             break;
           case 'MONTHLY':
             day = descPer[1].split('=')[1];
-            let numMonth = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
+            const numMonth = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('MENSUAL',dataForm),
               repetirMensual:numMonth,
@@ -110,8 +108,7 @@ export class PeriodicityModule {
     
           case 'WEEKLY':
             day = descPer[1].split('=')[1];
-            let dayOfWeek;
-            dayOfWeek = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
+            const dayOfWeek = descPer[Number(this.codeResponse.RESPONSE_CODE_2)].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('SEMANAL',dataForm),
               repetirSemanal: day,
@@ -136,13 +133,12 @@ export class PeriodicityModule {
         return dataModal;
       }
 
-      getKeyPeriodicity(frequency:string, dataForm:any){
+      getKeyPeriodicity(frequency:string, dataForm:Container[]){
         let ky:string = '';
-        dataForm.forEach((element:any) => {
-          element.controls.forEach((ctrl:any) => {
-            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
-              let data:any;
-              for(data of ctrl.content.contentList){
+        dataForm.forEach((element:Container) => {
+          element.controls.forEach((ctrl:Control) => {
+            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad' && ctrl.content){
+              for(const data of ctrl.content.contentList){
                 if(data.value.includes(frequency)){
                   ky = data.ky;
                   break;
@@ -154,12 +150,12 @@ export class PeriodicityModule {
         return ky;
       }
 
-      getDay(day:string, dataForm:any){
+      getDay(day:string, dataForm:Container[]){
         let kyDay = '';
-        dataForm.forEach((element:any) => {
-          element.controls.forEach((ctrl:any) => {
-            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia'){
-              for(let data of ctrl.content.contentList){
+        dataForm.forEach((element:Container) => {
+          element.controls.forEach((ctrl:Control) => {
+            if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content){
+              for(const data of ctrl.content.contentList){
                 if(data.value === day){
                   kyDay = data.ky;
                   break;

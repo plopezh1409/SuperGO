@@ -85,11 +85,9 @@ export class AccountingTablesComponent implements OnInit {
           auxForm:_auxForm
         }
       }).afterClosed().subscribe((oData:ResponseTable)=>{
-        if(oData != undefined){
-          if(oData.status === true){
-            this.dataInfo = oData.data;
-            this.onLoadTable(this.dataInfo);
-          }
+        if(oData !== undefined && oData.status === true){
+          this.dataInfo = oData.data;
+          this.onLoadTable(this.dataInfo);
         }
       }));
     }
