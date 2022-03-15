@@ -5,7 +5,7 @@ import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
 import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
 import { Control } from '@app/core/models/capture/controls.model';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
@@ -54,7 +54,7 @@ export class UpdateModalAccountingComponent implements OnInit {
       idSociedad: this.dataModal.dataModal.idSociedad,
       idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
       idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
-      idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion
+      idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion,
     };
   }
 

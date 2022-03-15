@@ -71,7 +71,7 @@ export class AngularSecurityRSAService{
                 decryptRSA = rsa.decrypt(atob(data));
             }
             
-            return decryptRSA
+            return decryptRSA;
         }
         catch(ex)
         {

@@ -27,7 +27,7 @@ export class AttributeDirective implements OnChanges {
           {
             this.renderer.removeAttribute(this.elementRef.nativeElement, key);
           }
-        })        
+        });        
       }
     }
   }

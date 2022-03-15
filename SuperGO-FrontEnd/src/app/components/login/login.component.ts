@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   actualizaForm: FormGroup;
   submitted: boolean = false;
   firstStart: boolean = false;
-  error: { code: number, message: string }
+  error: { code: number, message: string };
   usuario: User;
   rol: Rol;
   usuarioAux: string | null;
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
     else if (this.rutaActiva.snapshot.params.ADMIN != null
       && !isNaN(this.rutaActiva.snapshot.params.ADMIN)
       && Number(this.rutaActiva.snapshot.params.ADMIN) >= 0) {
-      this.usuarioAux = this.rutaActiva.snapshot.params.ADMIN
+      this.usuarioAux = this.rutaActiva.snapshot.params.ADMIN;
     }
     else {
       const actMk = this.authService.isActiveMasterKey;
@@ -154,7 +154,7 @@ export class LoginComponent implements OnInit {
       //RENOlet TOKEN
       if (result.isConfirmed) {
         this.appComponent.showLoader(true);
-        this.authService.newSession(data).pipe(finalize(()=>{this.appComponent.showLoader(false)}))
+        this.authService.newSession(data).pipe(finalize(()=>{this.appComponent.showLoader(false);}))
         .subscribe(dt=> {
           this.logIn(this.authService.usuario);    
         });
@@ -219,28 +219,28 @@ export class LoginComponent implements OnInit {
     let p4ssA = atob(this.usuario.p4ss);
     let regex = new RegExp(this.regex);
     if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false)
+      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false);
     }
     else if (this.p4ss1 != p4ssA) {
-      this.sweet('error', 'lo sentimos', 'Tu contraseña es incorrecta', false)
+      this.sweet('error', 'lo sentimos', 'Tu contraseña es incorrecta', false);
     }
-    else if (this.p4ss2 == null || this.p4ss2 == '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña nueva', false)
+    else if (this.p4ss2 === null || this.p4ss2 === '') {
+      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña nueva', false);
     }
     else if (this.p4ss2.length < this.codeResponseMagic.RESPONSE_CODE_10 || this.p4ss2.length > this.codeResponseMagic.RESPONSE_CODE_10) {
-      this.sweet('error', 'lo sentimos', 'La contraseña debe ser de 10 caracteres', false)
+      this.sweet('error', 'lo sentimos', 'La contraseña debe ser de 10 caracteres', false);
     }
-    else if (this.p4ss2 == p4ssA) {
-      this.sweet('error', 'lo sentimos', 'Tu nueva contraseña debe ser diferente a la anterior', false)
+    else if (this.p4ss2 === p4ssA) {
+      this.sweet('error', 'lo sentimos', 'Tu nueva contraseña debe ser diferente a la anterior', false);
     }
     else if (!regex.test(this.p4ss2)) {
-      this.sweet('error', 'lo sentimos', 'La contraseña no es valida, debes tener almenos 1 mayuscula, 1 minuscula y un caracter especial (#?!@$%^&*-_)', false)
+      this.sweet('error', 'lo sentimos', 'La contraseña no es valida, debes tener almenos 1 mayuscula, 1 minuscula y un caracter especial (#?!@$%^&*-_)', false);
     }
-    else if (this.p4ss3 == null || this.p4ss3 == '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa de nuevo tu contraseña', false)
+    else if (this.p4ss3 === null || this.p4ss3 === '') {
+      this.sweet('error', 'lo sentimos', 'Ingresa de nuevo tu contraseña', false);
     }
     else if (this.p4ss2 != this.p4ss3) {
-      this.sweet('error', 'lo sentimos', 'No coincide con la contraseña anterior', false)
+      this.sweet('error', 'lo sentimos', 'No coincide con la contraseña anterior', false);
     } else {
       swal.fire({
         title: 'Último paso!',
@@ -313,7 +313,7 @@ export class LoginComponent implements OnInit {
   }
 
   emptyFields(): boolean {
-    if (this.usuario.employee == null || this.usuario.employee == '') {
+    if (this.usuario.employee === null || this.usuario.employee === '') {
       swal.fire({
         icon: 'error',
         title: 'Lo sentimos',
@@ -321,7 +321,7 @@ export class LoginComponent implements OnInit {
         heightAuto: false
       });
       return true;
-    } else if (this.usuario.p4ss == null || this.usuario.p4ss == '') {
+    } else if (this.usuario.p4ss === null || this.usuario.p4ss === '') {
       swal.fire({
         icon: 'error',
         title: 'Lo sentimos',
@@ -365,7 +365,7 @@ export class LoginComponent implements OnInit {
 
   logIn(usuario: User) {
     this.appComponent.isAuth = true;
-    this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
+    this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast');
     this.router.navigate(['/']);
   }
 

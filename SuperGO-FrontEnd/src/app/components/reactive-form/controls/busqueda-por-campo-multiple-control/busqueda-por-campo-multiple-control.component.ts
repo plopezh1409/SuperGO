@@ -24,9 +24,9 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   
   @Input() set setErrores (val:any) {
     if(val) {
-      this.setError = true
+      this.setError = true;
     } else {
-      this.setError = false
+      this.setError = false;
     }
   }
   private errorSet = false;

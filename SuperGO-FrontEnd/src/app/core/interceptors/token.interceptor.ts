@@ -56,7 +56,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 });
                 break;
 
-            case (this.token == null && bodyOriginal != null && !this.revisarListaNegra()):
+            case (this.token === null && bodyOriginal != null && !this.revisarListaNegra()):
                 this.generarEncoding(bodyOriginal);
 
                 authReq = req.clone({
@@ -76,7 +76,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 });
                 break;
 
-            case (this.token != null && bodyOriginal == null):
+            case (this.token != null && bodyOriginal === null):
                 authReq = req.clone({ 
                     headers: req.headers
                         .set('Authorization', 'Bearer ' + this.token),

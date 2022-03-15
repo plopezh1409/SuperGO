@@ -108,7 +108,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
     .pipe(finalize(()=>{ this.mostrarLoaderInput = false;}))
     .subscribe(
       (data: any) => {
-        if (data.code == this.codeResponse.RESPONSE_CODE_200) {
+        if (data.code === this.codeResponse.RESPONSE_CODE_200) {
           const {response} = data;          
           //this.formulario.controls[this.control.ky!].setValue(response[this.control.ky!.toLowerCase()]);          
           this.setIconoStatus = 1;          
@@ -171,7 +171,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
       }
     }
     if(this.control.ky && this.formulario.get(this.control.ky)?.errors && this.setIconoStatus == 1 ) {
-      this.setIconoStatus = 2
+      this.setIconoStatus = 2;
       const campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
       if (campoAImprimir) {
         this.formulario.controls[campoAImprimir.ky!].setValue('');

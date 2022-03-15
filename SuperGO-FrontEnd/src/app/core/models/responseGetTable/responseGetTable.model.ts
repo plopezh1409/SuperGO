@@ -5,6 +5,6 @@ export class ResponseTable
 
     constructor(){
         this.status = false;
-        this.data = {}
+        this.data = {};
     }
 }

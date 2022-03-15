@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import swal from 'sweetalert2'
 import { map, pluck } from 'rxjs/operators';
 import { NGXLogger } from 'ngx-logger';
 

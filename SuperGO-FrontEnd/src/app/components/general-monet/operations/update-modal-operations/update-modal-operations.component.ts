@@ -1,7 +1,7 @@
 import { Component, Inject, Injector, OnInit, Injectable } from '@angular/core';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { finalize } from 'rxjs/operators';
-import { ChangeDetectorRef } from '@angular/core'
+import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
 
 //MATERIAL
@@ -56,10 +56,10 @@ export class UpdateModalOperationsComponent implements OnInit {
     this.containers = this.dataModal.auxForm;
     delete this.dataModal.auxForm;
     this.reactiveForm.setContainers(this.containers);
-    this.dataModal.dataModal.status = this.dataModal.dataModal.status == 'A'? 'true' : 'false';
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status === 'A'? 'true' : 'false';
     this.idOperation = this.idOperation = parseInt(this.dataModal?.dataModal.idTipoOperacion,10);
     this.control.setDataToControls(this.containers,this.dataModal.dataModal);
-    this.dataModal.dataModal.status = this.dataModal.dataModal.status == 'true' ? 'A' : 'I';
+    this.dataModal.dataModal.status = this.dataModal.dataModal.status === 'true' ? 'A' : 'I';
     this.reactiveForm.setContainers(this.containers);
   }
 
@@ -86,7 +86,7 @@ export class UpdateModalOperationsComponent implements OnInit {
     this.formCatService.updateOperation(obOpe).pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response) => {
-        if(response.code == this.codeResponse.RESPONSE_CODE_200){
+        if(response.code === this.codeResponse.RESPONSE_CODE_200){
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta',

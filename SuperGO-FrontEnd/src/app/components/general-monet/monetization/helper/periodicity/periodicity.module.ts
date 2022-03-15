@@ -96,7 +96,7 @@ export class PeriodicityModule {
               periodicidad: this.getKeyPeriodicity('ANUAL', dataForm),
               meses:month,
               numeroDia: day
-            }
+            };
             break;
           case 'MONTHLY':
             day = descPer[1].split('=')[1];
@@ -105,7 +105,7 @@ export class PeriodicityModule {
               periodicidad: this.getKeyPeriodicity('MENSUAL',dataForm),
               repetirMensual:numMonth,
               numeroDia: day
-            }
+            };
             break;
     
           case 'WEEKLY':
@@ -116,7 +116,7 @@ export class PeriodicityModule {
               periodicidad: this.getKeyPeriodicity('SEMANAL',dataForm),
               repetirSemanal: day,
               nombreDia: this.getDay(dayOfWeek,dataForm)
-            }
+            };
             break;
     
           case 'DAILY':
@@ -124,15 +124,15 @@ export class PeriodicityModule {
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('DIARIA',dataForm),
               repetirDias: dayOfWeek
-            }
+            };
             break;
           case 'BIWEEKLY':
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('QUINCENAL',dataForm),
-            }
+            };
             break;
         }
-        dataModal = {...dataModal, ...oNewFields}
+        dataModal = {...dataModal, ...oNewFields};
         return dataModal;
       }
 
@@ -175,40 +175,40 @@ export class PeriodicityModule {
         let monthName:string = '';
         switch(month){
           case this.codeResponse.RESPONSE_CODE_1:
-            monthName = 'ENERO'
+            monthName = 'ENERO';
             break;
           case this.codeResponse.RESPONSE_CODE_2:
-            monthName = 'FEBRERO'
+            monthName = 'FEBRERO';
           break;
           case this.codeResponse.RESPONSE_CODE_3:
-            monthName = 'MARZO'
+            monthName = 'MARZO';
           break;
           case this.codeResponse.RESPONSE_CODE_4:
-            monthName = 'ABRIL'
+            monthName = 'ABRIL';
           break;
           case this.codeResponse.RESPONSE_CODE_5:
-            monthName = 'MAYO'
+            monthName = 'MAYO';
           break;
           case this.codeResponse.RESPONSE_CODE_6:
-            monthName = 'JUNIO'
+            monthName = 'JUNIO';
           break;
           case this.codeResponse.RESPONSE_CODE_7:
-            monthName = 'JULIO'
+            monthName = 'JULIO';
           break;
           case this.codeResponse.RESPONSE_CODE_8:
-            monthName = 'AGOSTO'
+            monthName = 'AGOSTO';
           break;
           case this.codeResponse.RESPONSE_CODE_9:
-            monthName = 'SEPTIEMBRE'
+            monthName = 'SEPTIEMBRE';
           break;
           case this.codeResponse.RESPONSE_CODE_10:
-            monthName = 'OCTUBRE'
+            monthName = 'OCTUBRE';
           break;
           case this.codeResponse.RESPONSE_CODE_11:
-            monthName = 'NOVIEMBRE'
+            monthName = 'NOVIEMBRE';
           break;
           case this.codeResponse.RESPONSE_CODE_12:
-            monthName = 'DICIEMBRE'
+            monthName = 'DICIEMBRE';
             break;
         }
         return monthName;

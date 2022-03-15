@@ -85,7 +85,7 @@ export class TextBoxControlComponent implements OnInit {
     const { content } = this.control;
     if (this.form.get(content?.dependency!)?.status === 'VALID') {
       let valueDropDown = this.form.get(content?.dependency!)?.value;
-      let newDropDownValidation = content!.options.find((x) => Number(x.ky) == Number(valueDropDown));
+      let newDropDownValidation = content!.options.find((x) => Number(x.ky) === Number(valueDropDown));
       if (newDropDownValidation) {
         this.changeNewValidation(newDropDownValidation);        
       }
@@ -107,7 +107,7 @@ export class TextBoxControlComponent implements OnInit {
     JSON.parse(newDropDownValidation.value.replace(/'/g, '"')).forEach((elem: any) => {
         let validation = Object.keys(elem);
         validation.forEach((v) => {
-          if ((elem[v].indexOf('|') > -1) && (v == 'minlength')){             
+          if ((elem[v].indexOf('|') > -1) && (v === 'minlength')){             
             let minlength = elem[v].split('|').find((x: any) =>this.form.get(this.control.ky!)?.value.length <= x);
             if (minlength) {
               if (this.form.get(this.control.ky!)?.value.length < minlength) {
@@ -129,14 +129,14 @@ export class TextBoxControlComponent implements OnInit {
       if(dropdownForm!=null && dropdownForm.status === 'VALID')
       { 
         let valueDropDown = dropdownForm.value;
-        let newDropDownValidation = content.options.find((x) => Number(x.ky) == Number(valueDropDown));
+        let newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
         this.setAttributeValue(content, valueDropDown);               
       }     
     }   
   }
 
   setAttributeValue(content:Content, valueDropDown:any){
-    let newDropDownValidation = content.options.find((x) => Number(x.ky) == Number(valueDropDown));
+    let newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
     if (newDropDownValidation) 
     {
       try{

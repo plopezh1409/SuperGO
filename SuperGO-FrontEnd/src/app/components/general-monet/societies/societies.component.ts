@@ -97,7 +97,7 @@ export class societiescomponent implements OnInit {
           this.messageError.showMessageError(response.mensaje, response.code);
         }
       }, (err:any) => {
-        if (err.status == this.codeResponse.RESPONSE_CODE_500 || err.status == this.codeResponse.RESPONSE_CODE_400)
+        if (err.status  === this.codeResponse.RESPONSE_CODE_500 || err.status === this.codeResponse.RESPONSE_CODE_400)
           this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
       });
   }

@@ -29,7 +29,7 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
     this.intercepUtils = new InterceptorUtils();
   }
 
-  palabrasNoPermitidasImprimir = ['http', 'com', 'mx', 'wwww', 'https']
+  palabrasNoPermitidasImprimir = ['http', 'com', 'mx', 'wwww', 'https'];
 
   intercept(
     req: HttpRequest<any>,

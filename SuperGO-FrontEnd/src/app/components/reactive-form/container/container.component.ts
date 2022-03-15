@@ -33,7 +33,7 @@ export class ContainerComponent {
     this.onChangeDropDown.emit({control:ctrl,idContainer:this.container.idContainer});     
     let txtControl:AbstractControl|null;
 
-    let textBoxLinks = this.container.controls.filter((val: any) => val.controlType == 'textboxLink' && val.content.dependency === ctrl.ky);
+    let textBoxLinks = this.container.controls.filter((val: any) => val.controlType === 'textboxLink' && val.content.dependency === ctrl.ky);
     if (textBoxLinks != undefined && textBoxLinks.length > 0) {
       textBoxLinks.forEach((elem) => {  
         txtControl = this.formGroup.get(elem.ky!);

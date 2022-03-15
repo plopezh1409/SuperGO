@@ -271,7 +271,7 @@ export class Control {
   setDropDownValue(control: Control, valor:any) {
 
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.ky == valor;
+        return opcion.ky === valor;
         }).map((opcion) => {
           return opcion.ky;
           });
@@ -353,7 +353,7 @@ export class Control {
         let ky = ctrl.ky !== undefined ? ctrl.ky : '';
         let value = ctrl.getAttributeValueByName('value');
         dataCatalog[ky.toString()] = value;
-        let a = ctrl.getInfoValue(_formAux)
+        let a = ctrl.getInfoValue(_formAux);
       });
     });
 

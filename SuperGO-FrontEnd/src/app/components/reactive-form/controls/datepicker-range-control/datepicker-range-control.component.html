@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" floatLabel="always" [formGroup]="formRange" [ngClass]="(form.get(control.label!)?.errors?.required!=undefined && form.get(control.label!)?.errors?.required == true)? 
+<mat-form-field appearance="outline" floatLabel="always" [formGroup]="formRange" [ngClass]="(form.get(control.label!)?.errors?.required!=undefined && form.get(control.label!)?.errors?.required === true)? 
 'form-react-form-field-Color':'form-react-form-field'">
 <mat-label>{{ control.label }}</mat-label>
 <mat-date-range-input [rangePicker]="index" [min]="min" [max]="max" [dateFilter]="dateFilter">

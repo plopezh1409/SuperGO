@@ -2,7 +2,7 @@ import { Component,Inject, Injector, OnInit, ChangeDetectorRef } from '@angular/
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 //Models
 import { Container } from '@app/core/models/capture/container.model';
@@ -71,7 +71,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
       idSociedad: cpyModal.idSociedad,
       idTipoOperacion: cpyModal.idTipoOperacion,
       idSubTipoOperacion: cpyModal.idSubTipoOperacion
-    }
+    };
   }
 
   getValueDivisa(type:string){
@@ -98,12 +98,12 @@ export class UpdateModalMonetizationComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
     cpyModal.fechaInicioVigencia = this.getDateTime(cpyModal.fechaInicioVigencia);
-    cpyModal.emisionFactura = cpyModal.emisionFactura == true? 'true':'false';
-    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion == true? 'true':'false';
+    cpyModal.emisionFactura = cpyModal.emisionFactura === true? 'true':'false';
+    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === true? 'true':'false';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
-    if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa == '' || (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
+    if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa === '' || (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
       if( (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
         swal.fire({
           icon: 'warning',
@@ -133,11 +133,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
     oMonet.idSubTipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
     oMonet.segmento = parseInt(jsonResult.segmento,10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers)
+    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers);
     oMonet.montoMonetizacion = parseFloat(jsonResult.montoMonetizacion);
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
-    oMonet.emisionFactura = (jsonResult.emisionFactura == 'true');
+    oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
     oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
@@ -301,10 +301,10 @@ export class UpdateModalMonetizationComponent implements OnInit {
   setControls(dataForm:any, newContainer:Container){
     for(let ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      let valueCtrl = dataForm[ctrl] == 'undefined'? '' : dataForm[ctrl] == null? '': dataForm[ctrl];
-      valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+      let valueCtrl = dataForm[ctrl] === 'undefined'? '' : dataForm[ctrl] === null? '': dataForm[ctrl];
+      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
-        if(control.controlType == 'dropdown' || control.controlType == 'autocomplete'){
+        if(control.controlType === 'dropdown' || control.controlType === 'autocomplete'){
           control.setAttributeValueByNameDropdown('value', valueCtrl);
         }
         else{
@@ -332,14 +332,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
       });        
     }    
 
-    changePeridicity(dataForm:Container[]){
-      var idContainer = dataForm[0].idContainer;
-      dataForm.forEach((element:Container) => {
-        element.controls.forEach((ctrl:Control) => {
-          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
-            var selectedValRequest:Object = { control: ctrl, idContainer: idContainer }
-            this.onChangeCatsPetition(selectedValRequest);
-            
+    changePeridicity(dataForm:any){
+      let idContainer = dataForm[0].idContainer;
+      dataForm.forEach((element:any) => {
+        element.controls.forEach((ctrl:any) => {
+          if(ctrl.controlType === 'dropdown'){
+            if(ctrl.ky === 'periodicidad'){
+              let selectedValRequest:any = { control: ctrl, idContainer: idContainer };
+              this.onChangeCatsPetition(selectedValRequest);
+            }
           }
         });
       });

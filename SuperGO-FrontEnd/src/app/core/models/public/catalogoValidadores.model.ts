@@ -10,7 +10,7 @@ export function RequireMatch(control: any) {
 
 export class CatalogoValidadores {
   obtenerValidadores(input: string[], control: any) : any[] {
-    let validaciones:any[] = []
+    let validaciones:any[] = [];
     input.forEach((val) => {
       switch (val) {
         case 'Validators.required':
@@ -44,6 +44,6 @@ export class CatalogoValidadores {
           break;        
       }
     });
-    return validaciones
+    return validaciones;
   }
 }

@@ -30,7 +30,7 @@ export class FormService {
    }  
 
    getFieldQuery(consulta: string, obj?:any): Observable<any> {    
-    if(obj==null)
+    if(obj===null)
     {
       return this.httpClient.get<any>(`${this.urlEndPoint}${consulta}`,
      {headers: this.httpHeaders});

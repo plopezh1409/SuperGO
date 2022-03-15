@@ -211,7 +211,7 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean {
-        if(this._token == null)
+        if(this._token === null)
         {
             this._token = this.storageService.decryptTokenStorage();
         }

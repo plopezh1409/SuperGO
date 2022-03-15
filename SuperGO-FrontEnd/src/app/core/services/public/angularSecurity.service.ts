@@ -91,7 +91,7 @@ export class AngularSecurity {
   encryptAES2(plainText: string): any {
 
     try {
-      let randomSecurity = this.randomSecurity()
+      let randomSecurity = this.randomSecurity();
       const algorithm = 'aes-256-ecb';
       const digest = 'sha256';
       const salt = randomSecurity;
@@ -132,7 +132,7 @@ export class AngularSecurity {
     return this.http.get(`${this.urlEndPoint}`).pipe(
 
       catchError(e => {
-        if (e.status == this.codeResponse.RESPONSE_CODE_400) {
+        if (e.status === this.codeResponse.RESPONSE_CODE_400) {
           return throwError(e);
         }
         if (e.error.mensaje) {

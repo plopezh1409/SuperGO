@@ -63,7 +63,7 @@ export class MonetizationComponent implements OnInit {
     this.idSolicitud = null;
     this.maxNumControls = 10;
     this.periodicity = new PeriodicityModule();
-    this.monetModule = new MonetizationModule()
+    this.monetModule = new MonetizationModule();
   }
 
   ngOnInit(): void {
@@ -78,7 +78,7 @@ export class MonetizationComponent implements OnInit {
     for (let datas of Object.values(oElement)) {
       dataForm = Object(datas);
     }
-    if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa == '') {
+    if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa === '') {
       swal.fire({
         icon: 'warning',
         title: 'Campos requeridos',
@@ -101,12 +101,12 @@ export class MonetizationComponent implements OnInit {
     oMonet.idTipoOperacion = parseInt(dataForm.idTipoOperacion,10);
     oMonet.idSubTipoOperacion = parseInt(dataForm.idSubTipoOperacion,10);
     oMonet.segmento = parseInt(dataForm.segmento, 10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers)
+    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers);
     oMonet.montoMonetizacion = parseFloat(dataForm.montoMonetizacion);
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto, 10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
-    oMonet.indicadorOperacion = dataForm.indicadorOperacion == true ? 'P' : 'C';
+    oMonet.indicadorOperacion = dataForm.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
     oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
     oMonet.fechaFinVigencia = this.getDateTime(dataForm.fechaFinVigencia);
@@ -114,7 +114,7 @@ export class MonetizationComponent implements OnInit {
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:any)=>{
-      if(data.code == this.codeResponse.RESPONSE_CODE_201){
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
@@ -219,7 +219,7 @@ export class MonetizationComponent implements OnInit {
     dataForm.forEach((element: any) => {
       element.controls.forEach((ctrl: any) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
-          let selectedValRequest: any = { control: ctrl, idContainer: idContainer }
+          let selectedValRequest: any = { control: ctrl, idContainer: idContainer };
           this.onChangeCatsPetition(selectedValRequest);
         }
       });
@@ -277,7 +277,7 @@ export class MonetizationComponent implements OnInit {
       }
       this.reactiveForm.principalForm = null;
       this.containers = [];
-      finder = finder == ''? {value:'0-'} : finder == undefined ? {value:'0-'} : finder;
+      finder = finder === ''? {value:'0-'} : finder === undefined ? {value:'0-'} : finder;
       this.createNewForm(
         this.selectedValRequest.control.visibility.filter((x: any) =>
           x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
@@ -326,10 +326,10 @@ export class MonetizationComponent implements OnInit {
   setControls(dataForm:any, newContainer:any){
     for (let ctrl in dataForm) {
       const control = newContainer.controls.find((x:any) => x.ky === ctrl);
-      let valueCtrl = dataForm[ctrl] == null ? '' : dataForm[ctrl];
-      valueCtrl = typeof valueCtrl == 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+      let valueCtrl = dataForm[ctrl] === null ? '' : dataForm[ctrl];
+      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
         if (control && valueCtrl != '' && ctrl !== 'Periocidad') {
-          if (control.controlType == 'dropdown' || control.controlType == 'autocomplete') {
+          if (control.controlType === 'dropdown' || control.controlType === 'autocomplete') {
             control.setAttributeValueByNameDropdown('value', valueCtrl);
           }
           else{

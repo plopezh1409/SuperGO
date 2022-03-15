@@ -17,7 +17,7 @@ export class PaisService {
     getPaises(): Observable<any> {
         return this.http.post(`${this.urlEndPoint}catPais`,{}).pipe(
             catchError(e => {
-                if (e.status == this.codeResponse.RESPONSE_CODE_400) {
+                if (e.status === this.codeResponse.RESPONSE_CODE_400) {
                     return throwError(e);
                 }
                 if (e.error.mensaje) {

@@ -1,5 +1,5 @@
 export class SolicitudCarga {
-  public requiereEvidencia:string
+  public requiereEvidencia:string;
   constructor(
     public empleado:string,
     private pais: string,

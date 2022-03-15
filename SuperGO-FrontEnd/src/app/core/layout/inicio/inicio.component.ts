@@ -115,7 +115,7 @@ export class InicioComponent implements OnInit {
     setTimeout(() => {
       this.appComponent.isAuth = true;
     //this.Auth = true;
-    this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast')
+    this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast');
     this.getFavoriteTop();
     this.init = true;
     }, Number(this.codeResponseMagic.RESPONSE_CODE_100));
@@ -280,7 +280,7 @@ export class InicioComponent implements OnInit {
       if (result.isConfirmed) {
         let tp = {
           'idTop': this.cardsTop[index].id
-        }
+        };
         this.appComponent.showLoader(true);
         this.userService.modifyTop(tp, 'delete')
           .pipe(pluck('response'), finalize(() => { this.appComponent.showLoader(false); }))
@@ -292,7 +292,7 @@ export class InicioComponent implements OnInit {
             this.calculateAdd();
           });
       }
-    })
+    });
   }
 
   getFavoriteTop() {

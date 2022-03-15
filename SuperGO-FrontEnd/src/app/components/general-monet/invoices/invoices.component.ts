@@ -115,7 +115,7 @@ export class invoicesComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(data.message, data.code)
+        this.messageError.showMessageError(data.message, data.code);
       }
     },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -123,9 +123,9 @@ export class invoicesComponent implements OnInit {
 
   }
 
-  addDataDropdown(dataForm:Container[], dataContent:any){
-    var cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.facturas
+  addDataDropdown(dataForm:any, dataContent:any){
+    let cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.facturas;
     Object.entries(cpDataContent).forEach(([key, value]:any, idx:number) =>{
       value.forEach((ele:any) => {
         Object.entries(ele).forEach(([key, value]:any, idx:number) => {

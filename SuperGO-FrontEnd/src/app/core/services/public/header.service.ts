@@ -26,7 +26,7 @@ export class HeaderService {
                 }
                 observer.next(fechaHora);
             }
-        }, Number(this.codeResponseMagic.RESPONSE_CODE_1000))
+        }, Number(this.codeResponseMagic.RESPONSE_CODE_1000));
     });
 
     showMenuLogOut(){

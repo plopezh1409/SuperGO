@@ -78,8 +78,8 @@ export class MonetizationTableComponent implements OnInit {
     else{
       let oMonet:any = data.response.reglasMonetizacion;
       oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
-      oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
+      oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
       let _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
@@ -110,27 +110,43 @@ export class MonetizationTableComponent implements OnInit {
     }
     else{
       let oMonet:any = data.response.reglasMonetizacion;
-      oMonet.emisionFactura = oMonet.emisionFactura == true? 'SI':'NO';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'COBRO':'PAGO';
+      oMonet.emisionFactura = oMonet.emisionFactura === true? 'SI':'NO';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
       let registro:string='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Sociedad </b></td><td style="padding:5px"> ${oMonet.razonSocial} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Operación </b></td><td style="padding:5px"> ${oMonet.descripcionTipoOperacion} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Sub-Operación </b></td><td style="padding:5px"> ${oMonet.descSubTipoOperacion} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicadorOperacion} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Monto Monetización </b></td><td style="padding:5px"> ${oMonet.montoMonetizacion} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo de Monto </b></td><td style="padding:5px"> ${oMonet.tipoMonto} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Tipo de Impuesto </b></td><td style="padding:5px"> ${oMonet.idTipoImpuesto} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Divisa </b></td><td style="padding:5px"> ${oMonet.codigoDivisa} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; 
+      padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; text-align:center;">
+      <b><i>Descripción</i></b></td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Sociedad </b></td><td style="padding:5px"> ${oMonet.razonSocial} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Operación </b></td><td style="padding:5px"> ${oMonet.descripcionTipoOperacion} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Sub-Operación </b></td><td style="padding:5px"> ${oMonet.descSubTipoOperacion} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicadorOperacion} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Monto Monetización </b></td><td style="padding:5px"> ${oMonet.montoMonetizacion} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Tipo de Monto </b></td><td style="padding:5px"> ${oMonet.tipoMonto} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Tipo de Impuesto </b></td><td style="padding:5px"> ${oMonet.idTipoImpuesto} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Divisa </b></td><td style="padding:5px"> ${oMonet.codigoDivisa} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Periodicidad de corte </b></td><td style="padding:5px"> `+ this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte) +` </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
       return( swal.fire({             
-        html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> Datos de la contabilidad </div><br/> <br/>${registro}`,
+        html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
+        Datos de la contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
       }));

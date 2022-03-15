@@ -2,7 +2,7 @@
 appearance="outline" 
 floatLabel="always"
 [formGroup]="formulario" 
-[ngClass]="(formulario.get(control.ky!)?.errors?.required!=undefined && formulario.get(control.ky!)?.errors?.required == true)? 
+[ngClass]="(formulario.get(control.ky!)?.errors?.required!==undefined && formulario.get(control.ky!)?.errors?.required === true)? 
 'form-react-form-field-Color':'form-react-form-field'">
 
     <mat-label>{{ control.label! }}</mat-label>

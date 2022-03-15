@@ -9,7 +9,7 @@ export class Contacto{
     constructor(){
         this.correo = '';
         this.extension = '';
-        this.numEmpleado = ''
+        this.numEmpleado = '';
         this.nombre = '';
         this.nivel = 0;
         this.idRol = 0;

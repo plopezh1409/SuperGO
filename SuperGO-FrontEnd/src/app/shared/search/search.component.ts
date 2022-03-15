@@ -14,9 +14,9 @@ export class SearchComponent implements OnInit {
   @Input() initIN: boolean;
   placeHolderInput: boolean = false;
   valueInput: string = '';
-  modules: any[] = []
-  petitions: any[] = []
-  copyPetitions: any[] = []
+  modules: any[] = [];
+  petitions: any[] = [];
+  copyPetitions: any[] = [];
 
   constructor(private authService: AuthService, private router: Router) {
     this.showImage = true;
@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
               categories: mod,
               subcategories: elemen,
               string: mod.name + '  /' + elemen.name
-            })
+            });
           }
         });
 
@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
       this.placeHolderInput = false;
     }
 
-    this.copyPetitions = []
+    this.copyPetitions = [];
     for (let i = 0; i < this.petitions.length; i++) {
       const element = this.petitions[i];
       let cadena = element.string.toLowerCase();

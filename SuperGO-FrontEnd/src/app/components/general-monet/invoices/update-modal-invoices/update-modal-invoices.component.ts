@@ -50,7 +50,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
       idSociedad: this.dataModal.dataModal.idSociedad,
       idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
       idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
-      idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion
+      idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion,
     }
   }
 
@@ -92,7 +92,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
           });
         }
         else{
-          this.messageError.showMessageError(response.message ,response.code)
+          this.messageError.showMessageError(response.message ,response.code);
         }
       }, (err) => {
         this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);

@@ -4,7 +4,7 @@ export class IPAB{
     marcajeActual:string;
     marcajeAAplicar:string;
     cliente:string;
-    mensaje?:string
+    mensaje?:string;
 
     constructor(obj?:{client:string; name:string;mark:string;accounts:any[]; message?:string})
     {

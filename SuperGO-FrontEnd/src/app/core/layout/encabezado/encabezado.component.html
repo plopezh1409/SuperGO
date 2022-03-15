@@ -24,7 +24,7 @@
                 <strong>
                     {{ nombreEmpleado | titlecase }}
                 </strong>
-                {{ (role == null || role.length <= 0)? '' : '- ' + role | titlecase }} <br>
+                {{ (role === null || role.length <= 0)? '' : '- ' + role | titlecase }} <br>
                     {{ pais | titlecase }} |
                     {{ direccion | titlecase}}
             </div>
