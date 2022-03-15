@@ -50,10 +50,10 @@ export class InvoicesTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:any)  
+  onLoadTable(dataInfo:Facturas[])  
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo=dataInfo.facturas;  
+    this.dataInfo = dataInfo;  
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);
     this.totalRows = this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -78,7 +78,7 @@ export class InvoicesTableComponent implements OnInit {
   }
 
   show(oInvoice:Facturas):void{
-    let registro:string='';
+    let registro = '';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 
@@ -103,7 +103,7 @@ export class InvoicesTableComponent implements OnInit {
     });
   }
 
-  disabledFields(_auxForm:any){
+  disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
         if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){

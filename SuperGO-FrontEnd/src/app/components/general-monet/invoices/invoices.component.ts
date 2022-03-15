@@ -32,7 +32,7 @@ export class InvoicesComponent implements OnInit {
 
   @ViewChild(InvoicesTableComponent) catalogsTable:InvoicesTableComponent;
 
-  constructor( private readonly appComponent: AppComponent, private injector:Injector,
+  constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
@@ -71,7 +71,7 @@ export class InvoicesComponent implements OnInit {
     }
     else{
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
-      this.dataInfo = dataOper.response;
+      this.dataInfo = dataOper.response.facturas;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
@@ -159,7 +159,7 @@ export class InvoicesComponent implements OnInit {
     })).subscribe((data:any)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response;
+          this.dataInfo = data.response.facturas;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
       case this.codeResponse.RESPONSE_CODE_400:

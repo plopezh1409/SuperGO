@@ -1,6 +1,7 @@
 <div class="contain fade-in" style="margin-bottom: 50px;">
     <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm"
-    (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()" style="padding-bottom: 3%;">
+    (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()"
+    style="padding-bottom: 3%;">
         <div>
             <div [ngClass]="{'dvPrincipalContent': alignContent === 'horizontal',
                 'dvPrincipalContent row': alignContent === 'vertical'}">
