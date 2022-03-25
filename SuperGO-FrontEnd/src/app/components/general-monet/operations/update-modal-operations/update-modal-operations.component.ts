@@ -16,6 +16,8 @@ import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { OperationsResponse } from '@app/core/models/ServiceResponseData/operations-response.model';
 
 @Component({
   selector: 'app-update-modal-operations',
@@ -53,7 +55,7 @@ export class UpdateModalOperationsComponent implements OnInit {
     delete this.dataModal.auxForm;
     this.reactiveForm.setContainers(this.containers);
     this.dataModal.dataModal.status = this.dataModal.dataModal.status === 'A'? 'true' : 'false';
-    this.idOperation = this.idOperation = parseInt(this.dataModal?.dataModal.idTipoOperacion,10);
+    this.idOperation = this.idOperation = parseInt(this.dataModal?.dataModal.idTipo,10);
     this.control.setDataToControls(this.containers,this.dataModal.dataModal);
     this.dataModal.dataModal.status = this.dataModal.dataModal.status === 'true' ? 'A' : 'I';
     this.reactiveForm.setContainers(this.containers);
@@ -71,20 +73,20 @@ export class UpdateModalOperationsComponent implements OnInit {
     }
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
     const obOpe:Operaciones = new Operaciones();
-    obOpe.idTipoOperacion = this.idOperation;
-    obOpe.descripcionTipoOperacion = jsonResult.descripcionTipoOperacion.trim();
+    obOpe.idTipo = this.idOperation;
+    obOpe.descripcionTipo = jsonResult.descripcionTipo.trim();
     obOpe.idCanal = parseInt(jsonResult.idCanal,10);
     obOpe.topicoKafka = jsonResult.topicoKafka.trim();
     obOpe.status = jsonResult.status === true ?'A':'I';
     this.showLoader(true);
     this.formCatService.updateOperation(obOpe).pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response) => {
+    })).subscribe((response:IResponseData<OperationsResponse>) => {
         if(response.code === this.codeResponse.RESPONSE_CODE_200){
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta',
-            text: response.mensaje,
+            text: response.message.toString(),
             heightAuto: false,
             allowOutsideClick: false,
             confirmButtonText: 'Ok'
@@ -95,7 +97,7 @@ export class UpdateModalOperationsComponent implements OnInit {
           });
         }
         else{
-          this.messageError.showMessageError(response.message ,response.code);
+          this.messageError.showMessageError(response.message.toString() ,response.code);
         }
       }, (err) => {
         swal.fire({
@@ -127,13 +129,14 @@ export class UpdateModalOperationsComponent implements OnInit {
   getDataTable(){
     const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.formCatService.getInfoOperation().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response) => {
+    this.formCatService.getInfoOperation().pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:IResponseData<OperationsResponse>) => {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
             return(
               oResponse.status = true,
-              oResponse.data = response.response,
+              oResponse.data = response.response.tipoOperacion,
               this.refData?.close(oResponse)
             );
           case this.codeResponse.RESPONSE_CODE_400:

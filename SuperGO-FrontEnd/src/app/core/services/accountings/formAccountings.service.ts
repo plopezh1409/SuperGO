@@ -14,10 +14,12 @@ import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
 export class FormAccountingsService{
     private readonly angularSecurity: AngularSecurity;
     private _urlEnviroment:string|null;
+    private _urlServices:string|null;
 
     constructor(public httpClient:HttpClient,  public injector:Injector)
     {
         this._urlEnviroment = null;
+        this._urlServices = null;
         this.angularSecurity = this.injector.get<AngularSecurity>(AngularSecurity);
     }
 
@@ -35,29 +37,48 @@ export class FormAccountingsService{
         }
     }
 
+    public get urlServices()
+    {
+        if(this._urlServices!=null)
+        {
+            return this._urlServices;
+        }
+        else
+        {
+            // const urlCle = this.angularSecurity.getKeyAES;
+            // this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
+            this._urlServices = environment.urlServices;
+            return this._urlServices;
+        }
+    }
+
     getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
 
-    getInfoAccounting()
+    getInfoAccounting():Observable<any>
     {
+        // return this.httpClient.get(`${this.urlServices}facturas/get`);
         return this.httpClient.get('/assets/dataTables/dataAccounting.json');
     }
 
-    getAccountingById(dataAccount:Contabilidad)
+    getAccountingById(dataAccount:Contabilidad):Observable<any>
     {
-        return this.httpClient.get('/assets/dataTables/dataAccountingBusqueda.json');
+        return this.httpClient.get(`${this.urlServices}facturas/get`);
+        // return this.httpClient.get('/assets/dataTables/dataAccountingBusqueda.json');
+    }
+
+    insertAccounting(dataAccounting:Contabilidad):Observable<any>
+    {
+        return this.httpClient.post(`${this.urlServices}facturas/post`, dataAccounting);
         // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
     }
 
-    insertAccounting(dataAccounting:Contabilidad)
+    updateAccounting(dataAccounting:Contabilidad) :Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
-    }
-
-    updateAccounting(dataAccounting:Contabilidad){
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
+        return this.httpClient.put(`${this.urlServices}facturas/put`, dataAccounting);
+        // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
     }
 
 

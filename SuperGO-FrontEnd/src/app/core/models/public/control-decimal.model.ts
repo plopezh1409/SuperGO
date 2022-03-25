@@ -20,7 +20,7 @@ export class ControlDecimal {
     }
 
     obtenerStrConFormato(input:any):any{
-        let valor = input.replace(/[$,]/g, '');
+        let valor = input.toString().replace(/[$,]/g, '');
         if (!isNaN(valor) && parseFloat(valor)>0)
         {
           valor = this.currencyPipe.transform(valor, 'USD', true, '1.2');          

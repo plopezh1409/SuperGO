@@ -1,3 +1,4 @@
+<app-progress [overlay]="showLoad"></app-progress>
 <div class="scrollable">
     <div>
       <table mat-table [dataSource]="dataSource" matSort>
@@ -7,15 +8,15 @@
             <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="descripcionTipoOperacion">
+        <ng-container matColumnDef="descripcionTipo">
             <th mat-header-cell *matHeaderCellDef class="te" id=""> OPERACION </th>
-            <td mat-cell *matCellDef="let element"> {{element.descripcionTipoOperacion}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
         </ng-container>
     
     
-        <ng-container matColumnDef="descSubTipoOperacion">
+        <ng-container matColumnDef="descripcionSubtipo">
             <th mat-header-cell *matHeaderCellDef id=""> SUB-OPERACION </th>
-            <td mat-cell *matCellDef="let element"> {{element.descSubTipoOperacion}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.descripcionSubtipo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="idReglaMonetizacion">

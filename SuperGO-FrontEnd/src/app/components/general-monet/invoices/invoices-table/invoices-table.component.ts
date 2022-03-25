@@ -29,7 +29,7 @@ export class InvoicesTableComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion','descSubTipoOperacion', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipo','descripcionSubtipo', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
   containers:Container[];
@@ -86,9 +86,9 @@ export class InvoicesTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
      Sociedad </b></td><td style="padding:5px"> ${oInvoice.razonSocial} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionTipoOperacion} </td></tr>`);            
+     Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionTipo} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Sub-Operación </b></td><td style="padding:5px"> ${oInvoice.descSubTipoOperacion} </td></tr>`);            
+    Sub-Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionSubtipo} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
      Monetización </b></td><td style="padding:5px"> ${oInvoice.idReglaMonetizacion} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
@@ -106,7 +106,7 @@ export class InvoicesTableComponent implements OnInit {
   disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'){
           ctrl.disabled = true;
         }
       });

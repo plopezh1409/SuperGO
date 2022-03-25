@@ -26,7 +26,7 @@ export class AccountingTablesComponent implements OnInit {
   accountService:FormAccountingsService;
   messageError: MessageErrorModule;
   dataSource:MatTableDataSource<Contabilidad>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion',
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion',
     'fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
@@ -115,9 +115,9 @@ export class AccountingTablesComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Sociedad </b></td><td style="padding:5px"> ${oConta.razonSocial} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-       Operación </b></td><td style="padding:5px">  ${oConta.descripcionTipoOperacion} </td></tr>`);            
+       Operación </b></td><td style="padding:5px">  ${oConta.descripcionTipo} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sub-Operación </b></td><td style="padding:5px">  ${oConta.descSubTipoOperacion} </td></tr>`);            
+      Sub-Operación </b></td><td style="padding:5px">  ${oConta.descripcionSubtipo} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Contabilidad </b></td><td style="padding:5px">  ${oConta.contabilidadDiaria} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 

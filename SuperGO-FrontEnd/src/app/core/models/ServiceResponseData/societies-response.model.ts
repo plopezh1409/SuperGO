@@ -1,0 +1,2 @@
+export class SocietiesResponse.Model {
+}

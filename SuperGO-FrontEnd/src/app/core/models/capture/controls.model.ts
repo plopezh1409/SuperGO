@@ -7,6 +7,7 @@ import { Content } from './content.model';
 import { Mask } from './mask.model';
 import { Validation } from './validation.model';
 
+
 export class Control {
 
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
@@ -302,6 +303,8 @@ export class Control {
         if(key !== '')
           switch (ctrl.controlType) {
             case 'datepicker':
+              const dateTime = moment(value, 'DD-MM-YYYY');
+              value = moment(dateTime).format('DD-MM-YYYY');
               ctrl.setAttributeValueByName('value',value);
               break;
             case 'decimal':
@@ -329,6 +332,7 @@ export class Control {
               break;
 
             default:
+              value = value === undefined? '' : value.toString();
               ctrl.setAttributeValueByName('value',value);
               break;
           }

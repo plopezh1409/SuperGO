@@ -5,84 +5,84 @@
       "tipoOperacion": [
         {
           "idTipoOperacion": 12,
-          "descripcionTipoOperacion": "VENTA DE MERCANCIA",
+          "descripcionTipo": "VENTA DE MERCANCIA",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 11,
-          "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
+          "descripcionTipo": "CHAT Y RED SOCIAL",
           "idCanal": 1,
           "topicoKafka": "PRUEBA 1",
           "status": "A"
         },
         {
           "idTipoOperacion": 10,
-          "descripcionTipoOperacion": "NOTICIAS",
+          "descripcionTipo": "NOTICIAS",
           "idCanal": 1,
           "topicoKafka": "PRUEBA2",
           "status": "A"
         },
         {
           "idTipoOperacion": 9,
-          "descripcionTipoOperacion": "TV EN VIVO",
+          "descripcionTipo": "TV EN VIVO",
           "idCanal": 1,
           "topicoKafka": "PRUEBA 3",
           "status": "A"
         },
         {
           "idTipoOperacion": 8,
-          "descripcionTipoOperacion": "PELICULAS ON-DEMAND",
+          "descripcionTipo": "PELICULAS ON-DEMAND",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 7,
-          "descripcionTipoOperacion": "TARJETAS DE REGALO",
+          "descripcionTipo": "TARJETAS DE REGALO",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PAGOS-CORRESPONSALIA-BANCARIA-OPERACIONES-ARCUS-V1-OPERADORES-ID-RECARGAS-TARJETAS-REGALO-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 6,
-          "descripcionTipoOperacion": "TIEMPO AIRE",
+          "descripcionTipo": "TIEMPO AIRE",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-CONECTIVIDAD-TIEMPO-AIRE-V1-RECARGAS-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 5,
-          "descripcionTipoOperacion": "PAGO DE SERVICIOS",
+          "descripcionTipo": "PAGO DE SERVICIOS",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-SWITCH-COMERCIAL-PAGOS-REFERENCIADOS-V1-PAGOS-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 4,
-          "descripcionTipoOperacion": "VENTA DE SEGUROS",
+          "descripcionTipo": "VENTA DE SEGUROS",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-SEGUROS-SEGUROS-AZTECA-SOCIOS-COMERCIALES-GESTION-POLIZAS-V1-POLIZA-COTIZACION-ID-PAGOS-COMPROBANTES-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 3,
-          "descripcionTipoOperacion": "TARJETAS DE CREDITO",
+          "descripcionTipo": "TARJETAS DE CREDITO",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PRESTAMOS-TARJETA-CREDITO-V1-TARJETAS-LIBERACIONES-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 2,
-          "descripcionTipoOperacion": "CREDITO - CLIENTES NUEVOS",
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-SURTIMIENTOS-POST",
           "status": "A"
         },
         {
           "idTipoOperacion": 1,
-          "descripcionTipoOperacion": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
           "idCanal": 54,
           "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-DISPERSIONES-POST",
           "status": "A"

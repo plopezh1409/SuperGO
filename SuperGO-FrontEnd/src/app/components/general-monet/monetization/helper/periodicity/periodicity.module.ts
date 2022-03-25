@@ -58,7 +58,7 @@ export class PeriodicityModule {
 
       getPeriodicity_insert(dataForm:any, day:string){
         let periodicity = 'FREQ=';
-        switch(dataForm.periodicidad){
+        switch(parseInt(dataForm.periodicidad,10)){
           case this.codeResponse.RESPONSE_CODE_1:
             periodicity = periodicity.concat(`YEARLY;BYMONTH=${dataForm.meses};BYMONTHDAY=${dataForm.numeroDia}`);
             break;

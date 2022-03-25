@@ -14,10 +14,12 @@ import { Facturas } from '@app/core/models/facturas/facturas.model';
 export class FormInvoicesService {
     private readonly angularSecurity: AngularSecurity;
     private _urlEnviroment:string|null;
+    private _urlServices:string|null;
 
     constructor(public httpClient:HttpClient, public injector:Injector)
     {
         this._urlEnviroment = null;
+        this._urlServices = null;
         this.angularSecurity = this.injector.get<AngularSecurity>(AngularSecurity);
     }
 
@@ -34,22 +36,38 @@ export class FormInvoicesService {
             return this._urlEnviroment;
         }
     }
+
+    public get urlServices()
+    {
+        if(this._urlServices!=null)
+        {
+            return this._urlServices;
+        }
+        else
+        {
+            // const urlCle = this.angularSecurity.getKeyAES;
+            // this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
+            this._urlServices = environment.urlServices;
+            return this._urlServices;
+        }
+    }
 	
 	getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
     }
 
-    getInfoInvoices(){
+    getInfoInvoices():Observable<any>{
+        // return this.httpClient.get(`${this.urlServices}facturas/get`);
         return this.httpClient.get('/assets/dataTables/dataInvoices.json');
     }
 
-    insertInvoice(dataInvoice:Facturas){
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
+    insertInvoice(dataInvoice:Facturas):Observable<any>{
+        return this.httpClient.post(`${this.urlServices}facturas/post`, dataInvoice);
     }
 
-    updateInvoce(dataInvoice:Facturas){
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataInvoice);
+    updateInvoce(dataInvoice:Facturas):Observable<any>{
+        return this.httpClient.put(`${this.urlServices}facturas/put`, dataInvoice);
     }
 
 }

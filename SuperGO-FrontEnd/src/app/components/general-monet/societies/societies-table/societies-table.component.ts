@@ -72,7 +72,7 @@ export class SocietiesTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     RFC </b></td><td style="padding:5px">  ${oSociedad.RFC} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Tipo De Sociedad </b></td><td style="padding:5px">  ${oSociedad.descripcionTipoSociedad} </td></tr>`);            
+    Tipo De Sociedad </b></td><td style="padding:5px">  ${oSociedad.descripcionTipo} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
       Datos de la contabilidad </div><br/> <br/>${registro}`,

@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { Control } from '@app/core/models/capture/controls.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 
 @Component({
   selector: 'app-accounting',
@@ -90,12 +92,12 @@ export class AccountingComponent implements OnInit {
     this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
+    })).subscribe((data:IResponseData<GenericResponse>)=>{
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.menssage,
+          text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
@@ -107,7 +109,7 @@ export class AccountingComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(data.message, data.code);
+        this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -131,8 +133,8 @@ export class AccountingComponent implements OnInit {
       this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
-      this.dataInfo = dataAcco.response.registrosContables;
+      this.containers = dataForm.response.reactiveForm//this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
+      this.dataInfo = dataAcco.response//dataAcco.response.registrosContables;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);

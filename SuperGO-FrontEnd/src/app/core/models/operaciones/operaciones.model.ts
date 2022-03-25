@@ -1,14 +1,14 @@
 export class Operaciones
 {
-    idTipoOperacion:number;
-    descripcionTipoOperacion:string;
+    idTipo:number;
+    descripcionTipo:string;
     idCanal:number;
     topicoKafka:string;
     status:string;
 
     constructor(){
-        this.idTipoOperacion = 0;
-        this.descripcionTipoOperacion = '';
+        this.idTipo = 0;
+        this.descripcionTipo = '';
         this.idCanal=0;
         this.topicoKafka='';
         this.status='I';

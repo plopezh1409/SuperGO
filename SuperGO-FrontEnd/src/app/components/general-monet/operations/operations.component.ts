@@ -16,6 +16,9 @@ import { Container } from '@app/core/models/capture/container.model';
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { OperationsResponse } from '@app/core/models/ServiceResponseData/operations-response.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 
 @Component({
   selector: 'app-operations',
@@ -32,7 +35,6 @@ export class OperationsComponent implements OnInit {
   maxNumControls:number;
   alignContent='horizontal';
   public dataInfo:Operaciones[];
-  public channelCatalog:any[];
   public idSolicitud: string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
@@ -46,7 +48,6 @@ export class OperationsComponent implements OnInit {
     this.catalogsTable = new OperationsTableComponent();
     this.containers=[];
     this.dataInfo=[];
-    this.channelCatalog=[];
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
@@ -77,18 +78,19 @@ export class OperationsComponent implements OnInit {
       dataBody = Object(datas);
     }
     const obOpe:Operaciones =  new Operaciones();
-    obOpe.descripcionTipoOperacion = dataBody.descripcionTipoOperacion;
+    obOpe.descripcionTipo = dataBody.descripcionTipo.trim();
     obOpe.idCanal = parseInt(dataBody.idCanal,10);
-    obOpe.topicoKafka = dataBody.topicoKafka;
+    obOpe.topicoKafka = dataBody.topicoKafka.trim();
     obOpe.status = dataBody.status === true ?'A':'I';
     this.appComponent.showLoader(true);
-    this.formCatService.insertOperation(obOpe).pipe(finalize(() => { this.appComponent.showLoader(false); }))
-    .subscribe((data:any)=>{
+    this.formCatService.insertOperation(obOpe).pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:IResponseData<GenericResponse>)=>{
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.message,
+          text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
@@ -100,7 +102,7 @@ export class OperationsComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(data.message, data.code);
+        this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -135,7 +137,7 @@ export class OperationsComponent implements OnInit {
     this.appComponent.showLoader(true);
     this.formCatService.getInfoOperation().pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
+    })).subscribe((data:IResponseData<OperationsResponse>)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response.tipoOperacion;

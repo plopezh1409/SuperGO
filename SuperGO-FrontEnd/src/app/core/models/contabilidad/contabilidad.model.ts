@@ -5,8 +5,8 @@ export class Contabilidad
     idSubtipoOperacion:number;
     idReglaMonetizacion:number;
     razonSocial:string;
-    descripcionTipoOperacion:string;
-    descSubTipoOperacion:string;
+    descripcionTipo:string;
+    descripcionSubtipo:string;
     contabilidadDiaria:string;
     numeroApunte:number;
     sociedadGl:string;
@@ -34,8 +34,8 @@ export class Contabilidad
         this.indicadorIVA = '';
         this.indicadorOperacion = '';
         this.razonSocial = '';
-        this.descripcionTipoOperacion='';
-        this.descSubTipoOperacion = '';
+        this.descripcionTipo='';
+        this.descripcionSubtipo = '';
     }
 
 }

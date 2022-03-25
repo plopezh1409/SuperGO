@@ -2,14 +2,14 @@
     "code": 200,
     "message": "CONSULTA EFECTUADA EXITOSAMENTE",
     "response": {
-        "reglasMonetizacion":[
+        "reglas":[
             {
                 "idSociedad": 1,
                 "razonSocial": "ELEKTRA",
-                "idTipoOperacion": 1,
-                "descripcionTipoOperacion": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-                "idSubTipoOperacion": 2,
-                "descSubTipoOperacion": "GENERAL",
+                "idTipo": 1,
+                "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
+                "idSubtipo": 2,
+                "descripcionSubtipo": "GENERAL",
                 "idReglaMonetizacion": 1,
                 "fechaInicio": "01/11/2021",
                 "fechaFin": "01/05/2022"
@@ -17,10 +17,10 @@
             {
                 "idSociedad": 2,
                 "razonSocial": "UPAX S.A. DE C.V.",
-                "idTipoOperacion": 2,
-                "descripcionTipoOperacion": "CHAT Y RED SOCIAL",
-                "idSubTipoOperacion": 1,
-                "descSubTipoOperacion": "GENERICO",
+                "idTipo": 2,
+                "descripcionTipo": "CHAT Y RED SOCIAL",
+                "idSubtipo": 1,
+                "descripcionSubtipo": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "fechaInicio": "01/11/2021",
                 "fechaFin": "01/05/2022"
@@ -28,10 +28,10 @@
             {
                 "idSociedad": 3,
                 "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-                "idTipoOperacion": 3,
-                "descripcionTipoOperacion": "NOTICIAS",
-                "idSubTipoOperacion": 1,
-                "descSubTipoOperacion": "GENERICO",
+                "idTipo": 3,
+                "descripcionTipo": "NOTICIAS",
+                "idSubtipo": 1,
+                "descripcionSubtipo": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "fechaInicio": "01/11/2021",
                 "fechaFin": "01/05/2022"

@@ -19,6 +19,9 @@ import { MonetizationModule } from './helper/monetization/monetization.module';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { finalize } from 'rxjs/operators';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
 
 
 @Component({
@@ -43,6 +46,7 @@ export class MonetizationComponent implements OnInit {
   private periodicity: PeriodicityModule;
   private monetModule: MonetizationModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private emptyContainers:Container[];
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
@@ -64,6 +68,7 @@ export class MonetizationComponent implements OnInit {
     this.maxNumControls = 10;
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule();
+    this.emptyContainers = [];
   }
 
   ngOnInit(): void {
@@ -73,7 +78,7 @@ export class MonetizationComponent implements OnInit {
     }
   }
 
-  onSubmit(oElement: any) {
+  onSubmit(oElement:{}) {
     let dataForm;
     for (const datas of Object.values(oElement)) {
       dataForm = Object(datas);
@@ -87,7 +92,7 @@ export class MonetizationComponent implements OnInit {
       });
       return;
     }
-    if ((Date.parse(dataForm.fechaInicioVigencia) + 1) > Date.parse(dataForm.fechaFinVigencia)) {
+    if ((Date.parse(dataForm.fechaInicio) + 1) > Date.parse(dataForm.fechaFin)) {
       swal.fire({
         icon: 'warning',
         title: 'Fechas de Vigencia',
@@ -98,49 +103,43 @@ export class MonetizationComponent implements OnInit {
     }
     const oMonet: Monetizacion = new Monetizacion();
     oMonet.idSociedad = dataForm.idSociedad;
-    oMonet.idTipoOperacion = parseInt(dataForm.idTipoOperacion,10);
-    oMonet.idSubTipoOperacion = parseInt(dataForm.idSubTipoOperacion,10);
+    oMonet.idTipo = parseInt(dataForm.idTipo,10);
+    oMonet.idSubtipo = parseInt(dataForm.idSubtipo,10);
     oMonet.segmento = parseInt(dataForm.segmento, 10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(dataForm.tipoMontoMonetizacion, this.containers);
-    oMonet.montoMonetizacion = parseFloat(dataForm.montoMonetizacion);
+    oMonet.tipoMonto = this.monetModule.getTypeOfMonetization(dataForm.tipoMonto, this.containers);
+    oMonet.montoMonetizacion = parseFloat(dataForm.montoMonetizacion.replace(/[$\s,]/g, ''));
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto, 10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
     oMonet.indicadorOperacion = dataForm.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
-    oMonet.fechaInicioVigencia = this.getDateTime(dataForm.fechaInicioVigencia);
-    oMonet.fechaFinVigencia = this.getDateTime(dataForm.fechaFinVigencia);
+    oMonet.fechaInicio = this.monetModule.getDateTimeReverse(dataForm.fechaInicio);
+    oMonet.fechaFin = this.monetModule.getDateTimeReverse(dataForm.fechaFin);
     this.appComponent.showLoader(true);
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
-      if(data.code === this.codeResponse.RESPONSE_CODE_201){
+    })).subscribe((data:IResponseData<GenericResponse>)=>{
+      if(data.code === this.codeResponse.RESPONSE_CODE_200){ //this.codeResponse.RESPONSE_CODE_201
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.menssage,
+          text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
         }).then((result)=>{
           if(result.isConfirmed){
-            this.reactiveForm.setContainers(this.containers);
-            this.updateTable();
+            this.fillDataPage();
           }
         });
       }
       else{
-        this.messageError.showMessageError(data.message, data.code);
+        this.messageError.showMessageError(data.message.toString(), data.code);
       }
     });
   }
 
-  getDateTime(date: string) {
-    const dateTime: Date = new Date(date);
-    date = `${dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')} - ${(dateTime.getMonth() + 1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')}
-      - ${dateTime.getFullYear()}`;
-    return date;
-  }
+
 
   getDay(type: string) {
     const dataForm = this.containers;
@@ -176,8 +175,10 @@ export class MonetizationComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
-      this.dataInfo = dataOper.response.reglasMonetizacion;
+      let contenedor = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response.sociedades);
+      this.containers  = contenedor;
+      this.emptyContainers = dataForm.response.reactiveForm;
+      this.dataInfo = dataOper.response.reglas;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm', JSON.stringify(this.containers));
@@ -187,28 +188,24 @@ export class MonetizationComponent implements OnInit {
 
   }
 
-  addDataDropdown(dataForm: Container[], dataContent: any) {
-    let cpDataContent = Object.assign({}, dataContent);
-    delete cpDataContent.reglasMonetizacion;
-    Object.entries(cpDataContent).forEach(([key, value]: any) => {
-      value.forEach((ele: any) => {
-        Object.entries(ele).forEach(([key, value]: any) => {
-          if (typeof value === 'number') {
+  addDataDropdown(dataForm:Container[], dataContent:any){
+    dataContent.forEach((ele:any) => {
+        Object.entries(ele).forEach(([key, value]:any) => {
+          if(typeof value === 'number'){
             ele['ky'] = ele[key];
             delete ele[key];
           }
-          else {
+          else{
             ele['value'] = ele[key];
             delete ele[key];
           }
         });
       });
-    });
-    dataForm.forEach((element: Container) => {
-      element.controls.forEach((ctrl: Control) => {
-        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content) {
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
+          ctrl.content.contentList = dataContent;
+          ctrl.content.options = dataContent;
         }
       });
     });
@@ -232,11 +229,12 @@ export class MonetizationComponent implements OnInit {
 
   updateTable(){
     this.appComponent.showLoader(true);
-    this.monetService.getDataMonetization().pipe(finalize(() => { this.appComponent.showLoader(false); }))
-    .subscribe((data:any)=>{
+    this.monetService.getDataMonetization().pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:IResponseData<MonetizationResponse>)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response.reglasMonetizacion;
+          this.dataInfo = data.response.reglas;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
         case this.codeResponse.RESPONSE_CODE_400:

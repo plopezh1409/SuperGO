@@ -13,6 +13,9 @@ import { ServiceResponseCodes, ServiceNoMagicNumber } from '@app/core/models/Ser
 import { Control } from '@app/core/models/capture/controls.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { MonetizationModule } from '../helper/monetization/monetization.module';
+import { ControlDecimal } from '@app/core/models/public/control-decimal.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-monetization-table',
@@ -24,22 +27,24 @@ export class MonetizationTableComponent implements OnInit {
 
   @Input()dataInfo:Monetizacion[];
   dataSource:MatTableDataSource<Monetizacion>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipoOperacion', 'descSubTipoOperacion', 'idReglaMonetizacion', 'fechaInicio','fechaFin','options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion', 'fechaInicio','fechaFin','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
   containers:Container[];
   monetService:FormMonetizationsService;
   messageError:MessageErrorModule;
-  private showLoad: boolean;
-  private loaderDuration: number;
-  private periodicity: PeriodicityModule;
+  public showLoad: boolean;
+  private controlDecimal: ControlDecimal;
+  private monetModule:MonetizationModule;
+  private readonly loaderDuration: number;
+  private readonly periodicity: PeriodicityModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
 
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
-  constructor(private injector:Injector,public refData?:MatDialog) { 
+  constructor(private readonly injector:Injector,public refData?:MatDialog) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.dataInfo=[];
     this.containers = [];
@@ -50,6 +55,8 @@ export class MonetizationTableComponent implements OnInit {
     this.loaderDuration = 100;
     this.periodicity = new PeriodicityModule();  
     this.messageError = new MessageErrorModule();
+    this.monetModule = new MonetizationModule();
+    this.controlDecimal = new ControlDecimal();
    }
 
   ngOnInit(): void {    
@@ -77,10 +84,13 @@ export class MonetizationTableComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      const oMonet:any = data.response.reglasMonetizacion;
-      oMonet.tipoMontoMonetizacion = oMonet.tipoMontoMonetizacion === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
-      oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
+      const [oMonet] = data.response;
+      oMonet.tipoMonto = oMonet.tipoMonto === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
+      oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
+      oMonet.fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
+      oMonet.fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
+      oMonet.montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString());
       const _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
@@ -90,9 +100,10 @@ export class MonetizationTableComponent implements OnInit {
             auxForm:_auxForm
           }
         }).afterClosed().subscribe((oData:ResponseTable)=>{
-          if(oData !== undefined && oData.status === true)
+          if(oData !== undefined && oData.status === true){
             this.dataInfo = oData.data;
             this.onLoadTable(this.dataInfo);
+          }
         })
       );
       }
@@ -100,7 +111,7 @@ export class MonetizationTableComponent implements OnInit {
 
   async show(oElement:Monetizacion){
     this.showLoader(true);
-    let data = await this.monetService.getDataMonetizationById(oElement).toPromise().catch((err) => {
+    const data = await this.monetService.getDataMonetizationById(oElement).toPromise().catch((err) => {
       return err;
     });
     this.showLoader(false);
@@ -108,10 +119,12 @@ export class MonetizationTableComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      const oMonet:any = data.response.reglasMonetizacion;
+      const [oMonet] = data.response;
       oMonet.emisionFactura = oMonet.emisionFactura? 'SI':'NO';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
+      const fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
+      const fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
       let registro ='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; 
@@ -120,13 +133,13 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Sociedad </b></td><td style="padding:5px"> ${oMonet.razonSocial} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Operación </b></td><td style="padding:5px"> ${oMonet.descripcionTipoOperacion} </td></tr>`);            
+      Operación </b></td><td style="padding:5px"> ${oMonet.descripcionTipo} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sub-Operación </b></td><td style="padding:5px"> ${oMonet.descSubTipoOperacion} </td></tr>`);            
+      Sub-Operación </b></td><td style="padding:5px"> ${oMonet.descripcionSubtipo} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicadorOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Monto Monetización </b></td><td style="padding:5px"> ${oMonet.montoMonetizacion} </td></tr>`);            
+      Monto Monetización </b></td><td style="padding:5px">${this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion)} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Tipo de Monto </b></td><td style="padding:5px"> ${oMonet.tipoMonto} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
@@ -140,9 +153,9 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Periodicidad de corte </b></td><td style="padding:5px"> ${this.periodicity.getPeriodicity_show(oMonet.periodicidadCorte)} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaInicioVigencia} </td></tr>`);            
+      Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${fechaInicio} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${oMonet.fechaFinVigencia} </td></tr>`);
+      Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${fechaFin} </td></tr>`);
       return( swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la contabilidad </div><br/> <br/>${registro}`,
@@ -155,7 +168,7 @@ export class MonetizationTableComponent implements OnInit {
   disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'){
           ctrl.disabled = true;
         }
       });

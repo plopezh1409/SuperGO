@@ -25,7 +25,7 @@ export class UpdateModalAccountingComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean;
+  public showLoad: boolean;
   private readonly loaderDuration: number;
   private objIds:{};
   idReglaMonetizacion:number;

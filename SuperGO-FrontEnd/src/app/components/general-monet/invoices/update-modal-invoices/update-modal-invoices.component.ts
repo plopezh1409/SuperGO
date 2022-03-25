@@ -1,24 +1,34 @@
-import { Component, Inject, Injector, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, Injector, Injectable, OnInit,ChangeDetectorRef } from '@angular/core';
+import swal from 'sweetalert2';
+import { finalize } from 'rxjs/operators';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+
+//MATERIAL
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+//SERVICES
+import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
+
+//MODELS
 import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
-import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
-import swal from 'sweetalert2';
-import { Facturas } from '@app/core/models/facturas/facturas.model';
-import { finalize } from 'rxjs/operators';
-import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
-import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-response.model';
+import { Facturas } from '@app/core/models/facturas/facturas.model';
+import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+
 
 @Component({
   selector: 'app-update-modal-invoices',
   templateUrl: './update-modal-invoices.component.html',
   styleUrls: ['./update-modal-invoices.component.sass']
 })
+@Injectable({providedIn: 'root'})
 
 export class UpdateModalInvoicesComponent implements OnInit {
-
   formInvService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
@@ -47,8 +57,8 @@ export class UpdateModalInvoicesComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
     this.objIds = {
       idSociedad: this.dataModal.dataModal.idSociedad,
-      idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
-      idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
+      idTipo: this.dataModal.dataModal.idTipo,
+      idSubtipo: this.dataModal.dataModal.idSubtipo,
       idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion,
     };
   }
@@ -66,21 +76,27 @@ export class UpdateModalInvoicesComponent implements OnInit {
         text: 'Complete los campos faltantes',
         heightAuto: false
       });
-      this.disabledFields(true);
-      this.reactiveForm.setContainers(this.containers);
+      this.restoreFields();
       return;
     }
-    const oInvoice:Facturas = this.reactiveForm.getModifyContainers(this.containers);
+    const dataContainer = this.reactiveForm.getModifyContainers(this.containers);
+    this.restoreFields();
+    const oInvoice:Facturas = new Facturas();
+    oInvoice.idSociedad = parseInt(dataContainer.idSociedad,10);
+    oInvoice.idSubtipo = parseInt(dataContainer.idSubtipo ,10);
+    oInvoice.idTipo = parseInt(dataContainer.idTipo ,10);
+    oInvoice.tipoComprobante = parseInt(dataContainer.tipoComprobante,10);
+    oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
     oInvoice.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
     this.formInvService.updateInvoce(oInvoice).pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response:any) => {
+    })).subscribe((response:IResponseData<GenericResponse>) => {
         if(response.code === this.codeResponse.RESPONSE_CODE_200){
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta',
-            text: response.mensaje,
+            text: response.message.toString(),
             heightAuto: false,
             allowOutsideClick: false,
             confirmButtonText: 'Ok'
@@ -91,7 +107,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
           });
         }
         else{
-          this.messageError.showMessageError(response.message ,response.code);
+          this.messageError.showMessageError(response.message.toString() ,response.code);
         }
       }, (err) => {
         this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -116,12 +132,13 @@ export class UpdateModalInvoicesComponent implements OnInit {
   getDataTable(){
     const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.formInvService.getInfoInvoices().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
+    this.formInvService.getInfoInvoices().pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:IResponseData<InvoicesResponse>) => {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
             oResponse.status = true;
-            oResponse.data = response.response;
+            oResponse.data = response.response.facturas;
             return(this.refData?.close(oResponse));
           case this.codeResponse.RESPONSE_CODE_400:
           case this.codeResponse.RESPONSE_CODE_401:
@@ -152,11 +169,16 @@ export class UpdateModalInvoicesComponent implements OnInit {
   disabledFields(disabled:boolean){
     this.containers.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'){
           ctrl.disabled = disabled;
         }
       });
     });
+  }
+
+  restoreFields(){
+    this.disabledFields(true);
+    this.reactiveForm.setContainers(this.containers);
   }
 
 }

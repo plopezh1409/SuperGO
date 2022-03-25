@@ -12,6 +12,8 @@ import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/Ser
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
 import { ActivatedRoute } from '@angular/router';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 
 @Component({
   selector: 'app-societies',
@@ -72,19 +74,19 @@ export class SocietiesComponent implements OnInit {
       dataForm = Object(datas);
     }
     const oSociety:Sociedad = new Sociedad();
-    oSociety.idTipoSociedad = parseInt(dataForm.idTipoSociedad,10);
+    oSociety.idTipo = parseInt(dataForm.idTipo,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
     oSociety.RFC = dataForm.RFC;
     this.appComponent.showLoader(true);
-    this.societyService.insertSociety(oSociety)
-      .pipe(finalize(() => { this.appComponent.showLoader(false); }))
-      .subscribe((response:any) => {
+    this.societyService.insertSociety(oSociety).pipe(finalize(() => {
+        this.appComponent.showLoader(false);
+      })).subscribe((response:IResponseData<GenericResponse>) => {
         if(response.code === this.codeResponse.RESPONSE_CODE_200){
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
             title: 'Correcto  ',
-            text: response.mensaje,
+            text: response.message.toString(),
             heightAuto: false,
             confirmButtonText: 'Ok',
             allowOutsideClick: false
@@ -96,7 +98,7 @@ export class SocietiesComponent implements OnInit {
           });
         }
         else{
-          this.messageError.showMessageError(response.mensaje, response.code);
+          this.messageError.showMessageError(response.message.toString(), response.code);
         }
       }, (err) => {
           this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -129,8 +131,9 @@ export class SocietiesComponent implements OnInit {
 
   updateTable(){
     this.appComponent.showLoader(true);
-    this.societyService.getInfoSocieties().pipe(finalize(() => { this.appComponent.showLoader(false); })).
-    subscribe((data:any)=>{
+    this.societyService.getInfoSocieties().pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data:any)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response.sociedades;

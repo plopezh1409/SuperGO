@@ -18,6 +18,9 @@ import { FormMonetizationsService } from '@app/core/services/monetizations/formM
 import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -33,14 +36,14 @@ export class UpdateModalMonetizationComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean;
+  public showLoad: boolean;
   private loaderDuration: number;
   public showButtonAdd: boolean;
   private selectedValRequest: any;
   public principalContainers: Container[];
   private periodicity:PeriodicityModule;
   private monetModule:MonetizationModule;
-  private objIds:{};
+  private objIds:any;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
@@ -54,9 +57,13 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.selectedValRequest = null;
     this.principalContainers = [];
     this.showLoad = false;
-    this.objIds = {};
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule();
+    this.objIds = {
+      idSociedad: 0,
+      idTipo: 0,
+      idSubtipo: 0
+    };
   }
 
   ngOnInit(): void {
@@ -70,8 +77,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.changePeridicity(this.containers);
     this.objIds = {
       idSociedad: cpyModal.idSociedad,
-      idTipoOperacion: cpyModal.idTipoOperacion,
-      idSubTipoOperacion: cpyModal.idSubTipoOperacion
+      idTipo: cpyModal.idTipo,
+      idSubtipo: cpyModal.idSubtipo
     };
   }
 
@@ -96,15 +103,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
   update(){
     this.disabledFields(false);
     const cpyModal = { ...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
-    cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
-    cpyModal.fechaInicioVigencia = this.getDateTime(cpyModal.fechaInicioVigencia);
+    cpyModal.fechaFin = this.monetModule.getDateTime(cpyModal.fechaFin);
+    cpyModal.fechaInicio = this.monetModule.getDateTime(cpyModal.fechaInicio);
     cpyModal.emisionFactura = cpyModal.emisionFactura === true? 'true':'false';
     cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === true? 'true':'false';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
-    if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa === '' || (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
-      if( (Date.parse(jsonResult.fechaInicioVigencia)+1) > Date.parse(jsonResult.fechaFinVigencia)){
+    if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa === '' || (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
+      if( (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
         swal.fire({
           icon: 'warning',
           title: 'Fechas de Vigencia',
@@ -119,37 +126,32 @@ export class UpdateModalMonetizationComponent implements OnInit {
           heightAuto: false
         });
       }
-      this.disabledFields(true);
-      const cpyModal = { ...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
-      cpyModal.fechaFinVigencia = this.getDateTime(cpyModal.fechaFinVigencia);
-      cpyModal.fechaInicioVigencia = this.getDateTime(cpyModal.fechaInicioVigencia);
-      this.control.setDataToControls(this.containers,cpyModal);
-      this.reactiveForm.setContainers(this.containers);
+      this.restoreFields();
       return;
     }
     const oMonet:Monetizacion =  new Monetizacion();
     oMonet.idSociedad = jsonResult.idSociedad;
-    oMonet.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
-    oMonet.idSubTipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
+    oMonet.idTipo = this.objIds.idTipo;
+    oMonet.idSubtipo = this.objIds.idSubtipo;
     oMonet.segmento = parseInt(jsonResult.segmento,10);
-    oMonet.tipoMontoMonetizacion = this.monetModule.getTypeOfMonetization(jsonResult.tipoMontoMonetizacion, this.containers);
-    oMonet.montoMonetizacion = parseFloat(jsonResult.montoMonetizacion);
+    oMonet.tipoMonto = this.monetModule.getTypeOfMonetization(jsonResult.tipoMonto, this.containers);
+    oMonet.montoMonetizacion = parseFloat(jsonResult.montoMonetizacion.toString().replace(/[$\s,]/g, ''));
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
     oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
-    oMonet.fechaInicioVigencia = this.getDateTime(jsonResult.fechaInicioVigencia);
-    oMonet.fechaFinVigencia =  this.getDateTime(jsonResult.fechaFinVigencia);
+    oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
+    oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
     this.showLoader(true);
     this.monetService.updateMonetization(oMonet).pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response:any) => {
+    })).subscribe((response:IResponseData<GenericResponse>) => {
       if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: response.mensaje,
+          text: response.message.toString(),
           heightAuto: false,
           allowOutsideClick: false,
           confirmButtonText: 'Ok'
@@ -160,9 +162,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(response.message, response.code);
+        this.restoreFields();
+        this.messageError.showMessageError(response.message.toString(), response.code);
       }
     }, (err) => {
+      this.restoreFields();
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
@@ -172,24 +176,17 @@ export class UpdateModalMonetizationComponent implements OnInit {
       });
   }
 
-  getDateTime(date:string){
-    const dateTime:Date = new Date(date);
-    date = `${dateTime.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0')} - 
-    ${(dateTime.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2),'0')}
-    - ${dateTime.getFullYear()}`;
-    return date;
-  }
-
   getDataTable(){
     const oResponse:ResponseTable = new ResponseTable();
     this.showLoader(true);
-    this.monetService.getDataMonetization().pipe(finalize(() => { this.showLoader(false); }))
-      .subscribe((response:any) => {
+    this.monetService.getDataMonetization().pipe(finalize(() => {
+      this.showLoader(false);
+    })).subscribe((response:IResponseData<MonetizationResponse>) => {
         switch (response.code) {
-          case this.codeResponse.RESPONSE_CODE_200: //Se modifico el registro correctamente
+          case this.codeResponse.RESPONSE_CODE_200:
           return(
             oResponse.status = true,
-            oResponse.data = response.response,
+            oResponse.data = response.response.reglas,
             this.refData?.close(oResponse)
           );
           case this.codeResponse.RESPONSE_CODE_400:
@@ -221,7 +218,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   disabledFields(disabled:boolean){
     this.containers.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'){
           ctrl.disabled = disabled;
         }
       });
@@ -333,18 +330,16 @@ export class UpdateModalMonetizationComponent implements OnInit {
       });        
     }    
 
-    changePeridicity(dataForm:any){
+    changePeridicity(dataForm:Container[]){
       let idContainer = dataForm[0].idContainer;
-      dataForm.forEach((element:any) => {
-        element.controls.forEach((ctrl:any) => {
-          if(ctrl.controlType === 'dropdown'){
-            if(ctrl.ky === 'periodicidad'){
-              const selectedValRequest:{} ={
-                control: ctrl,
-                idContainer: idContainer
-              };
-              this.onChangeCatsPetition(selectedValRequest);
-            }
+      dataForm.forEach((element:Container) => {
+        element.controls.forEach((ctrl:Control) => {
+          if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
+            const selectedValRequest:{} ={
+              control: ctrl,
+              idContainer: idContainer
+            };
+            this.onChangeCatsPetition(selectedValRequest);
           }
         });
       });
@@ -365,6 +360,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
         });
       });
       return typeMonet;
+    }
+
+    restoreFields(){
+      this.disabledFields(true);
+      const cpyModal = { ...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
+      cpyModal.fechaFin = this.monetModule.getDateTime(cpyModal.fechaFin);
+      cpyModal.fechaInicio = this.monetModule.getDateTime(cpyModal.fechaInicio);
+      this.control.setDataToControls(this.containers,cpyModal);
+      this.reactiveForm.setContainers(this.containers);
     }
     
 

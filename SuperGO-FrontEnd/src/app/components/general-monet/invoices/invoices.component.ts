@@ -11,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { Control } from '@app/core/models/capture/controls.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 
 @Component({
   selector: 'app-invoices',
@@ -70,7 +73,7 @@ export class InvoicesComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.sociedades);
       this.dataInfo = dataOper.response.facturas;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
@@ -90,20 +93,26 @@ export class InvoicesComponent implements OnInit {
       });
       return;
     }
-    let dataBody;
+    let dataContainer;
     for(const data of Object.values(value)){
-      dataBody = Object(data);
+      dataContainer = Object(data);
     }
-    const oInvoice:Facturas =  dataBody;
+    const oInvoice:Facturas = new Facturas();
+    oInvoice.idSociedad = parseInt(dataContainer.idSociedad,10);
+    oInvoice.idSubtipo = parseInt(dataContainer.idSubtipo ,10);
+    oInvoice.idTipo = parseInt(dataContainer.idTipo ,10);
+    oInvoice.tipoComprobante = parseInt(dataContainer.tipoComprobante,10);
+    oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
+
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
-      if(data.code === this.codeResponse.RESPONSE_CODE_200){
+    })).subscribe((data: IResponseData<GenericResponse> ) => {
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: data.message,
+          text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
@@ -115,7 +124,7 @@ export class InvoicesComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(data.message, data.code);
+        this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
@@ -124,10 +133,17 @@ export class InvoicesComponent implements OnInit {
   }
 
   addDataDropdown(dataForm:Container[], dataContent:any){
-    var cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.facturas;
-    Object.entries(cpDataContent).forEach(([key, value]:any) =>{
-      value.forEach((ele:any) => {
+    dataContent.sort(function (a:Sociedad, b:Sociedad) {
+      if (a.razonSocial > b.razonSocial) {
+        return 1;
+      }
+      if (a.razonSocial < b.razonSocial) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+      dataContent.forEach((ele:any) => {
         Object.entries(ele).forEach(([key, value]:any) => {
           if(typeof value === 'number'){
             ele['ky'] = ele[key];
@@ -139,13 +155,12 @@ export class InvoicesComponent implements OnInit {
           }
         });
       });
-    });
 
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
         if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+          ctrl.content.contentList = dataContent;
+          ctrl.content.options = dataContent;
         }
       });
     });

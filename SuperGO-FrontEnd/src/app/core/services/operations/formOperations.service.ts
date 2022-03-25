@@ -13,10 +13,12 @@ import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 export class FormOperationsService{
     private readonly angularSecurity: AngularSecurity;
     private _urlEnviroment:string|null;
+    private _urlServices:string|null;
 
     constructor(public httpClient:HttpClient, public injector:Injector)
     {
         this._urlEnviroment = null;
+        this._urlServices = null;
         this.angularSecurity = this.injector.get<AngularSecurity>(AngularSecurity);
     }
 
@@ -34,6 +36,21 @@ export class FormOperationsService{
         }
     }
 
+    public get urlServices()
+    {
+        if(this._urlServices!=null)
+        {
+            return this._urlServices;
+        }
+        else
+        {
+            // const urlCle = this.angularSecurity.getKeyAES;
+            // this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
+            this._urlServices = environment.urlServices;
+            return this._urlServices;
+        }
+    }
+
     getForm(solicitud:Object):Observable<any>
     {
         return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
@@ -41,16 +58,16 @@ export class FormOperationsService{
 
     getInfoOperation():Observable<any>
     {
-        // return this.httpClient.get('http://10.112.211.114:8080/Monetizador-0.0.1/tipoOperacion/get')
+        // return this.httpClient.get(`${this.urlServices}tipoOperacion/get`);
         return this.httpClient.get('/assets/dataTables/dataOperation.json');
     }
 
     insertOperation(dataBody:Operaciones):Observable<any>{
-        return this.httpClient.post(`http://10.112.211.114:8080/Monetizador-0.0.1/tipoOperacion/post`, dataBody);
+        return this.httpClient.post(`${this.urlServices}tipoOperacion/post`,dataBody);
     }
 
     updateOperation(dataBody:Operaciones):Observable<any>{
-        return this.httpClient.put(`http://10.112.211.114:8080/Monetizador-0.0.1/tipoOperacion/put`, dataBody);
+        return this.httpClient.put(`${this.urlServices}tipoOperacion/put`, dataBody);
     }
 
 }

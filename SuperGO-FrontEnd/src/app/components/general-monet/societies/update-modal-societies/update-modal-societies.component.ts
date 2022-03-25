@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Injector, OnInit, Injectable } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
 import { FormCatService } from '@app/core/services/catalogs/formCat.service';
@@ -18,6 +18,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
   templateUrl: './update-modal-societies.component.html',
   styleUrls: ['./update-modal-societies.component.sass']
 })
+@Injectable({providedIn: 'root'})
 
 export class UpdateModalSocietiesComponent implements OnInit {
   societyService:FormCatService;
@@ -26,7 +27,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
   containers:Container[];
   alignContent='horizontal';
   public control:Control = new Control;
-  private showLoad: boolean;
+  public showLoad: boolean;
   private loaderDuration: number;
   private idSociety:number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
@@ -66,7 +67,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
     const dataForm = this.reactiveForm.getModifyContainers(this.containers);
     const oSociety:Sociedad = new Sociedad();
     oSociety.idSociedad = this.idSociety;
-    oSociety.idTipoSociedad = parseInt(dataForm.idTipoSociedad,10);
+    oSociety.idTipo = parseInt(dataForm.idTipo,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
     oSociety.RFC = dataForm.RFC;
     this.showLoader(true);
