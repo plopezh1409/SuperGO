@@ -270,7 +270,7 @@ export class Control {
   
   setDropDownValue(control: Control, valor:any) {
       let filter = this.content!.contentList.filter((opcion) => {
-        return opcion.ky == valor;
+        return opcion.ky === valor;
         }).map((opcion) => {
           return opcion.ky;
           });
@@ -439,7 +439,7 @@ export class Control {
 
   getMask(): Mask {
     let mask: Mask = {} as Mask;
-    let pattern = this.validations!.find((v) => { return v.type == this.codeResponseMagic.RESPONSE_CODE_2; });
+    let pattern = this.validations!.find((v) => { return v.type === this.codeResponseMagic.RESPONSE_CODE_2; });
     if (pattern) {
       mask = {
         regex: pattern.validate,

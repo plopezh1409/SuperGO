@@ -46,7 +46,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   ngOnInit(): void {
     this.mask = this.control.getMask();
     this.control.isVerify = -1;   
-    this.controlClass = (this.formulario.get(this.control.ky!)?.errors?.required!=undefined && this.formulario.get(this.control.ky!)?.errors?.required === true)? 
+    this.controlClass = (this.formulario.get(this.control.ky!)?.errors?.required!==undefined && this.formulario.get(this.control.ky!)?.errors?.required === true)? 
     'form-react-form-field-Color':'form-react-form-field';     
   }
 
@@ -78,11 +78,11 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   }
 
   buscarCamposInfo(data?:any):void{ 
-    if(this.objetosDependenciaBusquedaVsInfo != undefined && this.objetosDependenciaBusquedaVsInfo.length>0)
+    if(this.objetosDependenciaBusquedaVsInfo !== undefined && this.objetosDependenciaBusquedaVsInfo.length>0)
     {
-      if(data!=undefined)
+      if(data!==undefined)
       {         
-        let hasMsje = Object.keys(data).filter(k => k=='message');
+        let hasMsje = Object.keys(data).filter(k => k==='message');
         if(hasMsje.length>0)
         {
           this.mostrarLoaderInput = false;
@@ -92,14 +92,14 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
           return;
         }
 
-        let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() == this.control.ky;});
+        let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === this.control.ky;});
         if(field)
         {
           this.formulario.controls[this.control.ky!].setValue(data[field]);
         }        
 
         this.objetosDependenciaBusquedaVsInfo.forEach((elem:any) => {
-          let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() == elem.dependency.trim().toUpperCase();});
+          let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === elem.dependency.trim().toUpperCase();});
           if(field)
           {
             this.formulario.controls[elem.ky].setValue(data[field]);
@@ -167,7 +167,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     this.consulta = this.control.content!.endpoint!;
     if (!this.errorSet && !this.banderaClick && !this.setError)  {
       this.nombresCampos.forEach((key, index) => {
-        if(this.formulario.controls[key]!=undefined)
+        if(this.formulario.controls[key]!==undefined)
         {
           this.consulta = this.consulta.replace(key,this.formulario.controls[key].value);
         }        
@@ -206,7 +206,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     this.errorSet = false;
 
     this.nombresCampos.forEach((key, index) => {
-      if(this.formulario.controls[key]!=undefined)
+      if(this.formulario.controls[key]!==undefined)
       {
         if (this.formulario.controls[key].errors) {
           this.errorSet = true;

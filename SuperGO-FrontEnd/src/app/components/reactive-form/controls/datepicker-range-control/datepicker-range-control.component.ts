@@ -79,7 +79,7 @@ export class DatepickerRangeControlComponent implements OnInit {
       });
     }
     let validations = this.control.onLoadControl();
-    if(this.control.content?.filter && this.control.content?.filter=='outweekends')
+    if(this.control.content?.filter && this.control.content?.filter==='outweekends')
     {      
       this.dateFilter = (d: any | null): boolean => {
         const day= (moment(d).toDate()||new Date()).getDay();        

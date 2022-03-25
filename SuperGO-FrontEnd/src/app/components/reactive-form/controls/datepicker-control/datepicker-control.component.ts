@@ -57,7 +57,7 @@ export class DatepickerControlComponent  implements OnInit{
     this.value = this.control.getAttributeValueByName('value');
     this.min = this.control.getAttributeValueByName('min')==null?null: this.getDate(this.control.getAttributeValueByName('min'));
     this.max = this.control.getAttributeValueByName('max')==null?null: this.getDate(this.control.getAttributeValueByName('max'));
-    if(this.control.content?.filter && this.control.content?.filter=='outweekends')
+    if(this.control.content?.filter && this.control.content?.filter==='outweekends')
     {      
       this.dateFilter = (d: any | null): boolean => {
         const day= (moment(d).toDate()||new Date()).getDay();        

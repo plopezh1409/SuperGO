@@ -170,7 +170,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
         this.formulario.controls[campoAImprimir.ky!].setValue('');
       }
     }
-    if(this.control.ky && this.formulario.get(this.control.ky)?.errors && this.setIconoStatus == 1 ) {
+    if(this.control.ky && this.formulario.get(this.control.ky)?.errors && this.setIconoStatus === 1 ) {
       this.setIconoStatus = 2;
       const campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
       if (campoAImprimir) {

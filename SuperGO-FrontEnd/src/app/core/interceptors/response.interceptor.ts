@@ -44,7 +44,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 
                     //se desencripta el body original siempre y cuando se cumplan con los siguientes codigos de respuesta
                     //todo llamado de endpoint pasa por este interceptor del response
-                    if (this.responseOK.includes(evt.status) && encodingLanguage != null && bodyOriginal != undefined) {
+                    if (this.responseOK.includes(evt.status) && encodingLanguage !== null && bodyOriginal !== undefined) {
                         let llave: any = encodingLanguage.rnd;
                         let bodyDecrypt: any = JSON.parse(this.angularSecurity.decryptAES2(bodyOriginal, llave));
                         evt.body.response = bodyDecrypt;

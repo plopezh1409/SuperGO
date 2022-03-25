@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
       let mod = element.module;
       if (mod.operation) {
         mod.operation.forEach((elemen: any) => {
-          if (elemen.id != '') {
+          if (elemen.id !== '') {
             this.petitions.push({
               categories: mod,
               subcategories: elemen,
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
       let cadena = element.string.toLowerCase();
       let termino = this.valueInput;
       let posicion = cadena.indexOf(termino);
-      if (posicion != -1) {
+      if (posicion !== -1) {
         this.copyPetitions.push(element);
       }
     }

@@ -34,7 +34,7 @@ export class ContainerComponent {
     let txtControl:AbstractControl|null;
 
     let textBoxLinks = this.container.controls.filter((val: any) => val.controlType === 'textboxLink' && val.content.dependency === ctrl.ky);
-    if (textBoxLinks != undefined && textBoxLinks.length > 0) {
+    if (textBoxLinks !== undefined && textBoxLinks.length > 0) {
       textBoxLinks.forEach((elem) => {  
         txtControl = this.formGroup.get(elem.ky!);
         if(txtControl!=null)

@@ -119,7 +119,7 @@ export class EncabezadoComponent implements OnInit {
     this.empresa = this.usuarioStorage.company;   
 
     this.foto=`assets/img/image/account_circle-24px.svg`;
-    if(this.empresa!==undefined && this.numeroEmpleado!=undefined)
+    if(this.empresa!==undefined && this.numeroEmpleado!==undefined)
     {
       this.foto = `https://portal.socio.gs/foto/${this.empresa}/empleados/${this.numeroEmpleado}.jpg`;
     }
@@ -164,7 +164,7 @@ export class EncabezadoComponent implements OnInit {
   
   loadModules(){    
     this.listaMenu=[];
-    if(this.usuarioStorage.modules!=undefined && this.usuarioStorage.modules.length>0)
+    if(this.usuarioStorage.modules!==undefined && this.usuarioStorage.modules.length>0)
     { 
       this.usuarioStorage.modules.forEach((element:Page) => {
         if(!this.listaMenu.find(x=>x.name === element.module.name))

@@ -67,7 +67,7 @@ export class AngularSecurity {
 
   decryptAES(strToDecrypt: any, secretKey: any): any {
     try {
-      if (strToDecrypt != null && strToDecrypt != '') {
+      if (strToDecrypt !== null && strToDecrypt != '') {
         const algorithm = 'aes-256-cbc';
         const salt = secretKey;
         const digest = 'sha256';
@@ -113,7 +113,7 @@ export class AngularSecurity {
 
   decryptAES2(strToDecrypt: any, secretKey: any): any {
     try {
-      if (strToDecrypt != null || strToDecrypt != '') {
+      if (strToDecrypt !== null || strToDecrypt !== '') {
         let bufferKey = Buffer.from(secretKey, 'hex');
         const algorithm = 'aes-256-ecb';
         const decipher = crypto.createDecipheriv(algorithm, bufferKey, '');

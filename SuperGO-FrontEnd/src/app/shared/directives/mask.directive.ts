@@ -51,7 +51,7 @@ export class MaskDirective {
     if(this.controlesBackEnd && this.controlesBackEnd.controlType === 'decimal')
     {      
       let valorConFormato = this.maskDecimal.obtenerStrConFormato($event.target.value);
-      let clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate != 'pattern'; })];
+      let clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate !== 'pattern'; })];
       let validadoresDeCatalogo = this.controlesBackEnd.configValidators(clonValidadores);
       if (this.control.control) {
         this.control.control.setValidators(validadoresDeCatalogo);
@@ -95,7 +95,7 @@ export class MaskDirective {
     elemento = $event.target;
     valor = elemento.value;
     pos = elemento.selectionStart;
-    if ($event.target.value.length == 1 && !this.regExpr.test(elemento.value))
+    if ($event.target.value.length === 1 && !this.regExpr.test(elemento.value))
     {
       this.valorAnterior = '';
       elemento.value = '';

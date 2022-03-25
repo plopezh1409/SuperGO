@@ -68,7 +68,7 @@ export class StorageService {
     decryptUserStorage(): JSON | null {
         let usuario: any = localStorage.getItem(this.userKey)!;
 
-        if (usuario != null && usuario != '') {
+        if (usuario !== null && usuario !== '') {
             this.valueLocalStorageDecrypt = JSON.parse(this.angularSecurity.decryptAES(usuario, this.secretKey));
             return this.valueLocalStorageDecrypt;
         } else {
@@ -79,7 +79,7 @@ export class StorageService {
     decryptTokenStorage(): string | null {
         let accessToken: any = localStorage.getItem(this.tokenKey)!;
 
-        if (accessToken != null && accessToken != '') {
+        if (accessToken !== null && accessToken !== '') {
             this.valueLocalStorageDecrypt = this.angularSecurity.decryptAES(accessToken, this.secretKey);
             return this.valueLocalStorageDecrypt;
         } else {
@@ -90,7 +90,7 @@ export class StorageService {
     decryptSelectedRoleStorage(): JSON | null {
         let selectedRole: any = localStorage.getItem(this.selectRoleKey)!;
 
-        if (selectedRole != null && selectedRole != '') {
+        if (selectedRole !== null && selectedRole !== '') {
             this.valueLocalStorageDecrypt = JSON.parse(this.angularSecurity.decryptAES(selectedRole, this.secretKey));
             return this.valueLocalStorageDecrypt;
         } else {
@@ -101,7 +101,7 @@ export class StorageService {
     decryptSelectedModuleStorage(): JSON | null {
         let selectedModule: any = localStorage.getItem(this.selectModuleKey)!;
 
-        if (selectedModule != null && selectedModule != '') {
+        if (selectedModule !== null && selectedModule !== '') {
             this.valueLocalStorageDecrypt = JSON.parse(this.angularSecurity.decryptAES(selectedModule, this.secretKey));
             return this.valueLocalStorageDecrypt;
         } else {

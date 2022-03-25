@@ -332,7 +332,7 @@ export class MonetizationComponent implements OnInit {
       const control = newContainer.controls.find((x:Control) => x.ky === ctrl);
       let valueCtrl = dataForm[ctrl] === null ? '' : dataForm[ctrl];
       valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
-        if (control && valueCtrl != '' && ctrl !== 'Periocidad') {
+        if (control && valueCtrl !== '' && ctrl !== 'Periocidad') {
           if (control.controlType === 'dropdown' || control.controlType === 'autocomplete') {
             control.setAttributeValueByNameDropdown('value', valueCtrl);
           }

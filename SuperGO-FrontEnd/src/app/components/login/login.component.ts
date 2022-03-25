@@ -203,7 +203,7 @@ export class LoginComponent implements OnInit {
         }
       }, err => {
         this.appComponent.logger.info('LOGIN error:', err);
-        if (err.status == this.codeResponse.RESPONSE_CODE_400) {
+        if (err.status === this.codeResponse.RESPONSE_CODE_400) {
           swal.fire({
             icon: 'error',
             title: 'Lo sentimos',
@@ -221,7 +221,7 @@ export class LoginComponent implements OnInit {
     if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === '') {
       this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false);
     }
-    else if (this.p4ss1 != p4ssA) {
+    else if (this.p4ss1 !== p4ssA) {
       this.sweet('error', 'lo sentimos', 'Tu contraseña es incorrecta', false);
     }
     else if (this.p4ss2 === null || this.p4ss2 === '') {
@@ -239,7 +239,7 @@ export class LoginComponent implements OnInit {
     else if (this.p4ss3 === null || this.p4ss3 === '') {
       this.sweet('error', 'lo sentimos', 'Ingresa de nuevo tu contraseña', false);
     }
-    else if (this.p4ss2 != this.p4ss3) {
+    else if (this.p4ss2 !== this.p4ss3) {
       this.sweet('error', 'lo sentimos', 'No coincide con la contraseña anterior', false);
     } else {
       swal.fire({
