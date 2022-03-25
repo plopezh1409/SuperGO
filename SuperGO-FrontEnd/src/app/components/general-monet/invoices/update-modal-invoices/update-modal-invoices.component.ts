@@ -157,12 +157,13 @@ export class UpdateModalInvoicesComponent implements OnInit {
             break;
         }
       }, (err) => {
+        return(
         swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Ocurrio un error inesperado, intente más tarde.',
           heightAuto: false
-        });
+        }));
       });
   }
 

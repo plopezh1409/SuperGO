@@ -36,7 +36,7 @@ export class SocietiesComponent implements OnInit {
 
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
 
-  constructor(private injector:Injector, private appComponent: AppComponent,
+  constructor(private readonly injector:Injector, private readonly appComponent: AppComponent,
     private readonly _route: ActivatedRoute) { 
     this.societyService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();

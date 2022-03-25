@@ -24,7 +24,7 @@ export class SocietiesTableComponent implements OnInit {
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
-  constructor(private injector:Injector, public refData?:MatDialog) {    
+  constructor(private readonly injector:Injector, public refData?:MatDialog) {    
     this.dataInfo=[];
     this.containers = [];
     this.totalRows = 0;

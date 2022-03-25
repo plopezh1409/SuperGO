@@ -28,7 +28,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
   alignContent='horizontal';
   public control:Control = new Control;
   public showLoad: boolean;
-  private loaderDuration: number;
+  private readonly loaderDuration: number;
   private idSociety:number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
@@ -106,9 +106,9 @@ export class UpdateModalSocietiesComponent implements OnInit {
     })).subscribe((response) => {
         switch(response.code){
           case this.codeResponse.RESPONSE_CODE_200:
+            oResponse.status = true;
+            oResponse.data = response.response.sociedades;
             return(
-              oResponse.status = true,
-              oResponse.data = response.response.sociedades,
               this.refData?.close(oResponse)
             );
           case this.codeResponse.RESPONSE_CODE_400:
@@ -128,12 +128,14 @@ export class UpdateModalSocietiesComponent implements OnInit {
           break;
         }
       }, (err) => {
+        return(
         swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
           heightAuto: false
-        });
+        })
+        );
       });
   }
 

@@ -34,8 +34,8 @@ export class MonetizationTableComponent implements OnInit {
   monetService:FormMonetizationsService;
   messageError:MessageErrorModule;
   public showLoad: boolean;
-  private controlDecimal: ControlDecimal;
-  private monetModule:MonetizationModule;
+  private readonly controlDecimal: ControlDecimal;
+  private readonly monetModule:MonetizationModule;
   private readonly loaderDuration: number;
   private readonly periodicity: PeriodicityModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
@@ -86,8 +86,8 @@ export class MonetizationTableComponent implements OnInit {
     else{
       const [oMonet] = data.response;
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
-      oMonet.emisionFactura = oMonet.emisionFactura == true? 'true': 'false';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion == 'C'?'false':'true';
+      oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
       oMonet.fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
       oMonet.fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
       oMonet.montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString());

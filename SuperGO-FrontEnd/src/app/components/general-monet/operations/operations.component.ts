@@ -40,7 +40,7 @@ export class OperationsComponent implements OnInit {
 
   @ViewChild(OperationsTableComponent) catalogsTable:OperationsTableComponent;
 
-  constructor(private readonly appComponent: AppComponent, private injector:Injector,
+  constructor(private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
     this.reactiveForm = new ReactiveForm();

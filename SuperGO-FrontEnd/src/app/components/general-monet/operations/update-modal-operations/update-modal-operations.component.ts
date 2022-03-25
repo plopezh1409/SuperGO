@@ -35,7 +35,7 @@ export class UpdateModalOperationsComponent implements OnInit {
   public control:Control = new Control;
   private idOperation:number;
   public showLoad: boolean;
-  private loaderDuration: number;
+  private readonly loaderDuration: number;
   messageError:MessageErrorModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
@@ -134,9 +134,9 @@ export class UpdateModalOperationsComponent implements OnInit {
     })).subscribe((response:IResponseData<OperationsResponse>) => {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
+            oResponse.status = true;
+            oResponse.data = response.response.tipoOperacion;
             return(
-              oResponse.status = true,
-              oResponse.data = response.response.tipoOperacion,
               this.refData?.close(oResponse)
             );
           case this.codeResponse.RESPONSE_CODE_400:
@@ -156,12 +156,13 @@ export class UpdateModalOperationsComponent implements OnInit {
             break;
         }
       }, (err) => {
-        swal.fire({
+        return(swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
           heightAuto: false
-        });
+        })
+        );
       });
   }
 

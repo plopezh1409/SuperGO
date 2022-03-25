@@ -37,13 +37,11 @@ export class MonetizationModule {
   }
 
   getDateTimeReverse(date: string) {
-    const dateTime = moment(date, 'YYYY-MM-DD');
     date = moment(date).format('YYYY-MM-DD');
     return date;
   }
 
   getDateTime(date: string) {
-    const dateTime = moment(date, 'YYYY-MM-DD');
     date = moment(date).format('DD-MM-YYYY');
     return date;
   }

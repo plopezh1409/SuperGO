@@ -153,12 +153,13 @@ export class UpdateModalAccountingComponent implements OnInit {
             default: break;
         }
       },() => {
+        return(
         swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
           heightAuto: false
-        });
+        }));
       });
   }
 

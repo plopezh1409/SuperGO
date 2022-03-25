@@ -43,14 +43,13 @@ export class MonetizationComponent implements OnInit {
   private selectedValRequest: any;
   public principalContainers: Container[];
   public idSolicitud: string | null;
-  private periodicity: PeriodicityModule;
-  private monetModule: MonetizationModule;
+  private readonly periodicity: PeriodicityModule;
+  private readonly monetModule: MonetizationModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  private emptyContainers:Container[];
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
-  constructor(private readonly appComponent: AppComponent, private injector: Injector,
+  constructor(private readonly appComponent: AppComponent, private readonly injector: Injector,
     private readonly _route: ActivatedRoute) {
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.messageError = new MessageErrorModule();
@@ -68,7 +67,6 @@ export class MonetizationComponent implements OnInit {
     this.maxNumControls = 10;
     this.periodicity = new PeriodicityModule();
     this.monetModule = new MonetizationModule();
-    this.emptyContainers = [];
   }
 
   ngOnInit(): void {
@@ -175,9 +173,7 @@ export class MonetizationComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
-      let contenedor = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response.sociedades);
-      this.containers  = contenedor;
-      this.emptyContainers = dataForm.response.reactiveForm;
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response.sociedades);
       this.dataInfo = dataOper.response.reglas;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
@@ -329,7 +325,7 @@ export class MonetizationComponent implements OnInit {
     for (const ctrl in dataForm) {
       const control = newContainer.controls.find((x:Control) => x.ky === ctrl);
       let valueCtrl = dataForm[ctrl] === null ? '' : dataForm[ctrl];
-      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl.toString(): valueCtrl;
         if (control && valueCtrl !== '' && ctrl !== 'Periocidad') {
           if (control.controlType === 'dropdown' || control.controlType === 'autocomplete') {
             control.setAttributeValueByNameDropdown('value', valueCtrl);

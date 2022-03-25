@@ -140,12 +140,13 @@ export class AccountingTablesComponent implements OnInit {
        Cuenta SAP </b></td><td style="padding:5px">  ${oConta.cuentaSAP} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Monetización </b></td><td style="padding:5px">  ${oConta.idReglaMonetizacion} </td></tr>`);
-      swal.fire({             
+      return(swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
-      });
+      })
+      );
   }
   }
 

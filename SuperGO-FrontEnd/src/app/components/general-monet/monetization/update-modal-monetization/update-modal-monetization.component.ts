@@ -15,7 +15,6 @@ import { MonetizationModule } from '../helper/monetization/monetization.module';
 //Servicio
 import { FormMonetizationsService } from '@app/core/services/monetizations/formMonetizations.service';
 
-import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
@@ -37,12 +36,12 @@ export class UpdateModalMonetizationComponent implements OnInit {
   alignContent='horizontal';
   public control:Control = new Control;
   public showLoad: boolean;
-  private loaderDuration: number;
+  private readonly loaderDuration: number;
   public showButtonAdd: boolean;
   private selectedValRequest: any;
   public principalContainers: Container[];
-  private periodicity:PeriodicityModule;
-  private monetModule:MonetizationModule;
+  private readonly periodicity:PeriodicityModule;
+  private readonly monetModule:MonetizationModule;
   private objIds:any;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
@@ -184,9 +183,9 @@ export class UpdateModalMonetizationComponent implements OnInit {
     })).subscribe((response:IResponseData<MonetizationResponse>) => {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
+            oResponse.status = true;
+            oResponse.data = response.response.reglas;
           return(
-            oResponse.status = true,
-            oResponse.data = response.response.reglas,
             this.refData?.close(oResponse)
           );
           case this.codeResponse.RESPONSE_CODE_400:
@@ -206,12 +205,14 @@ export class UpdateModalMonetizationComponent implements OnInit {
             break;
         }
       }, () => {
+        return(
         swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Ocurrio un error inesperado, intente más tarde.',
           heightAuto: false
-        });
+        })
+        );
       });
   }
 
