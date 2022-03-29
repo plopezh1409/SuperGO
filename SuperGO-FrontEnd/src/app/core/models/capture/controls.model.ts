@@ -60,7 +60,7 @@ export class Control {
   configControlType(): void {
     switch (this.controlType) {
       case 'datepicker':
-        let elem: any = this.findAttributeByName('value');
+        const elem: any = this.findAttributeByName('value');
         if (elem != null) {
           elem['value'] = elem !== undefined || elem !== null
             ? moment(elem['value'], 'DD/MM/YYYY').toDate()
@@ -90,19 +90,19 @@ export class Control {
             validationsFn.push(this.getRequiredValidator());              
             break;
           case 'min':
-            let min: any = this.getAttributeValueByName('min');
+            const min: any = this.getAttributeValueByName('min');
             validationsFn.push(Validators.min(min || 0));
             break;
           case 'max':
-            let max: any = this.getAttributeValueByName('max');
+            const max: any = this.getAttributeValueByName('max');
             validationsFn.push(Validators.max(max || 0));
             break;
           case 'maxlength':
-            let maxlength: any = this.getAttributeValueByName('maxlength');
+            const maxlength: any = this.getAttributeValueByName('maxlength');
             validationsFn.push(Validators.maxLength(maxlength || 0));
             break;
           case 'minlength':
-            let minlength: any = this.getAttributeValueByName('minlength');
+            const minlength: any = this.getAttributeValueByName('minlength');
             validationsFn.push(Validators.minLength(minlength || 0));
             break;
           case 'pattern':
@@ -143,7 +143,7 @@ export class Control {
   }
 
   isUniqueValidate() {
-    let unique = this.validations!.find((v) => { return v.type === 1 && v.validate === 'unique'; });
+    const unique = this.validations!.find((v) => { return v.type === 1 && v.validate === 'unique'; });
     if (unique) {
       return true;
     }
@@ -200,8 +200,8 @@ export class Control {
 
   getDatePickerRangeValue(_form: FormGroup) {
     let formatValor = '';
-    let formRange = _form.get(this.ky!) as FormGroup;
-    let jsonDates = JSON.parse(new JsonPipe().transform(formRange.value));
+    const formRange = _form.get(this.ky!) as FormGroup;
+    const jsonDates = JSON.parse(new JsonPipe().transform(formRange.value));
     Object.keys(jsonDates).forEach((elem: any) => {
       formatValor = `${formatValor}${jsonDates[elem] != null ? moment(jsonDates[elem]).format('DD-MM-YYYY') : 'null'},`;
     });
@@ -222,7 +222,7 @@ export class Control {
       }
 
       decimal = decimal.padEnd(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0');
-      let maxlength = this.getAttributeValueByName('maxlength');
+      const maxlength = this.getAttributeValueByName('maxlength');
       formatValor = (formatValor + decimal).padStart(maxlength, '0');
     }
 
@@ -270,7 +270,7 @@ export class Control {
 
   
   setDropDownValue(control: Control, valor:any) {
-      let filter = this.content!.contentList.filter((opcion) => {
+      const filter = this.content!.contentList.filter((opcion) => {
         return opcion.ky == valor;
         }).map((opcion) => {
           return opcion.ky;
@@ -298,9 +298,9 @@ export class Control {
     containers.forEach((cont: Container) => {
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        let key = ctrl.ky?.toString() === undefined? '': ctrl.ky?.toString();
+        const key = ctrl.ky?.toString() === undefined? '': ctrl.ky?.toString();
         let value = dataModal[key];
-        if(key !== '')
+        if(key !== ''){}
           switch (ctrl.controlType) {
             case 'datepicker':
               const dateTime = moment(value, 'DD-MM-YYYY');
@@ -342,17 +342,17 @@ export class Control {
 
 
   getDataToControls( containers:Container[]) {
-    let dataCatalog:{[k:string]:any}={};
+    const dataCatalog:{[k:string]:any}={};
     
     let _formAux:FormGroup;
     containers.forEach((cont: Container) => {
       _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
       cont.controls.forEach((x: Control, i) => {
         const ctrl: Control = Object.assign(new Control(), x);
-        let ky = ctrl.ky !== undefined ? ctrl.ky : '';
-        let value = ctrl.getAttributeValueByName('value');
+        const ky = ctrl.ky !== undefined ? ctrl.ky : '';
+        const value = ctrl.getAttributeValueByName('value');
         dataCatalog[ky.toString()] = value;
-        let a = ctrl.getInfoValue(_formAux);
+        const a = ctrl.getInfoValue(_formAux);
       });
     });
 
@@ -374,7 +374,7 @@ export class Control {
           return v.type === 1 && v.validate === 'format_0';
         }).length > 0
       ) {
-        let maxlength = this.getAttributeValueByName('maxlength');
+        const maxlength = this.getAttributeValueByName('maxlength');
         formatValor = _form.controls[this.ky!].value
           .toString()
           .padStart(maxlength, '0');
@@ -398,7 +398,7 @@ export class Control {
     let elem: any = null;
     if (this.attributes) {
       this.attributes.forEach((el: any) => {
-        let [key] = Object.keys(el);
+        const [key] = Object.keys(el);
         if (key === name) {
           elem = el;
         }
@@ -409,7 +409,7 @@ export class Control {
   }
 
   setAttributeValueByName(name: string, value: any) {
-    let elem: any = this.findAttributeByName(name);
+    const elem: any = this.findAttributeByName(name);
     if (elem != null) {
       elem[name] = value;
     }
@@ -421,7 +421,7 @@ export class Control {
   }
 
   setAttributeValueByNameDropdown(name: string, value: any) {
-    let elem: any = this.findAttributeByName(name);
+    const elem: any = this.findAttributeByName(name);
     if (elem != null) {
       elem[name] = value;
     }
@@ -437,13 +437,13 @@ export class Control {
   }
 
   getAttributeValueByName(name: string): any {
-    let elem: any = this.findAttributeByName(name);
+    const elem: any = this.findAttributeByName(name);
     return elem === null ? null : elem[name];
   }
 
   getMask(): Mask {
     let mask: Mask = {} as Mask;
-    let pattern = this.validations!.find((v) => { return v.type === this.codeResponseMagic.RESPONSE_CODE_2; });
+    const pattern = this.validations!.find((v) => { return v.type === this.codeResponseMagic.RESPONSE_CODE_2; });
     if (pattern) {
       mask = {
         regex: pattern.validate,
@@ -457,7 +457,7 @@ export class Control {
   {
     if(_form.get(this.ky!))
     {
-      let valueTxt = _form.controls[this.ky!].value;
+      const valueTxt = _form.controls[this.ky!].value;
       if(valueTxt &&  typeof valueTxt ==='string')
       {
         return valueTxt.length;

@@ -179,7 +179,7 @@ export class ReactiveForm{
         containers.forEach((cont: Container) => {
           _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
           _formAux.reset();      
-          let ctrls = cont.controls.filter(c=> c.getAttributeValueByName('value'));
+          const ctrls = cont.controls.filter(c=> c.getAttributeValueByName('value'));
         });
       }
 
@@ -190,7 +190,7 @@ export class ReactiveForm{
           _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
           oDataAux = _formAux.value;
           });
-        let jsonResult = JSON.stringify(oDataAux);
+        const jsonResult = JSON.stringify(oDataAux);
         return JSON.parse(jsonResult);
       }
       
@@ -201,7 +201,7 @@ export class ReactiveForm{
           _formAux = this.principalForm?.get(cont.idContainer) as FormGroup;
           oDataAux = _formAux.value;
           });
-        let jsonResult = JSON.stringify(oDataAux);
+        const jsonResult = JSON.stringify(oDataAux);
         return JSON.parse(jsonResult);
       }
 

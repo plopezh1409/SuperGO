@@ -63,7 +63,7 @@ export class MasterKeyService {
 
   //response_type = code
   getUserInfo(token: string): Observable<any> {
-    let body: any = {
+    const body: any = {
       grant_type: 'authorization_code',
       client_id: this.client_id,
       client_secret: this.client_secret,

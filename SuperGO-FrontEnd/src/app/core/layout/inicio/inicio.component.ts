@@ -34,7 +34,7 @@ export class InicioComponent implements OnInit {
   private llaveMaestraService: MasterKeyService;
   inputSearch: string = '';
   showImage = true;
-  init: boolean = false;
+  init = false;
   cardsTop: any[] = [];
   cardsTopRes: any[] = [];
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -86,7 +86,7 @@ export class InicioComponent implements OnInit {
     else {
       this.Auth = false;
       this.init = false;
-      let actMk = this.authService.isActiveMasterKey;
+      const actMk = this.authService.isActiveMasterKey;
       if (isObservable(actMk)) {
         this.appComponent.showLoader(true);
         actMk.pipe(finalize(() => this.appComponent.showLoader(false))).subscribe(result => {
@@ -122,7 +122,7 @@ export class InicioComponent implements OnInit {
     
   }
   isActiveMasterKey() {
-    let llaveMaestraObject = {
+    const llaveMaestraObject = {
       code: this.activatedRoute.snapshot.queryParamMap.get('code'),
       scope: this.activatedRoute.snapshot.queryParamMap.get('scope')
     };
@@ -150,7 +150,7 @@ export class InicioComponent implements OnInit {
   getUserMasterKey(data: any) {
     this.authService.guardarToken(data);
     this.authService.guardarUsuario(data);
-    let usuario = this.authService.usuario;
+    const usuario = this.authService.usuario;
 
     if (Number(usuario.employee) <= 0) {
       Swal.fire({
@@ -209,7 +209,7 @@ export class InicioComponent implements OnInit {
   }
 
   redirect(topModule: any) {
-    let module = this.authService.getModuleByUrl(topModule.url);
+    const module = this.authService.getModuleByUrl(topModule.url);
     if (module) {
       this.authService.getRoleName(module.role.name);
       this.router.navigateByUrl(topModule.url);
@@ -232,7 +232,7 @@ export class InicioComponent implements OnInit {
 
   calculateAdd() {
     this.cardsTopRes = [];
-    let can = this.cardsTop.length;
+    const can = this.cardsTop.length;
     for (let i = 0; i < Number(this.codeResponseMagic.RESPONSE_CODE_5) - can; i++) {
       this.cardsTopRes.push(i);
 
@@ -278,7 +278,7 @@ export class InicioComponent implements OnInit {
       confirmButtonColor: '#d33'
     }).then((result) => {
       if (result.isConfirmed) {
-        let tp = {
+        const tp = {
           'idTop': this.cardsTop[index].id
         };
         this.appComponent.showLoader(true);

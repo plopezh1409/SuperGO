@@ -60,7 +60,7 @@ export class DatepickerRangeControlComponent implements OnInit {
     if(this.control.attributes && this.control.attributes.length > 0)
     {
       this.control.attributes.forEach(attr=>{        
-        let [ky] = Object.keys(attr);        
+        const [ky] = Object.keys(attr);        
         if(ky)
         { 
           switch(ky)
@@ -78,7 +78,7 @@ export class DatepickerRangeControlComponent implements OnInit {
         }
       });
     }
-    let validations = this.control.onLoadControl();
+    const validations = this.control.onLoadControl();
     if(this.control.content?.filter && this.control.content?.filter==='outweekends')
     {      
       this.dateFilter = (d: any | null): boolean => {

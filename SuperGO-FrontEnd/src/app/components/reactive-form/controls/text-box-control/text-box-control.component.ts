@@ -29,7 +29,7 @@ export class TextBoxControlComponent implements OnInit {
   }
   mask: any;
   nuevoValorMinLength = 1;
-  setError: boolean = false; 
+  setError =  false; 
   controlClass:string='';
 
   onBlur() {
@@ -71,7 +71,7 @@ export class TextBoxControlComponent implements OnInit {
 
   getLengthValue()
   {     
-    let valueTxt = this.form.get(this.control.ky!)?.value;
+    const valueTxt = this.form.get(this.control.ky!)?.value;
     if(valueTxt)
     {
       return valueTxt.length;
@@ -84,8 +84,8 @@ export class TextBoxControlComponent implements OnInit {
   validDependenceByDropDown() {
     const { content } = this.control;
     if (this.form.get(content?.dependency!)?.status === 'VALID') {
-      let valueDropDown = this.form.get(content?.dependency!)?.value;
-      let newDropDownValidation = content!.options.find((x) => Number(x.ky) === Number(valueDropDown));
+      const valueDropDown = this.form.get(content?.dependency!)?.value;
+      const newDropDownValidation = content!.options.find((x) => Number(x.ky) === Number(valueDropDown));
       if (newDropDownValidation) {
         this.changeNewValidation(newDropDownValidation);        
       }
@@ -105,10 +105,10 @@ export class TextBoxControlComponent implements OnInit {
 
   changeNewValidation(newDropDownValidation:any){
     JSON.parse(newDropDownValidation.value.replace(/'/g, '"')).forEach((elem: any) => {
-        let validation = Object.keys(elem);
+        const validation = Object.keys(elem);
         validation.forEach((v) => {
           if ((elem[v].indexOf('|') > -1) && (v === 'minlength')){             
-            let minlength = elem[v].split('|').find((x: any) =>this.form.get(this.control.ky!)?.value.length <= x);
+            const minlength = elem[v].split('|').find((x: any) =>this.form.get(this.control.ky!)?.value.length <= x);
             if (minlength) {
               if (this.form.get(this.control.ky!)?.value.length < minlength) {
                 this.control.setAttributeValueByName(v, minlength);
@@ -128,20 +128,20 @@ export class TextBoxControlComponent implements OnInit {
       const dropdownForm = this.form.get(content.dependency!);
       if(dropdownForm!=null && dropdownForm.status === 'VALID')
       { 
-        let valueDropDown = dropdownForm.value;
-        let newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
+        const valueDropDown = dropdownForm.value;
+        const newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
         this.setAttributeValue(content, valueDropDown);               
       }     
     }   
   }
 
   setAttributeValue(content:Content, valueDropDown:any){
-    let newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
+    const newDropDownValidation = content.options.find((x) => Number(x.ky) === Number(valueDropDown));
     if (newDropDownValidation) 
     {
       try{
         JSON.parse(newDropDownValidation.value.replace(/'/g, '"')).forEach((elem: any) => {
-          let validation = Object.keys(elem);
+          const validation = Object.keys(elem);
           validation.forEach((v) => {
             if (elem[v].indexOf('|') === -1) {
               this.control.setAttributeValueByName(v, elem[v]);

@@ -7,8 +7,8 @@ export class ControlDecimal {
 
     obtenerStrSinFormato(input:string): string {        
         if (input.indexOf('$') !== -1) {
-            let regex2CerosDespuesPuntoDecimal = new RegExp(/(\d+)(\.00)/g);
-            let valorDecimal= input.replace(/[$,]/g, '');
+            const regex2CerosDespuesPuntoDecimal = new RegExp(/(\d+)(\.00)/g);
+            const valorDecimal= input.replace(/[$,]/g, '');
             if(regex2CerosDespuesPuntoDecimal.test(valorDecimal)) {
                 return valorDecimal.substring(0,valorDecimal.length-(Number(this.codeResponseMagic.RESPONSE_CODE_3)));
               } else {

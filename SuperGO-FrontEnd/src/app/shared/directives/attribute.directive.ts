@@ -18,7 +18,7 @@ export class AttributeDirective implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {            
       if (changes.attributes) {
         this.attributes.forEach((elem:any)=>{          
-          let [key]= Object.keys(elem);
+          const [key]= Object.keys(elem);
           if(elem[key])
           {            
             this.renderer.setAttribute(this.elementRef.nativeElement, key, elem[key]);

@@ -112,7 +112,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
           const {response} = data;          
           //this.formulario.controls[this.control.ky!].setValue(response[this.control.ky!.toLowerCase()]);          
           this.setIconoStatus = 1;          
-          let campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
+          const campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
           if (campoAImprimir) {                        
             this.formulario.controls[campoAImprimir.ky!].setValue(response[campoAImprimir.dependency]);
           }
@@ -165,7 +165,7 @@ export class BusquedaPorCampoControlComponent implements OnInit
   onInput() {
     if (this.control.ky && !this.formulario.get(this.control.ky)?.errors) {
       this.setIconoStatus = 2;
-      let campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
+      const campoAImprimir = this.buscaCampoParaImprimirResultadoConsulta();
       if (campoAImprimir) {
         this.formulario.controls[campoAImprimir.ky!].setValue('');
       }

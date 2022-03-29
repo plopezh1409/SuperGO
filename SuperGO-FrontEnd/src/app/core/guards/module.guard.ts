@@ -46,7 +46,7 @@ export class ModuleGuard implements CanLoad {
 
       isUserModuleValid(fullPath:string):boolean
       { 
-        let module = this.authService.getModuleByUrl(fullPath);
+        const module = this.authService.getModuleByUrl(fullPath);
         if(module)
         {
           this.authService.getRoleName(module.role.name);

@@ -4,7 +4,7 @@ export class InterceptorUtils{
     private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 
     getTime()
     {
-        let dateInterceptop = new Date();
+        const dateInterceptop = new Date();
         return `${dateInterceptop.getDate().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')}/${
             (dateInterceptop.getMonth()+1).toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_2), '0')}/${
             dateInterceptop.getFullYear().toString().padStart(Number(this.codeResponseMagic.RESPONSE_CODE_4), '0')} ${

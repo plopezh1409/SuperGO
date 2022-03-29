@@ -40,7 +40,7 @@ export class TokenInterceptor implements HttpInterceptor {
         //interceptor no se actualizaba correctamente cuando se cambiaba de usuario      
         this.token = this.authService.token;    
         this.url = req.url;
-        let bodyOriginal: any = req.body;
+        const bodyOriginal: any = req.body;
         let authReq: any = req.body;
         
         switch (true) {
@@ -95,11 +95,11 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     generarEncoding(bodyOriginal: any): void {
-        let objEncrypt = this.angularSecurity.encryptAES2(typeof (bodyOriginal) != 'string' ? JSON.stringify(bodyOriginal) : bodyOriginal);
+        const objEncrypt = this.angularSecurity.encryptAES2(typeof (bodyOriginal) != 'string' ? JSON.stringify(bodyOriginal) : bodyOriginal);
         this.bodyClone = {
             'text': objEncrypt.texto
         };
-        let json: any = {
+        const json: any = {
             'rnd': objEncrypt.llave,
             'device': this.deviceInfo.deviceType,
             'browser': this.deviceInfo.browser
@@ -108,8 +108,8 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     revisarListaNegra(): boolean {
-        let listaNegra: string[] = ['evidence/save', 'evidence', 'validation/csv'];
-        let flag: boolean = false;
+        const listaNegra: string[] = ['evidence/save', 'evidence', 'validation/csv'];
+        let flag = false;
 
         listaNegra.forEach(element => {
             if (this.url.includes(element)) {

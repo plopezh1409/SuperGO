@@ -26,7 +26,7 @@ export class AutocompleteControlComponent implements OnInit {
   }
 
   filtrar(item:any):any[]{
-    let valorfiltrado = (typeof item === 'object')? item.value.toLowerCase():item.toLowerCase();
+    const valorfiltrado = (typeof item === 'object')? item.value.toLowerCase():item.toLowerCase();
     return this.control.content!.options.filter((opcion:any) => opcion.value.toLowerCase().includes(valorfiltrado));
   }
 

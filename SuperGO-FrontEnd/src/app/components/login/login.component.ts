@@ -37,13 +37,13 @@ export class LoginComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   loginForm: FormGroup;
   actualizaForm: FormGroup;
-  submitted: boolean = false;
-  firstStart: boolean = false;
+  submitted = false;
+  firstStart = false;
   error: { code: number, message: string };
   usuario: User;
   rol: Rol;
   usuarioAux: string | null;
-  activateMasterKey: boolean = false;
+  activateMasterKey = false;
   p4ss1: string | null;
   p4ss2: string;
   p4ss3: string;
@@ -176,7 +176,7 @@ export class LoginComponent implements OnInit {
     //Convirtiendo a base 64    
     this.p4ssCopy = this.usuario.p4ss;
     this.usuario.p4ss = btoa(this.usuario.p4ss);
-    let obj: any = new LoginObject((this.usuario));
+    const obj: any = new LoginObject((this.usuario));
     obj.user = this.rutaActiva.snapshot.params.ADMIN != null
       && !isNaN(this.rutaActiva.snapshot.params.ADMIN)
       && Number(this.rutaActiva.snapshot.params.ADMIN) >= 0 ? this.rutaActiva.snapshot.params.ADMIN : '0';
@@ -216,8 +216,8 @@ export class LoginComponent implements OnInit {
 
   actualizarP4ss() {
     this.validateAllFormFields(this.actualizaForm);
-    let p4ssA = atob(this.usuario.p4ss);
-    let regex = new RegExp(this.regex);
+    const p4ssA = atob(this.usuario.p4ss);
+    const regex = new RegExp(this.regex);
     if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === '') {
       this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false);
     }
@@ -262,7 +262,7 @@ export class LoginComponent implements OnInit {
               response => {
                 this.authService.guardarUsuario(response.response);
                 this.authService.guardarToken(response.response);
-                let usuario = this.authService.usuario;
+                const usuario = this.authService.usuario;
                 this.logIn(usuario);
               },
               err => {
@@ -370,7 +370,7 @@ export class LoginComponent implements OnInit {
   }
 
   masterKey(): void {
-    let llaveMaestraObject = {
+    const llaveMaestraObject = {
       code: this.activatedRoute.snapshot.queryParamMap.get('code'),
       scope: this.activatedRoute.snapshot.queryParamMap.get('scope')
     };

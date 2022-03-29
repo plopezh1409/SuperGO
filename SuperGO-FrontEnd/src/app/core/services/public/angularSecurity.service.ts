@@ -25,7 +25,7 @@ export class AngularSecurity {
   constructor(protected http: HttpClient, private angularSecurityRSA: AngularSecurityRSAService) {}  
 
   public get getKeyAES(): Observable<any> {
-    let secretKey: any = this.keyAES;
+    const secretKey: any = this.keyAES;
     return secretKey;
   }
 
@@ -53,7 +53,7 @@ export class AngularSecurity {
       const salt = secretKey;
       const digest = 'sha256';
 
-      let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
+      const iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
 
       const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
       const cipher = crypto.createCipheriv(algorithm, key, iv);
@@ -72,7 +72,7 @@ export class AngularSecurity {
         const salt = secretKey;
         const digest = 'sha256';
 
-        let iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
+        const iv = Buffer.from(salt.substr(0, this.codeResponseMagic.RESPONSE_CODE_16));
 
         const key = crypto.pbkdf2Sync(secretKey, salt, this.iterations, this.keylen, digest);
 
@@ -91,14 +91,14 @@ export class AngularSecurity {
   encryptAES2(plainText: string): any {
 
     try {
-      let randomSecurity = this.randomSecurity();
+      const randomSecurity = this.randomSecurity();
       const algorithm = 'aes-256-ecb';
       const digest = 'sha256';
       const salt = randomSecurity;
       const key = crypto.pbkdf2Sync(randomSecurity, salt, this.iterations, this.keylen, digest);
 
-      let keyToB64 = this.angularSecurityRSA.arrayBuffertoB64(key);
-      let keyToHEX = this.angularSecurityRSA.b64toArrayBuffer(keyToB64);
+      const keyToB64 = this.angularSecurityRSA.arrayBuffertoB64(key);
+      const keyToHEX = this.angularSecurityRSA.b64toArrayBuffer(keyToB64);
       const cipher = crypto.createCipheriv(algorithm, key, '');
       let encrypted = cipher.update(plainText, 'utf8', 'base64');
 
@@ -114,7 +114,7 @@ export class AngularSecurity {
   decryptAES2(strToDecrypt: any, secretKey: any): any {
     try {
       if (strToDecrypt !== null || strToDecrypt !== '') {
-        let bufferKey = Buffer.from(secretKey, 'hex');
+        const bufferKey = Buffer.from(secretKey, 'hex');
         const algorithm = 'aes-256-ecb';
         const decipher = crypto.createDecipheriv(algorithm, bufferKey, '');
         let decrypted: any = decipher.update(strToDecrypt, 'base64');

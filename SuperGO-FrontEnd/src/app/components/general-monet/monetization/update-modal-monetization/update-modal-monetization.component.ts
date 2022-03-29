@@ -298,7 +298,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   setControls(dataForm:any, newContainer:Container){
-    for(let ctrl in dataForm){
+    for(const ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
       let valueCtrl = dataForm[ctrl] === 'undefined'? '' : dataForm[ctrl] === null? '': dataForm[ctrl];
       valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
@@ -332,7 +332,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     }    
 
     changePeridicity(dataForm:Container[]){
-      let idContainer = dataForm[0].idContainer;
+      const idContainer = dataForm[0].idContainer;
       dataForm.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
           if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
@@ -351,7 +351,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
       this.containers.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
           if(ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content){
-            for(let data of ctrl.content.contentList){
+            for(const data of ctrl.content.contentList){
               if(data.ky === type){
                 typeMonet = data.value;
                 break;

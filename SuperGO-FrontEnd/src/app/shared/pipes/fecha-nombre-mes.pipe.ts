@@ -12,10 +12,10 @@ export class FechaNombreMesPipe implements PipeTransform {
   transform(value: any): any {         
     if (value) {
         let nuevaFecha ='';
-        let fecha = moment(value, 'DD/MM/YYYY');
-        let dia   = fecha.format('DD');
-        let mes = fecha.format('MM');        
-        let anio  = fecha.format('YYYY');        
+        const fecha = moment(value, 'DD/MM/YYYY');
+        const dia   = fecha.format('DD');
+        const mes = fecha.format('MM');        
+        const anio  = fecha.format('YYYY');        
         switch(Number(mes))
         {
             case this.codeResponseMagic.RESPONSE_CODE_1: 

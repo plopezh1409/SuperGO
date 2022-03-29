@@ -19,7 +19,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   @Input() formulario!: FormGroup;
   @Input() controlesDesdeBackend!: any;
   @Input() objetosDependenciaBusquedaVsInfo: any;
-  setError: boolean = false;
+  setError = false;
   mask:any; 
   
   @Input() set setErrores (val:any) {
@@ -33,8 +33,8 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   private formularioService: FormService;
   private nombresCampos: string[] = [];
   private consulta: string = '';
-  private banderaBlur: boolean = false;
-  private banderaClick: boolean = false;
+  private banderaBlur = false;
+  private banderaClick = false;
   
   public setIconoStatus = Number(this.codeResponseMagic.RESPONSE_CODE_2);
   public mostrarLoaderInput = false;
@@ -82,7 +82,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     {
       if(data!==undefined)
       {         
-        let hasMsje = Object.keys(data).filter(k => k==='message');
+        const hasMsje = Object.keys(data).filter(k => k==='message');
         if(hasMsje.length>0)
         {
           this.mostrarLoaderInput = false;
@@ -92,14 +92,14 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
           return;
         }
 
-        let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === this.control.ky;});
+        const field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === this.control.ky;});
         if(field)
         {
           this.formulario.controls[this.control.ky!].setValue(data[field]);
         }        
 
         this.objetosDependenciaBusquedaVsInfo.forEach((elem:any) => {
-          let field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === elem.dependency.trim().toUpperCase();});
+          const field = Object.keys(data).find(k=>{return k.trim().toUpperCase() === elem.dependency.trim().toUpperCase();});
           if(field)
           {
             this.formulario.controls[elem.ky].setValue(data[field]);
@@ -117,7 +117,7 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
 
   enviarConsulta(url: string) {
     // lanzar la consulta de validacion
-    let str:string[] = url.split('|');
+    const str:string[] = url.split('|');
     let obj:any = null;
     if(str.length>this.codeResponseMagic.RESPONSE_CODE_2)
     {

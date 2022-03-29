@@ -33,7 +33,7 @@ export class EncabezadoComponent implements OnInit {
 
   private usuarioStorage: any;
   public rolStorage: any;
-  @Input() showLogo:boolean =false;
+  @Input() showLogo =false;
   nombreEmpleado: string;
   idRole: number;
   role: string;  
@@ -126,7 +126,7 @@ export class EncabezadoComponent implements OnInit {
   } 
   
   logout(): void {        
-    let actMk = this.authService.isActiveMasterKey;
+    const actMk = this.authService.isActiveMasterKey;
     if(isObservable(actMk))
     {        
       this.appComponent.showLoader(true);

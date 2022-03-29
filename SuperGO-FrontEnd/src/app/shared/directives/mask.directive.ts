@@ -50,9 +50,9 @@ export class MaskDirective {
   onBlur($event: any) {
     if(this.controlesBackEnd && this.controlesBackEnd.controlType === 'decimal')
     {      
-      let valorConFormato = this.maskDecimal.obtenerStrConFormato($event.target.value);
-      let clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate !== 'pattern'; })];
-      let validadoresDeCatalogo = this.controlesBackEnd.configValidators(clonValidadores);
+      const valorConFormato = this.maskDecimal.obtenerStrConFormato($event.target.value);
+      const clonValidadores = [...this.controlesBackEnd.validations.filter((x: any) => { return x.validate !== 'pattern'; })];
+      const validadoresDeCatalogo = this.controlesBackEnd.configValidators(clonValidadores);
       if (this.control.control) {
         this.control.control.setValidators(validadoresDeCatalogo);
         if (valorConFormato) {
@@ -73,7 +73,7 @@ export class MaskDirective {
 
   @HostListener('input', ['$event'])
   change($event: any): void {
-    let type = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('type') : null;
+    const type = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('type') : null;
     if (type === 'mask') {
       if (this.controlesBackEnd.ky.indexOf('RFC') > -1 || this.controlesBackEnd.ky.indexOf('CURP') > -1) {
         this.regExpr = new RegExp('^[a-zA-Z0-9]+$');
@@ -89,11 +89,9 @@ export class MaskDirective {
   }
 
   validarRegexYEscribirEnInput($event: any) {    
-    let elemento: any;
-    let valor: any;
+    const elemento = $event.target;
+    const valor = elemento.value;
     let pos: any;
-    elemento = $event.target;
-    valor = elemento.value;
     pos = elemento.selectionStart;
     if ($event.target.value.length === 1 && !this.regExpr.test(elemento.value))
     {
@@ -115,7 +113,7 @@ export class MaskDirective {
       elemento.selectionStart = elemento.selectionEnd = pos - 1;
     } 
     else {
-      let maxlength = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('maxlength'):null;
+      const maxlength = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('maxlength'):null;
       if (maxlength && valor.length > Number(maxlength)) 
       {
         elemento.selectionStart = elemento.selectionEnd = pos - 1;

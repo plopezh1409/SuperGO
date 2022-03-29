@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   inputSearch: String = '';
   @Input() boolImg: boolean;
   @Input() initIN: boolean;
-  placeHolderInput: boolean = false;
+  placeHolderInput = false;
   valueInput: string = '';
   modules: any[] = [];
   petitions: any[] = [];
@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.modules = this.authService.usuario.modules;
     this.modules.forEach(element => {
-      let mod = element.module;
+      const mod = element.module;
       if (mod.operation) {
         mod.operation.forEach((elemen: any) => {
           if (elemen.id !== '') {
@@ -61,9 +61,9 @@ export class SearchComponent implements OnInit {
     this.copyPetitions = [];
     for (let i = 0; i < this.petitions.length; i++) {
       const element = this.petitions[i];
-      let cadena = element.string.toLowerCase();
-      let termino = this.valueInput;
-      let posicion = cadena.indexOf(termino);
+      const cadena = element.string.toLowerCase();
+      const termino = this.valueInput;
+      const posicion = cadena.indexOf(termino);
       if (posicion !== -1) {
         this.copyPetitions.push(element);
       }
@@ -87,7 +87,7 @@ export class SearchComponent implements OnInit {
     if (this.boolImg) {
       this.showImage = true;
     }
-    let module = this.authService.getModuleByUrl(searchModule.url);
+    const module = this.authService.getModuleByUrl(searchModule.url);
     if (module) {
       this.authService.getRoleName(module.role.name);
       this.router.navigateByUrl(searchModule.url);

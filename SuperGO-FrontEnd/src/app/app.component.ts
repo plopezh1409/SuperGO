@@ -19,10 +19,10 @@ import { ServiceNoMagicNumber } from './core/models/ServiceResponseCodes/service
 export class AppComponent implements OnInit {
   private readonly codeResponse: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   title = 'SuperGO';
-  public showLoad: boolean = false;
-  public showLogo: boolean = false;
+  public showLoad = false;
+  public showLogo = false;
   private loaderDuration: number;
-  isAuth: boolean = false;
+  isAuth = false;
   public mostrarCarga: boolean;
   userActicity: any;
   userActivityPerMinute: any;
@@ -31,9 +31,9 @@ export class AppComponent implements OnInit {
   userInactivePerMinute: Subject<void> = new Subject();
   warningExpiredSessionTime: Subject<void> = new Subject();
   private matBreadcrumbService: MatBreadcrumbService;
-  public inpImage: boolean = true;
-  public boolImg: boolean = true;
-  public initIN: boolean = true;
+  public inpImage = true;
+  public boolImg = true;
+  public initIN = true;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
 
   isValidSession():boolean
   {
-    let isValid: boolean = true;
+    let isValid = true;
     if (!this.authService.isAuthenticated() || this.authService.isTokenExpirado())
     {
       this.authService.terminarSesion('/','¡Necesitas iniciar sesión nuevamente!');
@@ -140,8 +140,8 @@ export class AppComponent implements OnInit {
   {
     if(this.authService.sessionTime>0)
     {
-      let timeToast = this.authService.sessionTime - Number(this.codeResponse.RESPONSE_CODE_300);// HORA DE LA SESSION MENOS 5 MINUTOS
-      let now = (new Date().getTime() / Number(this.codeResponse.RESPONSE_CODE_1000)); //HORA LOCAL ACTUAL     
+      const timeToast = this.authService.sessionTime - Number(this.codeResponse.RESPONSE_CODE_300);// HORA DE LA SESSION MENOS 5 MINUTOS
+      const now = (new Date().getTime() / Number(this.codeResponse.RESPONSE_CODE_1000)); //HORA LOCAL ACTUAL     
       if(timeToast > now)
       {
         this.userActivityToast = setTimeout(()=> this.warningExpiredSessionTime.next(), ((timeToast - now) * Number(this.codeResponse.RESPONSE_CODE_1000)));

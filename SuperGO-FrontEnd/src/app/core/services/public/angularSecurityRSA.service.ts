@@ -24,19 +24,19 @@ export class AngularSecurityRSAService{
         for(let i=0; i < byteArray.length; i++) {
         byteString += String.fromCharCode(byteArray[i]);
         }
-        let b64 = btoa(byteString);        
+        const b64 = btoa(byteString);        
         return b64;
     }  
 
     b64toArrayBuffer(str:string):any
     {
-        let dec = atob(str); 
+        const dec = atob(str); 
         let bytes:any[] = []; 
         for(let i = 0; i < dec.length; i++) {
-        let code = dec.charCodeAt(i);   
+        const code = dec.charCodeAt(i);   
         bytes = bytes.concat([code]);      
         }
-        let unitArray = new Uint8Array(bytes);        
+        const unitArray = new Uint8Array(bytes);        
         return Buffer.from(unitArray).toString('hex').toUpperCase();
     }
 
@@ -52,10 +52,10 @@ export class AngularSecurityRSAService{
     }
 
     encryptRSA(data : any){
-        let pki = forge.pki;
-        let buffer = Buffer.from(this.publicKey, 'hex');
-        let publicK = this.addNewLines(this.arrayBuffertoB64(buffer));
-        let rsa = pki.publicKeyFromPem(`-----BEGIN PUBLIC KEY-----${publicK}-----END PUBLIC KEY-----`);
+        const pki = forge.pki;
+        const buffer = Buffer.from(this.publicKey, 'hex');
+        const publicK = this.addNewLines(this.arrayBuffertoB64(buffer));
+        const rsa = pki.publicKeyFromPem(`-----BEGIN PUBLIC KEY-----${publicK}-----END PUBLIC KEY-----`);
         return btoa(rsa.encrypt(data));
     }
 
@@ -64,10 +64,10 @@ export class AngularSecurityRSAService{
         try{
             if(data!=null)
             {
-                let pki = forge.pki;
-                let buffer = Buffer.from(this.privateKey, 'hex');
-                let privateK= this.addNewLines(this.arrayBuffertoB64(buffer));
-                let rsa = pki.privateKeyFromPem(`-----BEGIN PRIVATE KEY-----${privateK}-----END PRIVATE KEY-----`);
+                const pki = forge.pki;
+                const buffer = Buffer.from(this.privateKey, 'hex');
+                const privateK= this.addNewLines(this.arrayBuffertoB64(buffer));
+                const rsa = pki.privateKeyFromPem(`-----BEGIN PRIVATE KEY-----${privateK}-----END PRIVATE KEY-----`);
                 decryptRSA = rsa.decrypt(atob(data));
             }
             
