@@ -10,7 +10,7 @@ export function RequireMatch(control: any) {
 
 export class CatalogoValidadores {
   obtenerValidadores(input: string[], control: any) : any[] {
-    let validaciones:any[] = [];
+    const validaciones:any[] = [];
     input.forEach((val) => {
       switch (val) {
         case 'Validators.required':

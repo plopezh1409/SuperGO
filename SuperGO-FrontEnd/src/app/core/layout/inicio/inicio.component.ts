@@ -224,7 +224,7 @@ export class InicioComponent implements OnInit {
       allowOutsideClick: false
     }).then((res) => {
       if (res.isConfirmed) {
-        this.llaveMaestraService.rp = this.llaveMaestraService.redirect_uri;
+        this.llaveMaestraService.rp = this.llaveMaestraService.redirectUri;
         window.location.href = this.llaveMaestraService.logout();
       }
     });

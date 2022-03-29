@@ -70,7 +70,8 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
     }
 
     // Validando las dependencias que tiene la consulta
-    this.consulta = this.control.content!.endpoint!.split('|').length>this.codeResponseMagic.RESPONSE_CODE_2? this.control.content!.endpoint!.split('|')[1]:this.control.content!.endpoint!;
+    this.consulta = this.control.content!.endpoint!.split('|').length>this.codeResponseMagic.RESPONSE_CODE_2? 
+    this.control.content!.endpoint!.split('|')[1]:this.control.content!.endpoint!;
     this.consulta = this.consulta.split('[').length>=this.codeResponseMagic.RESPONSE_CODE_2?this.consulta.split('[')[1].replace('[','').replace(']',''):this.consulta;
     this.consulta.split(',').forEach((key, index) => {
       this.nombresCampos.push(key.split(':')[1].replace('{','').replace('}','').replace('[','').replace(']','').replace(/[']/g,''));
@@ -88,7 +89,8 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
           this.mostrarLoaderInput = false;
           this.setIconoStatus = 0;
           this.formulario.controls[this.control.ky!].setValue('');
-          Swal.fire({html:`<div class="titModal">No se encontro información válida </div><br>Se encontró el siguiente problema al momento de buscar la información: ${data[hasMsje[0]]}`});
+          Swal.fire({html:`<div class="titModal">No se encontro información válida </div><br>
+          Se encontró el siguiente problema al momento de buscar la información: ${data[hasMsje[0]]}`});
           return;
         }
 

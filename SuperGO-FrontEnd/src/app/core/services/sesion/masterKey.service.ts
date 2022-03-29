@@ -13,10 +13,10 @@ import { environment } from '@env/environment';
 })
 export class MasterKeyService {
   private cle: any;
-  public response_type: string;
-  public client_id: string;
-  public client_secret: string;
-  public redirect_uri: string;
+  public responseType: string;
+  public clientId: string;
+  public clientSecret: string;
+  public redirectUri: string;
   public scope: string;
   public acr_values: string;
   public rp: string;
@@ -35,11 +35,11 @@ export class MasterKeyService {
     private router: Router,
     authService: AuthService,
   ) {
-    this.response_type = 'code';
+    this.responseType = 'code';
     this.cle = this.angularSecurity.getKeyAES;
-    this.client_id = this.angularSecurity.decryptAES(environment.client_id, this.cle);
-    this.client_secret = this.angularSecurity.decryptAES(environment.client_secret, this.cle);
-    this.redirect_uri = this.angularSecurity.decryptAES(environment.redirect_uri, this.cle);
+    this.clientId = this.angularSecurity.decryptAES(environment.client_id, this.cle);
+    this.clientSecret = this.angularSecurity.decryptAES(environment.client_secret, this.cle);
+    this.redirectUri = this.angularSecurity.decryptAES(environment.redirect_uri, this.cle);
     this.scope = this.angularSecurity.decryptAES(environment.scope, this.cle);
     this.acr_values = this.angularSecurity.decryptAES(environment.acr_values, this.cle);
     this.rp = this.angularSecurity.decryptAES(environment.rp, this.cle);
@@ -53,21 +53,32 @@ export class MasterKeyService {
   }
 
   getAuthz(): Observable<any> {
-    return this.http.get(`${this.urlGsAuth}?response_type=${this.response_type}&client_id=${this.client_id}&client_secret=${this.client_secret}&redirect_uri=${this.redirect_uri}&scope=${this.scope}&acr_values=${this.acr_values}`);
+    return this.http.get(`
+    ${this.urlGsAuth}?response_type=${this.responseType}
+    &client_id=${this.clientId}
+    &client_secret=${this.clientSecret}
+    &redirect_uri=${this.redirectUri}
+    &scope=${this.scope}
+    &acr_values=${this.acr_values}`);
   }
 
   getUrlAuthz(): string {
 
-    return `${this.urlGsAuth}?response_type=${this.response_type}&client_id=${this.client_id}&client_secret=${this.client_secret}&redirect_uri=${this.redirect_uri}&scope=${this.scope}&acr_values=${this.acr_values}`;
+    return `${this.urlGsAuth}?response_type=${this.responseType}
+    &client_id=${this.clientId
+    }&client_secret=${this.clientSecret}
+    &redirect_uri=${this.redirectUri}
+    &scope=${this.scope}
+    &acr_values=${this.acr_values}`;
   }
 
   //response_type = code
   getUserInfo(token: string): Observable<any> {
     const body: any = {
       grant_type: 'authorization_code',
-      client_id: this.client_id,
-      client_secret: this.client_secret,
-      redirect_uri: this.redirect_uri,
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
+      redirect_uri: this.redirectUri,
       code: btoa(token),
     };
 

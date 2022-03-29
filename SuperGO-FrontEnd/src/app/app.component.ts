@@ -108,8 +108,11 @@ export class AppComponent implements OnInit {
   }
 
   setTimeout() {
-    this.userActicity = setTimeout(() => this.userInactive.next(), Number(this.codeResponse.RESPONSE_CODE_600000)); //TIEMPO DE 10 MINUTOS DE INACTIVIDAD CIERRE DE SESIÓN
-    this.userActivityPerMinute = setTimeout(() => this.userInactivePerMinute.next(), Number(this.codeResponse.RESPONSE_CODE_540000)); //TIEMPO DE 9 MINUTOS DE INACTIVIDAD MENSAJE DE AVISO        
+    this.userActicity = setTimeout(() => this.userInactive.next(), 
+    Number(this.codeResponse.RESPONSE_CODE_600000)); //TIEMPO DE 10 MINUTOS DE INACTIVIDAD CIERRE DE SESIÓN
+    this.userActivityPerMinute = setTimeout(() => 
+    this.userInactivePerMinute.next(), 
+    Number(this.codeResponse.RESPONSE_CODE_540000)); //TIEMPO DE 9 MINUTOS DE INACTIVIDAD MENSAJE DE AVISO        
   }
 
   @HostListener('window:mousemove') refreshUserState() {
