@@ -14,6 +14,7 @@ import { AppComponent } from '@app/app.component';
 import { ActivatedRoute } from '@angular/router';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
 
 @Component({
   selector: 'app-societies',
@@ -76,12 +77,12 @@ export class SocietiesComponent implements OnInit {
     const oSociety:Sociedad = new Sociedad();
     oSociety.idTipo = parseInt(dataForm.idTipo,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
-    oSociety.RFC = dataForm.RFC;
+    oSociety.rfc = dataForm.rfc;
     this.appComponent.showLoader(true);
     this.societyService.insertSociety(oSociety).pipe(finalize(() => {
         this.appComponent.showLoader(false);
       })).subscribe((response:IResponseData<GenericResponse>) => {
-        if(response.code === this.codeResponse.RESPONSE_CODE_200){
+        if(response.code === this.codeResponse.RESPONSE_CODE_201){
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
@@ -133,10 +134,10 @@ export class SocietiesComponent implements OnInit {
     this.appComponent.showLoader(true);
     this.societyService.getInfoSocieties().pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
-      switch (data.code) {
+    })).subscribe((response:IResponseData<SocietiesResponse>)=>{
+      switch (response.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response.sociedades;
+          this.dataInfo = response.response.sociedades;
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
         case this.codeResponse.RESPONSE_CODE_400:

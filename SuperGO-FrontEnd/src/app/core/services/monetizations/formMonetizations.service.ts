@@ -59,21 +59,20 @@ export class FormMonetizationsService{
 
     getDataMonetization():Observable<any>
     {
-        // return this.httpClient.get(`${this.urlServices}reglas-monetizacion/get`);
-        return this.httpClient.get('assets/dataTables/dataMonetization.json');
+        return this.httpClient.get(`${this.urlServices}reglas-monetizacion/get`);
+        // return this.httpClient.get('assets/dataTables/dataMonetization.json');
     }
 
     getDataMonetizationById(oMonetization:Monetizacion):Observable<any>
     {
-        return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
-        // return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post/Busqueda`, oMonetization);
+        // return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
+        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post/Busqueda`, oMonetization);
     }
 
     insertMonetization(oMonetization:Monetizacion):Observable<any>
     {
-        return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
-
-        // return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post`, oMonetization);
+        // return this.httpClient.get('assets/dataTables/dataMonetizationBusqueda.json');
+        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post`, oMonetization);
     }
 
     updateMonetization(oMonetization:Monetizacion):Observable<any>

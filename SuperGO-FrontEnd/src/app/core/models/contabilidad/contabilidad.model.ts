@@ -1,8 +1,8 @@
 export class Contabilidad
 {
     idSociedad:number;
-    idTipoOperacion:number;
-    idSubtipoOperacion:number;
+    idTipo:number;
+    idSubtipo:number;
     idReglaMonetizacion:number;
     razonSocial:string;
     descripcionTipo:string;
@@ -17,11 +17,13 @@ export class Contabilidad
     centroDestino:string;
     indicadorIVA:string;
     cuentaSAP:string;
+    fechaInicio:string;
+    fechaFin:string;
 
     constructor(){
         this.idSociedad = 0;
-        this.idTipoOperacion = 0;
-        this.idSubtipoOperacion = 0;
+        this.idTipo = 0;
+        this.idSubtipo = 0;
         this.idReglaMonetizacion = 0;
         this.contabilidadDiaria = '';
         this.numeroApunte = 0;
@@ -36,6 +38,8 @@ export class Contabilidad
         this.razonSocial = '';
         this.descripcionTipo='';
         this.descripcionSubtipo = '';
+        this.fechaFin = '01/01/0001';
+        this.fechaInicio = '01/01/0001';
     }
 
 }

@@ -12,6 +12,9 @@ import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
 
 @Component({
   selector: 'app-update-modal-societies',
@@ -69,18 +72,17 @@ export class UpdateModalSocietiesComponent implements OnInit {
     oSociety.idSociedad = this.idSociety;
     oSociety.idTipo = parseInt(dataForm.idTipo,10);
     oSociety.razonSocial = dataForm.razonSocial.trim();
-    oSociety.RFC = dataForm.RFC;
+    oSociety.rfc = dataForm.rfc;
     this.showLoader(true);
     this.societyService.updateSociety(oSociety).pipe(finalize(() => {
       this.showLoader(false);
-      }))
-      .subscribe((response:any) => {
+      })).subscribe((response:IResponseData<GenericResponse>) => {
         if(response.code === this.codeResponse.RESPONSE_CODE_200){
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
             title: 'Solicitud correcta  ',
-            text: response.mensaje,
+            text: response.message.toString(),
             heightAuto: false,
             allowOutsideClick: false,
             confirmButtonText: 'Ok'
@@ -91,7 +93,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           });
         }
         else{
-          this.messageError.showMessageError(response.mensaje, response.code);
+          this.messageError.showMessageError(response.message.toString(), response.code);
         }
       }, (err) => {
         this.messageError.showMessageError('Por el momento no podemos proporcionar tu Solicitud.', err.status);      
@@ -103,7 +105,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.showLoader(true);
     this.societyService.getInfoSocieties().pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response) => {
+    })).subscribe((response:IResponseData<SocietiesResponse>) => {
         switch(response.code){
           case this.codeResponse.RESPONSE_CODE_200:
             oResponse.status = true;

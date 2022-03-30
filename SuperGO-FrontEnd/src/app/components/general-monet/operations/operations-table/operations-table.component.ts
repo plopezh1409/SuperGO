@@ -70,7 +70,7 @@ open(obOperation:Operaciones){
   }
 
   show(obOperation:Operaciones):void{
-    const status = obOperation.status === 'A'? 'ACTIVO' : 'INACTIVO'
+    const status = obOperation.status === 'A'? 'ACTIVO' : 'INACTIVO';
     let registro = '';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 

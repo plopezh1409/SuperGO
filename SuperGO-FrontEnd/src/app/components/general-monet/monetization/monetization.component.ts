@@ -173,7 +173,7 @@ export class MonetizationComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response.sociedades);
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
       this.dataInfo = dataOper.response.reglas;
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
@@ -185,28 +185,38 @@ export class MonetizationComponent implements OnInit {
   }
 
   addDataDropdown(dataForm:Container[], dataContent:any){
-    dataContent.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any) => {
-          if(typeof value === 'number'){
-            ele['ky'] = ele[key];
-            delete ele[key];
-          }
-          else{
-            ele['value'] = ele[key];
-            delete ele[key];
+      const cpDataContent = Object.assign({},dataContent);
+      delete cpDataContent.reglas;
+      Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
+        value.forEach((ele:any) => {
+          Object.entries(ele).forEach(([_key, _value]:any[]) => {
+            if(typeof _value === 'number'){
+              ele['ky'] = ele[_key];
+              delete ele[_key];
+            }
+            else{
+              ele['value'] = ele[_key];
+              delete ele[_key];
+            }
+          });
+        });
+      });
+      
+      dataForm.forEach((element:Container) => {
+        element.controls.forEach((ctrl:Control) => {
+          if(ctrl.controlType === 'dropdown' && ctrl.content){
+            if(ctrl.ky === 'idSociedad' ){
+              ctrl.content.contentList = cpDataContent.sociedades;
+              ctrl.content.options = cpDataContent.sociedades;
+            }else if(ctrl.ky === 'idTipo'){
+              ctrl.content.contentList = cpDataContent.operaciones;
+              ctrl.content.options = cpDataContent.operaciones;
+            }
           }
         });
       });
-    dataForm.forEach((element:Container) => {
-      element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-          ctrl.content.contentList = dataContent;
-          ctrl.content.options = dataContent;
-        }
-      });
-    });
-    return dataForm;
-  }
+      return dataForm;
+    }
 
   changePeridicity(dataForm: Container[]) {
     const idContainer = dataForm[0].idContainer;
@@ -215,7 +225,7 @@ export class MonetizationComponent implements OnInit {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
           const selectedValRequest: {} = {
             control: ctrl,
-            idContainer: idContainer
+            idContainer
           };
           this.onChangeCatsPetition(selectedValRequest);
         }

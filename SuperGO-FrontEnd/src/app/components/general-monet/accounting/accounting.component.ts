@@ -13,6 +13,7 @@ import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/Ser
 import { Control } from '@app/core/models/capture/controls.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-accounting',
@@ -77,8 +78,8 @@ export class AccountingComponent implements OnInit {
     }
     const oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = dataBody.idSociedad;
-    oConta.idTipoOperacion = parseInt(dataBody.idTipoOperacion,10);
-    oConta.idSubtipoOperacion = parseInt(dataBody.idSubTipoOperacion,10);
+    oConta.idTipo = parseInt(dataBody.idTipo,10);
+    oConta.idSubtipo = parseInt(dataBody.idSubtipo,10);
     oConta.numeroApunte = parseInt(dataBody.numeroApunte,10);
     oConta.sociedadGl = dataBody.sociedadGl.trim();
     oConta.tipoCuenta = dataBody.tipoCuenta.trim();
@@ -133,42 +134,79 @@ export class AccountingComponent implements OnInit {
       this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
-      this.containers = dataForm.response.reactiveForm//this.addDataDropdown(dataForm.response.reactiveForm,dataAcco.response);
-      this.dataInfo = dataAcco.response//dataAcco.response.registrosContables;
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataAcco.response);
+      this.dataInfo = this.orderDate(dataAcco.response.contabilidad);
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
 
-  addDataDropdown(dataForm:Container[], dataContent:any){
-    const cpDataContent = Object.assign({},dataContent);
-    delete cpDataContent.registrosContables;
-    Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
-      value.forEach((ele:any) => {
-        Object.entries(ele).forEach(([_key, _value]:any[]) => {
-          if(typeof _value === 'number'){
-            ele['ky'] = ele[_key];
-            delete ele[_key];
+  orderDate(contabilidad:Contabilidad[]){
+    contabilidad.forEach(oData => {
+      oData.fechaInicio = moment(oData.fechaInicio).format('DD-MM-YYYY');
+      oData.fechaFin = moment(oData.fechaFin).format('DD-MM-YYYY');
+    });
+    return contabilidad;
+  }
+  
+
+  /* addDataDropdown(dataForm:Container[], dataContent:any){
+    dataContent.forEach((ele:any) => {
+        Object.entries(ele).forEach(([key, value]:any) => {
+          if(typeof value === 'number'){
+            ele['ky'] = ele[key];
           }
           else{
-            ele['value'] = ele[_key];
-            delete ele[_key];
+            ele['value'] = ele[key];
           }
         });
       });
-    });
-    
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
         if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-          ctrl.content.contentList = cpDataContent.sociedades;
-          ctrl.content.options = cpDataContent.sociedades;
+          ctrl.content.contentList = dataContent;
+          ctrl.content.options = dataContent;
         }
       });
     });
     return dataForm;
-  }
+  } */
+
+  addDataDropdown(dataForm:Container[], dataContent:any){
+      const cpDataContent = Object.assign({},dataContent);
+      delete cpDataContent.contabilidad;
+      Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
+        value.forEach((ele:any) => {
+          Object.entries(ele).forEach(([_key, _value]:any[]) => {
+            if(typeof _value === 'number'){
+              ele['ky'] = ele[_key];
+              delete ele[_key];
+            }
+            else{
+              ele['value'] = ele[_key];
+              delete ele[_key];
+            }
+          });
+        });
+      });
+      
+      dataForm.forEach((element:Container) => {
+        element.controls.forEach((ctrl:Control) => {
+          if(ctrl.controlType === 'dropdown' && ctrl.content){
+            if(ctrl.ky === 'idSociedad'){
+              ctrl.content.contentList = cpDataContent.sociedades;
+              ctrl.content.options = cpDataContent.sociedades;
+            }
+            else if (ctrl.ky === 'idTipo'){
+              ctrl.content.contentList = cpDataContent.operaciones;
+              ctrl.content.options = cpDataContent.operaciones;
+            }
+          }
+        });
+      });
+      return dataForm;
+    }
 
   updateTable(){
     this.appComponent.showLoader(true);

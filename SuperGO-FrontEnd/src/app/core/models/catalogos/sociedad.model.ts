@@ -2,14 +2,14 @@ export class Sociedad
 {
     idSociedad:number;
     razonSocial:string;
-    RFC:string;
+    rfc:string;
     idTipo:number;
     descripcionTipo:string;
 
     constructor(){
         this.idSociedad = 0;
         this.razonSocial = '';
-        this.RFC = '';
+        this.rfc = '';
         this.descripcionTipo = '';
         this.idTipo = 0;
     }

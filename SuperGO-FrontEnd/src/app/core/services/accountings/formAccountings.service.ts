@@ -59,26 +59,24 @@ export class FormAccountingsService{
 
     getInfoAccounting():Observable<any>
     {
-        // return this.httpClient.get(`${this.urlServices}facturas/get`);
-        return this.httpClient.get('/assets/dataTables/dataAccounting.json');
+        return this.httpClient.get(`${this.urlServices}Contabilidad/get`);
+        // return this.httpClient.get('/assets/dataTables/dataAccounting.json');
     }
 
-    getAccountingById(dataAccount:Contabilidad):Observable<any>
+    getAccountingById(dataAccounting:Contabilidad):Observable<any>
     {
-        return this.httpClient.get(`${this.urlServices}facturas/get`);
+        return this.httpClient.post(`${this.urlServices}Contabilidad/post/Busqueda`, dataAccounting);
         // return this.httpClient.get('/assets/dataTables/dataAccountingBusqueda.json');
     }
 
     insertAccounting(dataAccounting:Contabilidad):Observable<any>
     {
-        return this.httpClient.post(`${this.urlServices}facturas/post`, dataAccounting);
-        // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
+        return this.httpClient.post(`${this.urlServices}Contabilidad/post`, dataAccounting);
     }
 
     updateAccounting(dataAccounting:Contabilidad) :Observable<any>
     {
-        return this.httpClient.put(`${this.urlServices}facturas/put`, dataAccounting);
-        // return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, dataAccounting);
+        return this.httpClient.put(`${this.urlServices}Contabilidad/put`, dataAccounting);
     }
 
 

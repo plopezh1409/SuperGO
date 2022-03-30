@@ -12,6 +12,7 @@ import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTabl
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { Container } from '@app/core/models/capture/container.model';
+import moment from 'moment';
 
  
 @Component({
@@ -27,12 +28,12 @@ export class AccountingTablesComponent implements OnInit {
   messageError: MessageErrorModule;
   dataSource:MatTableDataSource<Contabilidad>;
   displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion',
-    'fechaInicioVigencia','fechaFinVigencia','options', 'options2'];
+    'fechaInicio','fechaFin','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
   containers: Container[];
-  private showLoad: boolean;
-  private readonly loaderDuration: number;
+  public showLoad: boolean;
+  public readonly loaderDuration: number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -103,7 +104,7 @@ export class AccountingTablesComponent implements OnInit {
       return(this.messageError.showMessageError(data.message, data.code));
     }
     else{
-      const oConta:Contabilidad = data.response.registroContable;
+      const [oConta]:Contabilidad[] = data.response;
       oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'CONTABILIDAD DIARIA':'CONTABILIDAD AL CORTE';
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'APLICA IVA':'NO APLICA IVA';
       oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'?'CARGO':'ABONO';
@@ -140,6 +141,10 @@ export class AccountingTablesComponent implements OnInit {
        Cuenta SAP </b></td><td style="padding:5px">  ${oConta.cuentaSAP} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Monetización </b></td><td style="padding:5px">  ${oConta.idReglaMonetizacion} </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Inicio Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaInicio).format('DD-MM-YYYY')} </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Fin Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaFin).format('DD-MM-YYYY')} </td></tr>`);
       return(swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la contabilidad </div><br/> <br/>${registro}`,

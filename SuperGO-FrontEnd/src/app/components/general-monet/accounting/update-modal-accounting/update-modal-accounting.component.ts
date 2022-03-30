@@ -80,8 +80,8 @@ export class UpdateModalAccountingComponent implements OnInit {
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
     const oConta:Contabilidad =  new Contabilidad();
     oConta.idSociedad = jsonResult.idSociedad;
-    oConta.idTipoOperacion = parseInt(jsonResult.idTipoOperacion,10);
-    oConta.idSubtipoOperacion = parseInt(jsonResult.idSubTipoOperacion,10);
+    oConta.idTipo = parseInt(jsonResult.idTipo,10);
+    oConta.idSubtipo = parseInt(jsonResult.idSubtipo,10);
     oConta.idReglaMonetizacion = this.idReglaMonetizacion;
     oConta.numeroApunte = parseInt(jsonResult.numeroApunte,10);
     oConta.sociedadGl = jsonResult.sociedadGl.trim();

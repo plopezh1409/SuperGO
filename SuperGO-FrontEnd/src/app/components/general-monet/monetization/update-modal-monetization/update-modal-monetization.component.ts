@@ -338,7 +338,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
           if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
             const selectedValRequest:{} ={
               control: ctrl,
-              idContainer: idContainer
+              idContainer
             };
             this.onChangeCatsPetition(selectedValRequest);
           }

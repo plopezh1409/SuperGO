@@ -33,6 +33,8 @@ export class InvoicesTableComponent implements OnInit {
   totalRows:number;
   pageEvent: PageEvent;
   containers:Container[];
+  public showLoad: boolean;
+  public readonly loaderDuration: number;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -41,7 +43,9 @@ export class InvoicesTableComponent implements OnInit {
     this.containers = [];
     this.totalRows = 0;
     this.dataSource = new MatTableDataSource<Facturas>();
-    this.pageEvent= new PageEvent();   
+    this.pageEvent= new PageEvent();
+    this.showLoad = false;
+    this.loaderDuration = 100;
    }
 
   ngOnInit(): void {
@@ -116,6 +120,12 @@ export class InvoicesTableComponent implements OnInit {
 
   ngOnDestroy(): void {
     return( this.refData?.closeAll());
+  }
+
+  showLoader(showLoad: boolean): void {
+    setTimeout(() => {
+      this.showLoad = showLoad;
+    }, this.loaderDuration);
   }
 
 }

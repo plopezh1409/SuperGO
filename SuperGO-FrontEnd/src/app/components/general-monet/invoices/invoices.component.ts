@@ -73,7 +73,7 @@ export class InvoicesComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response.sociedades);
+      this.containers = this.addDataDropdown(dataForm.response.reactiveForm,dataOper.response);
       this.dataInfo = dataOper.response.facturas;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
@@ -132,35 +132,58 @@ export class InvoicesComponent implements OnInit {
 
   }
 
+  // addDataDropdown(dataForm:Container[], dataContent:any){
+  //     dataContent.forEach((ele:any) => {
+  //       Object.entries(ele).forEach(([key, value]:any) => {
+  //         if(typeof value === 'number'){
+  //           ele['ky'] = ele[key];
+  //         }
+  //         else{
+  //           ele['value'] = ele[key];
+  //         }
+  //       });
+  //     });
+
+  //   dataForm.forEach((element:Container) => {
+  //     element.controls.forEach((ctrl:Control) => {
+  //       if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
+  //         ctrl.content.contentList = dataContent;
+  //         ctrl.content.options = dataContent;
+  //       }
+  //     });
+  //   });
+  //   return dataForm;
+  // }
+
   addDataDropdown(dataForm:Container[], dataContent:any){
-    dataContent.sort(function (a:Sociedad, b:Sociedad) {
-      if (a.razonSocial > b.razonSocial) {
-        return 1;
-      }
-      if (a.razonSocial < b.razonSocial) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
-      dataContent.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any) => {
-          if(typeof value === 'number'){
-            ele['ky'] = ele[key];
-            delete ele[key];
+    const cpDataContent = Object.assign({},dataContent);
+    delete cpDataContent.facturas;
+    Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
+      value.forEach((ele:any) => {
+        Object.entries(ele).forEach(([_key, _value]:any[]) => {
+          if(typeof _value === 'number'){
+            ele['ky'] = ele[_key];
+            delete ele[_key];
           }
           else{
-            ele['value'] = ele[key];
-            delete ele[key];
+            ele['value'] = ele[_key];
+            delete ele[_key];
           }
         });
       });
-
+    });
+    
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-          ctrl.content.contentList = dataContent;
-          ctrl.content.options = dataContent;
+        if(ctrl.controlType === 'dropdown' && ctrl.content){
+          if(ctrl.ky === 'idSociedad'){
+            ctrl.content.contentList = cpDataContent.sociedades;
+            ctrl.content.options = cpDataContent.sociedades;
+          }
+          else if (ctrl.ky === 'idTipo'){
+            ctrl.content.contentList = cpDataContent.operaciones;
+            ctrl.content.options = cpDataContent.operaciones;
+          }
         }
       });
     });

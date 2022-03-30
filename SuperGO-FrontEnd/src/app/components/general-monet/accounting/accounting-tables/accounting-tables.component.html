@@ -1,6 +1,6 @@
+<app-progress [overlay]="showLoad"></app-progress>
 <div class="scrollable">
     <div>
-     
       <table mat-table [dataSource]="dataSource" matSort>
         <caption></caption>
         <ng-container matColumnDef="razonSocial">
@@ -24,14 +24,14 @@
             <td mat-cell *matCellDef="let element"> {{element.idReglaMonetizacion}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="fechaInicioVigencia">
+        <ng-container matColumnDef="fechaInicio">
             <th mat-header-cell *matHeaderCellDef id=""> FECHA INICIO VIGENCIA </th>
-            <td mat-cell *matCellDef="let element"> {{element.fechaInicioVigencia}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fechaInicio}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="fechaFinVigencia">
+        <ng-container matColumnDef="fechaFin">
             <th mat-header-cell *matHeaderCellDef id=""> FECHA FIN VIGENCIA </th>
-            <td mat-cell *matCellDef="let element"> {{element.fechaFinVigencia}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fechaFin}} </td>
         </ng-container>
         
         <ng-container matColumnDef="options">
