@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   title = 'SuperGO';
   public showLoad = false;
   public showLogo = false;
-  private loaderDuration: number;
+  private readonly loaderDuration: number;
   isAuth = false;
   public mostrarCarga: boolean;
   userActicity: any;
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   userInactive: Subject<void> = new Subject();
   userInactivePerMinute: Subject<void> = new Subject();
   warningExpiredSessionTime: Subject<void> = new Subject();
-  private matBreadcrumbService: MatBreadcrumbService;
+  private readonly matBreadcrumbService: MatBreadcrumbService;
   public inpImage = true;
   public boolImg = true;
   public initIN = true;
@@ -38,11 +38,11 @@ export class AppComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private readonly authService: AuthService,
+    private readonly router: Router,
     public injector: Injector,
     public logger: NGXLogger,
-    private _snackBar: MatSnackBar) 
+    private readonly _snackBar: MatSnackBar) 
     {
     this.mostrarCarga = false;
     this.loaderDuration = 100;
@@ -130,7 +130,7 @@ export class AppComponent implements OnInit {
   clearSearch(initIN: boolean): void {
     this.initIN = initIN;
   }
-  openSnackBar(message: any, action: any, type: any) {
+  openSnackBar(message: string, action: string, type: string) {
     this._snackBar.open(message, action, {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,

@@ -2,54 +2,54 @@
     "code": 200,
     "message": "CONSULTA EFECTUADA EXITOSAMENTE",
     "response": {
-        "registrosContables": [
+        "contabilidad": [
             {
                 "idSociedad": 1,
                 "razonSocial": "ELEKTRA",
-                "idTipoOperacion": 1,
+                "idTipo": 1,
                 "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-                "idSubTipoOperacion": 2,
+                "idSubtipo": 2,
                 "descripcionSubtipo": "GENERAL",
                 "idReglaMonetizacion": 1,
                 "numeroApunte":10,
-                "fechaInicioVigencia": "01-01-2022",
-                "fechaFinVigencia": "01-08-2022"
+                "fechaInicio": "2022-01-01",
+                "fechaFin": "2022-01-08"
             },
             {
                 "idSociedad": 2,
                 "razonSocial": "UPAX S.A. DE C.V.",
-                "idTipoOperacion": 11,
+                "idTipo": 11,
                 "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
-                "idSubTipoOperacion": 1,
+                "idSubtipo": 1,
                 "descripcionSubtipo": "GENERICO",
                 "idReglaMonetizacion": 33,
                 "numeroApunte":10,
-                "fechaInicioVigencia": "01-01-2022",
-                "fechaFinVigencia": "01-08-2022"
+                "fechaInicio": "2022-01-01",
+                "fechaFin": "2022-01-08"
             },
             {
                 "idSociedad": 3,
                 "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-                "idTipoOperacion": 10,
+                "idTipo": 10,
                 "descripcionTipo": "CREDITO AL CONSUMO Y NEGOCIOS",
-                "idSubTipoOperacion": 1,
+                "idSubtipo": 1,
                 "descripcionSubtipo": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "numeroApunte":10,
-                "fechaInicioVigencia": "01-01-2022",
-                "fechaFinVigencia": "01-08-2022"
+                "fechaInicio": "2022-01-01",
+                "fechaFin": "2022-01-08"
             },
             {
                 "idSociedad": 4,
                 "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
-                "idTipoOperacion": 10,
+                "idTipo": 10,
                 "descripcionTipo": "VENTA DE SEGUROS",
-                "idSubTipoOperacion": 0,
+                "idSubtipo": 0,
                 "descripcionSubtipo": "GENERICO",
                 "idReglaMonetizacion": 1,
                 "numeroApunte":10,
-                "fechaInicioVigencia": "01-01-2022",
-                "fechaFinVigencia": "01-08-2022"
+                "fechaInicio": "2022-01-01",
+                "fechaFin": "2022-01-08"
             }
         ],
         "sociedades":[

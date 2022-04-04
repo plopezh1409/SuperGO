@@ -1,5 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
+import { ListaMenu } from '@app/core/models/ListaMenu/lista-menu.model';
 import { AuthService } from '@app/core/services/sesion/auth.service';
 import Swal from 'sweetalert2';
 
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home-monetizer.component.sass']
 })
 export class HomeMonetizerComponent implements OnInit {
-  public listaMenu:any[];
+  public listaMenu:ListaMenu[];
   public authService: AuthService;  
  
   constructor(private readonly router: Router, public injector:Injector) 
@@ -53,7 +54,7 @@ export class HomeMonetizerComponent implements OnInit {
     }
   }
 
-  redirectUrl(i:any){       
+  redirectUrl(i:number){       
     const module = this.authService.getModuleByUrl(this.listaMenu[i].url);
     if(module)
     {

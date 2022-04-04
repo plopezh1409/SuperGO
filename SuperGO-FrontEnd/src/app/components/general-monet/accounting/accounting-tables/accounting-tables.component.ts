@@ -13,6 +13,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 import { Control } from '@app/core/models/capture/controls.model';
 import { Container } from '@app/core/models/capture/container.model';
 import moment from 'moment';
+import { AppComponent } from '@app/app.component';
 
  
 @Component({
@@ -32,21 +33,19 @@ export class AccountingTablesComponent implements OnInit {
   totalRows:number;
   pageEvent: PageEvent;
   containers: Container[];
-  public showLoad: boolean;
-  public readonly loaderDuration: number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  appComponent:AppComponent;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(private readonly injector:Injector,public refData?:MatDialog) {    
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
+    this.appComponent = this.injector.get<AppComponent>(AppComponent);
     this.messageError = new MessageErrorModule();
     this.containers = [];
     this.dataInfo=[];
     this.dataSource = new MatTableDataSource<Contabilidad>();
-    this.pageEvent= new PageEvent();   
-    this.loaderDuration = 100;
-    this.showLoad = false;
+    this.pageEvent= new PageEvent();
     this.totalRows = 0;
    }
 
@@ -66,19 +65,32 @@ export class AccountingTablesComponent implements OnInit {
   }
 
   async open(element:Contabilidad){
-    this.showLoader(true);
+    this.appComponent.showLoader(true);
+    const [idTipo, idSociedad] = [element.idTipo, element.idSociedad];
+    const society = {
+      idTipo,
+      idSociedad
+    };
     const data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
       return err;
     });
-    this.showLoader(false);
+    const monetRules = await this.accountService.getMonetizacionRules(society).toPromise().catch((err) => {
+      return err;
+    });
+    this.appComponent.showLoader(false);
     if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
+    else if(monetRules.code !== this.codeResponse.RESPONSE_CODE_201){
+      return(this.messageError.showMessageError(monetRules.message, monetRules.code));
+    }
     else{
-      const oConta:Contabilidad = data.response.registroContable;
+      const [oConta] = data.response;
       oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'true':'false';
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'true':'false';
-      const _auxForm = this.disabledFields(this.containers);
+      oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'? '1' : '2';
+      let _auxForm = this.disabledFields(this.containers);
+      _auxForm = this.addDataControlMonetization(_auxForm, monetRules.response);
       return( this.refData?.open(UpdateModalAccountingComponent,{
         width: '70%',
         data:{
@@ -95,11 +107,11 @@ export class AccountingTablesComponent implements OnInit {
   }
 
   async show(element:Contabilidad){
-    this.showLoader(true);
+    this.appComponent.showLoader(true);
     const data = await this.accountService.getAccountingById(element).toPromise().catch((err) => {
       return err;
     });
-    this.showLoader(false);
+    this.appComponent.showLoader(false);
     if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
@@ -158,7 +170,8 @@ export class AccountingTablesComponent implements OnInit {
   disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'
+          || ctrl.ky === 'idReglaMonetizacion'){
           ctrl.disabled = true;
         }
       });
@@ -166,14 +179,34 @@ export class AccountingTablesComponent implements OnInit {
     return _auxForm;
   }
 
-  showLoader(showLoad: boolean): void {
-    setTimeout(() => {
-      this.showLoad = showLoad;
-    }, this.loaderDuration);
-  }
-
     ngOnDestroy(): void {
     return( this.refData?.closeAll());
+  }
+
+  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
+    reglasMonetizacion.forEach((ele:any) => {
+      Object.entries(ele).forEach(([key, value]:any) => {
+        if(typeof value === 'number'){
+          ele['ky'] = ele[key]; 
+        }
+        else{
+          ele['value'] = ele[key];
+        }
+        delete ele[key];
+      });
+    });
+  
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.content){
+          if(ctrl.ky === 'idReglaMonetizacion' ){
+            ctrl.content.contentList = reglasMonetizacion;
+            ctrl.content.options = reglasMonetizacion;
+          }
+        }
+      });
+    });
+    return dataForm;
   }
 
 }

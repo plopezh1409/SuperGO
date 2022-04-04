@@ -10,6 +10,10 @@ import { finalize } from 'rxjs/operators';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { AccountingResponse } from '@app/core/models/ServiceResponseData/accounting-response.model';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-update-modal-accounting',
@@ -64,6 +68,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
     cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
+    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === '1'? 'C' : 'A';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
@@ -93,15 +98,16 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === 'true'?'D':'C';
     oConta.indicadorIVA = jsonResult.indicadorIVA === 'true'? 'AA':'NA';
     oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? 'C': 'A';
+    oConta.idReglaMonetizacion = jsonResult.idReglaMonetizacion;
     this.showLoader(true);
     this.accountingService.updateAccounting(oConta).pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response:any) => {
+    })).subscribe((response:IResponseData<GenericResponse>) => {
       if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
-          text: response.mensaje,
+          text: response.message.toString(),
           heightAuto: false,
           allowOutsideClick: false,
           confirmButtonText: 'Ok'
@@ -112,7 +118,7 @@ export class UpdateModalAccountingComponent implements OnInit {
         });
       }
       else{
-        this.messageError.showMessageError(response.message, response.code);
+        this.messageError.showMessageError(response.message.toString(), response.code);
       }
     }, (err) => {
         swal.fire({
@@ -129,11 +135,11 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.showLoader(true);
     this.accountingService.getInfoAccounting().pipe(finalize(() => {
       this.showLoader(false);
-    })).subscribe((response:any) => {
+    })).subscribe((response:IResponseData<AccountingResponse>) => {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
             oResponse.status = true;
-            oResponse.data = response.response;
+            oResponse.data = this.orderDate(response.response.contabilidad);
           return(
             this.refData?.close(oResponse)
             );
@@ -163,7 +169,16 @@ export class UpdateModalAccountingComponent implements OnInit {
       });
   }
 
-  close(){
+  orderDate(contabilidad:Contabilidad[]){
+    contabilidad.forEach(oData => {
+      oData.fechaInicio = moment(oData.fechaInicio).format('DD/MM/YYYY');
+      oData.fechaFin = moment(oData.fechaFin).format('DD/MM/YYYY');
+    });
+    return contabilidad;
+  }
+
+  
+  close(): void | undefined{
     return(
       this.refData?.close());
    }

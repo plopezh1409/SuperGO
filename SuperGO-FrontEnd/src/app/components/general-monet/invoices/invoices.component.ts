@@ -13,7 +13,8 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 import { Control } from '@app/core/models/capture/controls.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
-import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
+import { MonetizationRules, MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-response.model';
 
 @Component({
   selector: 'app-invoices',
@@ -34,12 +35,11 @@ export class InvoicesComponent implements OnInit {
 
 
   @ViewChild(InvoicesTableComponent) catalogsTable:InvoicesTableComponent;
-
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
-    this.catalogsTable = new InvoicesTableComponent();
+    this.catalogsTable = new InvoicesTableComponent(this.injector);
     this.messageError = new MessageErrorModule();
     this.containers=[];
     this.dataInfo=[];
@@ -103,6 +103,7 @@ export class InvoicesComponent implements OnInit {
     oInvoice.idTipo = parseInt(dataContainer.idTipo ,10);
     oInvoice.tipoComprobante = parseInt(dataContainer.tipoComprobante,10);
     oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
+    oInvoice.idReglaMonetizacion = dataContainer.idReglaMonetizacion;
 
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => {
@@ -131,29 +132,6 @@ export class InvoicesComponent implements OnInit {
     });
 
   }
-
-  // addDataDropdown(dataForm:Container[], dataContent:any){
-  //     dataContent.forEach((ele:any) => {
-  //       Object.entries(ele).forEach(([key, value]:any) => {
-  //         if(typeof value === 'number'){
-  //           ele['ky'] = ele[key];
-  //         }
-  //         else{
-  //           ele['value'] = ele[key];
-  //         }
-  //       });
-  //     });
-
-  //   dataForm.forEach((element:Container) => {
-  //     element.controls.forEach((ctrl:Control) => {
-  //       if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-  //         ctrl.content.contentList = dataContent;
-  //         ctrl.content.options = dataContent;
-  //       }
-  //     });
-  //   });
-  //   return dataForm;
-  // }
 
   addDataDropdown(dataForm:Container[], dataContent:any){
     const cpDataContent = Object.assign({},dataContent);
@@ -194,7 +172,7 @@ export class InvoicesComponent implements OnInit {
     this.appComponent.showLoader(true);
     this.formInvoicesService.getInfoInvoices().pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
+    })).subscribe((data:IResponseData<InvoicesResponse>)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
           this.dataInfo = data.response.facturas;
@@ -224,5 +202,71 @@ export class InvoicesComponent implements OnInit {
 });
 }
 
+onChangeDropDown($event: any){
+  if($event.control.ky !== 'idTipo' && $event.control.ky !== 'idSociedad') {
+    return;
+  }
+  const dataContainer = this.reactiveForm.getDataForm(this.containers);
+  if(dataContainer.idSociedad === null || dataContainer.idTipo === null){
+    return;
+  }
+  const [idTipo, idSociedad] = [dataContainer.idTipo, dataContainer.idSociedad];
+  const society = {
+    idSociedad,
+    idTipo
+  };
+  this.appComponent.showLoader(true);
+  this.formInvoicesService.getMonetizacionRules(society).pipe(finalize(() => {
+    this.appComponent.showLoader(false);
+  })).subscribe((data: IResponseData<MonetizationRules[]> ) => {
+    if(data.code === this.codeResponse.RESPONSE_CODE_201){
+      if(data.response.length !== 0){
+        this.addDataControlMonetization(this.containers, data.response);
+      }
+      else{
+        swal.fire({
+          icon: 'warning',
+          title: '¡Aviso!',
+          text: 'La Sociedad y la Operación no cuentan con Reglas de Monetización disponibles.',
+          heightAuto: false,
+          confirmButtonText: 'ACEPTAR',
+          allowOutsideClick: false
+        });
+      }
+    }
+    else{
+      this.messageError.showMessageError(data.message.toString(), data.code);
+    }
+  },(err) => {
+    this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+  });
+
+}
+
+addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
+  reglasMonetizacion.forEach((ele:any) => {
+    Object.entries(ele).forEach(([key, value]:any) => {
+      if(typeof value === 'number'){
+        ele['ky'] = ele[key];
+      }
+      else{
+        ele['value'] = ele[key];
+      }
+      delete ele[key];
+    });
+  });
+
+  dataForm.forEach((element:Container) => {
+    element.controls.forEach((ctrl:Control) => {
+      if(ctrl.controlType === 'dropdown' && ctrl.content){
+        if(ctrl.ky === 'idReglaMonetizacion' ){
+          ctrl.content.contentList = reglasMonetizacion;
+          ctrl.content.options = reglasMonetizacion;
+        }
+      }
+    });
+  });
+  return dataForm;
+}
 }
 

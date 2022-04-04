@@ -117,7 +117,7 @@ export class MonetizationComponent implements OnInit {
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:IResponseData<GenericResponse>)=>{
-      if(data.code === this.codeResponse.RESPONSE_CODE_200){ //this.codeResponse.RESPONSE_CODE_201
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
           title: 'Solicitud correcta',
@@ -134,7 +134,14 @@ export class MonetizationComponent implements OnInit {
       else{
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
-    });
+    },(err) => {
+      swal.fire({
+      icon: 'error',
+      title: 'Error inesperado',
+      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
+      heightAuto: false
+    }); 
+  });
   }
 
 
@@ -174,14 +181,13 @@ export class MonetizationComponent implements OnInit {
     }
     else {
       this.containers = this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
-      this.dataInfo = dataOper.response.reglas;
+      this.dataInfo = this.monetModule.orderDate(dataOper.response.reglas);
       this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm', JSON.stringify(this.containers));
       this.changePeridicity(this.containers);
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
-
   }
 
   addDataDropdown(dataForm:Container[], dataContent:any){
@@ -240,7 +246,7 @@ export class MonetizationComponent implements OnInit {
     })).subscribe((data:IResponseData<MonetizationResponse>)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response.reglas;
+          this.dataInfo = this.monetModule.orderDate(data.response.reglas);
           this.catalogsTable.onLoadTable(this.dataInfo);
         break;
         case this.codeResponse.RESPONSE_CODE_400:

@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DecimalPipe } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +11,14 @@ import { UpdateModalInvoicesComponent } from '../update-modal-invoices/update-mo
 import { Control } from '@app/core/models/capture/controls.model';
 import { Container } from '@app/core/models/capture/container.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { Observable } from 'rxjs';
+import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.service';
+import { finalize } from 'rxjs/operators';
+import { AppComponent } from '@app/app.component';
+import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
+import { MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 
 
 @Component({
@@ -29,16 +37,24 @@ export class InvoicesTableComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
   dataSource:MatTableDataSource<Facturas>;
+  formInvoicesService:FormInvoicesService;
   displayedColumns: string[] = ['razonSocial', 'descripcionTipo','descripcionSubtipo', 'idReglaMonetizacion','tipoComprobante','tipoFactura','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
   containers:Container[];
+  messageError:MessageErrorModule;
   public showLoad: boolean;
   public readonly loaderDuration: number;
+  private readonly appComponent: AppComponent;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
-  constructor(public refData?:MatDialog) {    
+  constructor(private readonly injector:Injector, public refData?:MatDialog) {
+    this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
+    this.appComponent = this.injector.get<AppComponent>(AppComponent);
+    this.messageError = new MessageErrorModule();
     this.dataInfo=[];
     this.containers = [];
     this.totalRows = 0;
@@ -64,21 +80,43 @@ export class InvoicesTableComponent implements OnInit {
   }
 
   open(oInvoice:Facturas){
-    const _auxForm = this.disabledFields(this.containers);
-    return(
-      this.refData?.open(UpdateModalInvoicesComponent,{
-        width: '70%',
-        data:{
-          dataModal:oInvoice,
-          auxForm:_auxForm
-        }
-      }).afterClosed().subscribe((oData:ResponseTable)=> {
-        if(oData !== undefined && oData.status === true){
-          this.dataInfo = oData.data;
-          this.onLoadTable(this.dataInfo);
-        }
-      })
-    );
+    let _auxForm = this.disabledFields(this.containers);
+    this.appComponent.showLoader(true);
+    const [idTipo, idSociedad] = [oInvoice.idTipo, oInvoice.idSociedad];
+    const society = {
+      idTipo,
+      idSociedad
+    };
+    this.formInvoicesService.getMonetizacionRules(society).pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data: IResponseData<MonetizationRulesResponse> ) => {
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
+        _auxForm = this.addDataControlMonetization(this.containers, data.response);
+        return(
+          this.refData?.open(UpdateModalInvoicesComponent,{
+            width: '70%',
+            data:{
+              dataModal:oInvoice,
+              auxForm:_auxForm
+            }
+          }).afterClosed().subscribe((oData:ResponseTable)=> {
+            if(oData !== undefined && oData.status === true){
+              this.dataInfo = oData.data;
+              this.onLoadTable(this.dataInfo);
+            }
+          })
+        );
+      }
+      else{
+        return(
+          this.messageError.showMessageError(data.message.toString(), data.code)
+          );
+      }
+    },(err) => {
+      return(
+      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status)
+      );
+    });
   }
 
   show(oInvoice:Facturas):void{
@@ -110,7 +148,7 @@ export class InvoicesTableComponent implements OnInit {
   disabledFields(_auxForm:Container[]){
     _auxForm.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo' ||  ctrl.ky === 'idReglaMonetizacion'){
           ctrl.disabled = true;
         }
       });
@@ -126,6 +164,32 @@ export class InvoicesTableComponent implements OnInit {
     setTimeout(() => {
       this.showLoad = showLoad;
     }, this.loaderDuration);
+  }
+
+  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
+    reglasMonetizacion.forEach((ele:any) => {
+      Object.entries(ele).forEach(([key, value]:any) => {
+        if(typeof value === 'number'){
+          ele['ky'] = ele[key]; 
+        }
+        else{
+          ele['value'] = ele[key];
+        }
+        delete ele[key];
+      });
+    });
+  
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.content){
+          if(ctrl.ky === 'idReglaMonetizacion' ){
+            ctrl.content.contentList = reglasMonetizacion;
+            ctrl.content.options = reglasMonetizacion;
+          }
+        }
+      });
+    });
+    return dataForm;
   }
 
 }

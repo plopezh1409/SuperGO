@@ -27,3 +27,20 @@ export class MonetizationResponse {
    }
 
 }
+
+export class MonetizationRules{
+   idReglaMonetizacion: number;
+   descReglaMonetizacion: String;
+
+   constructor(){
+      this.idReglaMonetizacion = 0;
+      this.descReglaMonetizacion = "";
+   }
+}
+
+export class MonetizationRulesResponse{
+   reglas: MonetizationRules[];
+   constructor(){
+      this.reglas = [];
+   }
+}

@@ -14,6 +14,8 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import moment from 'moment';
+import { MonetizationRules, MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { AccountingResponse } from '@app/core/models/ServiceResponseData/accounting-response.model';
 
 @Component({
   selector: 'app-accounting',
@@ -90,6 +92,7 @@ export class AccountingComponent implements OnInit {
     oConta.contabilidadDiaria = dataBody.contabilidadDiaria === true?'D':'C';
     oConta.indicadorIVA = dataBody.indicadorIVA === true? 'AA':'NA';
     oConta.indicadorOperacion = dataBody.indicadorOperacion === '1' ? 'C': 'A';
+    oConta.idReglaMonetizacion = dataBody.idReglaMonetizacion;
     this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => {
       this.appComponent.showLoader(false);
@@ -144,34 +147,11 @@ export class AccountingComponent implements OnInit {
 
   orderDate(contabilidad:Contabilidad[]){
     contabilidad.forEach(oData => {
-      oData.fechaInicio = moment(oData.fechaInicio).format('DD-MM-YYYY');
-      oData.fechaFin = moment(oData.fechaFin).format('DD-MM-YYYY');
+      oData.fechaInicio = moment(oData.fechaInicio).format('DD/MM/YYYY');
+      oData.fechaFin = moment(oData.fechaFin).format('DD/MM/YYYY');
     });
     return contabilidad;
   }
-  
-
-  /* addDataDropdown(dataForm:Container[], dataContent:any){
-    dataContent.forEach((ele:any) => {
-        Object.entries(ele).forEach(([key, value]:any) => {
-          if(typeof value === 'number'){
-            ele['ky'] = ele[key];
-          }
-          else{
-            ele['value'] = ele[key];
-          }
-        });
-      });
-    dataForm.forEach((element:Container) => {
-      element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.ky === 'idSociedad' && ctrl.content){
-          ctrl.content.contentList = dataContent;
-          ctrl.content.options = dataContent;
-        }
-      });
-    });
-    return dataForm;
-  } */
 
   addDataDropdown(dataForm:Container[], dataContent:any){
       const cpDataContent = Object.assign({},dataContent);
@@ -212,10 +192,10 @@ export class AccountingComponent implements OnInit {
     this.appComponent.showLoader(true);
     this.accountService.getInfoAccounting().pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data:any)=>{
+    })).subscribe((data:IResponseData<AccountingResponse>)=>{
       switch (data.code) {
         case this.codeResponse.RESPONSE_CODE_200:
-            this.dataInfo = data.response;
+            this.dataInfo = this.orderDate(data.response.contabilidad);
             this.catalogsTable.onLoadTable(this.dataInfo);
           break;
           case this.codeResponse.RESPONSE_CODE_400:
@@ -241,5 +221,60 @@ export class AccountingComponent implements OnInit {
       });      
     });
   }
+
+  onChangeDropDown($event: any){
+    if($event.control.ky !== 'idTipo' && $event.control.ky !== 'idSociedad') {
+      return;
+    }
+    const dataContainer = this.reactiveForm.getDataForm(this.containers);
+    if(dataContainer.idSociedad === null || dataContainer.idTipo === null){
+      return;
+    }
+    const [idTipo, idSociedad] = [dataContainer.idTipo, dataContainer.idSociedad];
+    const society = {
+      idTipo,
+      idSociedad
+    }
+    this.appComponent.showLoader(true);
+    this.accountService.getMonetizacionRules(society).pipe(finalize(() => {
+      this.appComponent.showLoader(false);
+    })).subscribe((data: IResponseData<MonetizationRulesResponse> ) => {
+      if(data.code === this.codeResponse.RESPONSE_CODE_201){
+        this.addDataControlMonetization(this.containers, data.response);
+      }
+      else{
+        this.messageError.showMessageError(data.message.toString(), data.code);
+      }
+    },(err) => {
+      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+    });
+  }
+
+  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
+    reglasMonetizacion.forEach((ele:any) => {
+      Object.entries(ele).forEach(([key, value]:any) => {
+        if(typeof value === 'number'){
+          ele['ky'] = ele[key];
+        }
+        else{
+          ele['value'] = ele[key];
+        }
+        delete ele[key];
+      });
+    });
+  
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.content){
+          if(ctrl.ky === 'idReglaMonetizacion' ){
+            ctrl.content.contentList = reglasMonetizacion;
+            ctrl.content.options = reglasMonetizacion;
+          }
+        }
+      });
+    });
+    return dataForm;
+  }
+  
 
 }

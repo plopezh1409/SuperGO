@@ -70,4 +70,8 @@ export class FormInvoicesService {
         return this.httpClient.put(`${this.urlServices}facturas/put`, dataInvoice);
     }
 
+    getMonetizacionRules(dataInvoice:any):Observable<any>{
+        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post/BusquedaReglas`, dataInvoice);
+    }
+
 }

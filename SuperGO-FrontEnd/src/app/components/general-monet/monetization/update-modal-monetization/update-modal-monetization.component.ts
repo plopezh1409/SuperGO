@@ -184,7 +184,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
         switch (response.code) {
           case this.codeResponse.RESPONSE_CODE_200:
             oResponse.status = true;
-            oResponse.data = response.response.reglas;
+            oResponse.data = this.monetModule.orderDate(response.response.reglas);
           return(
             this.refData?.close(oResponse)
           );
@@ -240,13 +240,6 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  getIdData(){
-    const oData:{[k:string]:any}={};
-    const key = this.dataModal?.keys[0];
-    oData[key] = parseInt(this.dataModal?.dataModal[key],10);
-    return oData;
-  }
-
   // metodos de visibility//
   onChangeCatsPetition($event: any) {     
     if(!$event.control.visibility || $event.control.visibility.length <= 0)
@@ -297,11 +290,10 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.reactiveForm.setContainers(this.containers);
   }
 
-  setControls(dataForm:any, newContainer:Container){
+  setControls(dataForm:{}, newContainer:Container){
     for(const ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      let valueCtrl = dataForm[ctrl] === 'undefined'? '' : dataForm[ctrl] === null? '': dataForm[ctrl];
-      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl = valueCtrl.toString(): valueCtrl;
+      let valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
         if(control.controlType === 'dropdown' || control.controlType === 'autocomplete'){
           control.setAttributeValueByNameDropdown('value', valueCtrl);

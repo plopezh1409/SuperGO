@@ -16,6 +16,7 @@ import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTabl
 import { MonetizationModule } from '../helper/monetization/monetization.module';
 import { ControlDecimal } from '@app/core/models/public/control-decimal.model';
 import moment from 'moment';
+import { AppComponent } from '@app/app.component';
 
 @Component({
   selector: 'app-monetization-table',
@@ -33,26 +34,24 @@ export class MonetizationTableComponent implements OnInit {
   containers:Container[];
   monetService:FormMonetizationsService;
   messageError:MessageErrorModule;
-  public showLoad: boolean;
   private readonly controlDecimal: ControlDecimal;
   private readonly monetModule:MonetizationModule;
-  private readonly loaderDuration: number;
   private readonly periodicity: PeriodicityModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
+  private readonly appComponent: AppComponent;
 
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
   constructor(private readonly injector:Injector,public refData?:MatDialog) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
+    this.appComponent = this.injector.get<AppComponent>(AppComponent);
     this.dataInfo=[];
     this.containers = [];
-    this.totalRows = 0; 
-    this.showLoad = false;
+    this.totalRows = 0;
     this.dataSource = new MatTableDataSource<Monetizacion>(); 
-    this.pageEvent= new PageEvent();   
-    this.loaderDuration = 100;
+    this.pageEvent= new PageEvent();
     this.periodicity = new PeriodicityModule();  
     this.messageError = new MessageErrorModule();
     this.monetModule = new MonetizationModule();
@@ -75,11 +74,11 @@ export class MonetizationTableComponent implements OnInit {
   }
   
   async open(obData:Monetizacion){
-    this.showLoader(true);
+    this.appComponent.showLoader(true);
     const data = await this.monetService.getDataMonetizationById(obData).toPromise().catch((err) => {
       return err;
     });
-    this.showLoader(false);
+    this.appComponent.showLoader(false);
     if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
@@ -110,11 +109,11 @@ export class MonetizationTableComponent implements OnInit {
   }
 
   async show(oElement:Monetizacion){
-    this.showLoader(true);
+    this.appComponent.showLoader(true);
     const data = await this.monetService.getDataMonetizationById(oElement).toPromise().catch((err) => {
       return err;
     });
-    this.showLoader(false);
+    this.appComponent.showLoader(false);
     if (data.code !== this.codeResponse.RESPONSE_CODE_200) {
       return(this.messageError.showMessageError(data.message, data.code));
     }
@@ -174,12 +173,6 @@ export class MonetizationTableComponent implements OnInit {
       });
     });
     return _auxForm;
-  }
-  
-  showLoader(showLoad: boolean): void {
-    setTimeout(() => {
-      this.showLoad = showLoad;
-    }, this.loaderDuration);
   }
 
   ngOnDestroy(): void {

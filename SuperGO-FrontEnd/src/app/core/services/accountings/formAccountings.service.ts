@@ -78,7 +78,8 @@ export class FormAccountingsService{
     {
         return this.httpClient.put(`${this.urlServices}Contabilidad/put`, dataAccounting);
     }
-
-
-
+    
+    getMonetizacionRules(dataInvoice:Object):Observable<any>{
+        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post/BusquedaReglas`, dataInvoice);
+    }
 }

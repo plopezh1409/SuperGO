@@ -4,6 +4,7 @@ import { Container } from '@app/core/models/capture/container.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import moment from 'moment';
+import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
 
 
 @NgModule({
@@ -44,6 +45,14 @@ export class MonetizationModule {
   getDateTime(date: string) {
     date = moment(date).format('DD-MM-YYYY');
     return date;
+  }
+
+  orderDate(reglas:Monetizacion[]){
+    reglas.forEach(oData => {
+      oData.fechaInicio = moment(oData.fechaInicio).format('DD/MM/YYYY');
+      oData.fechaFin = moment(oData.fechaFin).format('DD/MM/YYYY');
+    });
+    return reglas;
   }
 
 }

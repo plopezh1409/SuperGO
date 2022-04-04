@@ -8,7 +8,8 @@
                 <ng-container *ngFor="let container of containers; let i = index">
                     <div [formGroupName]="container.idContainer">
                         <app-container [container]="container" [alignContent]="alignContent"
-                            [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                            [formGroup]="reactiveForm.getFormGroup(container.idContainer)"
+                            (onChangeDropDown)="onChangeDropDown($event)">
                         </app-container>
                     </div>
                 </ng-container>

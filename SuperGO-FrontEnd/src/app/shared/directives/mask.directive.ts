@@ -75,7 +75,7 @@ export class MaskDirective {
   change($event: any): void {
     const type = this.controlesBackEnd? this.controlesBackEnd.getAttributeValueByName('type') : null;
     if (type === 'mask') {
-      if (this.controlesBackEnd.ky.indexOf('RFC') > -1 || this.controlesBackEnd.ky.indexOf('CURP') > -1) {
+      if (this.controlesBackEnd.ky.indexOf('rfc') > -1 || this.controlesBackEnd.ky.indexOf('CURP') > -1) {
         this.regExpr = new RegExp('^[a-zA-Z0-9]+$');
         this.validarRegexYEscribirEnInput($event);
         if (this.regExpr.test($event.target.value) && this.control.control) {
