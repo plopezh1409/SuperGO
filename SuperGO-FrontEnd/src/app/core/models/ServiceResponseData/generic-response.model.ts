@@ -1,7 +1,7 @@
 export class GenericResponse {
-   public info: String
-   public folio: String;
-   public details: String;
+   public info: string;
+   public folio: string;
+   public details: string;
 
    constructor(){
       this.info = "";

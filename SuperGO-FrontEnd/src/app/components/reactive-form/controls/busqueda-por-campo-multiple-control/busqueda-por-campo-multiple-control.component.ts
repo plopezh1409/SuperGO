@@ -32,13 +32,13 @@ export class BusquedaPorCampoMultipleControlComponent implements OnInit {
   private errorSet = false;
   private formularioService: FormService;
   private nombresCampos: string[] = [];
-  private consulta: string = '';
+  private consulta = '';
   private banderaBlur = false;
   private banderaClick = false;
   
   public setIconoStatus = Number(this.codeResponseMagic.RESPONSE_CODE_2);
   public mostrarLoaderInput = false;
-  controlClass:string='';
+  controlClass = '';
   constructor(formularioService: FormService) {
     this.formularioService = formularioService;
   }

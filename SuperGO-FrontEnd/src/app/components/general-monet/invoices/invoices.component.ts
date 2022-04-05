@@ -13,8 +13,10 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 import { Control } from '@app/core/models/capture/controls.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
-import { MonetizationRules, MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-response.model';
+import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
 
 @Component({
   selector: 'app-invoices',
@@ -32,7 +34,7 @@ export class InvoicesComponent implements OnInit {
   public dataInfo:Facturas[];
   public idSolicitud : string |null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-
+  private readonly monetizationModule: MonetizationModule = new MonetizationModule();
 
   @ViewChild(InvoicesTableComponent) catalogsTable:InvoicesTableComponent;
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
@@ -202,7 +204,7 @@ export class InvoicesComponent implements OnInit {
 });
 }
 
-onChangeDropDown($event: any){
+onChangeDropDown($event: DropdownEvent){
   if($event.control.ky !== 'idTipo' && $event.control.ky !== 'idSociedad') {
     return;
   }
@@ -221,7 +223,7 @@ onChangeDropDown($event: any){
   })).subscribe((data: IResponseData<MonetizationRules[]> ) => {
     if(data.code === this.codeResponse.RESPONSE_CODE_201){
       if(data.response.length !== 0){
-        this.addDataControlMonetization(this.containers, data.response);
+        this.monetizationModule.addDataControlMonetization(this.containers, data.response);
       }
       else{
         swal.fire({
@@ -240,33 +242,5 @@ onChangeDropDown($event: any){
   },(err) => {
     this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
   });
-
-}
-
-addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
-  reglasMonetizacion.forEach((ele:any) => {
-    Object.entries(ele).forEach(([key, value]:any) => {
-      if(typeof value === 'number'){
-        ele['ky'] = ele[key];
-      }
-      else{
-        ele['value'] = ele[key];
-      }
-      delete ele[key];
-    });
-  });
-
-  dataForm.forEach((element:Container) => {
-    element.controls.forEach((ctrl:Control) => {
-      if(ctrl.controlType === 'dropdown' && ctrl.content){
-        if(ctrl.ky === 'idReglaMonetizacion' ){
-          ctrl.content.contentList = reglasMonetizacion;
-          ctrl.content.options = reglasMonetizacion;
-        }
-      }
-    });
-  });
-  return dataForm;
 }
 }
-

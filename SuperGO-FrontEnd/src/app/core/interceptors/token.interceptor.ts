@@ -17,8 +17,8 @@ export class TokenInterceptor implements HttpInterceptor {
     bodyClone: any;
     encodingLanguage: any;
     deviceInfo: any = null;
-    url: string = '';
-    context: string = '';
+    url: string;
+    context: string;
     private intercepUtils:InterceptorUtils;
 
     constructor(
@@ -32,6 +32,8 @@ export class TokenInterceptor implements HttpInterceptor {
         this.bodyClone = '';
         this.encodingLanguage = '';
         this.intercepUtils = new InterceptorUtils();
+        this.url = '';
+        this.context = '';
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
@@ -49,7 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
                 authReq = req.clone({
                     headers: req.headers
-                        .set('Authorization', 'Bearer ' + this.token)
+                        .set('Authorization', `Bearer ${this.token}`)
                         .set('Encoding-Language', this.encodingLanguage),
                     body: this.bodyClone,
                     url: this.url
@@ -71,7 +73,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
                 authReq = req.clone({ 
                     headers: req.headers
-                        .set('Authorization', 'Bearer ' + this.token),
+                        .set('Authorization', `Bearer ${this.token}`),
                         url: this.url
                 });
                 break;
@@ -79,7 +81,7 @@ export class TokenInterceptor implements HttpInterceptor {
             case (this.token != null && bodyOriginal === null):
                 authReq = req.clone({ 
                     headers: req.headers
-                        .set('Authorization', 'Bearer ' + this.token),
+                        .set('Authorization', `Bearer ${this.token}`),
                         url: this.url
                 });
                 break;

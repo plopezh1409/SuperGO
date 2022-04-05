@@ -75,7 +75,7 @@ export class AngularSecurityRSAService{
         }
         catch(ex)
         {
-            console.log('decryptRSA data en null');
+            
         }
         
     }

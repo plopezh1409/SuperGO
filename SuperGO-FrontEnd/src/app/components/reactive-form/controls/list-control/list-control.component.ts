@@ -11,7 +11,7 @@ export class ListControlComponent implements OnInit{
   @Input() control!: Control;
   @Input() formulario!: FormGroup;
   public defaultSelected = 0;
-  public selection: number=0;
+  public selection = 0;
   type:any;
   value:any; 
   

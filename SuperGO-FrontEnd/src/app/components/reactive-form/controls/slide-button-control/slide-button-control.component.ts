@@ -10,7 +10,7 @@ import { Control } from '@app/core/models/capture/controls.model';
 export class SlideButtonControlComponent implements OnInit {
   @Input() control!: Control;
   @Input() form!: FormGroup;
-  value:boolean=false;    
+  value = false;
 
   ngOnInit(): void {
     this.value = this.control.getAttributeValueByName('value')==='true'? true : false;

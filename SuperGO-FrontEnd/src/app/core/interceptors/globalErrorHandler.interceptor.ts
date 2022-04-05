@@ -34,7 +34,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                 }                
             }            
         } else {
-            console.log('GlobalErrorHandler,  error en server apis');
+            
         }
     }
 }

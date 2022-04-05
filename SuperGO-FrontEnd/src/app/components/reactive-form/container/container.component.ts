@@ -17,13 +17,14 @@ export class ContainerComponent {
   @Output() onChangeDropDown: EventEmitter<any>;
 
   @Input() titulo: string | undefined;
-  public totalColumnas: number = Number(this.codeResponseMagic.RESPONSE_CODE_12);
+  public totalColumnas: number;
   public setErrorFormulario: any = null;
   public objetosDependenciaBusquedaVsInfo: any[] = [];
   public cambioSeleccionEnDropdown = false;
 
   constructor() {
     this.alignContent='vertical';
+    this.totalColumnas = Number(this.codeResponseMagic.RESPONSE_CODE_12);
     this.container = {} as Container;
     this.formGroup = new FormGroup({});
     this.onChangeDropDown = new EventEmitter();    

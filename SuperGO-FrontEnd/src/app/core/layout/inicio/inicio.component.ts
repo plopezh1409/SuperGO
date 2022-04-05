@@ -32,7 +32,7 @@ export class InicioComponent implements OnInit {
 
   private userService: UsuarioService;
   private llaveMaestraService: MasterKeyService;
-  inputSearch: string = '';
+  inputSearch: string;
   showImage = true;
   init = false;
   cardsTop: any[] = [];
@@ -57,6 +57,7 @@ export class InicioComponent implements OnInit {
     this.appComponent.showInpImage(true);
     this.appComponent.showBoolImg(true);
     this.appComponent.showLogo = false;
+    this.inputSearch = '';
     this.tk = this.activatedRoute.snapshot.paramMap.get('token');
     this.usuario = new User();
     this.Auth = this.authService.isAuthenticated();

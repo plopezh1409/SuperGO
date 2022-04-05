@@ -64,7 +64,7 @@ export class ErrorServidorInterceptor implements HttpInterceptor {
             this.errorMessage = 'Error interno del servidor, contacte a soporte del gestor de operaciones';
             break;
           default:
-            this.logger.error('Error ' + exception.status, exception);
+            this.logger.error(`Error ${exception.status}`, exception);
             this.errorMessage = exception.message;
         }
 

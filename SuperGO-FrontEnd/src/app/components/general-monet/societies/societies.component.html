@@ -1,22 +1,28 @@
-<form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-    (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()"
-    style="padding-bottom: 3%;">
-    <div>
-        <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
-                'dvPrincipalContent row': alignContent === 'vertical'}">
-            <ng-container  *ngFor="let container of containers; let i = index">
-                <div [formGroupName]="container.idContainer">
-                    <app-container [container]="container" [alignContent]="alignContent"
-                        [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
-                    </app-container>
+<mat-tab-group style="margin: 0 2%;">
+    <mat-tab label="Nueva Sociedad">
+        <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
+            (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()"
+            style="padding-bottom: 3%;">
+            <div>
+                <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
+                        'dvPrincipalContent row': alignContent === 'vertical'}">
+                    <ng-container  *ngFor="let container of containers; let i = index">
+                        <div [formGroupName]="container.idContainer">
+                            <app-container [container]="container" [alignContent]="alignContent"
+                                [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                            </app-container>
+                        </div>
+                    </ng-container>
                 </div>
-            </ng-container>
+            </div>
+            <div class="mt-20 text-center">
+                <button mat-raised-button class="btnPrimary btnSize" type="submit"> Agregar </button>
+            </div>
+        </form>
+    </mat-tab>
+    <mat-tab label="Registros de Sociedades">
+        <div style="margin: 3% 0;">
+            <app-societies-table></app-societies-table>
         </div>
-    </div>
-    <div class="mt-20 text-center">
-        <button mat-raised-button class="btnPrimary btnSize" type="submit"> Agregar </button>
-    </div>
-</form>
-<div>
-    <app-societies-table></app-societies-table>
-</div>
+    </mat-tab>
+</mat-tab-group>

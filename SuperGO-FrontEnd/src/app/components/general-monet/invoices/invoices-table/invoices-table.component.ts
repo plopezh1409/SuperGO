@@ -16,9 +16,10 @@ import { FormInvoicesService } from '@app/core/services/invoices/formInvoices.se
 import { finalize } from 'rxjs/operators';
 import { AppComponent } from '@app/app.component';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
-import { MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
+import { MonetizationModule } from '../../monetization/helper/monetization/monetization.module';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class InvoicesTableComponent implements OnInit {
   public readonly loaderDuration: number;
   private readonly appComponent: AppComponent;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  
+  private readonly monetizationModule: MonetizationModule = new MonetizationModule();
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -89,9 +90,9 @@ export class InvoicesTableComponent implements OnInit {
     };
     this.formInvoicesService.getMonetizacionRules(society).pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data: IResponseData<MonetizationRulesResponse> ) => {
+    })).subscribe((data: IResponseData<MonetizationRules[]> ) => {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
-        _auxForm = this.addDataControlMonetization(this.containers, data.response);
+        _auxForm = this.monetizationModule.addDataControlMonetization(this.containers, data.response);
         return(
           this.refData?.open(UpdateModalInvoicesComponent,{
             width: '70%',
@@ -164,32 +165,6 @@ export class InvoicesTableComponent implements OnInit {
     setTimeout(() => {
       this.showLoad = showLoad;
     }, this.loaderDuration);
-  }
-
-  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
-    reglasMonetizacion.forEach((ele:any) => {
-      Object.entries(ele).forEach(([key, value]:any) => {
-        if(typeof value === 'number'){
-          ele['ky'] = ele[key]; 
-        }
-        else{
-          ele['value'] = ele[key];
-        }
-        delete ele[key];
-      });
-    });
-  
-    dataForm.forEach((element:Container) => {
-      element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.content){
-          if(ctrl.ky === 'idReglaMonetizacion' ){
-            ctrl.content.contentList = reglasMonetizacion;
-            ctrl.content.options = reglasMonetizacion;
-          }
-        }
-      });
-    });
-    return dataForm;
   }
 
 }

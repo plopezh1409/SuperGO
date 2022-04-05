@@ -5,6 +5,8 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { ServiceNoMagicNumber } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 import moment from 'moment';
 import { Monetizacion } from '@app/core/models/monetizacion/monetizacion.model';
+import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
+import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetization-response.model';
 
 
 @NgModule({
@@ -53,6 +55,28 @@ export class MonetizationModule {
       oData.fechaFin = moment(oData.fechaFin).format('DD/MM/YYYY');
     });
     return reglas;
+  }
+
+  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: MonetizationRules[]){
+    let dropdownList:DropdownModel[] = [];
+    reglasMonetizacion.forEach((monet:MonetizationRules) => {
+      let dropdownData: DropdownModel = new DropdownModel();
+      dropdownData.ky = monet.idReglaMonetizacion;
+      dropdownData.value = monet.descReglaMonetizacion.toString();
+      dropdownList.push(dropdownData);
+    });
+  
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.controlType === 'dropdown' && ctrl.content){
+          if(ctrl.ky === 'idReglaMonetizacion' ){
+            ctrl.content.contentList = dropdownList;
+            ctrl.content.options = dropdownList;
+          }
+        }
+      });
+    });
+    return dataForm;
   }
 
 }

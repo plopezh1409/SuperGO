@@ -1,3 +1,5 @@
+<mat-tab-group style="margin: 0 2%;">
+    <mat-tab label="Nueva Factura">
 <div class="contain fade-in" style="margin-bottom: 50px;">
     <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm"
     (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()"
@@ -19,7 +21,12 @@
             <button mat-raised-button class="btnPrimary btnSize" type="submit"> Agregar </button>
         </div>
     </form>
-    <div>
-        <app-invoices-table [dataInfo]="dataInfo"></app-invoices-table>
-    </div>
+    
 </div>
+</mat-tab>
+<mat-tab label="Registros de Facturas">
+<div style="margin: 3% 0;">
+    <app-invoices-table [dataInfo]="dataInfo"></app-invoices-table>
+</div>
+</mat-tab>
+</mat-tab-group>

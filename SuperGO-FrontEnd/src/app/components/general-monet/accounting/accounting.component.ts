@@ -14,8 +14,10 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import moment from 'moment';
-import { MonetizationRules, MonetizationRulesResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { AccountingResponse } from '@app/core/models/ServiceResponseData/accounting-response.model';
+import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
 
 @Component({
   selector: 'app-accounting',
@@ -35,6 +37,7 @@ export class AccountingComponent implements OnInit {
   public dataInfo:Contabilidad[];
   public idSolicitud: string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly monetizationModule: MonetizationModule = new MonetizationModule();
 
 
   @ViewChild(AccountingTablesComponent) catalogsTable:AccountingTablesComponent;
@@ -182,6 +185,9 @@ export class AccountingComponent implements OnInit {
               ctrl.content.contentList = cpDataContent.operaciones;
               ctrl.content.options = cpDataContent.operaciones;
             }
+            else{
+
+            }
           }
         });
       });
@@ -222,7 +228,7 @@ export class AccountingComponent implements OnInit {
     });
   }
 
-  onChangeDropDown($event: any){
+  onChangeDropDown($event: DropdownEvent){
     if($event.control.ky !== 'idTipo' && $event.control.ky !== 'idSociedad') {
       return;
     }
@@ -234,13 +240,13 @@ export class AccountingComponent implements OnInit {
     const society = {
       idTipo,
       idSociedad
-    }
+    };
     this.appComponent.showLoader(true);
     this.accountService.getMonetizacionRules(society).pipe(finalize(() => {
       this.appComponent.showLoader(false);
-    })).subscribe((data: IResponseData<MonetizationRulesResponse> ) => {
+    })).subscribe((data: IResponseData<MonetizationRules[]> ) => {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
-        this.addDataControlMonetization(this.containers, data.response);
+        this.monetizationModule.addDataControlMonetization(this.containers, data.response);
       }
       else{
         this.messageError.showMessageError(data.message.toString(), data.code);
@@ -248,32 +254,6 @@ export class AccountingComponent implements OnInit {
     },(err) => {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
-  }
-
-  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
-    reglasMonetizacion.forEach((ele:any) => {
-      Object.entries(ele).forEach(([key, value]:any) => {
-        if(typeof value === 'number'){
-          ele['ky'] = ele[key];
-        }
-        else{
-          ele['value'] = ele[key];
-        }
-        delete ele[key];
-      });
-    });
-  
-    dataForm.forEach((element:Container) => {
-      element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.content){
-          if(ctrl.ky === 'idReglaMonetizacion' ){
-            ctrl.content.contentList = reglasMonetizacion;
-            ctrl.content.options = reglasMonetizacion;
-          }
-        }
-      });
-    });
-    return dataForm;
   }
   
 

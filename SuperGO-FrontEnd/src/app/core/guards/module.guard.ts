@@ -58,7 +58,7 @@ export class ModuleGuard implements CanLoad {
 
 
       getFullpath(segments: UrlSegment[]) {
-        let fullPath:string='';
+        let fullPath = '';
         if(segments.length>0){
           fullPath = segments.reduce((path, currentSegment) => {
             return `${path}/${currentSegment.path}`;

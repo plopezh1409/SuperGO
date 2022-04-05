@@ -30,7 +30,7 @@ export class TextBoxControlComponent implements OnInit {
   mask: any;
   nuevoValorMinLength = 1;
   setError =  false; 
-  controlClass:string='';
+  controlClass = '';
 
   onBlur() {
     if (this.control.controlType === 'textboxLink') {
@@ -153,7 +153,7 @@ export class TextBoxControlComponent implements OnInit {
       }
       catch(e)
       {
-        throw new Error('Error al reestablecer los nuevos valores para los atributos del campo ' + this.control.label);            
+        throw new Error(`Error al reestablecer los nuevos valores para los atributos del campo ${this.control.label}`);            
       }
 
       this.form.controls[this.control.ky!].setValidators(this.control.configValidators(this.control.validations!));

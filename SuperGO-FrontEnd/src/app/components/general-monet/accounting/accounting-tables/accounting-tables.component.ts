@@ -14,7 +14,7 @@ import { Control } from '@app/core/models/capture/controls.model';
 import { Container } from '@app/core/models/capture/container.model';
 import moment from 'moment';
 import { AppComponent } from '@app/app.component';
-
+import { MonetizationModule } from '../../monetization/helper/monetization/monetization.module';
  
 @Component({
   selector: 'app-accounting-tables',
@@ -34,6 +34,7 @@ export class AccountingTablesComponent implements OnInit {
   pageEvent: PageEvent;
   containers: Container[];
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly monetizationModule: MonetizationModule = new MonetizationModule();
   appComponent:AppComponent;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
@@ -90,7 +91,7 @@ export class AccountingTablesComponent implements OnInit {
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'true':'false';
       oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'? '1' : '2';
       let _auxForm = this.disabledFields(this.containers);
-      _auxForm = this.addDataControlMonetization(_auxForm, monetRules.response);
+      _auxForm = this.monetizationModule.addDataControlMonetization(_auxForm, monetRules.response);
       return( this.refData?.open(UpdateModalAccountingComponent,{
         width: '70%',
         data:{
@@ -181,32 +182,6 @@ export class AccountingTablesComponent implements OnInit {
 
     ngOnDestroy(): void {
     return( this.refData?.closeAll());
-  }
-
-  addDataControlMonetization(dataForm: Container[], reglasMonetizacion: any){
-    reglasMonetizacion.forEach((ele:any) => {
-      Object.entries(ele).forEach(([key, value]:any) => {
-        if(typeof value === 'number'){
-          ele['ky'] = ele[key]; 
-        }
-        else{
-          ele['value'] = ele[key];
-        }
-        delete ele[key];
-      });
-    });
-  
-    dataForm.forEach((element:Container) => {
-      element.controls.forEach((ctrl:Control) => {
-        if(ctrl.controlType === 'dropdown' && ctrl.content){
-          if(ctrl.ky === 'idReglaMonetizacion' ){
-            ctrl.content.contentList = reglasMonetizacion;
-            ctrl.content.options = reglasMonetizacion;
-          }
-        }
-      });
-    });
-    return dataForm;
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import swal from 'sweetalert2';
+import swal, { SweetAlertIcon } from 'sweetalert2';
 
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   p4ss2: string;
   p4ss3: string;
   p4ssCopy: string;  
-  codesResult: string = '';
+  codesResult: string;
   regex: string;
 
   constructor(    
@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
     this.p4ss2 = '';
     this.p4ss3 = '';
     this.p4ssCopy = '';
+    this.codesResult = '';
     this.regex = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{10,}$';
   }
 
@@ -276,23 +277,23 @@ export class LoginComponent implements OnInit {
                 });
                 this.authService.logout().subscribe(() => {
                   location.reload();
-                  this.appComponent.isAuth = false
+                  this.appComponent.isAuth = false;
                 });
               }
             )
         } else {
           this.authService.logout().subscribe(() => {
             location.reload();
-            this.appComponent.isAuth = false
+            this.appComponent.isAuth = false;
           });
         }
-      })
+      });
 
     }
 
   }
 
-  sweet(icons: any, title: any, text: any, heightAuto: any) {
+  sweet(icons: SweetAlertIcon, title: string, text: string, heightAuto: boolean) {
     swal.fire({
       icon: icons,
       title: title,

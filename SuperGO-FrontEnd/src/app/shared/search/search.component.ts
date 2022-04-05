@@ -9,7 +9,7 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 })
 export class SearchComponent implements OnInit {
   @Input() showImage: boolean;
-  inputSearch: String = '';
+  inputSearch: String;
   @Input() boolImg: boolean;
   @Input() initIN: boolean;
   placeHolderInput = false;
@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
     this.showImage = true;
     this.boolImg = true;
     this.initIN = false;
+    this.inputSearch = '';
   }
   ngOnInit() {
     this.modules = this.authService.usuario.modules;
