@@ -1,4 +1,4 @@
-import { Sociedad } from "../catalogos/sociedad.model";
+import { Sociedad } from '../catalogos/sociedad.model';
 
 export class SocietiesResponse {
    

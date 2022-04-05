@@ -1,6 +1,6 @@
-import { Interface } from "readline";
-import { Sociedad } from "../catalogos/sociedad.model";
-import { Facturas } from "../facturas/facturas.model";
+import { Interface } from 'readline';
+import { Sociedad } from '../catalogos/sociedad.model';
+import { Facturas } from '../facturas/facturas.model';
 
 export class InvoicesResponse {
    facturas: Facturas[];

@@ -211,7 +211,7 @@ export class Control {
   getDecimalValue(_form: FormGroup) {
     let formatValor = '';
     let decimal = '';
-    let validarDec: number = 0;
+    let validarDec = 0;
 
     formatValor = _form.controls[this.ky!].value.toString().replace(/[$,]/g, '');
     if (this.validations!.filter((v) => { return v.type === 1 && v.validate === 'format_0'; }).length > 0) {

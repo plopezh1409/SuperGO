@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import * as crypto from 'crypto';
 import cryptoRandomString from 'crypto-random-string';
 import { AngularSecurityRSAService } from '@app/core/services/public/angularSecurityRSA.service';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
  
 @Injectable({
@@ -24,9 +23,8 @@ export class AngularSecurity {
   
   constructor(protected http: HttpClient, private angularSecurityRSA: AngularSecurityRSAService) {}  
 
-  public get getKeyAES(): Observable<any> {
-    const secretKey: any = this.keyAES;
-    return secretKey;
+  public get getKeyAES(): string {
+    return this.keyAES;
   }
 
   public get getStorageToken(): string {    
@@ -136,7 +134,6 @@ export class AngularSecurity {
           return throwError(e);
         }
         if (e.error.mensaje) {
-          console.error(e.error.mensaje);
         }
         return throwError(e);
       }));

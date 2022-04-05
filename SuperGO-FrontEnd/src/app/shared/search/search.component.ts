@@ -9,11 +9,11 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 })
 export class SearchComponent implements OnInit {
   @Input() showImage: boolean;
-  inputSearch: String;
+  inputSearch: string;
   @Input() boolImg: boolean;
   @Input() initIN: boolean;
   placeHolderInput = false;
-  valueInput: string = '';
+  valueInput = '';
   modules: any[] = [];
   petitions: any[] = [];
   copyPetitions: any[] = [];
@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
             this.petitions.push({
               categories: mod,
               subcategories: elemen,
-              string: mod.name + '  /' + elemen.name
+              string: `${mod.name}  /${elemen.name}`
             });
           }
         });

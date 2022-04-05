@@ -280,7 +280,7 @@ export class LoginComponent implements OnInit {
                   this.appComponent.isAuth = false;
                 });
               }
-            )
+            );
         } else {
           this.authService.logout().subscribe(() => {
             location.reload();
@@ -296,9 +296,9 @@ export class LoginComponent implements OnInit {
   sweet(icons: SweetAlertIcon, title: string, text: string, heightAuto: boolean) {
     swal.fire({
       icon: icons,
-      title: title,
-      text: text,
-      heightAuto: heightAuto
+      title,
+      text,
+      heightAuto
     });
   }
 

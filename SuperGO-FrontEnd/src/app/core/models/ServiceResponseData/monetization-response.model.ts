@@ -1,5 +1,5 @@
-import { Sociedad } from "../catalogos/sociedad.model";
-import { Monetizacion } from "../monetizacion/monetizacion.model";
+import { Sociedad } from '../catalogos/sociedad.model';
+import { Monetizacion } from '../monetizacion/monetizacion.model';
 
 export class MonetizationResponse {
    reglas: Monetizacion[];
@@ -30,11 +30,11 @@ export class MonetizationResponse {
 
 export class MonetizationRules{
    idReglaMonetizacion: number;
-   descReglaMonetizacion: String;
+   descReglaMonetizacion: string;
 
    constructor(){
       this.idReglaMonetizacion = 0;
-      this.descReglaMonetizacion = "";
+      this.descReglaMonetizacion = '';
    }
 }
 

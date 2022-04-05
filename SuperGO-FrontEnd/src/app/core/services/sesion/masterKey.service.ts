@@ -18,7 +18,7 @@ export class MasterKeyService {
   public clientSecret: string;
   public redirectUri: string;
   public scope: string;
-  public acr_values: string;
+  public acrValues: string;
   public rp: string;
   private urlGsAuth: string;
   private urlGSLogOut: string;
@@ -41,7 +41,7 @@ export class MasterKeyService {
     this.clientSecret = this.angularSecurity.decryptAES(environment.client_secret, this.cle);
     this.redirectUri = this.angularSecurity.decryptAES(environment.redirect_uri, this.cle);
     this.scope = this.angularSecurity.decryptAES(environment.scope, this.cle);
-    this.acr_values = this.angularSecurity.decryptAES(environment.acr_values, this.cle);
+    this.acrValues = this.angularSecurity.decryptAES(environment.acr_values, this.cle);
     this.rp = this.angularSecurity.decryptAES(environment.rp, this.cle);
     this.urlGsAuth = environment.urlAuthGS;
     this.urlGSLogOut = environment.urlAuthGSLogOut;
@@ -59,7 +59,7 @@ export class MasterKeyService {
     &client_secret=${this.clientSecret}
     &redirect_uri=${this.redirectUri}
     &scope=${this.scope}
-    &acr_values=${this.acr_values}`);
+    &acr_values=${this.acrValues}`);
   }
 
   getUrlAuthz(): string {
@@ -69,7 +69,7 @@ export class MasterKeyService {
     }&client_secret=${this.clientSecret}
     &redirect_uri=${this.redirectUri}
     &scope=${this.scope}
-    &acr_values=${this.acr_values}`;
+    &acr_values=${this.acrValues}`;
   }
 
   //response_type = code

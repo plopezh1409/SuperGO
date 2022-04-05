@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import {RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //IMPORTAR SOLAMENTE LOS COMPONENTES DE MATERIAL QUE SEAN REQUERIDOS
 import { MatCardModule } from '@angular/material/card';
@@ -12,24 +12,24 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 //COMPONENTES
-import { ElevatorComponent } from "./elevator/elevator.component";
-import { PaginaNoEncontradaComponent } from "./pagina-no-encontrada/pagina-no-encontrada.component";
+import { ElevatorComponent } from './elevator/elevator.component';
+import { PaginaNoEncontradaComponent } from './pagina-no-encontrada/pagina-no-encontrada.component';
 
 //DIRECTIVAS
-import { DropArchivoDirective } from "./directives/drop-archivo.directive";
-import { MaskTextDirective } from "./directives/mask-text.directive";
-import { MaskDirective } from "./directives/mask.directive";
-import { AttributeDirective } from "./directives/attribute.directive";
+import { DropArchivoDirective } from './directives/drop-archivo.directive';
+import { MaskTextDirective } from './directives/mask-text.directive';
+import { MaskDirective } from './directives/mask.directive';
+import { AttributeDirective } from './directives/attribute.directive';
 
 //PIPES
-import { BuscadorRutasPipe } from "./pipes/buscador-rutas.pipe";
-import { FechaNombreMesPipe } from "./pipes/fecha-nombre-mes.pipe";
-import { SplitCamelCasePipe } from "./pipes/splitCamelCase.pipe";
-import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { BuscadorRutasPipe } from './pipes/buscador-rutas.pipe';
+import { FechaNombreMesPipe } from './pipes/fecha-nombre-mes.pipe';
+import { SplitCamelCasePipe } from './pipes/splitCamelCase.pipe';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProgressComponent } from './progress/progress.component';
-import { SearchComponent } from "./search/search.component";
+import { SearchComponent } from './search/search.component';
 import { TestComponent } from './test/test.component';
-import { IPABPipe } from "./pipes/ipab.pipe";
+import { IPABPipe } from './pipes/ipab.pipe';
 
 @NgModule({    
     declarations:[

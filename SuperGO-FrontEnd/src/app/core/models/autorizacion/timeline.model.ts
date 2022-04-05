@@ -1,4 +1,4 @@
-export class timeline {
+export class Timeline {
     accion: string;
     comentario: string;
     descRol: string;

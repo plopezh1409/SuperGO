@@ -1,4 +1,4 @@
-import { ServiceNoMagicNumber } from "../ServiceResponseCodes/service-response-codes.model";
+import { ServiceNoMagicNumber } from '../ServiceResponseCodes/service-response-codes.model';
 
 export class InterceptorUtils{
     private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber(); 

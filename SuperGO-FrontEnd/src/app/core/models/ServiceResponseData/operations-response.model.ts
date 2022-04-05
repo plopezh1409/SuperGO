@@ -1,6 +1,6 @@
-import { IResponseData } from "./iresponse-data.model";
-import { Operaciones } from "../operaciones/operaciones.model";
-import { Sociedad } from "../catalogos/sociedad.model";
+import { IResponseData } from './iresponse-data.model';
+import { Operaciones } from '../operaciones/operaciones.model';
+import { Sociedad } from '../catalogos/sociedad.model';
 
 export class OperationsResponse{
 

@@ -226,7 +226,7 @@ export class MonetizationComponent implements OnInit {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
           const selectedValRequest: DropdownEvent = {
             control: ctrl,
-            idContainer:idContainer
+            idContainer
           };
           this.onChangeCatsPetition(selectedValRequest);
         }

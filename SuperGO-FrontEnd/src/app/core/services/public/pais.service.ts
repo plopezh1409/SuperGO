@@ -21,7 +21,7 @@ export class PaisService {
                     return throwError(e);
                 }
                 if (e.error.mensaje) {
-                    console.error(e.error.mensaje);
+                  
                 }
                 return throwError(e);
             }));

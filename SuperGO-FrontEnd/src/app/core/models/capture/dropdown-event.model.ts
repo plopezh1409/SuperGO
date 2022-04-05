@@ -1,4 +1,4 @@
-import { Control } from "./controls.model";
+import { Control } from './controls.model';
 
 export class DropdownEvent {
    control: Control;
