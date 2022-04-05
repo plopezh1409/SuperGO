@@ -22,6 +22,7 @@ import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/Ser
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class MonetizationComponent implements OnInit {
   alignContent = 'horizontal';
   public dataInfo: Monetizacion[];
   public showButtonAdd: boolean;
-  private selectedValRequest: any;
+  private selectedValRequest: DropdownEvent;
   public principalContainers: Container[];
   public idSolicitud: string | null;
   private readonly periodicity: PeriodicityModule;
@@ -61,7 +62,7 @@ export class MonetizationComponent implements OnInit {
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
     this.showButtonAdd = false;
-    this.selectedValRequest = null;
+    this.selectedValRequest = new DropdownEvent();
     this.principalContainers = [];
     this.idSolicitud = null;
     this.maxNumControls = 10;
@@ -135,12 +136,7 @@ export class MonetizationComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      swal.fire({
-      icon: 'error',
-      title: 'Error inesperado',
-      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-      heightAuto: false
-    }); 
+      this.messageError.showMessageErrorLoadData();
   });
   }
 
@@ -193,21 +189,20 @@ export class MonetizationComponent implements OnInit {
   addDataDropdown(dataForm:Container[], dataContent:any){
       const cpDataContent = Object.assign({},dataContent);
       delete cpDataContent.reglas;
-      Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
-        value.forEach((ele:any) => {
-          Object.entries(ele).forEach(([_key, _value]:any[]) => {
-            if(typeof _value === 'number'){
-              ele['ky'] = ele[_key];
-              delete ele[_key];
+      for(let value in cpDataContent){
+        cpDataContent[value].forEach((ele:any) => {
+          for(let entries in ele){
+            if(typeof ele[entries] === 'number'){
+              ele['ky'] = ele[entries];
             }
             else{
-              ele['value'] = ele[_key];
-              delete ele[_key];
+              ele['value'] = ele[entries];
             }
-          });
+            delete ele[entries];
+          }
         });
-      });
-      
+      }
+
       dataForm.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
           if(ctrl.controlType === 'dropdown' && ctrl.content){
@@ -229,9 +224,9 @@ export class MonetizationComponent implements OnInit {
     dataForm.forEach((element: Container) => {
       element.controls.forEach((ctrl: Control) => {
         if (ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad') {
-          const selectedValRequest: {} = {
+          const selectedValRequest: DropdownEvent = {
             control: ctrl,
-            idContainer
+            idContainer:idContainer
           };
           this.onChangeCatsPetition(selectedValRequest);
         }
@@ -253,12 +248,7 @@ export class MonetizationComponent implements OnInit {
         case this.codeResponse.RESPONSE_CODE_401:
         case this.codeResponse.RESPONSE_CODE_404:
         case this.codeResponse.RESPONSE_CODE_500:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-            heightAuto: false
-          });
+          this.messageError.showMessageErrorLoadData();
         break;
         default:
         break;
@@ -274,14 +264,14 @@ export class MonetizationComponent implements OnInit {
   }
 
   // // metodos de visibility//
-  onChangeCatsPetition($event: any) {
+  onChangeCatsPetition($event: DropdownEvent) {
     if (!$event.control.visibility || $event.control.visibility.length <= 0) {
       return;
     }
     this.showButtonAdd = true;
     this.selectedValRequest = $event;
     const formaux = this.reactiveForm.principalForm?.get(this.selectedValRequest.idContainer) as FormGroup;
-    const selectedVal = formaux.controls[this.selectedValRequest.control.ky].value;
+    const selectedVal = formaux.controls[this.selectedValRequest.control.ky!].value;
     //busqueda del codigo
     if (this.selectedValRequest.control.content) {
       let finder = this.selectedValRequest.control.content.options.find((option: any) => option.ky === selectedVal);
@@ -293,7 +283,7 @@ export class MonetizationComponent implements OnInit {
       this.containers = [];
       finder = finder === ''? {value:'0-'} : finder === undefined ? {value:'0-'} : finder;
       this.createNewForm(
-        this.selectedValRequest.control.visibility.filter((x: any) =>
+        this.selectedValRequest.control.visibility!.filter((x: any) =>
           x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
     }
   }

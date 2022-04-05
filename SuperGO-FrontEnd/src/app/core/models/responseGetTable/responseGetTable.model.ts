@@ -1,7 +1,7 @@
 export class ResponseTable
 {
     status:boolean;
-    data:any;
+    data: any;
 
     constructor(){
         this.status = false;

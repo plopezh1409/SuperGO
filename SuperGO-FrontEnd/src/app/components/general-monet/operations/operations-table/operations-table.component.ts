@@ -47,7 +47,7 @@ export class OperationsTableComponent implements OnInit {
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo=dataInfo;  
-    this.dataSource = new MatTableDataSource<any>(this.dataInfo);  
+    this.dataSource = new MatTableDataSource<Operaciones>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }

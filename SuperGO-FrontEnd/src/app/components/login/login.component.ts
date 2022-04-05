@@ -177,7 +177,7 @@ export class LoginComponent implements OnInit {
     //Convirtiendo a base 64    
     this.p4ssCopy = this.usuario.p4ss;
     this.usuario.p4ss = btoa(this.usuario.p4ss);
-    const obj: any = new LoginObject((this.usuario));
+    const obj = new LoginObject((this.usuario));
     obj.user = this.rutaActiva.snapshot.params.ADMIN != null
       && !isNaN(this.rutaActiva.snapshot.params.ADMIN)
       && Number(this.rutaActiva.snapshot.params.ADMIN) >= 0 ? this.rutaActiva.snapshot.params.ADMIN : '0';

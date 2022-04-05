@@ -19,7 +19,7 @@ export class ControlDecimal {
         return '';
     }
 
-    obtenerStrConFormato(input:any):any{
+    obtenerStrConFormato(input:any){
         let valor = input.toString().replace(/[$,]/g, '');
         if (!isNaN(valor) && parseFloat(valor)>0)
         {

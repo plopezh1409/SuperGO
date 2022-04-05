@@ -51,4 +51,13 @@ export class MessageErrorModule {
     }
   }
 
+  showMessageErrorLoadData(){
+    swal.fire({
+      icon: 'error',
+      title: 'Error inesperado',
+      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
+      heightAuto: false
+    }); 
+  }
+
  }

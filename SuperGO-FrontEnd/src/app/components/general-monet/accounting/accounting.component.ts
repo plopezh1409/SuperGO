@@ -159,20 +159,19 @@ export class AccountingComponent implements OnInit {
   addDataDropdown(dataForm:Container[], dataContent:any){
       const cpDataContent = Object.assign({},dataContent);
       delete cpDataContent.contabilidad;
-      Object.entries(cpDataContent).forEach(([key, value]:any[]) =>{
-        value.forEach((ele:any) => {
-          Object.entries(ele).forEach(([_key, _value]:any[]) => {
-            if(typeof _value === 'number'){
-              ele['ky'] = ele[_key];
-              delete ele[_key];
+      for(let value in cpDataContent){
+        cpDataContent[value].forEach((ele:any) => {
+          for(let entries in ele){
+            if(typeof ele[entries] === 'number'){
+              ele['ky'] = ele[entries];
             }
             else{
-              ele['value'] = ele[_key];
-              delete ele[_key];
+              ele['value'] = ele[entries];
             }
-          });
+            delete ele[entries];
+          }
         });
-      });
+      }
       
       dataForm.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {

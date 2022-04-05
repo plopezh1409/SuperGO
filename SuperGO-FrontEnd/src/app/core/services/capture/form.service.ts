@@ -21,15 +21,15 @@ export class FormService {
     this.urlEndPoint = authservice.urlEnviroment;
    }
 
-   getFormByPetition(request:any){
+   getFormByPetition(request:Object){
     return this.httpClient.post<any>(`${this.urlEndPoint}reactiveForm`, request);
    }
 
-   getFormByModule(request:any){     
+   getFormByModule(request:Object){     
     return this.httpClient.post<any>(`${this.urlEndPoint}reactiveModule`, request);
    }  
 
-   getFieldQuery(consulta: string, obj?:any): Observable<any> {    
+   getFieldQuery(consulta: string, obj?:Object): Observable<any> {    
     if(obj===null)
     {
       return this.httpClient.get<any>(`${this.urlEndPoint}${consulta}`,

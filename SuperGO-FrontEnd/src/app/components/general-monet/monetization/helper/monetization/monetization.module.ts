@@ -58,9 +58,9 @@ export class MonetizationModule {
   }
 
   addDataControlMonetization(dataForm: Container[], reglasMonetizacion: MonetizationRules[]){
-    let dropdownList:DropdownModel[] = [];
+    const dropdownList:DropdownModel[] = [];
     reglasMonetizacion.forEach((monet:MonetizationRules) => {
-      let dropdownData: DropdownModel = new DropdownModel();
+      const dropdownData: DropdownModel = new DropdownModel();
       dropdownData.ky = monet.idReglaMonetizacion;
       dropdownData.value = monet.descReglaMonetizacion.toString();
       dropdownList.push(dropdownData);
