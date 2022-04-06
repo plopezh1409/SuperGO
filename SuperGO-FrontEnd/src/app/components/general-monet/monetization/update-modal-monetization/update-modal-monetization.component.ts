@@ -20,6 +20,7 @@ import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/Ser
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
+import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -38,7 +39,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   public showLoad: boolean;
   private readonly loaderDuration: number;
   public showButtonAdd: boolean;
-  private selectedValRequest: any;
+  private selectedValRequest: DropdownEvent;
   public principalContainers: Container[];
   private readonly periodicity:PeriodicityModule;
   private readonly monetModule:MonetizationModule;
@@ -53,7 +54,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.containers=[];
     this.loaderDuration = 100;
     this.showButtonAdd = false;
-    this.selectedValRequest = null;
+    this.selectedValRequest = new DropdownEvent();
     this.principalContainers = [];
     this.showLoad = false;
     this.periodicity = new PeriodicityModule();
@@ -241,7 +242,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   // metodos de visibility//
-  onChangeCatsPetition($event: any) {     
+  onChangeCatsPetition($event: DropdownEvent) {     
     if(!$event.control.visibility || $event.control.visibility.length <= 0)
     {
       return;
@@ -249,19 +250,19 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.showButtonAdd = true;
     this.selectedValRequest = $event;    
     const formaux = this.reactiveForm.principalForm?.get(this.selectedValRequest.idContainer) as FormGroup;
-    const selectedVal = formaux.controls[this.selectedValRequest.control.ky].value; 
+    const selectedVal = formaux.controls[this.selectedValRequest.control.ky!].value; 
     //busqueda del codigo
     if(this.selectedValRequest.control.content)
     {
       const finder = this.selectedValRequest.control.content.options.find((option:any)=> option.ky===selectedVal);
       let dataForm:Object={};
-      for (var datas of Object.values(this.reactiveForm.principalForm?.value)) {
+      for (const datas of Object.values(this.reactiveForm.principalForm?.value)) {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;
       this.containers=[];  
       this.createNewForm(
-      this.selectedValRequest.control.visibility.filter((x:any) =>
+      this.selectedValRequest.control.visibility!.filter((x:any) =>
         x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
     }               
   }
@@ -293,7 +294,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   setControls(dataForm:{}, newContainer:Container){
     for(const ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      let valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
+      const valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
         if(control.controlType === 'dropdown' || control.controlType === 'autocomplete'){
           control.setAttributeValueByNameDropdown('value', valueCtrl);
@@ -328,11 +329,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
       dataForm.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
           if(ctrl.controlType === 'dropdown' && ctrl.ky === 'periodicidad'){
-            const selectedValRequest:{} ={
+            const selectedRequest = {
               control: ctrl,
               idContainer
             };
-            this.onChangeCatsPetition(selectedValRequest);
+            this.onChangeCatsPetition(selectedRequest);
           }
         });
       });

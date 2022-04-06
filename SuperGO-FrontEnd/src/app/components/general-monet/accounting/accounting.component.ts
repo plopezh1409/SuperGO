@@ -159,9 +159,9 @@ export class AccountingComponent implements OnInit {
   addDataDropdown(dataForm:Container[], dataContent:any){
       const cpDataContent = Object.assign({},dataContent);
       delete cpDataContent.contabilidad;
-      for(let value in cpDataContent){
+      for(const value in cpDataContent){
         cpDataContent[value].forEach((ele:any) => {
-          for(let entries in ele){
+          for(const entries in ele){
             if(typeof ele[entries] === 'number'){
               ele['ky'] = ele[entries];
             }

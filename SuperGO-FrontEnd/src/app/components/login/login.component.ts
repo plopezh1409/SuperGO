@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
   private authService: AuthService;
   private UsuarioService: UsuarioService;
   private llaveMaestraService: MasterKeyService;
+  private iconError: SweetAlertIcon = 'error';
+  private titleMessage = 'Lo sentimos';
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   loginForm: FormGroup;
@@ -206,8 +208,8 @@ export class LoginComponent implements OnInit {
         this.appComponent.logger.info('LOGIN error:', err);
         if (err.status === this.codeResponse.RESPONSE_CODE_400) {
           swal.fire({
-            icon: 'error',
-            title: 'Lo sentimos',
+            icon: this.iconError,
+            title: this.titleMessage,
             text: 'Usuario o contraseña incorrecta!',
             heightAuto: false
           });
@@ -220,28 +222,28 @@ export class LoginComponent implements OnInit {
     const p4ssA = atob(this.usuario.p4ss);
     const regex = new RegExp(this.regex);
     if (this.p4ss1 === null || this.p4ss1 === undefined || this.p4ss1 === '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña actual', false);
+      this.sweet(this.iconError, this.titleMessage, 'Ingresa tu contraseña actual', false);
     }
     else if (this.p4ss1 !== p4ssA) {
-      this.sweet('error', 'lo sentimos', 'Tu contraseña es incorrecta', false);
+      this.sweet(this.iconError, this.titleMessage, 'Tu contraseña es incorrecta', false);
     }
     else if (this.p4ss2 === null || this.p4ss2 === '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa tu contraseña nueva', false);
+      this.sweet(this.iconError, this.titleMessage, 'Ingresa tu contraseña nueva', false);
     }
     else if (this.p4ss2.length < this.codeResponseMagic.RESPONSE_CODE_10 || this.p4ss2.length > this.codeResponseMagic.RESPONSE_CODE_10) {
-      this.sweet('error', 'lo sentimos', 'La contraseña debe ser de 10 caracteres', false);
+      this.sweet(this.iconError, this.titleMessage, 'La contraseña debe ser de 10 caracteres', false);
     }
     else if (this.p4ss2 === p4ssA) {
-      this.sweet('error', 'lo sentimos', 'Tu nueva contraseña debe ser diferente a la anterior', false);
+      this.sweet(this.iconError, this.titleMessage, 'Tu nueva contraseña debe ser diferente a la anterior', false);
     }
     else if (!regex.test(this.p4ss2)) {
-      this.sweet('error', 'lo sentimos', 'La contraseña no es valida, debes tener almenos 1 mayuscula, 1 minuscula y un caracter especial (#?!@$%^&*-_)', false);
+      this.sweet(this.iconError, this.titleMessage, 'La contraseña no es valida, debes tener almenos 1 mayuscula, 1 minuscula y un caracter especial (#?!@$%^&*-_)', false);
     }
     else if (this.p4ss3 === null || this.p4ss3 === '') {
-      this.sweet('error', 'lo sentimos', 'Ingresa de nuevo tu contraseña', false);
+      this.sweet(this.iconError, this.titleMessage, 'Ingresa de nuevo tu contraseña', false);
     }
     else if (this.p4ss2 !== this.p4ss3) {
-      this.sweet('error', 'lo sentimos', 'No coincide con la contraseña anterior', false);
+      this.sweet(this.iconError, this.titleMessage, 'No coincide con la contraseña anterior', false);
     } else {
       swal.fire({
         title: 'Último paso!',
@@ -268,10 +270,10 @@ export class LoginComponent implements OnInit {
               },
               err => {
                 this.appComponent.logger.error('actualizarP4ss error', err.error.errors);
-                swal.fire('Hubo un problema', `${err.error.message} ,intente de nuevo`, 'error');
+                swal.fire('Hubo un problema', `${err.error.message} ,intente de nuevo`,this.iconError );
                 swal.fire({
-                  icon: 'error',
-                  title: 'Lo sentimos',
+                  icon: this.iconError,
+                  title: this.titleMessage,
                   text: `${err.error.message} ,intente de nuevo`,
                   heightAuto: false
                 });
@@ -310,22 +312,25 @@ export class LoginComponent implements OnInit {
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }
+      else{
+
+      }
     });
   }
 
   emptyFields(): boolean {
     if (this.usuario.employee === null || this.usuario.employee === '') {
       swal.fire({
-        icon: 'error',
-        title: 'Lo sentimos',
+        icon: this.iconError,
+        title: this.titleMessage,
         text: 'Debe ingresar su número de empleado',
         heightAuto: false
       });
       return true;
     } else if (this.usuario.p4ss === null || this.usuario.p4ss === '') {
       swal.fire({
-        icon: 'error',
-        title: 'Lo sentimos',
+        icon: this.iconError,
+        title: this.titleMessage,
         text: 'Debe ingresar su contraseña',
         heightAuto: false
       });
@@ -386,7 +391,7 @@ export class LoginComponent implements OnInit {
     }
   }
   
-  openSnackBar(message: any, action: any, type: any) {
+  openSnackBar(message: string, action: string, type: any) {
 
     this._snackBar.open(message, action, {
       horizontalPosition: this.horizontalPosition,

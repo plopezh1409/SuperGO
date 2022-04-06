@@ -138,9 +138,9 @@ export class InvoicesComponent implements OnInit {
   addDataDropdown(dataForm:Container[], dataContent:any){
     const cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.facturas;
-    for(let value in cpDataContent){
+    for(const value in cpDataContent){
       cpDataContent[value].forEach((ele:any) => {
-        for(let entries in ele){
+        for(const entries in ele){
           if(typeof ele[entries] === 'number'){
             ele['ky'] = ele[entries];
           }
@@ -162,6 +162,9 @@ export class InvoicesComponent implements OnInit {
           else if (ctrl.ky === 'idTipo'){
             ctrl.content.contentList = cpDataContent.operaciones;
             ctrl.content.options = cpDataContent.operaciones;
+          }
+          else{
+            
           }
         }
       });
