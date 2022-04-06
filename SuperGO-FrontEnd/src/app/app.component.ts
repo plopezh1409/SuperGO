@@ -24,9 +24,11 @@ export class AppComponent implements OnInit {
   private readonly loaderDuration: number;
   isAuth = false;
   public mostrarCarga: boolean;
-  userActicity: any; // eslint-disable-next-line
+  /* eslint-disable rule-name */ 
+  userActicity: any;
   userActivityPerMinute: any;
   userActivityToast:any;
+  /* eslint-disable rule-name */ 
   userInactive: Subject<void> = new Subject();
   userInactivePerMinute: Subject<void> = new Subject();
   warningExpiredSessionTime: Subject<void> = new Subject();
