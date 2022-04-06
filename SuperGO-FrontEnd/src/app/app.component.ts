@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   private readonly loaderDuration: number;
   isAuth = false;
   public mostrarCarga: boolean;
-  userActicity: any;
+  userActicity: any; // eslint-disable-next-line
   userActivityPerMinute: any;
   userActivityToast:any;
   userInactive: Subject<void> = new Subject();

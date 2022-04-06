@@ -106,7 +106,6 @@ export class InvoicesComponent implements OnInit {
     oInvoice.tipoComprobante = parseInt(dataContainer.tipoComprobante,10);
     oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
     oInvoice.idReglaMonetizacion = dataContainer.idReglaMonetizacion;
-
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => {
       this.appComponent.showLoader(false);

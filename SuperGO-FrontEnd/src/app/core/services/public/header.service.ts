@@ -22,7 +22,7 @@ export class HeaderService {
             for (let i = 0; i < fechaHora.length; i++){
                 if(fechaHora[i].toString().length === 1){
                     const aux = fechaHora[i];
-                    fechaHora[i] = `0 ${aux}`;
+                    fechaHora[i] = `0${aux}`;
                 }
                 observer.next(fechaHora);
             }
