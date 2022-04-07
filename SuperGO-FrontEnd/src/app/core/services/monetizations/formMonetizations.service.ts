@@ -77,7 +77,7 @@ export class FormMonetizationsService{
 
     updateMonetization(oMonetization:Monetizacion):Observable<any>
     {
-        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/put`, oMonetization);
+        return this.httpClient.put(`${this.urlServices}reglas-monetizacion/put`, oMonetization);
     }
 
 }

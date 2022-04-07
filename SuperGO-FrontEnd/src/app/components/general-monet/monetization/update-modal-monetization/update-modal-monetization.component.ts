@@ -62,7 +62,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.objIds = {
       idSociedad: 0,
       idTipo: 0,
-      idSubtipo: 0
+      idSubtipo: 0,
+      idReglaMonetizacion:0
     };
   }
 
@@ -78,7 +79,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.objIds = {
       idSociedad: cpyModal.idSociedad,
       idTipo: cpyModal.idTipo,
-      idSubtipo: cpyModal.idSubtipo
+      idSubtipo: cpyModal.idSubtipo,
+      idReglaMonetizacion: cpyModal.idReglaMonetizacion
     };
   }
 
@@ -140,9 +142,10 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
     oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
-    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, this.getDay(jsonResult.nombreDia));
+    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
+    oMonet.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
     this.monetService.updateMonetization(oMonet).pipe(finalize(() => {
       this.showLoader(false);

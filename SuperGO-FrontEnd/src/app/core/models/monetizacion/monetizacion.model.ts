@@ -16,6 +16,7 @@ export class Monetizacion
     periodicidadCorte:string;
     fechaFin:string;
     fechaInicio:string;
+    idReglaMonetizacion:number;
 
     constructor(){
         this.idSociedad = 0;
@@ -32,6 +33,7 @@ export class Monetizacion
         this.emisionFactura = false;
         this.indicadorOperacion = '';
         this.periodicidadCorte = '';
+        this.idReglaMonetizacion = 0;
         this.fechaFin = '01/01/0001';
         this.fechaInicio = '01/01/0001';
     }

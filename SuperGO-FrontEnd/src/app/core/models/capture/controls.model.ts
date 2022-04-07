@@ -443,7 +443,9 @@ export class Control {
 
   getMask(): Mask {
     let mask: Mask = {} as Mask;
-    const pattern = this.validations!.find((v) => { return v.type === this.codeResponseMagic.RESPONSE_CODE_2; });
+    const pattern = this.validations!.find((v) => {
+      return v.type == this.codeResponseMagic.RESPONSE_CODE_2;
+    });
     if (pattern) {
       mask = {
         regex: pattern.validate,

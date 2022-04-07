@@ -111,7 +111,7 @@ export class MonetizationComponent implements OnInit {
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
     oMonet.indicadorOperacion = dataForm.indicadorOperacion === true ? 'P' : 'C';
-    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, this.getDay(dataForm.nombreDia));
+    oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, dataForm.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(dataForm.fechaInicio);
     oMonet.fechaFin = this.monetModule.getDateTimeReverse(dataForm.fechaFin);
     this.appComponent.showLoader(true);
@@ -142,23 +142,23 @@ export class MonetizationComponent implements OnInit {
 
 
 
-  getDay(type: string) {
-    const dataForm = this.containers;
-    let typeMonet = '';
-    dataForm.forEach((element: Container) => {
-      element.controls.forEach((ctrl: Control) => {
-        if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content) {
-          for (const data of ctrl.content.contentList) {
-            if (data.ky === type) {
-              typeMonet = data.value;
-              break;
-            }
-          }
-        }
-      });
-    });
-    return typeMonet;
-  }
+  // getDay(type: string) {
+  //   const dataForm = this.containers;
+  //   let typeMonet = '';
+  //   dataForm.forEach((element: Container) => {
+  //     element.controls.forEach((ctrl: Control) => {
+  //       if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content) {
+  //         for (const data of ctrl.content.contentList) {
+  //           if (data.ky === type) {
+  //             typeMonet = data.value;
+  //             break;
+  //           }
+  //         }
+  //       }
+  //     });
+  //   });
+  //   return typeMonet;
+  // }
 
   async fillDataPage() {
     this.appComponent.showLoader(true);
