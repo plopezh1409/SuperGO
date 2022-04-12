@@ -140,7 +140,7 @@ export class InvoicesTableComponent implements OnInit {
      Tipo de Factura </b></td><td style="padding:5px"> ${oInvoice.tipoFactura} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
-       Datos de la contabilidad </div><br/> <br/>${registro}`,
+       Datos de la Factura </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
     });

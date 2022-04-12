@@ -157,7 +157,7 @@ export class MonetizationTableComponent implements OnInit {
       Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${fechaFin} </td></tr>`);
       return( swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
-        Datos de la contabilidad </div><br/> <br/>${registro}`,
+        Datos de la Monetización </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
       }));

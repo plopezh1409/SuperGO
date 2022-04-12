@@ -86,7 +86,7 @@ open(obOperation:Operaciones){
     Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);            
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
-      Datos de la contabilidad </div><br/> <br/>${registro}`,
+      Datos de la Operación </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
     });

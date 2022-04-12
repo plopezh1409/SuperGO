@@ -160,7 +160,7 @@ export class AccountingTablesComponent implements OnInit {
       Fin Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaFin).format('DD-MM-YYYY')} </td></tr>`);
       return(swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
-        Datos de la contabilidad </div><br/> <br/>${registro}`,
+        Datos de la Contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'
       })
