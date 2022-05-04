@@ -9,7 +9,9 @@ export const environment = {
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+VoLmmMRyh3XY8hTT45PK0iWB5fyLVdvHXYgjTlrmxDM',
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
   //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRKgHXsO0c05K0iVECT98PHw4n+bBp60ePqty2ycMeMXO', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
-   urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
+  //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //IP J0RG3 ESMERALDA
+   urlSuperGo: 'Po0YTHkz4baZgjBPPRLUIE2HnhsxY2Oby5+kLgKTLXBkEaUf5vLOIc8L7pf2b7P4'   , // IP J0RG3 AREA
+  //  urlSuperGo: 'GYfngdO03uky0/33z0vMAW7bzFifyinHgTOn3lorotM3svskFs2BRZWyTSyvG2NY',
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',          //4LF4 Piso 7 (GestorOperaAPI/)
    urlServices: 'http://10.112.210.11:8080/Monetizador-0.0.1/',
   // K1L0

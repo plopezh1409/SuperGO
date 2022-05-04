@@ -114,6 +114,7 @@ export class MonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, dataForm.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(dataForm.fechaInicio);
     oMonet.fechaFin = this.monetModule.getDateTimeReverse(dataForm.fechaFin);
+    oMonet.referenciaPago = dataForm.referenciaPago;
     this.appComponent.showLoader(true);
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
       this.appComponent.showLoader(false);

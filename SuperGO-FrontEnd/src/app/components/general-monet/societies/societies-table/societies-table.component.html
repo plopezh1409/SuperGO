@@ -1,21 +1,45 @@
 <div class="scrollable">
+  <button *ngIf="dataSource" mat-raised-button class="btnDownload" (click)="createReport()" style="display:block; margin: 0% 5% 1% auto;">
+    <mat-icon>download</mat-icon> Descargar Reporte
+  </button>
     <div>
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
         <caption></caption>
+        
+        <ng-container matColumnDef="idProveedorSAP">
+          <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="idProveedorSAP"> ID Proveedor SAP </th>
+          <td mat-cell *matCellDef="let element"> {{element.idProveedorSAP}} </td>
+        </ng-container>
+        
         <ng-container matColumnDef="razonSocial">
-            <th mat-header-cell *matHeaderCellDef id=""> Razon Social </th>
+            <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="razonSocial"> Razon Social </th>
             <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
         </ng-container>
-    
+
         <ng-container matColumnDef="rfc">
-            <th mat-header-cell *matHeaderCellDef class="te" id=""> RFC </th>
+            <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="rfc"> RFC </th>
             <td mat-cell *matCellDef="let element"> {{element.rfc}} </td>
         </ng-container>
     
         <ng-container matColumnDef="descripcionTipo">
-            <th mat-header-cell *matHeaderCellDef id=""> Tipo de Sociedad </th>
+            <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="descripcionTipo"> Tipo de Sociedad </th>
             <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
         </ng-container>
+
+        <ng-container matColumnDef="codigoPostal">
+          <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="codigoPostal"> Código Postal </th>
+          <td mat-cell *matCellDef="let element"> {{element.codigoPostal}} </td>
+      </ng-container>
+
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="usuario"> Usr. Modificó </th>
+          <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef id="" mat-sort-header="fecha"> Ult. Modificación </th>
+        <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+    </ng-container>
     
         <ng-container matColumnDef="options">
             <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>

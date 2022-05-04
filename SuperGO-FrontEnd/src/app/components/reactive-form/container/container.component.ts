@@ -52,6 +52,28 @@ export class ContainerComponent {
     }
   }
 
+  onCambioEnSeleccionAutocomplete(ctrl: Control){
+    this.onChangeDropDown.emit({control:ctrl,idContainer:this.container.idContainer});     
+    let txtControl:AbstractControl|null;
+
+    const textBoxLinks = this.container.controls.filter((val: any) => val.controlType === 'autocomplete' && val.content.dependency === ctrl.ky);
+    if (textBoxLinks !== undefined && textBoxLinks.length > 0) {
+      textBoxLinks.forEach((elem) => {  
+        txtControl = this.formGroup.get(elem.ky!);
+        if(txtControl!=null)
+        {
+          txtControl.setValue('');    
+          txtControl.markAsTouched();  
+        }        
+      });
+
+      this.cambioSeleccionEnDropdown = true;
+      setTimeout(() => {
+        this.cambioSeleccionEnDropdown = false;
+      }, Number(this.codeResponseMagic.RESPONSE_CODE_100));
+    }
+  }
+
   onNombreEtiquetaImprimirRespuesta(val: any) {    
     this.objetosDependenciaBusquedaVsInfo.push(val);
   }

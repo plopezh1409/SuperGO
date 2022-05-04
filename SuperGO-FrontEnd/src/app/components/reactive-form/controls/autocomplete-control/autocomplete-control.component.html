@@ -13,7 +13,7 @@ floatLabel="always"
            placeholder="Seleccionar una opción"
            [formControlName]="control.ky!"
            class = "reactiveInput"/>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected) ="onChange()">
         <mat-option *ngFor="let opt of filtrarOpciones|async" [value]="opt">{{opt.value}}</mat-option>
     </mat-autocomplete>
     <mat-error *ngIf="formulario">

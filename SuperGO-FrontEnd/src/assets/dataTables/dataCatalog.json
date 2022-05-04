@@ -4,53 +4,67 @@
     "response":{
         "sociedades": [
             {
-                "idSociedad": 17,
-                "razonSocial": "EMPRESA PRUEBA9",
-                "RFC": "XAXX010101000",
-                "idTipo": 1,
-                "descripcionTipo": "BAZ SUPERAPP"
-            },
-            {
-                "idSociedad": 6,
-                "razonSocial": "UPAX S.A. DE C.V.",
-                "RFC": "XAXX010101000",
-                "idTipo": 3,
-                "descripcionTipo": "SOCIEDAD EXTERNA"
-            },
-            {
-                "idSociedad": 5,
-                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-                "RFC": "XAXX010101000",
-                "idTipo": 2,
-                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS"
-            },
-            {
-                "idSociedad": 4,
-                "razonSocial": "TOTALPLAY S.A. DE C.V.",
-                "RFC": "XAXX010101000",
-                "idTipo": 2,
-                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS"
-            },
-            {
                 "idSociedad": 3,
-                "razonSocial": "SEGUROS AZTECA S.A. DE C.V.",
-                "RFC": "XAXX010101000",
+                "razonSocial": "SEGUROS AZTECA",
+                "rfc": "SAZ000925N86",
                 "idTipo": 2,
-                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS"
+                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
+                "codigoPostal" : "14000",
+                "fecha": "12/09/2022",
+                "usuario" : "Jorge Alberto De Jesús Bastida",
+                "idProveedorSAP": 9078
             },
             {
                 "idSociedad": 2,
-                "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
-                "RFC": "XAXX010101000",
+                "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+                "rfc": "ECE9610253TA",
                 "idTipo": 2,
-                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS"
+                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
+                "codigoPostal" : "14000",
+                "fecha": "12/09/2022",
+                "usuario" : "Jorge Alberto De Jesús Bastida",
+                "idProveedorSAP": 907865568
             },
             {
                 "idSociedad": 1,
                 "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-                "RFC": "XAXX010101000",
-                "idTipo": 1,
-                "descripcionTipo": "BAZ SUPERAPP"
+                "rfc": "BAI0205236Y8",
+                "idTipo": 2,
+                "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
+                "codigoPostal" : "14000",
+                "fecha": "12/09/2022",
+                "usuario" : "Jorge Alberto De Jesús Bastida",
+                "idProveedorSAP": 907865562
+            }
+        ],
+        "tipoSociedades": [
+            {
+              "idTipoSociedad": 1,
+              "descTipoSociedad": "BAZ SUPERAPP"
+            },
+            {
+              "idTipoSociedad": 3,
+              "descTipoSociedad": "SOCIEDAD EXTERNA"
+            },
+            {
+              "idTipoSociedad": 2,
+              "descTipoSociedad": "SOCIEDAD DE GRUPO SALINAS"
+            }
+          ]
+        ,
+        "sociedadesSAP":
+        [
+            {
+                "idSociedad": 3,
+                "razonSocial": "SEGUROS AZTECA",
+                "rfc": "SAZ000925N86",
+                "codigoPostal" : 14000
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+                "rfc": "ECE9610253TA",
+                "codigoPostal" : 14000
             }
         ]
     }

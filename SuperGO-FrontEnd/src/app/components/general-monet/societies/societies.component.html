@@ -1,4 +1,4 @@
-<mat-tab-group style="margin: 0 2%;">
+<mat-tab-group style="margin: 0 1%;">
     <mat-tab label="Nueva Sociedad">
         <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
             (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()"
@@ -9,7 +9,8 @@
                     <ng-container  *ngFor="let container of containers; let i = index">
                         <div [formGroupName]="container.idContainer">
                             <app-container [container]="container" [alignContent]="alignContent"
-                                [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                                [formGroup]="reactiveForm.getFormGroup(container.idContainer)"
+                                (onChangeDropDown)="onSelectionChanged($event)">
                             </app-container>
                         </div>
                     </ng-container>
@@ -21,7 +22,7 @@
         </form>
     </mat-tab>
     <mat-tab label="Registros de Sociedades">
-        <div style="margin: 3% 0;">
+        <div style="margin: 3% 0%;">
             <app-societies-table></app-societies-table>
         </div>
     </mat-tab>

@@ -42,7 +42,8 @@
         </div>
       
         <div *ngIf="ctrl.controlType==='autocomplete'" class="ctrlAutocomplete">
-          <app-autocomplete-control [control]="ctrl" [formulario]="formGroup"></app-autocomplete-control>
+          <app-autocomplete-control [control]="ctrl" [formulario]="formGroup"
+          (cambioEnSeleccionAutocomplete)="onCambioEnSeleccionAutocomplete(ctrl)"></app-autocomplete-control>
         </div>
     
         <div *ngIf="ctrl.controlType==='textarea'" class="ctrlTextarea">

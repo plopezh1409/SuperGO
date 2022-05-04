@@ -15,6 +15,11 @@ import { ActivatedRoute } from '@angular/router';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
+import { Control } from '@app/core/models/capture/controls.model';
+import { DropdownFunctionality } from '@app/shared/dropdown/dropdown-functionality';
+import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
+import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-societies',
@@ -30,10 +35,13 @@ export class SocietiesComponent implements OnInit {
   containers:Container[];
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
+  sociedadesSap: Sociedad[];
+  control: Control = new Control;
   public dataInfo:Sociedad[];
   public showLoad: boolean;
   public idSolicitud : string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly dropDownFunc: DropdownFunctionality;
 
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
 
@@ -43,8 +51,10 @@ export class SocietiesComponent implements OnInit {
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new SocietiesTableComponent(this.injector);
+    this.dropDownFunc = new DropdownFunctionality();
     this.containers=[];
     this.dataInfo=[];
+    this.sociedadesSap=[];
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
     this.appComponent.showLogo = true;
@@ -111,7 +121,7 @@ export class SocietiesComponent implements OnInit {
     const dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
-    const dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
+    const dataOper:IResponseData<SocietiesResponse> = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
@@ -122,12 +132,46 @@ export class SocietiesComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = dataForm.response.reactiveForm; 
+      this.containers = dataForm.response.reactiveForm; //this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
+      //this.disabledFields(true);
       this.dataInfo = dataOper.response.sociedades;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
+  }
+
+  addDataDropdown(dataForm:Container[], dataContent:SocietiesResponse){
+    let cpDataContent:any = Object.assign({},dataContent);
+    this.sociedadesSap = cpDataContent.sociedadesSAP;
+    delete cpDataContent.sociedades;
+    delete cpDataContent.sociedadesSAP;
+    cpDataContent = this.dropDownFunc.createValues(cpDataContent);
+    let arrDropdown: DropdownModel[] = [];
+    this.sociedadesSap.forEach((x:Sociedad) => {
+      let oDropdown: DropdownModel = new DropdownModel();
+      oDropdown.ky = x.idSociedad;
+      oDropdown.value = x.razonSocial;
+      arrDropdown.push(oDropdown);
+    });
+    cpDataContent.sociedadesSAP = arrDropdown;
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.content && (ctrl.controlType === 'dropdown' ||  ctrl.controlType === 'autocomplete')){
+          if(ctrl.ky === 'razonSocial' ){
+            ctrl.content.contentList = cpDataContent.sociedadesSAP;
+            ctrl.content.options = cpDataContent.sociedadesSAP;
+          }else if(ctrl.ky === 'idTipo'){
+            ctrl.content.contentList = cpDataContent.tipoSociedades;
+            ctrl.content.options = cpDataContent.tipoSociedades;
+          }
+          else{
+            
+          }
+        }
+      });
+    });
+    return dataForm;
   }
 
   updateTable(){
@@ -162,6 +206,27 @@ export class SocietiesComponent implements OnInit {
         heightAuto: false
       });
     });
+}
+
+onSelectionChanged($event: any){
+  if($event.control.ky !== 'razonSocial') {
+    return;
+  }
+  let dataContainer = this.reactiveForm.getDataForm(this.containers);
+  const [oSap] = this.sociedadesSap.filter(x => x.idSociedad === dataContainer.razonSocial.ky);
+  oSap.razonSocial = dataContainer.razonSocial;
+  this.control.setDataToControls(this.containers, oSap);
+  this.reactiveForm.setContainers(this.containers);
+}
+
+disabledFields(disabled:boolean){
+  this.containers.forEach((cont: Container) => {
+    cont.controls.forEach((ctrl:Control) => {
+      if(ctrl.ky === 'rfc'){
+        ctrl.disabled = disabled;
+      }
+    });
+  });
 }
 
 }

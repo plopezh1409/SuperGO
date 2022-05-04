@@ -17,6 +17,9 @@ export class Monetizacion
     fechaFin:string;
     fechaInicio:string;
     idReglaMonetizacion:number;
+    fecha: string;
+    usuario: string;
+    referenciaPago:string;
 
     constructor(){
         this.idSociedad = 0;
@@ -36,6 +39,9 @@ export class Monetizacion
         this.idReglaMonetizacion = 0;
         this.fechaFin = '01/01/0001';
         this.fechaInicio = '01/01/0001';
+        this.fecha = '';
+        this.usuario = '';
+        this.referenciaPago = '';
     }
     
 }

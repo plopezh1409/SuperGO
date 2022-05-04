@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Control } from '@app/core/models/capture/controls.model';
 import { Observable } from 'rxjs';
@@ -12,11 +12,14 @@ import { map, startWith } from 'rxjs/operators';
 export class AutocompleteControlComponent implements OnInit {
   @Input() control!: Control;
   @Input() formulario!: FormGroup;
+  @Output() cambioEnSeleccionAutocomplete : EventEmitter<boolean>;
   filtrarOpciones:Observable<any[]>;
   mask:any;
 
   constructor(){
-    this.filtrarOpciones = new Observable<any[]>();     
+    this.filtrarOpciones = new Observable<any[]>();
+    this.cambioEnSeleccionAutocomplete = new EventEmitter();
+
   }
 
   ngOnInit(): void {
@@ -32,5 +35,9 @@ export class AutocompleteControlComponent implements OnInit {
 
   displayWith(obj: any): string {    
     return (obj ? obj.value : '');
+  }
+
+  onChange(){
+    this.cambioEnSeleccionAutocomplete.emit(true);
   }
 }

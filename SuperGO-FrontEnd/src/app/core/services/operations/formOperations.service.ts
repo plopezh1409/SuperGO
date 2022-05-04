@@ -58,8 +58,8 @@ export class FormOperationsService{
 
     getInfoOperation():Observable<any>
     {
-        return this.httpClient.get(`${this.urlServices}tipoOperacion/get`);
-        // return this.httpClient.get('/assets/dataTables/dataOperation.json');
+        // return this.httpClient.get(`${this.urlServices}tipoOperacion/get`);
+        return this.httpClient.get('/assets/dataTables/dataOperation.json');
     }
 
     insertOperation(dataBody:Operaciones):Observable<any>{

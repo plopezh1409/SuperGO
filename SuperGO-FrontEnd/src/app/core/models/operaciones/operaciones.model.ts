@@ -5,6 +5,8 @@ export class Operaciones
     idCanal:number;
     topicoKafka:string;
     status:string;
+    fecha: string;
+    usuario: string;
 
     constructor(){
         this.idTipo = 0;
@@ -12,6 +14,8 @@ export class Operaciones
         this.idCanal=0;
         this.topicoKafka='';
         this.status='I';
+        this.fecha = '';
+        this.usuario = '';
     }
 
 }

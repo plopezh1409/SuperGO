@@ -4,67 +4,199 @@
     "response": {
       "facturas": [
         {
-            "idSociedad": 1,
-            "razonSocial": "ELEKTRA",
-            "idTipo": 3,
-            "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
-            "idSubtipo": 0,
-            "descripcionSubtipo": "GENERICO",
-            "tipoComprobante": 1,
-            "tipoFactura": 1,
-            "idReglaMonetizacion": 2
+          "idSociedad": 51,
+          "razonSocial": "Swagger",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 846,
+          "tipoFactura": 6543,
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "12/09/2021",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
         },
         {
-            "idSociedad": 2,
-            "razonSocial": "UPAX S.A. DE C.V.",
-            "idTipoOperacion": 2,
-            "descripcionTipo": "CHAT Y RED SOCIAL",
-            "idSubTipoOperacion": 1,
-            "descripcionSubtipo": "GENERICO",
-            "tipoComprobante": 1,
-            "tipoFactura": 1,
-            "idReglaMonetizacion": 1
+          "idSociedad": 50,
+          "razonSocial": "Seguros pat2",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 90,
+          "tipoFactura": 65,
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "13/10/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
         },
         {
-            "idSociedad": 3,
-            "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-            "idTipoOperacion": 3,
-            "descripcionTipo": "NOTICIAS",
-            "idSubTipoOperacion": 1,
-            "descripcionSubtipo": "GENERICO",
-            "tipoComprobante": 1,
-            "tipoFactura": 1,
-            "idReglaMonetizacion": 1
+          "idSociedad": 49,
+          "razonSocial": "Seguros Mexico",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 875,
+          "tipoFactura": 6534,
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "14/09/2020",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
         },
         {
-            "idSociedad": 4,
-            "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
-            "idTipoOperacion": 4,
-            "descripcionTipo": "VENTA DE SEGUROS",
-            "idSubTipoOperacion": 1,
-            "descripcionSubtipo": "GENERICO",
-            "tipoComprobante": 1,
-            "tipoFactura": 1,
-            "idReglaMonetizacion": 1
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 1,
+          "tipoFactura": 1,
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "15/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 1,
+          "tipoFactura": 1,
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "16/02/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 1,
+          "tipoFactura": 1,
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "30/09/2020",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idReglaMonetizacion": 1,
+          "tipoComprobante": 1,
+          "tipoFactura": 1,
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "metodo" : "EFECTIVO",
+          "codigo" : "S03",
+          "claveServicio" : "R01",
+          "descripcionFactura" : "FACTURA COMPRAS",
+          "usoCFDI" : "S",
+          "fecha": "21/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
         }
-    ],
-    "sociedades":[
+      ],
+      "sociedades": [
         {
-            "idSociedad": 1,
-            "razonSocial": "ELEKTRA"
+          "idSociedad": 52,
+          "razonSocial": "Seguros pruebas01"
         },
         {
-            "idSociedad": 2,
-            "razonSocial":"UPAX S.A. DE C.V."
+          "idSociedad": 51,
+          "razonSocial": "Swagger"
         },
         {
-            "idSociedad": 3,
-            "razonSocial": "TV AZTECA S.A.B. DE C.V."
+          "idSociedad": 50,
+          "razonSocial": "Seguros pat2"
         },
         {
-            "idSociedad": 4,
-            "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+          "idSociedad": 49,
+          "razonSocial": "Seguros Mexico"
+        },
+        {
+          "idSociedad": 3,
+          "razonSocial": "SEGUROS AZTECA"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE"
         }
-    ]
-}
-}
+      ],
+      "operaciones": [
+        {
+          "idTipo": 105,
+          "descripcionTipo": "OPERACION PRUEBA 5"
+        },
+        {
+          "idTipo": 104,
+          "descripcionTipo": "OPERACION PRUEBA 4"
+        },
+        {
+          "idTipo": 103,
+          "descripcionTipo": "OPERACION PRUEBA 3"
+        },
+        {
+          "idTipo": 102,
+          "descripcionTipo": "OPERACION PRUEBA 2"
+        },
+        {
+          "idTipo": 101,
+          "descripcionTipo": "OPERACION PRUEBA PATO"
+        },
+        {
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS"
+        },
+        {
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL"
+        },
+        {
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS"
+        },
+        {
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS"
+        }
+      ]
+    }
+  }

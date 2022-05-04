@@ -1,4 +1,4 @@
-<mat-tab-group style="margin: 0 2%;">
+<mat-tab-group style="margin: 0 1%;">
     <mat-tab label="Nueva Operación">
         <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
             (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()"

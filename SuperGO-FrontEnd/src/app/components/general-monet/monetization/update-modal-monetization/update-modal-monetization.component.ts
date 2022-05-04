@@ -145,6 +145,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
+    oMonet.referenciaPago = jsonResult.referenciaPago;
     oMonet.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
     this.monetService.updateMonetization(oMonet).pipe(finalize(() => {

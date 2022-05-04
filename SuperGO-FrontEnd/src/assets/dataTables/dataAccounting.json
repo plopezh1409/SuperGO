@@ -1,74 +1,300 @@
 {
     "code": 200,
-    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
+    "message": "Consulta efectuada exitosamente",
     "response": {
-        "contabilidad": [
-            {
-                "idSociedad": 1,
-                "razonSocial": "ELEKTRA",
-                "idTipo": 1,
-                "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-                "idSubtipo": 2,
-                "descripcionSubtipo": "GENERAL",
-                "idReglaMonetizacion": 1,
-                "numeroApunte":10,
-                "fechaInicio": "2022-01-01",
-                "fechaFin": "2022-01-08"
-            },
-            {
-                "idSociedad": 2,
-                "razonSocial": "UPAX S.A. DE C.V.",
-                "idTipo": 11,
-                "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES NUEVOS",
-                "idSubtipo": 1,
-                "descripcionSubtipo": "GENERICO",
-                "idReglaMonetizacion": 33,
-                "numeroApunte":10,
-                "fechaInicio": "2022-01-01",
-                "fechaFin": "2022-01-08"
-            },
-            {
-                "idSociedad": 3,
-                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
-                "idTipo": 10,
-                "descripcionTipo": "CREDITO AL CONSUMO Y NEGOCIOS",
-                "idSubtipo": 1,
-                "descripcionSubtipo": "GENERICO",
-                "idReglaMonetizacion": 1,
-                "numeroApunte":10,
-                "fechaInicio": "2022-01-01",
-                "fechaFin": "2022-01-08"
-            },
-            {
-                "idSociedad": 4,
-                "razonSocial": "GRUPO ELEKTRA, S.A.B. DE C.V.",
-                "idTipo": 10,
-                "descripcionTipo": "VENTA DE SEGUROS",
-                "idSubtipo": 0,
-                "descripcionSubtipo": "GENERICO",
-                "idReglaMonetizacion": 1,
-                "numeroApunte":10,
-                "fechaInicio": "2022-01-01",
-                "fechaFin": "2022-01-08"
-            }
-        ],
-        "sociedades":[
-            {
-                "idSociedad": 1,
-                "razonSocial": "ELEKTRA"
-            },
-            {
-                "idSociedad": 2,
-                "razonSocial":"UPAX S.A. DE C.V."
-            },
-            {
-                "idSociedad": 3,
-                "razonSocial": "TV AZTECA S.A.B. DE C.V."
-            },
-            {
-                "idSociedad": 4,
-                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
-            }
-        ]
+      "contabilidad": [
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 1,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 2,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 3,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 4,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 1,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 2,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 3,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 4,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 1,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 2,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 3,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 4,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 1,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 2,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 3,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS",
+          "idSubtipo": 0,
+          "descripcionSubtipo": "GENERICO",
+          "idReglaMonetizacion": 1,
+          "numeroApunte": 4,
+          "fechaInicio": "2021-11-01",
+          "fechaFin": "9999-12-31",
+          "fecha": "12/09/2022",
+          "usuario" : "Jorge Alberto De Jesús Bastida"
+        }
+      ],
+      "sociedades": [
+        {
+          "idSociedad": 52,
+          "razonSocial": "Seguros pruebas01"
+        },
+        {
+          "idSociedad": 51,
+          "razonSocial": "Swagger"
+        },
+        {
+          "idSociedad": 50,
+          "razonSocial": "Seguros pat2"
+        },
+        {
+          "idSociedad": 49,
+          "razonSocial": "Seguros Mexico"
+        },
+        {
+          "idSociedad": 3,
+          "razonSocial": "SEGUROS AZTECA"
+        },
+        {
+          "idSociedad": 2,
+          "razonSocial": "NUEVA ELEKTRA DEL MILENIO"
+        },
+        {
+          "idSociedad": 1,
+          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE"
+        }
+      ],
+      "operaciones": [
+        {
+          "idTipo": 105,
+          "descripcionTipo": "OPERACION PRUEBA 5"
+        },
+        {
+          "idTipo": 104,
+          "descripcionTipo": "OPERACION PRUEBA 4"
+        },
+        {
+          "idTipo": 103,
+          "descripcionTipo": "OPERACION PRUEBA 3"
+        },
+        {
+          "idTipo": 102,
+          "descripcionTipo": "OPERACION PRUEBA 2"
+        },
+        {
+          "idTipo": 101,
+          "descripcionTipo": "OPERACION PRUEBA PATO"
+        },
+        {
+          "idTipo": 5,
+          "descripcionTipo": "PAGO DE SERVICIOS"
+        },
+        {
+          "idTipo": 3,
+          "descripcionTipo": "CREDITO - BNPL"
+        },
+        {
+          "idTipo": 2,
+          "descripcionTipo": "CREDITO - CLIENTES NUEVOS"
+        },
+        {
+          "idTipo": 1,
+          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS"
+        }
+      ]
     }
-    }
+  }

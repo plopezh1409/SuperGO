@@ -55,7 +55,6 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.control.setDataToControls(this.containers, this.dataModal.dataModal);
     this.reactiveForm.setContainers(this.containers);
   }
-
   
   modify(){
     if(!this.reactiveForm.principalForm?.valid){

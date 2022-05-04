@@ -1,27 +1,28 @@
 {
     "code": 200,
-    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
-    "response": 
-        [
+    "message": "Consulta efectuada exitosamente",
+    "response": [
         {
-            "idSociedad": 1,
-            "razonSocial": "ELEKTRA",
-            "idTipo": 1,
-            "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-            "idSubtipo": 0,
-            "descripcionSubtipo": "GENERAL",
-            "indicadorOperacion": "C",
-            "montoMonetizacion": 200.5,
-            "tipoMontoMonetizacion": "F",
-            "idTipoImpuesto": 1,
-            "emisionFactura": true,
-            "segmento": 1245,
-            "codigoDivisa": "MXP",
-            "periodicidadCorte": "FREQ=YEARLY;BYMONTH=1;BYMONTHDAY=8",
-            "fechaInicio": "2021-11-01",
-            "fechaFin": "2021-11-02",
-            "idReglaMonetizacion": 46738
+        "idSociedad": 1,
+        "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+        "idTipo": 1,
+        "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+        "idSubtipo": 0,
+        "descripcionSubtipo": "C",
+        "indicador": "",
+        "idReglaMonetizacion": 1,
+        "segmento": 1316134911,
+        "montoMonetizacion": 6,
+        "tipoMonto": "P",
+        "idTipoImpuesto": 1,
+        "codigoDivisa": "MXP",
+        "emisionFactura": true,
+        "periodicidadCorte": "FREQ=WEEKLY;BYDAY=SU;INTERVAL=1",
+        "fechaInicio": "2021-11-01",
+        "fechaFin": "9999-12-31",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida",
+        "referenciaPago": "XR-T67155562"
         }
     ]
-    
 }

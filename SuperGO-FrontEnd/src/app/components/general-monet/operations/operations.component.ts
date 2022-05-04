@@ -19,6 +19,9 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { OperationsResponse } from '@app/core/models/ServiceResponseData/operations-response.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
+import { Control } from '@app/core/models/capture/controls.model';
+import { DropdownFunctionality } from '@app/shared/dropdown/dropdown-functionality';
 
 @Component({
   selector: 'app-operations',
@@ -37,6 +40,7 @@ export class OperationsComponent implements OnInit {
   public dataInfo:Operaciones[];
   public idSolicitud: string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly dropDownFunc: DropdownFunctionality;
 
   @ViewChild(OperationsTableComponent) catalogsTable:OperationsTableComponent;
 
@@ -46,6 +50,7 @@ export class OperationsComponent implements OnInit {
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new OperationsTableComponent();
+    this.dropDownFunc = new DropdownFunctionality();
     this.containers=[];
     this.dataInfo=[];
     this.appComponent.showInpImage(false);
@@ -125,7 +130,7 @@ export class OperationsComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.containers = dataForm.response.reactiveForm;
+      this.containers = dataForm.response.reactiveForm; //this.addDataDropdown(dataForm.response.reactiveForm, dataOper.response);
       this.dataInfo = dataOper.response.tipoOperacion;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
@@ -133,6 +138,23 @@ export class OperationsComponent implements OnInit {
     }
   }
   
+  addDataDropdown(dataForm:Container[], dataContent:any){
+    let cpDataContent:any = Object.assign({},dataContent);
+    delete cpDataContent.tipoOperacion;
+    cpDataContent = this.dropDownFunc.createValues(cpDataContent);
+    dataForm.forEach((element:Container) => {
+      element.controls.forEach((ctrl:Control) => {
+        if(ctrl.content && ctrl.controlType === 'dropdown'){
+          if(ctrl.ky === 'idCanal'){
+            ctrl.content.contentList = cpDataContent.canal;
+            ctrl.content.options = cpDataContent.canal;
+          }
+        }
+      });
+    });
+    return dataForm;
+  }
+
   updateTable(){
     this.appComponent.showLoader(true);
     this.formCatService.getInfoOperation().pipe(finalize(() => {

@@ -1,92 +1,96 @@
 {
-    "code": 200,
-    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
-    "response": {
-      "tipoOperacion": [
-        {
-          "idTipoOperacion": 12,
-          "descripcionTipo": "VENTA DE MERCANCIA",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 11,
-          "descripcionTipo": "CHAT Y RED SOCIAL",
-          "idCanal": 1,
-          "topicoKafka": "PRUEBA 1",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 10,
-          "descripcionTipo": "NOTICIAS",
-          "idCanal": 1,
-          "topicoKafka": "PRUEBA2",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 9,
-          "descripcionTipo": "TV EN VIVO",
-          "idCanal": 1,
-          "topicoKafka": "PRUEBA 3",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 8,
-          "descripcionTipo": "PELICULAS ON-DEMAND",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PAGOS-CAPTACION-TRASPASOS-V1-BOTON-PAGO-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 7,
-          "descripcionTipo": "TARJETAS DE REGALO",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PAGOS-CORRESPONSALIA-BANCARIA-OPERACIONES-ARCUS-V1-OPERADORES-ID-RECARGAS-TARJETAS-REGALO-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 6,
-          "descripcionTipo": "TIEMPO AIRE",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-CONECTIVIDAD-TIEMPO-AIRE-V1-RECARGAS-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 5,
-          "descripcionTipo": "PAGO DE SERVICIOS",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-SWITCH-COMERCIAL-PAGOS-REFERENCIADOS-V1-PAGOS-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 4,
-          "descripcionTipo": "VENTA DE SEGUROS",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-SEGUROS-SEGUROS-AZTECA-SOCIOS-COMERCIALES-GESTION-POLIZAS-V1-POLIZA-COTIZACION-ID-PAGOS-COMPROBANTES-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 3,
-          "descripcionTipo": "TARJETAS DE CREDITO",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-TARJETA-CREDITO-V1-TARJETAS-LIBERACIONES-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 2,
-          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-SURTIMIENTOS-POST",
-          "status": "A"
-        },
-        {
-          "idTipoOperacion": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idCanal": 54,
-          "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-DISPERSIONES-POST",
-          "status": "A"
-        }
-      ]
-    }
+  "code": 200,
+  "message": "Consulta efectuada exitosamente",
+  "response": {
+    "tipoOperacion": [
+      {
+        "idTipo": 105,
+        "descripcionTipo": "OPERACION PRUEBA 5",
+        "idCanal": 54,
+        "topicoKafka": "TK-OPERACION-PRUEBA-5",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+        
+      },
+      {
+        "idTipo": 104,
+        "descripcionTipo": "OPERACION PRUEBA 4",
+        "idCanal": 54,
+        "topicoKafka": "TK-OPERACION-PRUEBA-4",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 103,
+        "descripcionTipo": "OPERACION PRUEBA 3",
+        "idCanal": 54,
+        "topicoKafka": "TK-OPERACION-PRUEBA-3",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 102,
+        "descripcionTipo": "OPERACION PRUEBA 2",
+        "idCanal": 54,
+        "topicoKafka": "TK-OPERACION-PRUEBA-2",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 101,
+        "descripcionTipo": "OPERACION PRUEBA PATO",
+        "idCanal": 54,
+        "topicoKafka": "TK-OPERACION-PRUEBA-PATO",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 5,
+        "descripcionTipo": "PAGO DE SERVICIOS",
+        "idCanal": 54,
+        "topicoKafka": "TP-SUPERAPP-PAGOS-ELEKTRA-SWITCH-COMERCIAL-PAGOS-REFERENCIADOS-V1-PAGOS-POST",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 3,
+        "descripcionTipo": "CREDITO - BNPL",
+        "idCanal": 54,
+        "topicoKafka": "TP-SUPERAPP-PRESTAMOS-TARJETA-AZTECA-GESTION-PAGOS-V1-PAGOS-POST",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 2,
+        "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
+        "idCanal": 54,
+        "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-SURTIMIENTOS-POST",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      },
+      {
+        "idTipo": 1,
+        "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+        "idCanal": 54,
+        "topicoKafka": "TP-SUPERAPP-PRESTAMOS-LINEA-CREDITO-EFECTIVO-V1-DISPERSIONES-POST",
+        "status": "A",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+      }
+    ],
+    "canal": [
+      {
+        "id": 54,
+        "descripcion": "54"
+      }
+    ]
   }
+}

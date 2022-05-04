@@ -22,6 +22,6 @@ export class DropdownControlComponent implements OnInit{
   }
 
   onChange() {    
-    this.cambioEnSeleccionDropdown.emit(true);    
+    this.cambioEnSeleccionDropdown.emit(true);
   }
 }

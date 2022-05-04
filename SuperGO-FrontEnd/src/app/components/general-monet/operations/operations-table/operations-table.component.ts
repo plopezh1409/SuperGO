@@ -13,6 +13,9 @@ import { UpdateModalOperationsComponent } from '../update-modal-operations/updat
 import { Operaciones } from '@app/core/models/operaciones/operaciones.model';
 import { Container } from '@app/core/models/capture/container.model';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
+import { Sort } from '@angular/material/sort';
+import { SortModule } from '@app/shared/sort/sort.module';
+import moment from 'moment';
 
 @Component({
   selector: 'app-operations-table',
@@ -24,9 +27,10 @@ export class OperationsTableComponent implements OnInit {
 
   @Input()dataInfo:Operaciones[];
   dataSource:MatTableDataSource<Operaciones>;
-  displayedColumns: string[] = ['descripcionTipo', 'idCanal', 'topicoKafka', 'status','options', 'options2'];
+  displayedColumns: string[] = ['descripcionTipo', 'idCanal', 'topicoKafka', 'status', 'usuario','fecha' ,'options', 'options2'];
   totalRows:number;
   containers:Container[];
+  private readonly sortModule: SortModule;
   
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   
@@ -35,6 +39,7 @@ export class OperationsTableComponent implements OnInit {
     this.containers = [];
     this.totalRows = 0;   
     this.dataSource = new MatTableDataSource<Operaciones>();
+    this.sortModule = new SortModule;
    }
 
   ngOnInit(): void {
@@ -50,6 +55,34 @@ export class OperationsTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Operaciones>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
+  }
+
+  sortData(sort: Sort) {
+    let sortedData:Operaciones[] = this.dataInfo;
+    const data = this.dataInfo.slice();
+    if (!sort.active || sort.direction === '') {
+      sortedData = data;
+    }
+    else{
+      sortedData = data.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'fecha':
+            return this.sortModule.compare(moment(a.fecha, 'DD/MM/YYYY'), moment(b.fecha, 'DD/MM/YYYY'), isAsc);
+          case 'topicoKafka':
+            return this.sortModule.compare(a.topicoKafka, b.topicoKafka, isAsc);
+          case 'descripcionTipo':
+            return this.sortModule.compare(a.descripcionTipo, b.descripcionTipo, isAsc);
+          case 'idCanal':
+            return this.sortModule.compare(a.idCanal, b.idCanal, isAsc);
+          case 'usuario':
+            return this.sortModule.compare(a.usuario, b.usuario, isAsc);
+          default:
+            return 0;
+        }
+      });
+    }
+    this.dataSource = new MatTableDataSource<Operaciones>(sortedData);
   }
 
 open(obOperation:Operaciones){
@@ -83,7 +116,11 @@ open(obOperation:Operaciones){
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Canal </b></td><td style="padding:5px">  ${obOperation.idCanal} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);            
+    Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Usr. Modificó </b></td><td style="padding:5px">  ${obOperation.usuario} </td></tr>`);        
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Ult. Modificación  </b></td><td style="padding:5px">  ${obOperation.fecha} </td></tr>`);        
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
       Datos de la Operación </div><br/> <br/>${registro}`,

@@ -19,6 +19,8 @@ export class Contabilidad
     cuentaSAP:string;
     fechaInicio:string;
     fechaFin:string;
+    fecha: string;
+    usuario: string;
 
     constructor(){
         this.idSociedad = 0;
@@ -40,6 +42,8 @@ export class Contabilidad
         this.descripcionSubtipo = '';
         this.fechaFin = '01/01/0001';
         this.fechaInicio = '01/01/0001';
+        this.fecha = '';
+        this.usuario = '';
     }
 
 }

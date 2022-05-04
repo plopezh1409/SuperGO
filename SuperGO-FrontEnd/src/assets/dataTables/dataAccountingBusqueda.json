@@ -1,28 +1,30 @@
 {
     "code": 200,
-    "message": "CONSULTA EFECTUADA EXITOSAMENTE",
-    "response": {
-        "registroContable":
-            {
-                "idSociedad": 1,
-                "razonSocial": "ELEKTRA",
-                "idTipoOperacion": 1,
-                "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
-                "idSubTipoOperacion": 1,
-                "descripcionSubtipo": "GENERAL",
-                "indicadorOperacion": 1,
-                "numeroApunte":"10",
-                "contabilidadDiaria":"D",
-                "indicadorIVA":"AA",
-                "tipoCuenta":"M",
-                "claseDocumento":"SA",
-                "concepto":"COMISION PAGO SERVICIOS",
-                "centroDestino":"0629",
-                "sociedadGl":"G",
-                "cuentaSAP":"1309213442",
-                "idReglaMonetizacion": 1,
-                "fechaInicioVigencia": "2021-11-01",
-                "fechaFinVigencia": "9999-12-01"
-            }
-    }
+    "message": "Consulta efectuada exitosamente",
+    "response": [
+        {
+        "idSociedad": 1,
+        "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+        "idTipo": 1,
+        "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+        "idSubtipo": 0,
+        "descripcionSubtipo": "GENERICO",
+        "idReglaMonetizacion": 1,
+        "contabilidadDiaria": "D",
+        "numeroApunte": 1,
+        "sociedadGl": "tup04",
+        "tipoCuenta": "M",
+        "cuentaSAP": "1309213462",
+        "claseDocumento": "SA",
+        "concepto": "Prueba ins2",
+        "centroDestino": "0629",
+        "indicadorIVA": "C",
+        "indicadorOperacion": "C",
+        "fechaInicio": "2021-11-01",
+        "fechaFinVigencia": "9999-12-31",
+        "fecha": "12/09/2022",
+        "usuario" : "Jorge Alberto De Jesús Bastida"
+
+        }
+    ]
 }

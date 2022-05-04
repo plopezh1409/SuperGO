@@ -15,8 +15,10 @@ import { MessageErrorModule } from '@app/shared/message-error/message-error.modu
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { MonetizationModule } from '../helper/monetization/monetization.module';
 import { ControlDecimal } from '@app/core/models/public/control-decimal.model';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { AppComponent } from '@app/app.component';
+import { MatSort, Sort } from '@angular/material/sort';
+import { SortModule } from '@app/shared/sort/sort.module';
 
 @Component({
   selector: 'app-monetization-table',
@@ -28,7 +30,8 @@ export class MonetizationTableComponent implements OnInit {
 
   @Input()dataInfo:Monetizacion[];
   dataSource:MatTableDataSource<Monetizacion>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion', 'fechaInicio','fechaFin','options', 'options2'];
+  displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion', 'fechaInicio','fechaFin',
+  'usuario','fecha','options', 'options2'];
   totalRows:number;
   pageEvent: PageEvent;
   containers:Container[];
@@ -40,9 +43,11 @@ export class MonetizationTableComponent implements OnInit {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
   private readonly appComponent: AppComponent;
+  private readonly sortModule: SortModule;
 
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
   
   constructor(private readonly injector:Injector,public refData?:MatDialog) { 
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
@@ -56,6 +61,7 @@ export class MonetizationTableComponent implements OnInit {
     this.messageError = new MessageErrorModule();
     this.monetModule = new MonetizationModule();
     this.controlDecimal = new ControlDecimal();
+    this.sortModule = new SortModule();
    }
 
   ngOnInit(): void {    
@@ -68,9 +74,43 @@ export class MonetizationTableComponent implements OnInit {
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo = dataInfo;
-    this.dataSource = new MatTableDataSource<Monetizacion>(this.dataInfo);  
+    this.dataSource = new MatTableDataSource<Monetizacion>(this.dataInfo);
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
+  }
+
+  sortData(sort: Sort) {
+    let sortedData:Monetizacion[] = this.dataInfo;
+    const data = this.dataInfo.slice();
+    if (!sort.active || sort.direction === '') {
+      sortedData = data;
+    }
+    else{
+      sortedData = data.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'fechaInicio':
+            return this.sortModule.compare(moment(a.fechaInicio, 'DD/MM/YYYY'), moment(b.fechaInicio, 'DD/MM/YYYY'), isAsc);
+          case 'fechaFin':
+            return this.sortModule.compare(moment(a.fechaFin, 'DD/MM/YYYY'), moment(b.fechaFin, 'DD/MM/YYYY'), isAsc);
+          case 'fecha':
+            return this.sortModule.compare(moment(a.fecha, 'DD/MM/YYYY'), moment(b.fecha, 'DD/MM/YYYY'), isAsc);
+          case 'razonSocial':
+            return this.sortModule.compare(a.razonSocial, b.razonSocial, isAsc);
+          case 'descripcionTipo':
+            return this.sortModule.compare(a.descripcionTipo, b.descripcionTipo, isAsc);
+          case 'descripcionSubtipo':
+            return this.sortModule.compare(a.descripcionSubtipo, b.descripcionSubtipo, isAsc);
+          case 'idReglaMonetizacion':
+            return this.sortModule.compare(a.idReglaMonetizacion, b.idReglaMonetizacion, isAsc);
+          case 'usuario':
+            return this.sortModule.compare(a.usuario, b.usuario, isAsc);
+          default:
+            return 0;
+        }
+      });
+    }
+    this.dataSource = new MatTableDataSource<Monetizacion>(sortedData);
   }
   
   async open(obData:Monetizacion){
@@ -146,7 +186,9 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);            
+      Segmento </b></td><td style="padding:5px"> ${oMonet.segmento} </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Referencia de Pago </b></td><td style="padding:5px"> ${oMonet.referenciaPago} </td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Divisa </b></td><td style="padding:5px"> ${oMonet.codigoDivisa} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
@@ -155,6 +197,10 @@ export class MonetizationTableComponent implements OnInit {
       Fecha Inicio De Vigencia </b></td><td style="padding:5px"> ${fechaInicio} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${fechaFin} </td></tr>`);
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Usr. Modificó </b></td><td style="padding:5px">  ${oMonet.usuario} </td></tr>`);        
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Ult. Modificación  </b></td><td style="padding:5px">  ${oMonet.fecha} </td></tr>`);
       return( swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la Monetización </div><br/> <br/>${registro}`,
