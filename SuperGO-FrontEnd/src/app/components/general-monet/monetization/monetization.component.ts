@@ -110,7 +110,7 @@ export class MonetizationComponent implements OnInit {
     oMonet.idTipoImpuesto = parseInt(dataForm.idTipoImpuesto, 10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(dataForm.codigoDivisa.value);
     oMonet.emisionFactura = dataForm.emisionFactura;
-    oMonet.indicadorOperacion = dataForm.indicadorOperacion === true ? 'P' : 'C';
+    oMonet.indicador = dataForm.indicador === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, dataForm.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(dataForm.fechaInicio);
     oMonet.fechaFin = this.monetModule.getDateTimeReverse(dataForm.fechaFin);
