@@ -1,0 +1,59 @@
+<div class="contain fade-in" style="margin-bottom: 50px;">
+
+
+   <div class="row">
+       <h2 style="color: #676666;
+       margin-top: 0;
+       margin-left: 20px;"> Operacion {{invoice}} </h2>
+   </div>
+
+   <mat-drawer-container class="middlePanel" autosize>
+
+       <div class="card">
+           <mat-tab-group animationDuration="1000ms" [selectedIndex]="this.statusVal">
+               <mat-tab label="Detalle">
+                   <app-detail class="fade-in" [detail]="this.detail" [voucher]="this.voucher" [invoice]="invoice"
+                       (Status)="actualizaVoucher($event)">
+                   </app-detail>
+
+               </mat-tab>
+               <mat-tab label="Seguimiento">
+                   <app-time-line class="fade-in" [response]="this.timeline"></app-time-line>
+
+               </mat-tab>
+               <mat-tab label="Matriz de Autorización" *ngIf="this.matrix != null && this.matrix != ''">
+                   <app-matrix class="fade-in" [matrix]="this.matrix"></app-matrix>
+
+               </mat-tab>
+               <mat-tab label="Comprobante" *ngIf="this.mostrarComp">
+                   <app-voucher [voucher]="this.detail"></app-voucher>
+               </mat-tab>
+
+               <mat-tab label="Autorización" *ngIf="this.mostrarAuth">
+                   <app-authorization [authorization]="this.authorization" (Resp)="refresh($event)">
+                   </app-authorization>
+               </mat-tab>
+
+               <mat-tab disabled *ngIf="this.pdfSrc != null && this.pdfSrc != ''">
+                   <ng-template mat-tab-label>
+                       <button mat-raised-button type="submit" (click)="drawer.toggle()"> Evidencia </button>
+                   </ng-template>
+               </mat-tab>
+
+           </mat-tab-group>
+       </div>
+
+       <mat-drawer #drawer class="example-sidenav" position="end" mode="side" hasBackdrop="false">
+           <div style="width: 100%; ">
+               <div style="text-align: right; padding: 26px 18px 0px 0px;">
+                   <button mat-mini-fab (click)="drawer.toggle()">
+                       <mat-icon> close </mat-icon>
+                   </button>
+
+                   <pdf-viewer [src]="this.pdfSrc" [render-text]="true"
+                       style="display: block; width: min-content; height: min-content;"></pdf-viewer>
+               </div>
+           </div>
+       </mat-drawer>
+   </mat-drawer-container>
+</div>

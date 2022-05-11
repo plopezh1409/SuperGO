@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('@app/components/general-monet/general-monet.module').then(m => m.GeneralMonetModule), canLoad:[ModuleGuard],
   },
   {
+    path: 'binnacle/:idModule',
+    loadChildren: () => import('@app/components/binnacle/binnacle.module').then(m => m.BinnacleModule), canLoad:[ModuleGuard],
+  },
+  {
     path: '', component:InicioComponent,
   },
   {

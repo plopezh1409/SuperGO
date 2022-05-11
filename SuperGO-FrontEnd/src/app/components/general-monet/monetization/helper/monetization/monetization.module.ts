@@ -45,7 +45,7 @@ export class MonetizationModule {
   }
 
   getDateTime(date: string) {
-    date = moment(date).format('DD-MM-YYYY');
+    date = moment(date).format('DD/MM/YYYY');
     return date;
   }
 

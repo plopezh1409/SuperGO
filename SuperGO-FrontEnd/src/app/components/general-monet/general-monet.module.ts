@@ -15,8 +15,6 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ReactiveFormModule } from '../reactive-form/reactive-form.module';
 import { PetitionRoutingModule } from './general-monet-routing.module';
 
-//SERVICES
-
 //COMPONENTS
 import { GeneralmonetComponent } from './general-monet.component';
 import { SocietiesComponent } from './societies/societies.component';
@@ -36,7 +34,6 @@ import { SocietiesTableComponent } from './societies/societies-table/societies-t
 import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
 import { AppComponent } from '@app/app.component';
-
 
 @NgModule({
   declarations: [

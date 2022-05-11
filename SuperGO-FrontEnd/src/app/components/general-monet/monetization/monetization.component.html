@@ -1,8 +1,7 @@
-<mat-tab-group style="margin: 0 0%;">
-    <mat-tab label="Nueva Regla">
+<mat-tab-group class="mat-group-style">
+    <mat-tab label="NUEVA REGLA">
         <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-            (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()"
-            style="margin: 3% 0;">
+            (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change)="reactiveForm.onFormChange()">
             <div>
                 <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
                         'dvPrincipalContent row': alignContent === 'vertical'}">
@@ -17,13 +16,13 @@
                 </div>
             </div>
             <div class="mt-20 text-center">
-                <button mat-raised-button class="btnPrimary btnSize" type="submit"> Agregar </button>
+                <button mat-raised-button class="btnPrimary btnSize" type="submit"> AGREGAR </button>
             </div>
         </form>
     </mat-tab>
 
-    <mat-tab label="Registros Reglas de Monetización">
-        <div style="margin: 3% 0;">
+    <mat-tab label="REGISTROS REGLAS DE MONETIZACION">
+        <div class="mat-tables-style">
             <app-monetization-table [dataInfo]="dataInfo"></app-monetization-table>
         </div>
     </mat-tab>

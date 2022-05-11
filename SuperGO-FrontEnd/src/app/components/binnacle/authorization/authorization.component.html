@@ -1,0 +1,25 @@
+<div id="auth">
+   <div *ngIf="containers.length > 0 ">
+       <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
+           (change) = "reactiveForm.onFormChange()" >
+           <div>
+               <div 
+               [ngClass]="{'dvPrincipalContent': alignContent === 'horizontal',
+                           'dvPrincipalContent row': alignContent === 'vertical'}">
+                   <ng-container  *ngFor="let container of containers; let i = index">
+                       <div [formGroupName]="container.idContainer">
+                           <app-container [container]="container" [alignContent]="alignContent"
+                               [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                           </app-container>
+                       </div>
+                   </ng-container>
+               </div>
+               <div id="control" class="dvPrincipalContent">
+                   <button mat-raised-button id="ok" (click)="authorize()"> Aceptar </button>
+                    &nbsp;
+                   <button mat-raised-button id="fail" (click)="reject()"> Rechazar </button>
+               </div>               
+           </div>
+       </form>
+   </div>
+</div>

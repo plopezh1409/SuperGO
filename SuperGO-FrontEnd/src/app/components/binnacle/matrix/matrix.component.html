@@ -1,0 +1,42 @@
+<div class="contain">
+   <h1 style="text-align: center; color:#949597;"><strong> Seguimiento </strong></h1>
+   <div class="containerMatrix mb-10">
+       <ul style="padding: 0px">
+           <li *ngFor="let matriz of matrix;let i = index;" id="idLiCards" style="margin-top: 15px;">
+
+               <div *ngIf="matriz.level==0 && i==0" class="width-100 flex justify-center" style="text-align: center;">
+                   <h2 style=" color: black;"> Validadores </h2>
+               </div>
+
+               <div class="width-100 flex justify-center" style="height: 70px;"
+                   *ngIf="i > 0 && matrix[i-1].level != matriz.level ">
+                   <mat-icon style="color: #2a633d;
+                           height: 70px;
+                           opacity: 0.7;font-size: 70px;margin-right: 54px"> arrow_downward </mat-icon>
+               </div>
+               <div *ngIf="i > 0 && matrix[i-1].level != matriz.level " class="width-100 flex justify-center"
+                   style="text-align: center;">
+                   <h2 style=" color: black;"> Autorizadores </h2>
+               </div>
+
+               <div  class="scrollX divValidators text-center">
+                   <div class="card validat mat-elevation-z8" style="padding: 0px; "
+                       [ngStyle]="{'border-left': binnacleService.getBorderMatrix(matriz.status.id)}">
+                       <div class="flex">
+                           <img class="pic" alt="img" width="" height=""
+                               [src]="URL(matriz.enterprise,matriz.authorizing.id)" onError="this.src='assets/image/account_circle-24px.svg'" />
+                           <div class="dataValid text-start p-10">
+                               <div class="title"> {{matriz.authorizing.name}} </div>
+                               <div class="infos"><strong> No Empleado: </strong> {{matriz.authorizing.id}} </div>
+                               <div class="type"><strong> Mail: </strong> {{matriz.mail}} </div>
+                               <div class="type"><strong> Ext. </strong> {{matriz.ext}} </div>
+                               <div class="type"><strong> Autorización: </strong> {{matriz.status.name}} </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+           </li>
+       </ul>
+   </div>
+</div>

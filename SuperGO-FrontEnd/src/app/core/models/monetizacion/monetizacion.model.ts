@@ -6,7 +6,7 @@ export class Monetizacion
     descripcionTipo:string;
     idSubtipo:number;
     descripcionSubtipo:string;
-    indicadorOperacion:string;
+    indicador:string;
     montoMonetizacion:number;
     tipoMonto:string;
     idTipoImpuesto:number;
@@ -34,7 +34,7 @@ export class Monetizacion
         this.idTipoImpuesto = 0;
         this.codigoDivisa = '';
         this.emisionFactura = false;
-        this.indicadorOperacion = '';
+        this.indicador = '';
         this.periodicidadCorte = '';
         this.idReglaMonetizacion = 0;
         this.fechaFin = '01/01/0001';

@@ -112,15 +112,18 @@ open(obOperation:Operaciones){
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Descripción </b></td><td style="padding:5px">  ${obOperation.descripcionTipo} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Topíco KAFKA </b></td><td style="padding:5px">  ${obOperation.topicoKafka} </td></tr>`);            
+    Topíco Kafka </b></td><td style="padding:5px">  ${obOperation.topicoKafka} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Canal </b></td><td style="padding:5px">  ${obOperation.idCanal} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);
+
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Usr. Modificó </b></td><td style="padding:5px">  ${obOperation.usuario} </td></tr>`);        
+    Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Ult. Modificación  </b></td><td style="padding:5px">  ${obOperation.fecha} </td></tr>`);        
+    Usuario </b></td><td style="padding:5px">  ${obOperation.usuario} </td></tr>`);        
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Fecha  </b></td><td style="padding:5px">  ${obOperation.fecha} </td></tr>`);        
     Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
       Datos de la Operación </div><br/> <br/>${registro}`,

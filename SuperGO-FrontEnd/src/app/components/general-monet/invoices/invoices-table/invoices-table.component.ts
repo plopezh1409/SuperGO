@@ -161,7 +161,7 @@ export class InvoicesTableComponent implements OnInit {
 
   show(oInvoice:Facturas):void{
     let registro = '';
-    // const cfdi = oInvoice.usoCFDI === 'S' ? 'Si':'No';
+    const cfdi = oInvoice.usoCFDI === 'S' ? 'SI':'NO';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 
@@ -177,22 +177,24 @@ export class InvoicesTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Tipo de Comprobante </b></td><td style="padding:5px"> ${oInvoice.tipoComprobante} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Tipo de Factura </b></td><td style="padding:5px"> ${oInvoice.tipoFactura} </td></tr>`);
-    // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    // Método de Pago </b></td><td style="padding:5px">  ${oInvoice.metodo} </td></tr>`);        
-    // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    // Código de Pago  </b></td><td style="padding:5px">  ${oInvoice.codigo} </td></tr>`);
-    // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    // Clave de Servicio </b></td><td style="padding:5px">  ${oInvoice.claveServicio} </td></tr>`);        
-    // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    // Descripción de la Factura  </b></td><td style="padding:5px">  ${oInvoice.descripcionFactura} </td></tr>`);
-    // registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    // CFDI </b></td><td style="padding:5px">  ${cfdi} </td></tr>`);
+    Tipo de Factura </b></td><td style="padding:5px"> ${oInvoice.tipoFactura} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Usr. Modificó </b></td><td style="padding:5px">  ${oInvoice.usuario} </td></tr>`);        
+    Método de Pago </b></td><td style="padding:5px"> ${oInvoice.metodo} </td></tr>`);        
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Ult. Modificación  </b></td><td style="padding:5px">  ${oInvoice.fecha} </td></tr>`);
+    Código de Pago  </b></td><td style="padding:5px"> ${oInvoice.codigo} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Clave de Servicio </b></td><td style="padding:5px"> ${oInvoice.claveServicio} </td></tr>`);        
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Descripción de la Factura  </b></td><td style="padding:5px"> ${oInvoice.descripcionFactura} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    CFDI </b></td><td style="padding:5px">  ${cfdi} </td></tr>`);
 
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Usuario </b></td><td style="padding:5px"> ${oInvoice.usuario} </td></tr>`);        
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+    Fecha  </b></td><td style="padding:5px"> ${oInvoice.fecha} </td></tr>`);
      Swal.fire({             
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
        Datos de la Factura </div><br/> <br/>${registro}`,

@@ -106,6 +106,13 @@ export class InvoicesComponent implements OnInit {
     oInvoice.tipoComprobante = parseInt(dataContainer.tipoComprobante,10);
     oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
     oInvoice.idReglaMonetizacion = dataContainer.idReglaMonetizacion;
+    //Nuevos campos ja.dejesus 2.2
+    oInvoice.codigo = dataContainer.codigo;
+    oInvoice.usoCFDI = dataContainer.usoCFDI;
+    oInvoice.descripcionFactura = dataContainer.descripcionFactura;
+    oInvoice.claveServicio = dataContainer.claveServicio;
+    oInvoice.metodo = dataContainer.metodo;
+    
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => {
       this.appComponent.showLoader(false);

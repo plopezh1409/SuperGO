@@ -160,7 +160,7 @@ export class MonetizationTableComponent implements OnInit {
     else{
       const [oMonet] = data.response;
       oMonet.emisionFactura = oMonet.emisionFactura? 'SI':'NO';
-      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
+      oMonet.indicador = oMonet.indicador === 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
       const fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
       const fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
@@ -198,9 +198,11 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Fecha Fin De Vigencia </b></td><td style="padding:5px"> ${fechaFin} </td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Usr. Modificó </b></td><td style="padding:5px">  ${oMonet.usuario} </td></tr>`);        
+      Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Ult. Modificación  </b></td><td style="padding:5px">  ${oMonet.fecha} </td></tr>`);
+      Usuario </b></td><td style="padding:5px">  ${oMonet.usuario} </td></tr>`);        
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Fecha  </b></td><td style="padding:5px">  ${oMonet.fecha} </td></tr>`);
       return( swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la Monetización </div><br/> <br/>${registro}`,

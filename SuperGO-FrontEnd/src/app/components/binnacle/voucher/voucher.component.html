@@ -1,0 +1,94 @@
+<!-- DOWNLOAD BUTTON -->
+<div id="controls">
+   <button mat-raised-button id="download" printTitle="Prueba 001" printSectionId="htmlData" 
+   [useExistingCss]="true"
+       ngxPrint>Descargar Comprobante</button>
+</div>
+
+<div class="voucher" id="htmlData"
+   style="height: auto; width: 80%; padding: 0px; margin: 0px auto; font-family: AvenirNextLTPro-Medium, 
+   Roboto, sans-serif;">
+   <!-- HEADER -->
+   <section class="header" style="width: 100%;">
+       <div class="logotype" style="display: inline-flex; width: 100%;">
+           <img src="{{ voucherInfo.img }}" alt="Logotipo Banco Azteca"
+               style="margin-top: 9px; margin-left: 35px;" width="50px" height="30px">
+
+           <div style="width: 100%;">
+               <h2
+                   style="width: 335px; text-align: left; margin-left: 10px; color: gray; font-size: 25px; 
+                   font-weight: bold; line-height: 54px;">
+                   {{ voucherInfo.enterprice }}
+               </h2>
+               <h3
+                   style="text-align: right; margin-right: 35px; color: gray; font-size: 18px; font-weight: bold; 
+                   line-height: 54px;">
+                   Comprobante
+                   generado el {{ voucherInfo.todayDate }}
+               </h3>
+           </div>
+       </div>
+   </section>
+
+   <!-- BODY -->
+   <section class="body">
+       <div class="title"
+           style="margin: 20px auto; text-align: center; font-size: 24px; font-weight: bold; color: gray;">
+           {{this.valuesBinnacle.operation}}</div>
+
+       <section class="generalInfo"
+           style="float: right; width: auto; border: 1px solid rgba(0,0,0,0.125); 
+           border-radius: 0.25rem; margin: 50px 35px 20px 35px; padding: 20px; text-align: left;">
+           <ul style="font-size: 16px; line-height: 22px; color: gray;">
+               <li>
+                   <span style="font-weight: bold;">Folio de la operación: </span>{{ this.voucher.invoice }}
+               </li>
+               <li>
+                   <span style="font-weight: bold;">Capturó:</span> {{ this.valuesBinnacle.employeeNumber }} - {{
+                   this.valuesBinnacle.employeeName | titlecase}}
+               </li>
+               <li>
+                   <span style="font-weight: bold;">Fecha de captura: </span>{{ this.voucher.date }} {{
+                   this.voucher.time }}
+               </li>
+               <li *ngIf="this.voucher.transactions != undefined">
+                   <span style="font-weight: bold;">Número de solicitudes: </span>{{ this.voucher.transactions.length
+                   }}
+               </li>
+               <li
+                   *ngIf="this.valuesBinnacle.amount != undefined && 
+                           this.valuesBinnacle.amount != '' && this.valuesBinnacle.amount != '0'">
+                   <span style="font-weight: bold;">Total de la solicitud:</span> {{ this.valuesBinnacle.amount }}
+               </li>
+           </ul>
+       </section>
+
+       <div style="clear: both; float: none;"></div>
+
+       <section class="detail" *ngFor="let solicitudes of petitions"
+           style="width: auto; height: auto; min-width: 490px; border: 1px solid rgba(0,0,0,0.125);
+            border-radius: 0.25rem; margin: 50px 35px 20px 35px; padding: 20px; color: gray; 
+            font-size: 14px; line-height: 0px;">
+           <div id="content">
+               <div class="flex row sub" id="list" [innerHtml]="solicitudes"></div>
+           </div>
+       </section>
+
+
+   </section>
+
+   <!-- FOOTING -->
+   <section class="foot"
+       style="width: auto; border: 1px solid rgba(0,0,0,0.125); 
+           border-radius: 0.25rem; margin: 50px 35px 20px 35px; padding: 20px;">
+       <div class="clauses" *ngFor="let point of this.voucherInfo.clauses"
+           style="font-size: 12px; text-transform: capitalize; line-height: 20px; color: gray; text-align: left;">
+           <ul>
+               <li>{{ point.clause }}</li>
+           </ul>
+       </div>
+   </section>
+   <div class="copyright" style="text-align: center; font-size: 12px; font-weight: bold; color: gray;">
+       <span>{{ voucherInfo.copyright }}</span>
+   </div>
+</div>

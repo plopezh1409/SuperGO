@@ -1,0 +1,22 @@
+<div id="container">
+   <section id="subHeader">
+       <div id="title">
+           <h2> DETALLE </h2>
+       </div>
+
+   </section>
+
+   <div *ngIf="detailClean?.length >0" style=" display: flex;flex-wrap: nowrap; justify-content: end;">
+       <button mat-raised-button type="submit" (click)="descargarExcel()">Descargar Excel</button>
+   </div>
+
+   <div id="subContainer" *ngFor="let solicitudes of obs | async">
+       <div id="content">
+           <div class="flex row" id="list"  [innerHtml]="solicitudes">
+
+           </div>
+       </div>
+   </div>
+   <mat-paginator [pageSizeOptions]="[2, 10, 20, 100]" showFirstLastButtons aria-label="Select page of elements">
+   </mat-paginator>
+</div>

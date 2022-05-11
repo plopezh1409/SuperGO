@@ -1,0 +1,93 @@
+<!-- COINCIDENCES -->
+<div class="width-100 flex justify-end" style="height: px;">
+   <form class="example-form" style="width: 400px;">
+       <mat-form-field class="example-full-width" appearance="fill" style="display: inline">
+           <mat-label> Coincidencias Bitacora</mat-label>
+           <span matPrefix>
+               <img src="assets/image/icon-search.png" alt="Buscar" width="" height="" />
+           </span>
+           <input type="text" matInput placeholder="Buscar ..." (keyup)="applyFilter($event)" #input name="Search"
+               aria-label="Search">
+       </mat-form-field>
+   </form>
+</div>
+
+<!-- CARDS -->
+<div class="scrollX p-5" style="max-height: 60vh; height: 716px;">
+
+   <div *ngFor="let card of obs | async; let i = index" class="flex">
+       <div class="card width-100" [ngStyle]="{'border-left': binnacleService.getColorBorder(card.status_id)}"
+           style="margin-top: 20px">
+           <mat-card-header id="header" class="indicadorEstatus flex p-5" style="cursor: pointer">
+               <div class="flex" style="width: 90%;">
+                   <h4 style="width: 200px;"> Folio: {{card.header_invoice}} </h4>
+                   <h2 style="font-size: 17px; line-height: 18px;"
+                       [ngStyle]="{'color': binnacleService.getColor(card.status_id)}">
+                       {{card.status_name}}
+                   </h2>
+               </div>
+               <div *ngIf="card.status_id == 1" class="flex justify-end" style="color: #949597;width:10%;">
+                   <img style="margin-left: 5px;color: #006341;" title="Agregar evidencia"
+                   src="assets/image/aspect-ratio.png"
+                   (click)="sendData(card.footing_employee, card.footing_name, card.body_monto, card.body_solicitud)"
+                   (click)="showDetail(card.header_invoice,card.footing_employee,card.status_id,card.footing_name,card.request_id)"
+                   (KeyDown)="showDetail(card.header_invoice,card.footing_employee,card.status_id,card.footing_name, card.request_id)"
+                   width="24px" height="24px" alt="aspect-ratio" />
+               </div>
+
+               <div *ngIf="card.status_id != 1" class="flex justify-end" style="color: #949597;width:10%;">
+                   <img style="margin-left: 5px;color: #006341;" title="Ver Detalle"
+                   src="assets/image/aspect-ratio.png"
+                   (click)="sendData(card.footing_employee, card.footing_name, card.body_monto, card.body_solicitud)"
+                   (click)="showDetail(card.header_invoice,card.footing_employee,card.status_id,card.footing_name, card.request_id)"
+                   (KeyDown)="showDetail(card.header_invoice,card.footing_employee,card.status_id,card.footing_name, card.request_id)"
+                   width="24px" height="24px" alt="aspect-ratio" />
+               </div>
+           </mat-card-header>
+
+           <div style="cursor: pointer" class="card-body row pl-10 pr-10">
+               <div class="flex row labels mr-10">
+                   <h3 class="TituloC"> AREA: </h3>
+                   <h3 class="Subtitulo"> {{card.body_area}} </h3>&nbsp;
+                   <h3 class="TituloC"> DIRECCION: </h3>
+                   <h3 class="Subtitulo"> {{card.body_direccion}} </h3>&nbsp;
+                   <h3 class="TituloC"> TIPO OPERACION: </h3>
+                   <h3 class="Subtitulo"> {{card.body_operacion}} </h3>&nbsp;
+                   <h3 class="TituloC"> PAIS: </h3>
+                   <h3 class="Subtitulo"> {{card.body_pais}} </h3>&nbsp;
+                   <h3 class="TituloC"> REGISTROS: </h3>
+                   <h3 class="Subtitulo"> {{card.body_registros}} </h3>&nbsp;
+                   <h3 class="TituloC"> TIPO SOLICITUD: </h3>
+                   <h3 class="Subtitulo"> {{card.body_solicitud}} </h3>&nbsp;
+                   <h3 class="TituloC" *ngIf="card.body_monto"> MONTO: </h3>
+                   <h3 class="Subtitulo" *ngIf="card.body_monto"> {{card.body_monto}} </h3>
+               </div>
+           </div>
+
+           <div class="footer">
+               <h3 class="p-5 h3m" style="font-size: 12px; text-align: center;"> SE CAPTURO POR &nbsp;
+                   {{card.footing_employee}} &nbsp;-&nbsp; {{card.footing_name}} &nbsp;&nbsp;
+               </h3>
+               <h3 style="text-align: right; font-size: 12px; margin-right: 13px;"> FECHA:&nbsp;
+                   {{card.footing_date}}&nbsp;
+                   {{card.footing_time}}</h3>
+           </div>
+       </div>
+       <div class="flex justify-center" style="width: 10%;" *ngIf="this.solicitudes[i]['selected']">
+           <div style="margin-top: 60px">
+               <img src="assets/image/done.png" alt="done" width="35px" height="35px" />
+           </div>
+       </div>
+
+   </div>
+   <div class="mat-row" *matNoDataRow>
+       <h2 class="mat-cell" colspan="4"> No hay datos que mostrar "{{input.value}}" </h2>
+   </div>
+</div>
+<div class="contenedor" *ngIf="cardsSelected.length > 0">
+   <button class="botonF1">
+       <span> {{this.cardsSelected.length}} </span>
+   </button>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons aria-label="Select page of elements">
+</mat-paginator>

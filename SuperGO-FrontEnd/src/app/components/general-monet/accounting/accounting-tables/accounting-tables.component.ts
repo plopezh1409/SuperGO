@@ -194,13 +194,15 @@ export class AccountingTablesComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Monetización </b></td><td style="padding:5px">  ${oConta.idReglaMonetizacion} </td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Inicio Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaInicio).format('DD-MM-YYYY')} </td></tr>`);
+      Inicio Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaInicio).format('DD/MM/YYYY')} </td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Fin Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaFin).format('DD-MM-YYYY')} </td></tr>`);
+      Fin Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaFin).format('DD/MM/YYYY')} </td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Usr. Modificó </b></td><td style="padding:5px">  ${oConta.usuario} </td></tr>`);        
+      Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Ult. Modificación  </b></td><td style="padding:5px">  ${oConta.fecha} </td></tr>`);
+      Usuario </b></td><td style="padding:5px">  ${oConta.usuario} </td></tr>`);        
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
+      Fecha </b></td><td style="padding:5px">  ${oConta.fecha} </td></tr>`);
       return(swal.fire({             
         html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
         Datos de la Contabilidad </div><br/> <br/>${registro}`,

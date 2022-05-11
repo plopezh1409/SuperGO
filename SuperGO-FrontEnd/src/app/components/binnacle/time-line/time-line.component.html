@@ -1,0 +1,118 @@
+<h1 style="text-align: center; color:#949597;"><strong> Seguimiento </strong></h1>
+
+<div style="display: inline-flex; width: 100%; text-align: center;">
+    <div style="width: 50%;
+justify-content: center;
+display: flex;">
+        <h2 style="text-align: right; color:#949597;font-size: 2vw"><strong> Estatus de Solicitud </strong></h2>
+    </div>
+    <div style="width: 50%;
+justify-content: center;
+display: flex;">
+        <h2 style="text-align: left; color:#949597;font-size: 2vw"><strong> Estatus de Autorización </strong></h2>
+    </div>
+</div>
+
+<div class="container">
+    <ul class="timeline">
+        <li *ngFor="let iterator of response; let i = index">
+            <div *ngIf="(iterator.comment !== '') then thenBlock else elseBlock"> </div>
+
+            <!-- RIGHT -->
+            <ng-template #thenBlock>
+                <div *ngIf="iterator.status.id == '0' then thenBlock else elseBlock">
+                </div>
+
+                <!-- FAIL -->
+                <ng-template #thenBlock>
+                    <div class="directionD-r">
+                        <div class="flag-wrapper" [matTooltip]="iterator.comment" 
+                        matTooltipPosition="right" 
+                        matTooltipClass="toolClassFail">
+                            <div id="circle" 
+                                [ngStyle]="{border: timeLineService.getColorBorderAuth(iterator.status.id)}">
+                            </div>
+                            <span class="flag">{{iterator.status.name}}</span>
+                            <span class="time-wrapper">
+                                <span class="time">
+                                     {{ iterator.date }}  {{ iterator.time }} 
+                                </span>
+                            </span>
+                        </div>
+                        <div class="desc"> 
+                            {{ iterator.authorizing.id }}  {{ iterator.authorizing.name | titlecase }}
+                        </div>
+                    </div>
+                </ng-template>
+
+                <!-- SUCCESS -->
+                <ng-template #elseBlock>
+                    <div class="direction-r">
+                        <div class="flag-wrapper" [matTooltip]="iterator.comment" 
+                        matTooltipPosition="right" 
+                        matTooltipClass="toolClass">
+                            <div id="circle" 
+                            [ngStyle]="{border: timeLineService.getColorBorderAuth(iterator.status.id)}">
+                            </div>
+                            <span class="flag"> {{iterator.status.name}} </span>
+                            <span class="time-wrapper">
+                                <span class="time"> 
+                                    {{ iterator.date }}  {{ iterator.time }} 
+                                </span>
+                            </span>
+                        </div>
+                        <div class="desc"> 
+                            {{ iterator.authorizing.id }}  {{ iterator.authorizing.name | titlecase }}
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-template>
+
+            <!-- LEFT -->
+            <ng-template #elseBlock>
+                <div *ngIf="iterator.status.id == '0' ||  iterator.status.id == '6' || iterator.status.id == '7' ||
+                 iterator.status.id == '8' then thenBlock else elseBlock">
+                </div>
+                <!-- FAIL -->
+                <ng-template #thenBlock>
+                    <div class="directionD-l">
+                        <div class="flag-wrapper">
+                            <div id="circle" [ngStyle]="{border: timeLineService.getColorBorder(iterator.status.id)}">                                
+                            </div>
+                            <span class="flag"> {{iterator.status.name}} </span>
+                            <div *ngIf="iterator.date != '' && iterator.time != ''">
+                                <span class="time-wrapper">
+                                    <span class="time"> {{ iterator.date }}  {{ iterator.time }}
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="desc" *ngIf="iterator.authorizing.id != '' && iterator.authorizing.name != ''"> 
+                            {{ iterator.authorizing.id }}  {{ iterator.authorizing.name | titlecase }} 
+                        </div>
+                    </div>
+                </ng-template>
+
+                <!-- SUCCESS -->
+                <ng-template #elseBlock>
+                    <div class="direction-l">
+                        <div class="flag-wrapper">
+                            <div id="circle" [ngStyle]="{border: timeLineService.getColorBorder(iterator.status.id)}">                                
+                            </div>
+                            <span class="flag"> {{iterator.status.name}} </span>
+                                <span class="time-wrapper">
+                                    <span class="time"> 
+                                        {{ iterator.date }}  {{ iterator.time }} 
+                                    </span>
+                                </span>
+                            <div style="margin: 0px 50px 0px 105px;"></div>
+                        </div>
+                        <div class="desc" > 
+                            {{ iterator.authorizing.id }}  {{ iterator.authorizing.name | titlecase }}
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-template>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,26 @@
+<div id="container" *ngIf="containers.length > 0 " style="width: 300px">
+
+   <form *ngIf="reactiveForm.principalForm" 
+       [formGroup]="reactiveForm.principalForm" 
+       (ngSubmit)="getFilter()" 
+       (change) = "reactiveForm.onFormChange()" >
+       
+       <div>
+           <div>
+               <ng-container  *ngFor="let container of containers; let i = index">
+                   <div [formGroupName]="container.idContainer">
+                       <app-container [container]="container"
+                           [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
+                       </app-container>
+                       <div id="control">
+                       </div>
+                   </div>
+               </ng-container>
+           </div>
+       </div>
+
+       <button mat-raised-button type="submit"> Filtrar </button>
+       <button mat-raised-button type="button" (click)="getPetitionData()"> Limpiar Filtros </button>
+   </form>
+   
+</div>

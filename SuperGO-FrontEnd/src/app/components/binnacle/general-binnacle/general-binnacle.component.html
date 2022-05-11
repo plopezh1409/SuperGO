@@ -1,0 +1,20 @@
+<div class="contain fade-in">
+   <div class="width-100 row">
+       <!-- FILTERS -->
+       <div style="flex: 0 0 auto; width: 380px;justify-content: center; display: flex;">
+           <app-filters [filters]="filters" 
+           [cards]="this.cards" 
+           (cardsEvent)="receiveCardsF($event)">
+           </app-filters>
+       </div>
+
+       <!-- CARDS -->
+       <div style="flex: 1 0 0%; padding: 20px" class="container">
+           <div>
+               <section style="width: 100%;margin-top: -23px;">
+                   <app-cards [cards]="this.cardsClean" (CardsO)="receiveCards($event)"></app-cards>
+               </section>
+           </div>
+       </div>
+   </div>
+</div>
