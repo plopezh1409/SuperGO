@@ -68,7 +68,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
     cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
-    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === '1'? 'C' : 'A';
+    cpyModal.indicador = cpyModal.indicador === '1'? 'C' : 'A';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
@@ -97,7 +97,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.centroDestino = jsonResult.centroDestino.trim();
     oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === 'true'?'D':'C';
     oConta.indicadorIVA = jsonResult.indicadorIVA === 'true'? 'AA':'NA';
-    oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? 'C': 'A';
+    oConta.indicador = jsonResult.indicador === '1' ? 'C': 'A';
     oConta.idReglaMonetizacion = jsonResult.idReglaMonetizacion;
     this.showLoader(true);
     this.accountingService.updateAccounting(oConta).pipe(finalize(() => {
@@ -106,7 +106,7 @@ export class UpdateModalAccountingComponent implements OnInit {
       if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
+          title: 'Solicitud Correcta',
           text: response.message.toString(),
           heightAuto: false,
           allowOutsideClick: false,

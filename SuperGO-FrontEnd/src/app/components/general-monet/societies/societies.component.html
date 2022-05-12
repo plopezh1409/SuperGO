@@ -1,8 +1,7 @@
-<mat-tab-group style="margin: 0 2%;">
-    <mat-tab label="Nueva Sociedad">
+<mat-tab-group class="mat-group-style">
+    <mat-tab label="NUEVA SOCIEDAD">
         <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
-            (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()"
-            style="padding-bottom: 3%;">
+            (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()">
             <div>
                 <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
                         'dvPrincipalContent row': alignContent === 'vertical'}">
@@ -16,12 +15,12 @@
                 </div>
             </div>
             <div class="mt-20 text-center">
-                <button mat-raised-button class="btnPrimary btnSize" type="submit"> Agregar </button>
+                <button mat-raised-button class="btnPrimary btnSize" type="submit"> AGREGAR </button>
             </div>
         </form>
     </mat-tab>
-    <mat-tab label="Registros de Sociedades">
-        <div style="margin: 3% 0;">
+    <mat-tab label="REGISTROS DE SOCIEDADES">
+        <div class="mat-tables-style">
             <app-societies-table></app-societies-table>
         </div>
     </mat-tab>

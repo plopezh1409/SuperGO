@@ -11,7 +11,7 @@ export class Contabilidad
     numeroApunte:number;
     sociedadGl:string;
     tipoCuenta:string;
-    indicadorOperacion:string;
+    indicador:string;
     claseDocumento:string;
     concepto:string;
     centroDestino:string;
@@ -34,7 +34,7 @@ export class Contabilidad
         this.concepto = '';
         this.centroDestino = '';
         this.indicadorIVA = '';
-        this.indicadorOperacion = '';
+        this.indicador = '';
         this.razonSocial = '';
         this.descripcionTipo='';
         this.descripcionSubtipo = '';

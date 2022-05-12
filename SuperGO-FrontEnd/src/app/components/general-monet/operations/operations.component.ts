@@ -89,7 +89,7 @@ export class OperationsComponent implements OnInit {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
+          title: 'Solicitud Correcta',
           text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',

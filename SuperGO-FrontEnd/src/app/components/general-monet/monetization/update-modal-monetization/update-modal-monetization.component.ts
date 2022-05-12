@@ -108,7 +108,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     cpyModal.fechaFin = this.monetModule.getDateTime(cpyModal.fechaFin);
     cpyModal.fechaInicio = this.monetModule.getDateTime(cpyModal.fechaInicio);
     cpyModal.emisionFactura = cpyModal.emisionFactura === true? 'true':'false';
-    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === true? 'true':'false';
+    cpyModal.indicador = cpyModal.indicador === true? 'true':'false';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
@@ -153,7 +153,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
       if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
+          title: 'Solicitud Correcta',
           text: response.message.toString(),
           heightAuto: false,
           allowOutsideClick: false,
