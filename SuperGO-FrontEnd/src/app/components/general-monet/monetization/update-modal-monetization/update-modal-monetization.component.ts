@@ -141,7 +141,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
-    oMonet.indicador = jsonResult.indicador === true ? 'P' : 'C';
+    oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
