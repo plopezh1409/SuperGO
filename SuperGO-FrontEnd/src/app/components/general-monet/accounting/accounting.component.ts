@@ -94,7 +94,7 @@ export class AccountingComponent implements OnInit {
     oConta.centroDestino = dataBody.centroDestino.trim();
     oConta.contabilidadDiaria = dataBody.contabilidadDiaria === true?'D':'C';
     oConta.indicadorIVA = dataBody.indicadorIVA === true? 'AA':'NA';
-    oConta.indicador = dataBody.indicador === '1' ? 'C': 'A';
+    oConta.indicadorOperacion = dataBody.indicadorOperacion === '1' ? 'C': 'A';
     oConta.idReglaMonetizacion = dataBody.idReglaMonetizacion;
     this.appComponent.showLoader(true);
     this.accountService.insertAccounting(oConta).pipe(finalize(() => {

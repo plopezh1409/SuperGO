@@ -86,7 +86,7 @@ export class MonetizationTableComponent implements OnInit {
       const [oMonet] = data.response;
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
       oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
-      oMonet.indicador = oMonet.indicador === 'C'?'false':'true';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
       oMonet.fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
       oMonet.fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
       oMonet.montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString()) === null? 0:  this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString());
@@ -120,7 +120,7 @@ export class MonetizationTableComponent implements OnInit {
     else{
       const [oMonet] = data.response;
       oMonet.emisionFactura = oMonet.emisionFactura? 'SI':'NO';
-      oMonet.indicador = oMonet.indicador === 'C'?'COBRO':'PAGO';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
       const fechaInicio = this.monetModule.getDateTimeSlash(oMonet.fechaInicio);
       const fechaFin = this.monetModule.getDateTimeSlash(oMonet.fechaFin);
@@ -137,7 +137,7 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Sub-Operación </b></td><td style="padding:5px"> ${oMonet.descripcionSubtipo} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicador} </td></tr>`);            
+      Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicadorOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Monto Monetización </b></td><td style="padding:5px">${montoMonetizacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 

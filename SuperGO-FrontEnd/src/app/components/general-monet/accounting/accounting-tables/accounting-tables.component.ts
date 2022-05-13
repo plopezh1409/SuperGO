@@ -89,7 +89,7 @@ export class AccountingTablesComponent implements OnInit {
       const [oConta] = data.response;
       oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'true':'false';
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'true':'false';
-      oConta.indicador = oConta.indicador === 'C'? '1' : '2';
+      oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'? '1' : '2';
       let _auxForm = this.disabledFields(this.containers);
       _auxForm = this.monetizationModule.addDataControlMonetization(_auxForm, monetRules.response);
       return( this.refData?.open(UpdateModalAccountingComponent,{
@@ -118,9 +118,10 @@ export class AccountingTablesComponent implements OnInit {
     }
     else{
       const [oConta]:Contabilidad[] = data.response;
+      console.log(oConta);
       oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'CONTABILIDAD DIARIA':'CONTABILIDAD AL CORTE';
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'APLICA IVA':'NO APLICA IVA';
-      oConta.indicador = oConta.indicador === 'C'?'CARGO':'ABONO';
+      oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'?'CARGO':'ABONO';
       let registro = '';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; 
@@ -141,7 +142,7 @@ export class AccountingTablesComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Tipo de Cuenta </b></td><td style="padding:5px">  ${oConta.tipoCuenta} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Indicador de Operación </b></td><td style="padding:5px">  ${oConta.indicador} </td></tr>`);            
+      Indicador de Operación </b></td><td style="padding:5px">  ${oConta.indicadorOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Clase de Documento </b></td><td style="padding:5px">  ${oConta.claseDocumento} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 

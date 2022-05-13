@@ -97,7 +97,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     oConta.centroDestino = jsonResult.centroDestino.trim();
     oConta.contabilidadDiaria = jsonResult.contabilidadDiaria === 'true'?'D':'C';
     oConta.indicadorIVA = jsonResult.indicadorIVA === 'true'? 'AA':'NA';
-    oConta.indicador = jsonResult.indicador === '1' ? 'C': 'A';
+    oConta.indicadorOperacion = jsonResult.indicadorOperacion === '1' ? 'C': 'A';
     oConta.idReglaMonetizacion = jsonResult.idReglaMonetizacion;
     this.showLoader(true);
     this.accountingService.updateAccounting(oConta).pipe(finalize(() => {
