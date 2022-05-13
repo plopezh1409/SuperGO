@@ -118,7 +118,6 @@ export class AccountingTablesComponent implements OnInit {
     }
     else{
       const [oConta]:Contabilidad[] = data.response;
-      console.log(oConta);
       oConta.contabilidadDiaria = oConta.contabilidadDiaria === 'D'?'CONTABILIDAD DIARIA':'CONTABILIDAD AL CORTE';
       oConta.indicadorIVA = oConta.indicadorIVA === 'AA'?'APLICA IVA':'NO APLICA IVA';
       oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'?'CARGO':'ABONO';
