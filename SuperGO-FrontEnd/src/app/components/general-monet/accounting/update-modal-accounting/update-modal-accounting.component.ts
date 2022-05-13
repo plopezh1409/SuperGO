@@ -68,7 +68,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
     cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
-    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === '1'? 'C' : 'A';
+    cpyModal.indicador = cpyModal.indicador === '1'? 'C' : 'A';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
@@ -106,7 +106,7 @@ export class UpdateModalAccountingComponent implements OnInit {
       if(response.code === this.codeResponse.RESPONSE_CODE_200){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
+          title: 'Solicitud Correcta',
           text: response.message.toString(),
           heightAuto: false,
           allowOutsideClick: false,

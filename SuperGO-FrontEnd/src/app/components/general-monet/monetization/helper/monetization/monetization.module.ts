@@ -49,6 +49,11 @@ export class MonetizationModule {
     return date;
   }
 
+  getDateTimeSlash(date: string) {
+    date = moment(date).format('DD/MM/YYYY');
+    return date;
+  }
+
   orderDate(reglas:Monetizacion[]){
     reglas.forEach(oData => {
       oData.fechaInicio = moment(oData.fechaInicio).format('DD/MM/YYYY');

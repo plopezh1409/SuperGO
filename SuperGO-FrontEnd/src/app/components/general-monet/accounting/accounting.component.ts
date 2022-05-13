@@ -103,7 +103,7 @@ export class AccountingComponent implements OnInit {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
+          title: 'Solicitud Correcta',
           text: data.message.toString(),
           heightAuto: false,
           confirmButtonText: 'Ok',
@@ -245,7 +245,19 @@ export class AccountingComponent implements OnInit {
       this.appComponent.showLoader(false);
     })).subscribe((data: IResponseData<MonetizationRules[]> ) => {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
-        this.monetizationModule.addDataControlMonetization(this.containers, data.response);
+        if(data.response.length !== 0){
+          this.monetizationModule.addDataControlMonetization(this.containers, data.response);
+        }
+        else{
+          swal.fire({
+            icon: 'warning',
+            title: '¡Aviso!',
+            text: 'La Sociedad y Operación no cuentan con Reglas de Monetización disponibles.',
+            heightAuto: false,
+            confirmButtonText: 'ACEPTAR',
+            allowOutsideClick: false
+          });
+        }
       }
       else{
         this.messageError.showMessageError(data.message.toString(), data.code);

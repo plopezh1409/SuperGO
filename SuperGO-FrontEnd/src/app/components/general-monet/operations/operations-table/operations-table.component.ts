@@ -27,7 +27,7 @@ export class OperationsTableComponent implements OnInit {
 
   @Input()dataInfo:Operaciones[];
   dataSource:MatTableDataSource<Operaciones>;
-  displayedColumns: string[] = ['descripcionTipo', 'idCanal', 'topicoKafka', 'status', 'usuario','fecha' ,'options', 'options2'];
+  displayedColumns: string[] = ['descripcionTipo', 'descripcionCanal', 'topicoKafka', 'status','options', 'options2'];
   totalRows:number;
   containers:Container[];
   private readonly sortModule: SortModule;
@@ -51,7 +51,7 @@ export class OperationsTableComponent implements OnInit {
   onLoadTable(dataInfo:Operaciones[])  
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo=dataInfo;  
+    this.dataInfo = this.getDesCanal(dataInfo);
     this.dataSource = new MatTableDataSource<Operaciones>(this.dataInfo);  
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -114,7 +114,7 @@ open(obOperation:Operaciones){
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Topíco Kafka </b></td><td style="padding:5px">  ${obOperation.topicoKafka} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Canal </b></td><td style="padding:5px">  ${obOperation.idCanal} </td></tr>`);            
+    Canal </b></td><td style="padding:5px">  ${obOperation.descripcionCanal} </td></tr>`);            
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
     Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);
 
@@ -134,6 +134,14 @@ open(obOperation:Operaciones){
 
   ngOnDestroy(): void {
     return( this.refData?.closeAll());
+  }
+  
+  getDesCanal(dataInfo:Operaciones[]) : Operaciones[]
+  {
+    dataInfo.forEach( (x:Operaciones) => {
+      x.descripcionCanal = x.idCanal === 1 ? 'MONETIZADOR' : 'CANAL SUPER APP' ;
+    });
+    return dataInfo;
   }
 
 }

@@ -80,7 +80,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
-            title: 'Solicitud correcta  ',
+            title: 'Solicitud Correcta  ',
             text: response.message.toString(),
             heightAuto: false,
             allowOutsideClick: false,

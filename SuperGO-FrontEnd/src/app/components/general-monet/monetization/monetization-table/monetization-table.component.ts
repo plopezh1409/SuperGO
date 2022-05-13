@@ -129,7 +129,7 @@ export class MonetizationTableComponent implements OnInit {
       oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
       oMonet.fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
       oMonet.fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
-      oMonet.montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString());
+      oMonet.montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString()) === null? 0:  this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion.toString());
       const _auxForm = this.disabledFields(this.containers);
       return (
         this.refData?.open(UpdateModalMonetizationComponent,{
@@ -162,8 +162,9 @@ export class MonetizationTableComponent implements OnInit {
       oMonet.emisionFactura = oMonet.emisionFactura? 'SI':'NO';
       oMonet.indicador = oMonet.indicador === 'C'?'COBRO':'PAGO';
       oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
-      const fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
-      const fechaFin = this.monetModule.getDateTime(oMonet.fechaFin);
+      const fechaInicio = this.monetModule.getDateTimeSlash(oMonet.fechaInicio);
+      const fechaFin = this.monetModule.getDateTimeSlash(oMonet.fechaFin);
+      const montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion) === null ? 0 : this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion);
       let registro ='';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; 
@@ -178,7 +179,7 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Indicador Operación </b></td><td style="padding:5px"> ${oMonet.indicadorOperacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Monto Monetización </b></td><td style="padding:5px">${this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion)} </td></tr>`);            
+      Monto Monetización </b></td><td style="padding:5px">${montoMonetizacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Tipo de Monto </b></td><td style="padding:5px"> ${oMonet.tipoMonto} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 

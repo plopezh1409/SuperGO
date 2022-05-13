@@ -3,6 +3,7 @@ export class Operaciones
     idTipo:number;
     descripcionTipo:string;
     idCanal:number;
+    descripcionCanal: string;
     topicoKafka:string;
     status:string;
     fecha: string;
@@ -16,6 +17,7 @@ export class Operaciones
         this.status='I';
         this.fecha = '';
         this.usuario = '';
+        this.descripcionCanal ='';
     }
 
 }
