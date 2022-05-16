@@ -68,7 +68,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
     cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
-    cpyModal.indicador = cpyModal.indicador === '1'? 'C' : 'A';
+    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === '1'? 'C' : 'A';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
