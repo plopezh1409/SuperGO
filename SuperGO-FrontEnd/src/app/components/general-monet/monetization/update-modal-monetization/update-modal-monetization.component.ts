@@ -113,12 +113,13 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    const data = cpyModal.montoMonetizacion.replace(/[$\s,]/g,'');
     if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa === '' || (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
       if( (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
         swal.fire({
           icon: 'warning',
           title: 'Fechas de Vigencia',
-          text: 'Seleccione un rango de fechas de validas.',
+          text: 'Seleccione un rango de fechas de válidas.',
           heightAuto: false
         });
       }else{
@@ -130,6 +131,16 @@ export class UpdateModalMonetizationComponent implements OnInit {
         });
       }
       this.restoreFields();
+      return;
+    }
+    if(parseFloat(data)<=0){
+      this.restoreFields();
+      swal.fire({
+        icon: 'warning',
+        title: 'Monto Inválido',
+        text: 'Ingrese un monto de monetización válido.',
+        heightAuto: false
+      });
       return;
     }
     const oMonet:Monetizacion =  new Monetizacion();
