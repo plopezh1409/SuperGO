@@ -21,6 +21,7 @@ import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-da
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -141,7 +142,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
-    oMonet.indicadorOperacion = jsonResult.indicadorOperacion === true ? 'P' : 'C';
+    oMonet.indicadorOperacion = jsonResult.indicadorOperacion === 'true' ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
@@ -154,7 +155,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
         swal.fire({
           icon: 'success',
           title: 'Solicitud Correcta',
-          text: response.message.toString(),
+          text: response.message.toString().toUpperCase(),
           heightAuto: false,
           allowOutsideClick: false,
           confirmButtonText: 'Ok'
@@ -297,13 +298,17 @@ export class UpdateModalMonetizationComponent implements OnInit {
   setControls(dataForm:{}, newContainer:Container){
     for(const ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      const valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
+      let valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
         if(control.controlType === 'dropdown' || control.controlType === 'autocomplete'){
           control.setAttributeValueByNameDropdown('value', valueCtrl);
         }
+        else if(control.controlType === 'datepicker'){
+          const dateTime = moment(valueCtrl, 'DD-MM-YYYY');
+              valueCtrl = moment(dateTime).format('DD-MM-YYYY');
+        }
         else{
-          control.setAttributeValueByName('value', valueCtrl);
+          control.setAttributeValueByName('value', valueCtrl.toString());
         }
       }
     }

@@ -12,7 +12,7 @@ export const environment = {
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
    urlSuperGo: 'Po0YTHkz4baZgjBPPRLUIE2HnhsxY2Oby5+kLgKTLXBkEaUf5vLOIc8L7pf2b7P4'   , // IP J0RG3 AREA
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',          //4LF4 Piso 7 (GestorOperaAPI/)
-   urlServices: 'http://10.112.211.41:8080/Monetizador-0.0.1/',
+   urlServices: 'http://10.112.211.25:8080/Monetizador-0.0.1/',
   // K1L0
 
     // urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=',                          //8R4V0  (APIGO/)

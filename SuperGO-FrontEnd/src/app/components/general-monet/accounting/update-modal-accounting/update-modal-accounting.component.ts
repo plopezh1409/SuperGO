@@ -14,6 +14,7 @@ import { AccountingResponse } from '@app/core/models/ServiceResponseData/account
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import moment from 'moment';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-update-modal-accounting',
@@ -56,8 +57,8 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.idReglaMonetizacion = parseInt(this.dataModal.dataModal.idReglaMonetizacion,10);
     this.objIds = {
       idSociedad: this.dataModal.dataModal.idSociedad,
-      idTipoOperacion: this.dataModal.dataModal.idTipoOperacion,
-      idSubTipoOperacion: this.dataModal.dataModal.idSubTipoOperacion,
+      idTipo: this.dataModal.dataModal.idTipo,
+      idSubtipo: this.dataModal.dataModal.idSubtipo,
       idReglaMonetizacion: this.dataModal.dataModal.idReglaMonetizacion,
     };
   }
@@ -68,7 +69,6 @@ export class UpdateModalAccountingComponent implements OnInit {
     cpyModal = {...cpyModal, ...this.objIds};
     cpyModal.contabilidadDiaria = cpyModal.contabilidadDiaria === true? 'true':'false';
     cpyModal.indicadorIVA = cpyModal.indicadorIVA === true? 'true':'false';
-    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === '1'? 'C' : 'A';
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
@@ -107,7 +107,7 @@ export class UpdateModalAccountingComponent implements OnInit {
         swal.fire({
           icon: 'success',
           title: 'Solicitud Correcta',
-          text: response.message.toString(),
+          text: response.message.toString().toUpperCase(),
           heightAuto: false,
           allowOutsideClick: false,
           confirmButtonText: 'Ok'
@@ -118,9 +118,11 @@ export class UpdateModalAccountingComponent implements OnInit {
         });
       }
       else{
+        this.restoreFields();
         this.messageError.showMessageError(response.message.toString(), response.code);
       }
     }, (err) => {
+      this.restoreFields();
         swal.fire({
           icon: 'error',
           title: 'Lo sentimos',
@@ -196,11 +198,19 @@ export class UpdateModalAccountingComponent implements OnInit {
   disabledFields(disabled:boolean){
     this.containers.forEach((cont: Container) => {
       cont.controls.forEach((ctrl:Control) => {
-        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipoOperacion' || ctrl.ky === 'idSubTipoOperacion'){
+        if(ctrl.ky === 'idSociedad' || ctrl.ky === 'idTipo' || ctrl.ky === 'idSubtipo' || ctrl.ky === 'idReglaMonetizacion'){
           ctrl.disabled = disabled;
         }
       });
     });
+  }
+
+  restoreFields(){
+    this.disabledFields(true);
+    let cpyModal = {...this.reactiveForm.getDataForm(this.containers), ...this.objIds};
+    cpyModal.indicadorOperacion = cpyModal.indicadorOperacion === 'C' ? '1': '2';
+    this.control.setDataToControls(this.containers,cpyModal);
+    this.reactiveForm.setContainers(this.containers);
   }
 
 }

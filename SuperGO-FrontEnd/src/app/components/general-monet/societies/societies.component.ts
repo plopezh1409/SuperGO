@@ -87,7 +87,7 @@ export class SocietiesComponent implements OnInit {
           swal.fire({
             icon: 'success',
             title: 'Correcto  ',
-            text: response.message.toString(),
+            text: response.message.toString().toUpperCase(),
             heightAuto: false,
             confirmButtonText: 'Ok',
             allowOutsideClick: false

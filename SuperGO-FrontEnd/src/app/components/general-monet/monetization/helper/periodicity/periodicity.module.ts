@@ -118,7 +118,7 @@ export class PeriodicityModule {
             day = descPer[1].split('=')[1];
             oNewFields = {
               periodicidad: this.getKeyPeriodicity('DIARIA',dataForm),
-              repetirDias: dayOfWeek
+              repetirDias: day
             };
             break;
           case 'BIWEEKLY':

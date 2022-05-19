@@ -121,8 +121,8 @@ export class MonetizationComponent implements OnInit {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
-          text: data.message.toString(),
+          title: 'Solicitud Correcta',
+          text: data.message.toString().toUpperCase().toUpperCase(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
