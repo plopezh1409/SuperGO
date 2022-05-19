@@ -124,7 +124,16 @@ export class MonetizationTableComponent implements OnInit {
     }
     else{
       const [oMonet] = data.response;
-      oMonet.tipoMonto = oMonet.tipoMonto === 'P'?  1 : 'F'? this.codeResponseMagic.RESPONSE_CODE_2 : this.codeResponseMagic.RESPONSE_CODE_3;
+      let monto = oMonet.tipoMonto;
+      if(monto === 'P'){
+        oMonet.tipoMonto = 1;
+      }
+      else if(monto === 'F'){
+        oMonet.tipoMonto = 2;
+      }
+      else{
+        oMonet.tipoMonto = 3;
+      }
       oMonet.emisionFactura = oMonet.emisionFactura === true? 'true': 'false';
       oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'false':'true';
       oMonet.fechaInicio = this.monetModule.getDateTime(oMonet.fechaInicio);
@@ -160,8 +169,27 @@ export class MonetizationTableComponent implements OnInit {
     else{
       const [oMonet] = data.response;
       oMonet.emisionFactura = oMonet.emisionFactura? 'SI':'NO';
-      oMonet.indicador = oMonet.indicador === 'C'?'COBRO':'PAGO';
-      oMonet.tipoMonto = oMonet.tipoMonto === 'P'? 'PORCENTAJE' : 'F' ? 'FIJO' : 'UNIDADES';
+      oMonet.indicadorOperacion = oMonet.indicadorOperacion === 'C'?'COBRO':'PAGO';
+      let monto = '';
+      let impuesto = '';
+      if(oMonet.tipoMonto === 'P'){
+        monto = 'PORCENTAJE';
+      }
+      else if(oMonet.tipoMonto === 'F'){
+        monto = 'FIJO';
+      }
+      else{
+        monto = 'UNIDADES';
+      }
+      if(oMonet.idTipoImpuesto === 0 ){
+        impuesto = 'SIN IMPUESTO';
+      }
+      else if(oMonet.idTipoImpuesto === 1 ){
+        impuesto ='IMPUESTO CENTRAL 16%';
+      }
+      else{
+        impuesto = 'IMPUESTO FRONTERIZO 11%';
+      }
       const fechaInicio = this.monetModule.getDateTimeSlash(oMonet.fechaInicio);
       const fechaFin = this.monetModule.getDateTimeSlash(oMonet.fechaFin);
       const montoMonetizacion = this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion) === null ? 0 : this.controlDecimal.obtenerStrConFormato(oMonet.montoMonetizacion);
@@ -181,9 +209,9 @@ export class MonetizationTableComponent implements OnInit {
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Monto Monetización </b></td><td style="padding:5px">${montoMonetizacion} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Tipo de Monto </b></td><td style="padding:5px"> ${oMonet.tipoMonto} </td></tr>`);            
+      Tipo de Monto </b></td><td style="padding:5px"> ${monto} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Tipo de Impuesto </b></td><td style="padding:5px"> ${oMonet.idTipoImpuesto} </td></tr>`);            
+      Tipo de Impuesto </b></td><td style="padding:5px"> ${impuesto} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
       Emisión de Factura </b></td><td style="padding:5px"> ${oMonet.emisionFactura} </td></tr>`);            
       registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 

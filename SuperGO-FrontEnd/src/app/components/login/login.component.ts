@@ -372,7 +372,7 @@ export class LoginComponent implements OnInit {
   logIn(usuario: User) {
     this.appComponent.isAuth = true;
     this.openSnackBar(`Bienvenido ${this.capitalize(usuario.name)}`, 'Cerrar', 'successToast');
-    this.router.navigate(['/']);
+    this.router.navigate(['/inicio']);
   }
 
   masterKey(): void {

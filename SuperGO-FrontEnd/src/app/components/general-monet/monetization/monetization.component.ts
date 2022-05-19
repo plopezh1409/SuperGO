@@ -82,6 +82,7 @@ export class MonetizationComponent implements OnInit {
     for (const datas of Object.values(oElement)) {
       dataForm = Object(datas);
     }
+    let data = dataForm.montoMonetizacion.replace(/[$\s,]/g,'');
     if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa === '') {
       swal.fire({
         icon: 'warning',
@@ -95,11 +96,21 @@ export class MonetizationComponent implements OnInit {
       swal.fire({
         icon: 'warning',
         title: 'Fechas de Vigencia',
-        text: 'Seleccione un rango de fechas de validas.',
+        text: 'Seleccione un rango de fechas de válidas.',
         heightAuto: false
       });
       return;
     }
+    if(parseFloat(data)<=0){
+      swal.fire({
+        icon: 'warning',
+        title: 'Monto Inválido',
+        text: 'Ingrese un monto de monetización válido.',
+        heightAuto: false
+      });
+      return;
+    }
+    
     const oMonet: Monetizacion = new Monetizacion();
     oMonet.idSociedad = dataForm.idSociedad;
     oMonet.idTipo = parseInt(dataForm.idTipo,10);
@@ -122,8 +133,8 @@ export class MonetizationComponent implements OnInit {
       if(data.code === this.codeResponse.RESPONSE_CODE_201){
         swal.fire({
           icon: 'success',
-          title: 'Solicitud correcta',
-          text: data.message.toString(),
+          title: 'Solicitud Correcta',
+          text: data.message.toString().toUpperCase().toUpperCase(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false

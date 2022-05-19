@@ -86,7 +86,7 @@ export class UpdateModalOperationsComponent implements OnInit {
           swal.fire({
             icon: 'success',
             title: 'Solicitud Correcta',
-            text: response.message.toString(),
+            text: response.message.toString().toUpperCase(),
             heightAuto: false,
             allowOutsideClick: false,
             confirmButtonText: 'Ok'

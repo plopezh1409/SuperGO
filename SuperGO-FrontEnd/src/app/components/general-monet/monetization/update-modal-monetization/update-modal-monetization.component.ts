@@ -21,6 +21,7 @@ import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-da
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-update-modal-monetization',
@@ -112,12 +113,13 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
+    const data = cpyModal.montoMonetizacion.replace(/[$\s,]/g,'');
     if(!this.reactiveForm.principalForm?.valid || jsonResult.codigoDivisa === '' || (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
       if( (Date.parse(jsonResult.fechaInicio)) > Date.parse(jsonResult.fechaFin)){
         swal.fire({
           icon: 'warning',
           title: 'Fechas de Vigencia',
-          text: 'Seleccione un rango de fechas de validas.',
+          text: 'Seleccione un rango de fechas de válidas.',
           heightAuto: false
         });
       }else{
@@ -131,6 +133,16 @@ export class UpdateModalMonetizationComponent implements OnInit {
       this.restoreFields();
       return;
     }
+    if(parseFloat(data)<=0){
+      this.restoreFields();
+      swal.fire({
+        icon: 'warning',
+        title: 'Monto Inválido',
+        text: 'Ingrese un monto de monetización válido.',
+        heightAuto: false
+      });
+      return;
+    }
     const oMonet:Monetizacion =  new Monetizacion();
     oMonet.idSociedad = jsonResult.idSociedad;
     oMonet.idTipo = this.objIds.idTipo;
@@ -141,7 +153,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.idTipoImpuesto = parseInt(jsonResult.idTipoImpuesto,10);
     oMonet.codigoDivisa = this.monetModule.getDivisa(jsonResult.codigoDivisa.value);
     oMonet.emisionFactura = (jsonResult.emisionFactura === 'true');
-    oMonet.indicador = jsonResult.indicador === true ? 'P' : 'C';
+    oMonet.indicadorOperacion = jsonResult.indicadorOperacion === 'true' ? 'P' : 'C';
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
@@ -155,7 +167,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
         swal.fire({
           icon: 'success',
           title: 'Solicitud Correcta',
-          text: response.message.toString(),
+          text: response.message.toString().toUpperCase(),
           heightAuto: false,
           allowOutsideClick: false,
           confirmButtonText: 'Ok'
@@ -298,13 +310,17 @@ export class UpdateModalMonetizationComponent implements OnInit {
   setControls(dataForm:{}, newContainer:Container){
     for(const ctrl in dataForm){
       const control = newContainer.controls.find(x=>x.ky === ctrl);
-      const valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
+      let valueCtrl = dataForm[ctrl as keyof typeof dataForm] === 'undefined'? '' : dataForm[ctrl as keyof typeof dataForm] === null? '': dataForm[ctrl as keyof typeof dataForm];
       if(control && valueCtrl != null && ctrl !== 'periodicidad'){
         if(control.controlType === 'dropdown' || control.controlType === 'autocomplete'){
           control.setAttributeValueByNameDropdown('value', valueCtrl);
         }
+        else if(control.controlType === 'datepicker'){
+          const dateTime = moment(valueCtrl, 'DD-MM-YYYY');
+              valueCtrl = moment(dateTime).format('DD-MM-YYYY');
+        }
         else{
-          control.setAttributeValueByName('value', valueCtrl);
+          control.setAttributeValueByName('value', valueCtrl.toString());
         }
       }
     }

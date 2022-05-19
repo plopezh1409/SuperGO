@@ -121,7 +121,7 @@ export class InvoicesComponent implements OnInit {
         swal.fire({
           icon: 'success',
           title: 'Solicitud Correcta',
-          text: data.message.toString(),
+          text: data.message.toString().toUpperCase(),
           heightAuto: false,
           confirmButtonText: 'Ok',
           allowOutsideClick: false
