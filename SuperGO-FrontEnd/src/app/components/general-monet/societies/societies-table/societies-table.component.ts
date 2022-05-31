@@ -135,14 +135,35 @@ export class SocietiesTableComponent implements OnInit {
   }
 
   createReport(){
-    const headers =['Razon Social','RFC','Tipo Sociedad','Codigo Postal','Ultima Modif. Usuario','Ultima Modificacion'];
-    const dataReporting = this.dataInfo.map((data:Sociedad) => {
+    const headers =['Razon Social','RFC','Tipo Sociedad','Codigo Postal','Fecha Modificacion','Ultima Modificacion', 'ID Proveedor SAP'];
+    if(this.dataSource.filteredData.length <= 0){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Reporte',
+        text: 'El reporte no contiene información',
+        heightAuto: false
+      });
+      return;
+    }
+    const dataReporting = this.dataSource.filteredData.map((data:Sociedad) => {
       let obj = Object.assign(data);
       delete obj.idSociedad;
       delete obj.idTipo;
       return obj;
     });
+
+    // const dataReporting = this.dataInfo.map((data:Sociedad) => {
+    //   let obj = Object.assign(data);
+    //   delete obj.idSociedad;
+    //   delete obj.idTipo;
+    //   return obj;
+    // });
     this.report.descargarExcel('Sociedades', dataReporting, headers);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

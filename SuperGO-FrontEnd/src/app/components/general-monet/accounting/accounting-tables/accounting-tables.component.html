@@ -1,5 +1,10 @@
 <div class="scrollable">
     <div>
+      <mat-form-field appearance="standard" style="display:block; margin: 0% 3% 0% auto; width: 25%;">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Crédito">
+      </mat-form-field>
+
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
         <caption></caption>
         <ng-container matColumnDef="razonSocial">
@@ -78,6 +83,10 @@
               <mat-paginator [length]="totalRows" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
                   showFirstLastButtons></mat-paginator>
       </div>
+
+      <button *ngIf="dataSource" mat-raised-button class="btnDownload" (click)="createReport()" style="display:block; margin: 1% 3% 1% auto;">
+        <mat-icon>download</mat-icon> Descargar Reporte
+      </button>
   </div>
   
   

@@ -6,7 +6,6 @@ import { Contabilidad } from '@app/core/models/contabilidad/contabilidad.model';
 import swal from 'sweetalert2';
 import { UpdateModalAccountingComponent } from '../update-modal-accounting/update-modal-accounting.component';
 import { FormAccountingsService } from '@app/core/services/accountings/formAccountings.service';
-import { finalize } from 'rxjs/operators';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTable.model';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
@@ -17,6 +16,8 @@ import { AppComponent } from '@app/app.component';
 import { MonetizationModule } from '../../monetization/helper/monetization/monetization.module';
 import { MatSort, Sort } from '@angular/material/sort';
 import { SortModule } from '@app/shared/sort/sort.module';
+import Swal from 'sweetalert2';
+import { ReportsModule } from '@app/shared/reports/reports.module';
  
 @Component({
   selector: 'app-accounting-tables',
@@ -35,6 +36,7 @@ export class AccountingTablesComponent implements OnInit {
   totalRows:number;
   pageEvent: PageEvent;
   containers: Container[];
+  report: ReportsModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
   private readonly sortModule: SortModule;
@@ -53,6 +55,7 @@ export class AccountingTablesComponent implements OnInit {
     this.pageEvent= new PageEvent();
     this.totalRows = 0;
     this.sortModule = new SortModule;
+    this.report = new ReportsModule();
    }
 
   ngOnInit(): void {
@@ -73,6 +76,11 @@ export class AccountingTablesComponent implements OnInit {
   sortData(sort: Sort) {
     let sortedData:Contabilidad[] = this.dataInfo;
     const data = this.dataInfo.slice();
+
+    if(this.dataSource.filter !== ''){
+      return;
+    }
+    
     if (!sort.active || sort.direction === '') {
       sortedData = data;
     }
@@ -227,6 +235,33 @@ export class AccountingTablesComponent implements OnInit {
 
     ngOnDestroy(): void {
     return( this.refData?.closeAll());
+  }
+
+  createReport(){
+    const headers =['Razon Social','Operacion','Sub Operacion','Monetizacion', 'Numero Apunte', 'Fecha Inicio Vigencia',
+                    'Fecha Fin Vigencia','Ultima Modificacion','Fecha Modificacion'];
+    if(this.dataSource.filteredData.length <= 0){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Reporte',
+        text: 'El reporte no contiene información',
+        heightAuto: false
+      });
+      return;
+    }
+    const dataReporting = this.dataSource.filteredData.map((data:Contabilidad) => {
+      let obj = Object.assign(data);
+      delete obj.idSociedad;
+      delete obj.idTipo;
+      delete obj.idSubtipo;
+      return obj;
+    });
+    this.report.descargarExcel('Contabilidad', dataReporting, headers);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

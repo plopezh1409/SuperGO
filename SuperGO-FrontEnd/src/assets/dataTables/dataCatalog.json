@@ -11,7 +11,7 @@
                 "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
                 "codigoPostal" : "14000",
                 "fecha": "12/09/2022",
-                "usuario" : "Jorge Alberto De Jesús Bastida",
+                "usuario" : "Jose Raul Hernandez",
                 "idProveedorSAP": 9078
             },
             {
@@ -21,7 +21,7 @@
                 "idTipo": 2,
                 "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
                 "codigoPostal" : "14000",
-                "fecha": "12/09/2022",
+                "fecha": "13/09/2022",
                 "usuario" : "Jorge Alberto De Jesús Bastida",
                 "idProveedorSAP": 907865568
             },
@@ -32,8 +32,8 @@
                 "idTipo": 2,
                 "descripcionTipo": "SOCIEDAD DE GRUPO SALINAS",
                 "codigoPostal" : "14000",
-                "fecha": "12/09/2022",
-                "usuario" : "Jorge Alberto De Jesús Bastida",
+                "fecha": "14/09/2022",
+                "usuario" : "Salvador Perez",
                 "idProveedorSAP": 907865562
             }
         ],

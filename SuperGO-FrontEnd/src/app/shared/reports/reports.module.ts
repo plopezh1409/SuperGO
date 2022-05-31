@@ -23,9 +23,10 @@ export class ReportsModule {
       objlist.push(JSON.parse(_objJson));
     });
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(objlist);
+    ws['!autofilter']={ref:"A1:Q1"};
     XLSX.utils.sheet_add_aoa(ws, [headers]);
     XLSX.utils.sheet_add_json(ws, objlist, { origin: 'A2', skipHeader: true });
-    ws['!cols'] = [{wch: 40},{wch: 20}, {wch: 40}, {wch: 20},{wch: 20},{wch: 40}];
+    ws['!cols'] = [{wch: 30},{wch: 30}, {wch: 30}, {wch: 30},{wch: 30},{wch: 30},{wch: 30},{wch: 30},{wch: 30}];
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, `Detalle${module}`);
     XLSX.writeFile( wb, `Detalle${module}-${new Date().toISOString()}.xlsx` );
