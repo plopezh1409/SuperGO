@@ -45,9 +45,8 @@ export class FormInvoicesService {
         }
         else
         {
-            // const urlCle = this.angularSecurity.getKeyAES;
-            // this._urlEnviroment = this.angularSecurity.decryptAES(environment.urlSuperGo, urlCle);
-            this._urlServices = environment.urlServices;
+            const urlCle = this.angularSecurity.getKeyAES;
+            this._urlServices = this.angularSecurity.decryptAES(environment.urlServices, urlCle);
             return this._urlServices;
         }
     }

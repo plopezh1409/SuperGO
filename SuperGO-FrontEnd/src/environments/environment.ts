@@ -14,7 +14,7 @@ export const environment = {
   //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRKgHXsO0c05K0iVECT98PHw4n+bBp60ePqty2ycMeMXO', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+SMQKUXvIxki0MYhIyeNTZe8HOeDBanj4fRBsgnKMN6d', //LOCALHOST J0RG3
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',          //4LF4 Piso 7 (GestorOperaAPI/)
-   urlServices: 'http://10.112.211.25:8080/Monetizador-0.0.1/',
+   urlServices: '2OQaFccQZxyqX6RFqpIT01ZOtbjYQmsXI7fehUqAPNZMNRKjGmMyZn0Tt2YZiMGk',  //IP http://10.82.56.245:9091/Monetizador-0.0.1/swagger-ui.html
   // K1L0
 
     // urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=',                          //8R4V0  (APIGO/)
