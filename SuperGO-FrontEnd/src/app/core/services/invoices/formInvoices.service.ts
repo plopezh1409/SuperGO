@@ -57,8 +57,8 @@ export class FormInvoicesService {
     }
 
     getInfoInvoices():Observable<any>{
-        return this.httpClient.get(`${this.urlServices}facturas/get`);
-        // return this.httpClient.get('/assets/dataTables/dataInvoices.json');
+        // return this.httpClient.get(`${this.urlServices}facturas/get`);
+        return this.httpClient.get('/assets/dataTables/dataInvoices.json');
     }
 
     insertInvoice(dataInvoice:Facturas):Observable<any>{

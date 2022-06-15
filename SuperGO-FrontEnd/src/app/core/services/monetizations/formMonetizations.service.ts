@@ -58,8 +58,8 @@ export class FormMonetizationsService{
 
     getDataMonetization():Observable<any>
     {
-        return this.httpClient.get(`${this.urlServices}reglas-monetizacion/get`);
-        // return this.httpClient.get('assets/dataTables/dataMonetization.json');
+        // return this.httpClient.get(`${this.urlServices}reglas-monetizacion/get`);
+        return this.httpClient.get('assets/dataTables/dataMonetization.json');
     }
 
     getDataMonetizationById(oMonetization:Monetizacion):Observable<any>

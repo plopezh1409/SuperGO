@@ -54,6 +54,24 @@
                 "idSociedad": 4,
                 "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
             }
+        ],
+        "operaciones":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial":"UPAX S.A. DE C.V."
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V."
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+            }
         ]
     }
 }
