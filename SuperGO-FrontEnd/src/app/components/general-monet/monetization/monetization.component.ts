@@ -191,8 +191,10 @@ export class MonetizationComponent implements OnInit {
     }
     else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
       this.containers = dataForm.response.reactiveForm;
+      this.principalContainers = this.containers;
       this.reactiveForm.setContainers(this.containers);
       localStorage.setItem('_auxForm',JSON.stringify(this.containers));
+      this.changePeridicity(this.containers);
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else {
