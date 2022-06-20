@@ -58,8 +58,8 @@ export class FormAccountingsService{
 
     getInfoAccounting():Observable<any>
     {
-        // return this.httpClient.get(`${this.urlServices}Contabilidad/get`);
-        return this.httpClient.get('/assets/dataTables/dataAccounting.json');
+        return this.httpClient.get(`${this.urlServices}Contabilidad/get`);
+        // return this.httpClient.get('/assets/dataTables/dataAccounting.json');
     }
 
     getAccountingById(dataAccounting:Contabilidad):Observable<any>

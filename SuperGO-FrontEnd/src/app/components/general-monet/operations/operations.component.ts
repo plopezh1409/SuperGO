@@ -118,10 +118,18 @@ export class OperationsComponent implements OnInit {
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
+    else if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code === this.codeResponse.RESPONSE_CODE_200){
+      this.dataInfo = dataOper.response.tipoOperacion;
+      this.catalogsTable.onLoadTable(this.dataInfo);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
+      this.containers = dataForm.response.reactiveForm;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{

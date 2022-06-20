@@ -58,8 +58,8 @@ export class FormCatService{
 
     getInfoSocieties():Observable<any>
     {
-        // return this.httpClient.get(`${this.urlServices}sociedades/get`);
-        return this.httpClient.get('/assets/dataTables/dataCatalog.json');
+        return this.httpClient.get(`${this.urlServices}sociedades/get`);
+        // return this.httpClient.get('/assets/dataTables/dataCatalog.json');
     }
 
     insertSociety(society:Sociedad):Observable<any>
