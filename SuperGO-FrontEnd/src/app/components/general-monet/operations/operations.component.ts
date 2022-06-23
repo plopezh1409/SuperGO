@@ -19,6 +19,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { OperationsResponse } from '@app/core/models/ServiceResponseData/operations-response.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-operations',
@@ -31,6 +32,7 @@ export class OperationsComponent implements OnInit {
   formCatService:FormOperationsService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls:number;
   alignContent='horizontal';
@@ -43,6 +45,7 @@ export class OperationsComponent implements OnInit {
   constructor(private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new OperationsTableComponent();
@@ -114,6 +117,10 @@ export class OperationsComponent implements OnInit {
     const dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.formCatService.getInfoOperation().toPromise().catch((err) =>{
       return err;
     });

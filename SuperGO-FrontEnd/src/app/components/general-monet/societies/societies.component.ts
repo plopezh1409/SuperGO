@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-societies',
@@ -27,6 +28,7 @@ export class SocietiesComponent implements OnInit {
   societyService:FormCatService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
@@ -40,6 +42,7 @@ export class SocietiesComponent implements OnInit {
   constructor(private readonly injector:Injector, private readonly appComponent: AppComponent,
     private readonly _route: ActivatedRoute) { 
     this.societyService = this.injector.get<FormCatService>(FormCatService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new SocietiesTableComponent(this.injector);
@@ -111,11 +114,14 @@ export class SocietiesComponent implements OnInit {
     const dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-
     if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }

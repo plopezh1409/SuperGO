@@ -17,6 +17,7 @@ import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetiza
 import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-invoices',
@@ -28,6 +29,7 @@ export class InvoicesComponent implements OnInit {
   formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls:number;
   alignContent='horizontal';
@@ -40,6 +42,7 @@ export class InvoicesComponent implements OnInit {
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new InvoicesTableComponent(this.injector);
     this.messageError = new MessageErrorModule();
@@ -64,6 +67,10 @@ export class InvoicesComponent implements OnInit {
     const dataForm = await this.formInvoicesService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.formInvoicesService.getInfoInvoices().toPromise().catch((err) =>{
       return err;
     });

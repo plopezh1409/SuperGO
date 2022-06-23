@@ -23,6 +23,7 @@ import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-da
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { MonetizationResponse } from '@app/core/models/ServiceResponseData/monetization-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class MonetizationComponent implements OnInit {
   monetService: FormMonetizationsService;
   messageError: MessageErrorModule;
   reactiveForm: ReactiveForm;
+  private authService: AuthService;
   containers: Container[];
   maxNumControls: number;
   alignContent = 'horizontal';
@@ -53,6 +55,7 @@ export class MonetizationComponent implements OnInit {
   constructor(private readonly appComponent: AppComponent, private readonly injector: Injector,
     private readonly _route: ActivatedRoute) {
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.messageError = new MessageErrorModule();
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new MonetizationTableComponent(this.injector);
@@ -176,6 +179,10 @@ export class MonetizationComponent implements OnInit {
     const dataForm = await this.monetService.getForm({ idRequest: this.idSolicitud }).toPromise().catch((err) => {
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.monetService.getDataMonetization().toPromise().catch((err) => {
       return err;
     });
