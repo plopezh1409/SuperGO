@@ -8,6 +8,8 @@ import { InvoicesComponent } from './invoices/invoices.component';
 import { OperationsComponent } from './operations/operations.component';
 import { MonetizationComponent } from './monetization/monetization.component';
 import { AccountingComponent } from './accounting/accounting.component';
+import { BoardComponent } from './board/board.component';
+
 
 const principalMonetizaor = '/monetizador';
 const routes: Routes = [
@@ -130,6 +132,27 @@ const routes: Routes = [
         },
         {
           label: 'Reglas de Monetización',
+          url: ''
+        }
+      ]
+    } 
+  }, 
+  {
+    path: 'especifica/:idSolicitud/board',
+    component: BoardComponent,   
+    data:{
+      title:'Solicitud',
+      breadcrumb:[
+        {
+          label: 'Inicio',
+          url: 'inicio'
+        },
+        {
+          label: 'Monetizador',
+          url: principalMonetizaor
+        },
+        {
+          label: 'Tablero Operativo',
           url: ''
         }
       ]

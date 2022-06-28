@@ -1,0 +1,151 @@
+<div style="width: 70%;" class="container paginator scrollable">
+  <table mat-table [dataSource]="dataSourceHeader" matSort>
+    <caption></caption>
+    <ng-container matColumnDef="idTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> ID MONETIZACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.idTipo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="idSubtipo">
+      <th mat-header-cell *matHeaderCellDef class="te" id=""> TIPO OPERACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.idSubtipo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION TIPO </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsHeader"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsHeader;">
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="displayedColumnsHeader.length">No se encontraron registros.</td>
+    </tr>
+  </table>
+</div>
+
+<div style=" display: flex;flex-wrap: nowrap; justify-content: center;margin:2%">
+  <button mat-raised-button type="submit" (click)="DownloadExcel()">Descargar Excel</button>
+</div>
+
+<div class="paginator scrollable">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <caption></caption>
+
+    <ng-container matColumnDef="FECHA_DE_OPERACION">
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA OPERACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaOperacion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numeroOperaciones">
+      <th mat-header-cell *matHeaderCellDef id=""> NUMERO DE OPERACIONES </th>
+      <td mat-cell *matCellDef="let element"> {{element.numeroOperaciones}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoOperaciones">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO DE OPERACIONES </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numeroOperaciones2">
+      <th mat-header-cell *matHeaderCellDef id=""> NUMERO DE OPERACIONES </th>
+      <td mat-cell *matCellDef="let element"> {{element.numeroOperaciones}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoOperaciones2">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO DE OPERACIONES </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoMonetizacion">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO MONETIZACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoMonetizacion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="iva">
+      <th mat-header-cell *matHeaderCellDef id=""> IVA </th>
+      <td mat-cell *matCellDef="let element"> {{element.iva}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoTotal">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO TOTAL </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoTotal}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaCorte">
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA CORTE </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaCorte}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="semana">
+      <th mat-header-cell *matHeaderCellDef id=""> SEMANA </th>
+      <td mat-cell *matCellDef="let element"> {{element.semana}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="razonSocial">
+      <th mat-header-cell *matHeaderCellDef id=""> RAZON SOCIAL </th>
+      <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="documentoContable">
+      <th mat-header-cell *matHeaderCellDef id=""> DOCUMENTO CONTABLE </th>
+      <td mat-cell *matCellDef="let element"> {{element.documentoContable}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="fechaContable">
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA CONTABLE </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaContable}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="cuentaBalance">
+      <th mat-header-cell *matHeaderCellDef id=""> CUENTA BALANCE </th>
+      <td mat-cell *matCellDef="let element"> {{element.cuentaBalance}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="montoBalance">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO BALANCE </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoBalance}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="cuentaResultados">
+      <th mat-header-cell *matHeaderCellDef id=""> CUENTA RESULTADOS </th>
+      <td mat-cell *matCellDef="let element"> {{element.cuentaResultados}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="montoResultados">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO RESULTADOS </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoResultados}} </td>
+    </ng-container>
+
+
+
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
+      <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)" onKeyDown="show(element);"
+        style="cursor: pointer;">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+          visibility
+        </mat-icon>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+    </tr>
+
+  </table>
+</div>
+<div class="paginator">
+  <mat-paginator [length]="totalRows" [pageSize]="7" [pageSizeOptions]="[7, 14, 21, 28, 35]" showFirstLastButtons>
+  </mat-paginator>
+</div>

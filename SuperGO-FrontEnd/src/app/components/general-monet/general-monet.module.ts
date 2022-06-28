@@ -36,12 +36,16 @@ import { SocietiesTableComponent } from './societies/societies-table/societies-t
 import { UpdateModalSocietiesComponent } from './societies/update-modal-societies/update-modal-societies.component';
 import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.component';
 import { AppComponent } from '@app/app.component';
+import { BoardComponent } from './board/board.component';
+import { BoardTableComponent } from './board/board-table/board-table.component';
+
 
 
 @NgModule({
   declarations: [
     GeneralmonetComponent,
     SocietiesComponent,
+    BoardComponent,
     InvoicesComponent,    
     InvoicesTableComponent,
     OperationsComponent,
@@ -55,7 +59,9 @@ import { AppComponent } from '@app/app.component';
     OperationsTableComponent,
     UpdateModalOperationsComponent,
     SocietiesTableComponent,
+    BoardTableComponent,
     UpdateModalSocietiesComponent,
+    
     HomeMonetizerComponent
   ],
   imports: [
