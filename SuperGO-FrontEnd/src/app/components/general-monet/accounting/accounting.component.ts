@@ -264,6 +264,10 @@ export class AccountingComponent implements OnInit {
           this.monetizationModule.addDataControlMonetization(this.containers, data.response);
         }
         else{
+          const dataForm = this.reactiveForm.getDataForm(this.containers);
+          this.monetizationModule.addDataControlMonetization(this.containers, []);
+          this.containers[0] = this.monetizationModule.setControlsIdRegla(dataForm,this.containers[0]);
+          this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'warning',
             title: '¡Aviso!',
@@ -281,6 +285,26 @@ export class AccountingComponent implements OnInit {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
   }
+
+  sortControls(filterControls:Control[], filterCont:Container)
+    {        
+      return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
+        if(a.order && b.order)
+        {
+          if(Number(a.order) > Number(b.order))
+          {
+            return 1;
+          }
+          if (Number(a.order) < Number(b.order))
+          {
+            return -1;
+          }
+        }
+        return 0;
+      });        
+    }
+
+  
   
 
 }

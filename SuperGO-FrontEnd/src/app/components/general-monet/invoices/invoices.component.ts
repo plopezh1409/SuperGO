@@ -242,6 +242,10 @@ onChangeDropDown($event: DropdownEvent){
         this.monetizationModule.addDataControlMonetization(this.containers, data.response);
       }
       else{
+        const dataForm = this.reactiveForm.getDataForm(this.containers);
+        this.monetizationModule.addDataControlMonetization(this.containers, []);
+        this.containers[0] = this.monetizationModule.setControlsIdRegla(dataForm,this.containers[0]);
+        this.reactiveForm.setContainers(this.containers);
         swal.fire({
           icon: 'warning',
           title: '¡Aviso!',
