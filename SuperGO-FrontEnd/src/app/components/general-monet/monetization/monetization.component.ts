@@ -154,26 +154,6 @@ export class MonetizationComponent implements OnInit {
   });
   }
 
-
-
-  // getDay(type: string) {
-  //   const dataForm = this.containers;
-  //   let typeMonet = '';
-  //   dataForm.forEach((element: Container) => {
-  //     element.controls.forEach((ctrl: Control) => {
-  //       if (ctrl.controlType === 'dropdown' && ctrl.ky === 'nombreDia' && ctrl.content) {
-  //         for (const data of ctrl.content.contentList) {
-  //           if (data.ky === type) {
-  //             typeMonet = data.value;
-  //             break;
-  //           }
-  //         }
-  //       }
-  //     });
-  //   });
-  //   return typeMonet;
-  // }
-
   async fillDataPage() {
     this.appComponent.showLoader(true);
     const dataForm = await this.monetService.getForm({ idRequest: this.idSolicitud }).toPromise().catch((err) => {

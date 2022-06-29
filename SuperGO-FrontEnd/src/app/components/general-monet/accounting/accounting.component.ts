@@ -285,26 +285,4 @@ export class AccountingComponent implements OnInit {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
   }
-
-  sortControls(filterControls:Control[], filterCont:Container)
-    {        
-      return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
-        if(a.order && b.order)
-        {
-          if(Number(a.order) > Number(b.order))
-          {
-            return 1;
-          }
-          if (Number(a.order) < Number(b.order))
-          {
-            return -1;
-          }
-        }
-        return 0;
-      });        
-    }
-
-  
-  
-
 }

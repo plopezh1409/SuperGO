@@ -13,9 +13,9 @@ export const environment = {
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
   //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRKgHXsO0c05K0iVECT98PHw4n+bBp60ePqty2ycMeMXO', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
     // urlSuperGo: 'Po0YTHkz4baZgjBPPRLUIE2HnhsxY2Oby5+kLgKTLXBkEaUf5vLOIc8L7pf2b7P4', //LOCALHOST J0RG3
-  // urlSuperGo: '2OQaFccQZxyqX6RFqpIT0zbkV2gr34h3UbgbG1xMoMeejxo3xK4qa2+6/br4JRl/',//DESA http://10.82.56.245:8543/GestorOperaAPI/ 
+  urlSuperGo: '2OQaFccQZxyqX6RFqpIT0zbkV2gr34h3UbgbG1xMoMeejxo3xK4qa2+6/br4JRl/',//DESA http://10.82.56.245:8543/GestorOperaAPI/ 
   //  urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',          //4LF4 Piso 7 (GestorOperaAPI/)
-   urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRJLIsEnFNtJxDf/gE52VZSCZUDQ7Ci91xnD909NzOGd+',      //4LF4 Piso 3 (GestorOperaAPI/)
+  //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRJLIsEnFNtJxDf/gE52VZSCZUDQ7Ci91xnD909NzOGd+',      //4LF4 Piso 3 (GestorOperaAPI/)
    urlServices: '2OQaFccQZxyqX6RFqpIT01ZOtbjYQmsXI7fehUqAPNZMNRKjGmMyZn0Tt2YZiMGk',  //DESA http://10.82.56.245:9091/Monetizador-0.0.1/swagger-ui.html
   // K1L0
 
