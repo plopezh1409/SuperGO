@@ -20,6 +20,7 @@ import { DropdownFunctionality } from '@app/shared/dropdown/dropdown-functionali
 import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-societies',
@@ -32,6 +33,7 @@ export class SocietiesComponent implements OnInit {
   societyService:FormCatService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
@@ -48,6 +50,7 @@ export class SocietiesComponent implements OnInit {
   constructor(private readonly injector:Injector, private readonly appComponent: AppComponent,
     private readonly _route: ActivatedRoute) { 
     this.societyService = this.injector.get<FormCatService>(FormCatService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new SocietiesTableComponent(this.injector);
@@ -121,14 +124,26 @@ export class SocietiesComponent implements OnInit {
     const dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper:IResponseData<SocietiesResponse> = await this.societyService.getInfoSocieties().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
+    else if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code === this.codeResponse.RESPONSE_CODE_200){
+      this.dataInfo = dataOper.response.sociedades;
+      this.catalogsTable.onLoadTable(this.dataInfo);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
+      this.containers = dataForm.response.reactiveForm; 
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{

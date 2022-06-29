@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DatosDeSalida } from '@app/core/models/board/board.model';
+
 //ENVIROMENT
 import { environment } from '@env/environment';
+
 //SERVICIOS
 import { AngularSecurity } from '@app/core/services/public/angularSecurity.service';
-import { Facturas } from '@app/core/models/facturas/facturas.model';
-
 @Injectable({
     providedIn:'root'
 })
-
-export class FormInvoicesService {
+export class BoardService{
     private readonly angularSecurity: AngularSecurity;
     private _urlEnviroment:string|null;
-    private _urlServices:string|null;
+    private _urlServices: string|null;
 
     constructor(public httpClient:HttpClient, public injector:Injector)
     {
@@ -50,27 +50,26 @@ export class FormInvoicesService {
             return this._urlServices;
         }
     }
-	
-	getForm(solicitud:Object):Observable<any>
+
+    // getForm(solicitud:Object):Observable<any>
+    // {
+    //     return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
+    // }
+
+    getInfoTablero():Observable<any>
     {
-        return this.httpClient.post(`${this.urlEnviroment}reactiveForm`, solicitud);
+        //return this.httpClient.get(`${this.urlServices}sociedades/get`);
+        return this.httpClient.get('/assets/dataTables/ejemplosSalidaJSON.json');
     }
 
-    getInfoInvoices():Observable<any>{
-        // return this.httpClient.get(`${this.urlServices}facturas/get`);
-        return this.httpClient.get('/assets/dataTables/dataInvoices.json');
-    }
+    // insertSociety(society:DatosDeSalida):Observable<any>
+    // {
+    //     return this.httpClient.post(`${this.urlServices}sociedades/post`,society);
+    // }
 
-    insertInvoice(dataInvoice:Facturas):Observable<any>{
-        return this.httpClient.post(`${this.urlServices}facturas/post`, dataInvoice);
-    }
-
-    updateInvoce(dataInvoice:Facturas):Observable<any>{
-        return this.httpClient.put(`${this.urlServices}facturas/put`, dataInvoice);
-    }
-
-    getMonetizacionRules(dataInvoice:Object):Observable<any>{
-        return this.httpClient.post(`${this.urlServices}reglas-monetizacion/post/BusquedaReglas`, dataInvoice);
-    }
+    // updateSociety(society:DatosDeSalida):Observable<any>
+    // {
+    //     return this.httpClient.put(`${this.urlServices}sociedades/put`,society);
+    // }
 
 }

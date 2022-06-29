@@ -84,4 +84,27 @@ export class MonetizationModule {
     return dataForm;
   }
 
+  setControlsIdRegla(dataForm:any, newContainer:Container){
+    for (const ctrl in dataForm) {
+      const control = newContainer.controls.find((x:Control) => x.ky === ctrl);
+      let valueCtrl = dataForm[ctrl] === null ? '' : dataForm[ctrl];
+      valueCtrl = typeof valueCtrl === 'boolean'? valueCtrl.toString(): valueCtrl;
+        if (control && valueCtrl !== '' && ctrl !== 'idReglaMonetizacion') {
+          if (control.controlType === 'dropdown' || control.controlType === 'autocomplete') {
+            control.setAttributeValueByNameDropdown('value', valueCtrl);
+          }
+          else{
+            control.setAttributeValueByName('value', valueCtrl);
+          }
+        }
+        else if(control && valueCtrl !== '' && ctrl === 'idReglaMonetizacion'){
+          control.setAttributeValueByNameDropdown('value', '');
+        }
+        else{
+
+        }
+    }
+    return newContainer;
+  }
+
 }

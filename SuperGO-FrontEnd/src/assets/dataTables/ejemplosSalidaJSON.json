@@ -1,0 +1,1073 @@
+
+{
+    "notificaciones": [
+        {
+            "notificacion": "AMTZ007",
+            "mensaje": "CONSULTA EFECTUADA EXITOSAMENTE"
+        }
+    ],
+    "datosDeSalida": {
+        "operaciones": {
+            "idTipo": 1, 
+            "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+            "idSubtipo": 0, 
+            "descripcionSubtipoOperacion": "GENERICO"
+        },
+        "tableroOperativo": [
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },{
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-02",
+                "fechaContable": "2022-05-02",
+                "fechaCorte": "2022-05-02",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee60",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee61",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaOperacion": "2022-05-03",
+                "fechaContable": "2022-05-03",
+                "fechaCorte": "2022-05-03",
+                "semana": 18,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "montoMonetizacion": 200.18,
+                "iva": 22.02,
+                "montoTotal": 222.2,
+                "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
+                "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            }
+        ],
+        "tiempoEjrn": 2,
+        "tiempoObdt": 8,
+        "tiempoDeMicro": 2532
+    }
+}

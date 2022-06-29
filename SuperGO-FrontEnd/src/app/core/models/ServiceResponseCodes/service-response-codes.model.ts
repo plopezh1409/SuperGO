@@ -10,7 +10,7 @@ const con500 = 500;
 
 export class ServiceResponseCodes {
    
-    
+    public readonly RESPONSE_CODE_MESSAGE_200:string = 'AMTZ007';
     public readonly RESPONSE_CODE_200:number = con200;
     public readonly RESPONSE_CODE_201:number = con201;
     public readonly RESPONSE_CODE_207:number = con207;

@@ -17,6 +17,7 @@ import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetiza
 import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-invoices',
@@ -28,6 +29,7 @@ export class InvoicesComponent implements OnInit {
   formInvoicesService:FormInvoicesService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls:number;
   alignContent='horizontal';
@@ -40,6 +42,7 @@ export class InvoicesComponent implements OnInit {
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.catalogsTable = new InvoicesTableComponent(this.injector);
     this.messageError = new MessageErrorModule();
@@ -64,14 +67,26 @@ export class InvoicesComponent implements OnInit {
     const dataForm = await this.formInvoicesService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.formInvoicesService.getInfoInvoices().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
+    else if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code === this.codeResponse.RESPONSE_CODE_200){
+      this.dataInfo = dataOper.response.facturas;
+      this.catalogsTable.onLoadTable(this.dataInfo);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
+      this.containers = dataForm.response.reactiveForm;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
@@ -234,6 +249,10 @@ onChangeDropDown($event: DropdownEvent){
         this.monetizationModule.addDataControlMonetization(this.containers, data.response);
       }
       else{
+        const dataForm = this.reactiveForm.getDataForm(this.containers);
+        this.monetizationModule.addDataControlMonetization(this.containers, []);
+        this.containers[0] = this.monetizationModule.setControlsIdRegla(dataForm,this.containers[0]);
+        this.reactiveForm.setContainers(this.containers);
         swal.fire({
           icon: 'warning',
           title: '¡Aviso!',

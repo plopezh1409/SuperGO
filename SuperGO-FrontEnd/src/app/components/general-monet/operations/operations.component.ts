@@ -22,6 +22,7 @@ import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-re
 import { DropdownModel } from '@app/core/models/dropdown/dropdown.model';
 import { Control } from '@app/core/models/capture/controls.model';
 import { DropdownFunctionality } from '@app/shared/dropdown/dropdown-functionality';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-operations',
@@ -34,6 +35,7 @@ export class OperationsComponent implements OnInit {
   formCatService:FormOperationsService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls:number;
   alignContent='horizontal';
@@ -47,6 +49,7 @@ export class OperationsComponent implements OnInit {
   constructor(private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) {
     this.formCatService = this.injector.get<FormOperationsService>(FormOperationsService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new OperationsTableComponent();
@@ -119,14 +122,26 @@ export class OperationsComponent implements OnInit {
     const dataForm = await this.formCatService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataOper = await this.formCatService.getInfoOperation().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200) {
+    else if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataOper.code === this.codeResponse.RESPONSE_CODE_200){
+      this.dataInfo = dataOper.response.tipoOperacion;
+      this.catalogsTable.onLoadTable(this.dataInfo);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataOper.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
+      this.containers = dataForm.response.reactiveForm;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{

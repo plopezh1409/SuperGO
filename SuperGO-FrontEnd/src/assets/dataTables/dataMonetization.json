@@ -2,187 +2,76 @@
     "code": 200,
     "message": "Consulta efectuada exitosamente",
     "response": {
-      "reglas": [
-        {
-          "idSociedad": 1,
-          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 11,
-          "fechaInicio": "2021-10-10",
-          "fechaFin": "9999-12-31",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 1,
-          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 2,
-          "fechaInicio": "2022-04-07",
-          "fechaFin": "2022-04-30",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 1,
-          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-          "idTipo": 2,
-          "descripcionTipo": "CREDITO - CLIENTES NUEVOS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2021-02-20",
-          "fechaFin": "9999-12-31",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 1,
-          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-          "idTipo": 3,
-          "descripcionTipo": "CREDITO - BNPL",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2021-11-01",
-          "fechaFin": "9999-12-31",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 2,
-          "razonSocial": "NUEVA ELEKTRA DEL MILENIO",
-          "idTipo": 5,
-          "descripcionTipo": "PAGO DE SERVICIOS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2021-11-01",
-          "fechaFin": "9999-12-31",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 49,
-          "razonSocial": "Seguros Mexico",
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2022-09-01",
-          "fechaFin": "2022-12-01",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 50,
-          "razonSocial": "Seguros pat2",
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2022-09-03",
-          "fechaFin": "2022-12-01",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        },
-        {
-          "idSociedad": 51,
-          "razonSocial": "Swagger",
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-          "idSubtipo": 0,
-          "descripcionSubtipo": "GENERICO",
-          "idReglaMonetizacion": 1,
-          "fechaInicio": "2022-10-01",
-          "fechaFin": "2022-12-01",
-          "fecha": "12/09/2022",
-          "usuario" : "Jorge Alberto De Jesús Bastida",
-          "referenciaPago": "XR-T671555627839"
-        }
-      ],
-      "sociedades": [
-        {
-          "idSociedad": 52,
-          "razonSocial": "Seguros pruebas01"
-        },
-        {
-          "idSociedad": 51,
-          "razonSocial": "Swagger"
-        },
-        {
-          "idSociedad": 50,
-          "razonSocial": "Seguros pat2"
-        },
-        {
-          "idSociedad": 49,
-          "razonSocial": "Seguros Mexico"
-        },
-        {
-          "idSociedad": 3,
-          "razonSocial": "SEGUROS AZTECA"
-        },
-        {
-          "idSociedad": 2,
-          "razonSocial": "NUEVA ELEKTRA DEL MILENIO"
-        },
-        {
-          "idSociedad": 1,
-          "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE"
-        }
-      ],
-      "operaciones": [
-        {
-          "idTipo": 105,
-          "descripcionTipo": "OPERACION PRUEBA 5"
-        },
-        {
-          "idTipo": 104,
-          "descripcionTipo": "OPERACION PRUEBA 4"
-        },
-        {
-          "idTipo": 103,
-          "descripcionTipo": "OPERACION PRUEBA 3"
-        },
-        {
-          "idTipo": 102,
-          "descripcionTipo": "OPERACION PRUEBA 2"
-        },
-        {
-          "idTipo": 101,
-          "descripcionTipo": "OPERACION PRUEBA PATO"
-        },
-        {
-          "idTipo": 5,
-          "descripcionTipo": "PAGO DE SERVICIOS"
-        },
-        {
-          "idTipo": 3,
-          "descripcionTipo": "CREDITO - BNPL"
-        },
-        {
-          "idTipo": 2,
-          "descripcionTipo": "CREDITO - CLIENTES NUEVOS"
-        },
-        {
-          "idTipo": 1,
-          "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS"
-        }
-      ]
+        "reglas":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA",
+                "idTipo": 1,
+                "descripcionTipo": "COLOCACION DE CREDITO - CLIENTES DE BANCO AZTECA Y RECOMPRAS",
+                "idSubtipo": 2,
+                "descripcionSubtipo": "GENERAL",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial": "UPAX S.A. DE C.V.",
+                "idTipo": 2,
+                "descripcionTipo": "CHAT Y RED SOCIAL",
+                "idSubtipo": 1,
+                "descripcionSubtipo": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V.",
+                "idTipo": 3,
+                "descripcionTipo": "NOTICIAS",
+                "idSubtipo": 1,
+                "descripcionSubtipo": "GENERICO",
+                "idReglaMonetizacion": 1,
+                "fechaInicio": "01/11/2021",
+                "fechaFin": "01/05/2022"
+            }
+        ],
+        "sociedades":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial":"UPAX S.A. DE C.V."
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V."
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+            }
+        ],
+        "operaciones":[
+            {
+                "idSociedad": 1,
+                "razonSocial": "ELEKTRA"
+            },
+            {
+                "idSociedad": 2,
+                "razonSocial":"UPAX S.A. DE C.V."
+            },
+            {
+                "idSociedad": 3,
+                "razonSocial": "TV AZTECA S.A.B. DE C.V."
+            },
+            {
+                "idSociedad": 4,
+                "razonSocial":"GRUPO ELEKTRA, S.A.B. DE C.V."
+            }
+        ]
     }
   }

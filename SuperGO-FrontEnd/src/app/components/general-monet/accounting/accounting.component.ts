@@ -18,6 +18,7 @@ import { MonetizationRules } from '@app/core/models/ServiceResponseData/monetiza
 import { AccountingResponse } from '@app/core/models/ServiceResponseData/accounting-response.model';
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
+import { AuthService } from '@app/core/services/sesion/auth.service';
 
 @Component({
   selector: 'app-accounting',
@@ -31,6 +32,7 @@ export class AccountingComponent implements OnInit {
   accountService:FormAccountingsService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
+  private authService: AuthService;
   containers:Container[];
   maxNumControls:number;
   alignContent='horizontal';
@@ -46,6 +48,7 @@ export class AccountingComponent implements OnInit {
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
     private readonly _route: ActivatedRoute) { 
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
+    this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
     this.catalogsTable = new AccountingTablesComponent(this.injector);
@@ -129,14 +132,26 @@ export class AccountingComponent implements OnInit {
     const dataForm = await this.accountService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
       return err;
     });
+    if(!this.authService.isAuthenticated()){
+      this.appComponent.showLoader(false);
+      return;
+    }
     const dataAcco = await this.accountService.getInfoAccounting().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
-    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200){
+    if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataAcco.code !== this.codeResponse.RESPONSE_CODE_200){
       this.messageError.showMessageError(dataForm.message, dataForm.code);
     }
-    else if(dataAcco.code !== this.codeResponse.RESPONSE_CODE_200) {
+    else if(dataForm.code !== this.codeResponse.RESPONSE_CODE_200 && dataAcco.code === this.codeResponse.RESPONSE_CODE_200){
+      this.dataInfo = this.orderDate(dataAcco.response.contabilidad);
+      this.catalogsTable.onLoadTable(this.dataInfo);
+      this.messageError.showMessageError(dataForm.message, dataForm.code);
+    }
+    else if(dataAcco.code !== this.codeResponse.RESPONSE_CODE_200 && dataForm.code === this.codeResponse.RESPONSE_CODE_200) {
+      this.containers = dataForm.response.reactiveForm;
+      this.reactiveForm.setContainers(this.containers);
+      localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.messageError.showMessageError(dataAcco.message, dataAcco.code);
     }
     else{
@@ -249,6 +264,10 @@ export class AccountingComponent implements OnInit {
           this.monetizationModule.addDataControlMonetization(this.containers, data.response);
         }
         else{
+          const dataForm = this.reactiveForm.getDataForm(this.containers);
+          this.monetizationModule.addDataControlMonetization(this.containers, []);
+          this.containers[0] = this.monetizationModule.setControlsIdRegla(dataForm,this.containers[0]);
+          this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'warning',
             title: '¡Aviso!',
@@ -266,6 +285,4 @@ export class AccountingComponent implements OnInit {
       this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
     });
   }
-  
-
 }
