@@ -197,6 +197,63 @@
           "idTipo": 1,
           "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS"
         }
+      ],
+      "metodoPago":[
+        {
+          "calveMetodo": "PUE",
+          "descripcion": "Pago en una sola exhibición"
+        },
+        {
+          "calveMetodo": "PPD",
+          "descripcion": "Pago en parcialidades o diferido"
+        }
+      ],
+      "formaPago":[
+        {
+          "claveForma": "02",
+          "descripcion": "Cheque nominativo"
+        },
+        {
+          "claveForma": "03",
+          "descripcion": "Transferencia electrónica de fondos"
+        },
+        {
+          "claveForma": "17",
+          "descripcion": "Compensación"
+        },
+        {
+          "claveForma": "99",
+          "descripcion": "Por definir"
+        }
+      ],
+      "usoCFDI":[
+        {
+          "claveForma": "G01",
+          "descripcion": "Adquisición de mercancías."
+        },
+        {
+          "claveForma": "G03",
+          "descripcion": "Gastos en general."
+        },
+        {
+          "claveForma": "S01",
+          "descripcion": "Sin efectos fiscales."
+        },
+        {
+          "claveForma": "CP01",
+          "descripcion": "Pagos"
+        }
+      ],
+      "claveServicio":[
+        {
+          "claveForma": "80141600",
+          "descripcion": "Actividades de ventas y promoción de negocios."
+        },
+        {
+          "claveForma": "82101600 ",
+          "descripcion": "Publicidad difundida (Servicios de publicidad difundida)"
+        }
       ]
+
     }
   }

@@ -113,7 +113,7 @@ export class MonetizationComponent implements OnInit {
       });
       return;
     }
-    
+
     const oMonet: Monetizacion = new Monetizacion();
     oMonet.idSociedad = dataForm.idSociedad;
     oMonet.idTipo = parseInt(dataForm.idTipo,10);
@@ -128,7 +128,7 @@ export class MonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(dataForm, dataForm.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(dataForm.fechaInicio);
     oMonet.fechaFin = this.monetModule.getDateTimeReverse(dataForm.fechaFin);
-    oMonet.referenciaPago = dataForm.referenciaPago;
+    oMonet.referenciaPago = dataForm.referenciaPago.trim();
     this.appComponent.showLoader(true);
     this.monetService.insertMonetization(oMonet).pipe(finalize(() => {
       this.appComponent.showLoader(false);
@@ -224,7 +224,7 @@ export class MonetizationComponent implements OnInit {
               ctrl.content.options = cpDataContent.operaciones;
             }
             else{
-              
+
             }
           }
         });
@@ -272,7 +272,7 @@ export class MonetizationComponent implements OnInit {
       title: 'Error inesperado',
       text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
       heightAuto: false
-    });      
+    });
   });
   }
 
@@ -302,7 +302,7 @@ export class MonetizationComponent implements OnInit {
   }
 
   sortControls(filterControls:Control[], filterCont:Container)
-    {        
+    {
       return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
         if(a.order && b.order)
         {
@@ -316,7 +316,7 @@ export class MonetizationComponent implements OnInit {
           }
         }
         return 0;
-      });        
+      });
     }
 
 

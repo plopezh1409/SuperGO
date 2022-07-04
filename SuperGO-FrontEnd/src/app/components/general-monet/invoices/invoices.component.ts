@@ -40,7 +40,7 @@ export class InvoicesComponent implements OnInit {
 
   @ViewChild(InvoicesTableComponent) catalogsTable:InvoicesTableComponent;
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
-    private readonly _route: ActivatedRoute) { 
+    private readonly _route: ActivatedRoute) {
     this.formInvoicesService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
@@ -98,7 +98,7 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
-  
+
   onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
@@ -122,12 +122,12 @@ export class InvoicesComponent implements OnInit {
     oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
     oInvoice.idReglaMonetizacion = dataContainer.idReglaMonetizacion;
     //Nuevos campos ja.dejesus 2.2
-    oInvoice.codigo = dataContainer.codigo;
+    oInvoice.formaPago = dataContainer.formaPago;
     oInvoice.usoCFDI = dataContainer.usoCFDI;
-    oInvoice.descripcionFactura = dataContainer.descripcionFactura;
+    oInvoice.descripcionFactura = dataContainer.descripcionFactura.trim();
     oInvoice.claveServicio = dataContainer.claveServicio;
-    oInvoice.metodo = dataContainer.metodo;
-    
+    oInvoice.metodoPago = dataContainer.metodoPago;
+
     this.appComponent.showLoader(true);
     this.formInvoicesService.insertInvoice(oInvoice).pipe(finalize(() => {
       this.appComponent.showLoader(false);
@@ -160,19 +160,35 @@ export class InvoicesComponent implements OnInit {
     const cpDataContent = Object.assign({},dataContent);
     delete cpDataContent.facturas;
     for(const value in cpDataContent){
-      cpDataContent[value].forEach((ele:any) => {
-        for(const entries in ele){
-          if(typeof ele[entries] === 'number'){
-            ele['ky'] = ele[entries];
+      if(value === 'metodoPago' || value === 'formaPago' || value === 'usoCFDI' || value === 'claveServicio'){
+        cpDataContent[value].forEach((ele:any) => {
+          for(const entries in ele){
+            if(entries !== 'descripcion'){
+              ele['ky'] = ele[entries];
+            }
+            else{
+              ele['value'] = ele[entries];
+            }
+            delete ele[entries];
           }
-          else{
-            ele['value'] = ele[entries];
+        });
+      }
+      else{
+        cpDataContent[value].forEach((ele:any) => {
+          for(const entries in ele){
+            if(typeof ele[entries] === 'number'){
+              ele['ky'] = ele[entries];
+            }
+            else{
+              ele['value'] = ele[entries];
+            }
+            delete ele[entries];
           }
-          delete ele[entries];
-        }
-      });
+        });
+      }
+
     }
-    
+
     dataForm.forEach((element:Container) => {
       element.controls.forEach((ctrl:Control) => {
         if(ctrl.controlType === 'dropdown' && ctrl.content){
@@ -184,8 +200,24 @@ export class InvoicesComponent implements OnInit {
             ctrl.content.contentList = cpDataContent.operaciones;
             ctrl.content.options = cpDataContent.operaciones;
           }
+          else if(ctrl.ky === 'metodoPago'){
+            ctrl.content.contentList = cpDataContent.metodoPago;
+            ctrl.content.options = cpDataContent.metodoPago;
+          }
+          else if( ctrl.ky === 'formaPago'){
+            ctrl.content.contentList = cpDataContent.formaPago;
+            ctrl.content.options = cpDataContent.formaPago;
+          }
+          else if( ctrl.ky === 'usoCFDI'){
+            ctrl.content.contentList = cpDataContent.usoCFDI;
+            ctrl.content.options = cpDataContent.usoCFDI;
+          }
+          else if( ctrl.ky === 'claveServicio'){
+            ctrl.content.contentList = cpDataContent.claveServicio;
+            ctrl.content.options = cpDataContent.claveServicio;
+          }
           else{
-            
+
           }
         }
       });
@@ -223,7 +255,7 @@ export class InvoicesComponent implements OnInit {
     title: 'Error inesperado',
     text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
     heightAuto: false
-  });      
+  });
 });
 }
 

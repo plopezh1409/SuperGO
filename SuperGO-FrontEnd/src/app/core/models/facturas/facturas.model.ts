@@ -9,11 +9,11 @@ export class Facturas
     idReglaMonetizacion:number;
     tipoComprobante:number;
     tipoFactura:number;
-    codigo: string;
+    formaPago: string;
     usoCFDI: string;
     descripcionFactura: string;
     claveServicio: string;
-    metodo: string;
+    metodoPago: string;
     fecha: string;
     usuario: string;
 
@@ -27,8 +27,8 @@ export class Facturas
         this.razonSocial = '';
         this.descripcionSubtipo = '';
         this.descripcionTipo = '';
-        this.codigo = '';
-        this.metodo = '';
+        this.formaPago = '';
+        this.metodoPago = '';
         this.claveServicio = '';
         this.descripcionFactura = '';
         this.usoCFDI = '';

@@ -16,4 +16,22 @@ export class DropdownFunctionality {
        }
        return cpDataContent;
    }
+
+
+   getDataDropdown(dataContent:any){
+    for(const value in dataContent){
+      dataContent[value].forEach((ele:any) => {
+        for(const entries in ele){
+          if(entries !== 'descripcion'){
+            ele['ky'] = ele[entries];
+          }
+          else{
+            ele['value'] = ele[entries];
+          }
+          delete ele[entries];
+        }
+      });
+    }
+  }
+
 }

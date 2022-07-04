@@ -48,7 +48,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
-      public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+      public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.monetService = this.injector.get<FormMonetizationsService>(FormMonetizationsService);
     this.messageError = new MessageErrorModule();
     this.reactiveForm = new ReactiveForm();
@@ -157,7 +157,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
     oMonet.periodicidadCorte = this.periodicity.getPeriodicity_insert(jsonResult, jsonResult.nombreDia);
     oMonet.fechaInicio = this.monetModule.getDateTimeReverse(jsonResult.fechaInicio);
     oMonet.fechaFin =  this.monetModule.getDateTimeReverse(jsonResult.fechaFin);
-    oMonet.referenciaPago = jsonResult.referenciaPago;
+    oMonet.referenciaPago = jsonResult.referenciaPago.trim();
     oMonet.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
     this.showLoader(true);
     this.monetService.updateMonetization(oMonet).pipe(finalize(() => {
@@ -258,15 +258,15 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   // metodos de visibility//
-  onChangeCatsPetition($event: DropdownEvent) {     
+  onChangeCatsPetition($event: DropdownEvent) {
     if(!$event.control.visibility || $event.control.visibility.length <= 0)
     {
       return;
     }
     this.showButtonAdd = true;
-    this.selectedValRequest = $event;    
+    this.selectedValRequest = $event;
     const formaux = this.reactiveForm.principalForm?.get(this.selectedValRequest.idContainer) as FormGroup;
-    const selectedVal = formaux.controls[this.selectedValRequest.control.ky!].value; 
+    const selectedVal = formaux.controls[this.selectedValRequest.control.ky!].value;
     //busqueda del codigo
     if(this.selectedValRequest.control.content)
     {
@@ -276,11 +276,11 @@ export class UpdateModalMonetizationComponent implements OnInit {
         dataForm = Object(datas);
       }
       this.reactiveForm.principalForm = null;
-      this.containers=[];  
+      this.containers=[];
       this.createNewForm(
       this.selectedValRequest.control.visibility!.filter((x:any) =>
         x.idOption.indexOf(finder.value.split('-')[0]) >= 0 && Number(x.visible) === 1), selectedVal, dataForm);
-    }               
+    }
   }
 
   createNewForm(filter:any,selectedVal:any, dataForm:Object)
@@ -288,18 +288,18 @@ export class UpdateModalMonetizationComponent implements OnInit {
     if(filter)
     {
       this.principalContainers.forEach(pcont=>{
-        const newContainer = Object.assign({}, pcont);           
-        const filterControls = pcont.controls.filter(x => 
+        const newContainer = Object.assign({}, pcont);
+        const filterControls = pcont.controls.filter(x =>
           filter.find((y:any)=> Number(y.idControl)===Number(x.idControl) && Number(y.idContainer) === Number(pcont.idContainer)));
         if(filterControls && filterControls.length>0)
-        {            
-          const control = newContainer.controls.find(x=>x.ky === this.selectedValRequest.control.ky);        
+        {
+          const control = newContainer.controls.find(x=>x.ky === this.selectedValRequest.control.ky);
           if(control)
           {
             control.setAttributeValueByName('value', selectedVal);
           }
           this.setControls(dataForm, newContainer);
-          newContainer.controls = this.sortControls(filterControls, pcont);        
+          newContainer.controls = this.sortControls(filterControls, pcont);
           this.containers.push(newContainer);
         }
       });
@@ -327,7 +327,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
   }
 
   sortControls(filterControls:Control[], filterCont:Container)
-    {        
+    {
       return filterControls.concat(filterCont.controls.filter(x => !x.visibility)).sort((a,b)=>{
         if(a.order && b.order)
         {
@@ -341,8 +341,8 @@ export class UpdateModalMonetizationComponent implements OnInit {
           }
         }
         return 0;
-      });        
-    }    
+      });
+    }
 
     changePeridicity(dataForm:Container[]){
       const idContainer = dataForm[0].idContainer;
@@ -384,6 +384,6 @@ export class UpdateModalMonetizationComponent implements OnInit {
       this.control.setDataToControls(this.containers,cpyModal);
       this.reactiveForm.setContainers(this.containers);
     }
-    
+
 
 }

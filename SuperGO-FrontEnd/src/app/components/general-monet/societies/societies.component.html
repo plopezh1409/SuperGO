@@ -1,6 +1,6 @@
 <mat-tab-group class="mat-group-style">
     <mat-tab label="NUEVA SOCIEDAD">
-        <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm" 
+        <form *ngIf="reactiveForm.principalForm" [formGroup]="reactiveForm.principalForm"
             (ngSubmit)="onSubmit(reactiveForm.principalForm.value)" (change) = "reactiveForm.onFormChange()">
             <div>
                 <div [ngClass] = "{'dvPrincipalContent': alignContent === 'horizontal',
@@ -8,8 +8,7 @@
                     <ng-container  *ngFor="let container of containers; let i = index">
                         <div [formGroupName]="container.idContainer">
                             <app-container [container]="container" [alignContent]="alignContent"
-                                [formGroup]="reactiveForm.getFormGroup(container.idContainer)"
-                                (onChangeDropDown)="onSelectionChanged($event)">
+                                [formGroup]="reactiveForm.getFormGroup(container.idContainer)">
                             </app-container>
                         </div>
                     </ng-container>

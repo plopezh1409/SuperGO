@@ -27,19 +27,23 @@ export class OperationsTableComponent implements OnInit {
 
   @Input()dataInfo:Operaciones[];
   dataSource:MatTableDataSource<Operaciones>;
-  displayedColumns: string[] = ['descripcionTipo', 'descripcionCanal', 'topicoKafka', 'status','options', 'options2'];
+  displayedColumns: string[] = ['descripcionTipo', 'descripcionCanal', 'topicoKafka', 'status',  'usuario' ,'fecha','options', 'options2'];
   totalRows:number;
   containers:Container[];
   private readonly sortModule: SortModule;
-  
+  private startRow: string;
+  private endRow: string;
+
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
-  
+
   constructor(public refData?:MatDialog) {
     this.dataInfo=[];
     this.containers = [];
-    this.totalRows = 0;   
+    this.totalRows = 0;
     this.dataSource = new MatTableDataSource<Operaciones>();
     this.sortModule = new SortModule;
+    this.startRow = '<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>';
+    this.endRow = '</b></td><td style="padding:5px">';
    }
 
   ngOnInit(): void {
@@ -48,11 +52,11 @@ export class OperationsTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:Operaciones[])  
+  onLoadTable(dataInfo:Operaciones[])
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
     this.dataInfo = this.getDesCanal(dataInfo);
-    this.dataSource = new MatTableDataSource<Operaciones>(this.dataInfo);  
+    this.dataSource = new MatTableDataSource<Operaciones>(this.dataInfo);
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
   }
@@ -106,26 +110,18 @@ open(obOperation:Operaciones){
     const status = obOperation.status === 'A'? 'ACTIVO' : 'INACTIVO';
     let registro = '';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
-    2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom:
+    2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td
     style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Descripción </b></td><td style="padding:5px">  ${obOperation.descripcionTipo} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Topíco Kafka </b></td><td style="padding:5px">  ${obOperation.topicoKafka} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Canal </b></td><td style="padding:5px">  ${obOperation.descripcionCanal} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Estatus </b></td><td style="padding:5px">  ${status} </td></tr>`);
-
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Usuario </b></td><td style="padding:5px">  ${obOperation.usuario} </td></tr>`);        
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Fecha  </b></td><td style="padding:5px">  ${obOperation.fecha} </td></tr>`);        
-    Swal.fire({             
-      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
+    registro = registro.concat(`${this.startRow} Descripción ${this.endRow} ${obOperation.descripcionTipo} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Topíco Kafka ${this.endRow}  ${obOperation.topicoKafka} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Canal ${this.endRow}  ${obOperation.descripcionCanal} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Estatus ${this.endRow}  ${status} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Ultima Modificación ${this.endRow}</td></tr>`);
+    registro = registro.concat(`${this.startRow} Usuario ${this.endRow}  ${obOperation.usuario} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Fecha  ${this.endRow}  ${obOperation.fecha} </td></tr>`);
+    Swal.fire({
+      html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
       Datos de la Operación </div><br/> <br/>${registro}`,
       showCancelButton: false,
       width: '60%'
@@ -135,7 +131,7 @@ open(obOperation:Operaciones){
   ngOnDestroy(): void {
     return( this.refData?.closeAll());
   }
-  
+
   getDesCanal(dataInfo:Operaciones[]) : Operaciones[]
   {
     dataInfo.forEach( (x:Operaciones) => {

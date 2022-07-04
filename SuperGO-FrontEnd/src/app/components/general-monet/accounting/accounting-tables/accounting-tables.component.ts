@@ -18,7 +18,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { SortModule } from '@app/shared/sort/sort.module';
 import Swal from 'sweetalert2';
 import { ReportsModule } from '@app/shared/reports/reports.module';
- 
+
 @Component({
   selector: 'app-accounting-tables',
   templateUrl: './accounting-tables.component.html',
@@ -40,12 +40,14 @@ export class AccountingTablesComponent implements OnInit {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
   private readonly sortModule: SortModule;
+  private startRow: string;
+  private endRow: string;
   appComponent:AppComponent;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  
-  constructor(private readonly injector:Injector,public refData?:MatDialog) {    
+
+  constructor(private readonly injector:Injector,public refData?:MatDialog) {
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.appComponent = this.injector.get<AppComponent>(AppComponent);
     this.messageError = new MessageErrorModule();
@@ -56,18 +58,20 @@ export class AccountingTablesComponent implements OnInit {
     this.totalRows = 0;
     this.sortModule = new SortModule;
     this.report = new ReportsModule();
+    this.startRow = '<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>';
+    this.endRow = '</b></td><td style="padding:5px">';
    }
 
   ngOnInit(): void {
     if(this.dataInfo.length !== 0){
-      this.onLoadTable(this.dataInfo); 
+      this.onLoadTable(this.dataInfo);
     }
   }
 
-  onLoadTable(dataInfo:Contabilidad[])  
+  onLoadTable(dataInfo:Contabilidad[])
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo=dataInfo;  
+    this.dataInfo=dataInfo;
     this.dataSource = new MatTableDataSource<Contabilidad>(this.dataInfo);
     this.totalRows  =this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -80,7 +84,7 @@ export class AccountingTablesComponent implements OnInit {
     if(this.dataSource.filter !== ''){
       return;
     }
-    
+
     if (!sort.active || sort.direction === '') {
       sortedData = data;
     }
@@ -170,49 +174,30 @@ export class AccountingTablesComponent implements OnInit {
       oConta.indicadorOperacion = oConta.indicadorOperacion === 'C'?'CARGO':'ABONO';
       let registro = '';
       registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; 
-      width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px; 
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important;
+      width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 2px solid black!important; padding:5px;
       text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sociedad </b></td><td style="padding:5px"> ${oConta.razonSocial} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-       Operación </b></td><td style="padding:5px">  ${oConta.descripcionTipo} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sub-Operación </b></td><td style="padding:5px">  ${oConta.descripcionSubtipo} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Contabilidad </b></td><td style="padding:5px">  ${oConta.contabilidadDiaria} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Número de Apunte </b></td><td style="padding:5px">  ${oConta.numeroApunte} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Sociedad GL </b></td><td style="padding:5px">  ${oConta.sociedadGl} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Tipo de Cuenta </b></td><td style="padding:5px">  ${oConta.tipoCuenta} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Indicador de Operación </b></td><td style="padding:5px">  ${oConta.indicadorOperacion} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Clase de Documento </b></td><td style="padding:5px">  ${oConta.claseDocumento} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Concepto </b></td><td style="padding:5px">  ${oConta.concepto} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Centro Destino </b></td><td style="padding:5px">  ${oConta.centroDestino} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      IVA </b></td><td style="padding:5px">  ${oConta.indicadorIVA} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-       Cuenta SAP </b></td><td style="padding:5px">  ${oConta.cuentaSAP} </td></tr>`);            
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Monetización </b></td><td style="padding:5px">  ${oConta.idReglaMonetizacion} </td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Inicio Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaInicio).format('DD/MM/YYYY')} </td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Fin Vigencia </b></td><td style="padding:5px">  ${moment(oConta.fechaFin).format('DD/MM/YYYY')} </td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Usuario </b></td><td style="padding:5px">  ${oConta.usuario} </td></tr>`);        
-      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-      Fecha </b></td><td style="padding:5px">  ${oConta.fecha} </td></tr>`);
-      return(swal.fire({             
-        html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
+      registro = registro.concat(`${this.startRow} Sociedad ${this.endRow} ${oConta.razonSocial} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Operación ${this.endRow}  ${oConta.descripcionTipo} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Sub-Operación ${this.endRow}  ${oConta.descripcionSubtipo} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Contabilidad ${this.endRow}  ${oConta.contabilidadDiaria} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Número de Apunte ${this.endRow}  ${oConta.numeroApunte} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Sociedad GL ${this.endRow}  ${oConta.sociedadGl} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Tipo de Cuenta ${this.endRow}  ${oConta.tipoCuenta} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Indicador de Operación ${this.endRow}  ${oConta.indicadorOperacion} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Clase de Documento ${this.endRow}  ${oConta.claseDocumento} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Concepto ${this.endRow}  ${oConta.concepto} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Centro Destino ${this.endRow}  ${oConta.centroDestino} </td></tr>`);
+      registro = registro.concat(`${this.startRow} IVA ${this.endRow}  ${oConta.indicadorIVA} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Cuenta SAP ${this.endRow}  ${oConta.cuentaSAP} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Monetización ${this.endRow}  ${oConta.idReglaMonetizacion} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Inicio Vigencia ${this.endRow}  ${moment(oConta.fechaInicio).format('DD/MM/YYYY')} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Fin Vigencia ${this.endRow}  ${moment(oConta.fechaFin).format('DD/MM/YYYY')} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Ultima Modificación ${this.endRow}</td></tr>`);
+      registro = registro.concat(`${this.startRow} Usuario ${this.endRow}  ${oConta.usuario} </td></tr>`);
+      registro = registro.concat(`${this.startRow} Fecha ${this.endRow}  ${oConta.fecha} </td></tr>`);
+      return(swal.fire({
+        html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
         Datos de la Contabilidad </div><br/> <br/>${registro}`,
         showCancelButton: false,
         width: '60%'

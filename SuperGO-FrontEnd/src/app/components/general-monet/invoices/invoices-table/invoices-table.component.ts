@@ -52,6 +52,8 @@ export class InvoicesTableComponent implements OnInit {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
   private readonly sortModule: SortModule;
+  private startRow: string;
+  private endRow: string;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
@@ -68,6 +70,8 @@ export class InvoicesTableComponent implements OnInit {
     this.showLoad = false;
     this.loaderDuration = 100;
     this.sortModule = new SortModule;
+    this.startRow = '<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>';
+    this.endRow = '</b></td><td style="padding:5px">';
    }
 
   ngOnInit(): void {
@@ -76,10 +80,10 @@ export class InvoicesTableComponent implements OnInit {
     }
   }
 
-  onLoadTable(dataInfo:Facturas[])  
+  onLoadTable(dataInfo:Facturas[])
   {
     this.containers = JSON.parse(localStorage.getItem('_auxForm') || '');
-    this.dataInfo = dataInfo;  
+    this.dataInfo = dataInfo;
     this.dataSource = new MatTableDataSource<any>(this.dataInfo);
     this.totalRows = this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
@@ -163,39 +167,24 @@ export class InvoicesTableComponent implements OnInit {
     let registro = '';
     const cfdi = oInvoice.usoCFDI === 'S' ? 'SI':'NO';
     registro = registro.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
-    2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom: 
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom:
+    2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  style="border-bottom:
     2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Sociedad </b></td><td style="padding:5px"> ${oInvoice.razonSocial} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionTipo} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Sub-Operación </b></td><td style="padding:5px"> ${oInvoice.descripcionSubtipo} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-     Monetización </b></td><td style="padding:5px"> ${oInvoice.idReglaMonetizacion} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Tipo de Comprobante </b></td><td style="padding:5px"> ${oInvoice.tipoComprobante} </td></tr>`);            
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>
-    Tipo de Factura </b></td><td style="padding:5px"> ${oInvoice.tipoFactura} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Método de Pago </b></td><td style="padding:5px"> ${oInvoice.metodo} </td></tr>`);        
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Código de Pago  </b></td><td style="padding:5px"> ${oInvoice.codigo} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Clave de Servicio </b></td><td style="padding:5px"> ${oInvoice.claveServicio} </td></tr>`);        
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Descripción de la Factura  </b></td><td style="padding:5px"> ${oInvoice.descripcionFactura} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    CFDI </b></td><td style="padding:5px">  ${cfdi} </td></tr>`);
-
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Ultima Modificación </b></td><td style="padding:5px"></td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Usuario </b></td><td style="padding:5px"> ${oInvoice.usuario} </td></tr>`);        
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b> 
-    Fecha  </b></td><td style="padding:5px"> ${oInvoice.fecha} </td></tr>`);
-     Swal.fire({             
+    registro = registro.concat(`${this.startRow} Sociedad ${this.endRow} ${oInvoice.razonSocial} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Operación ${this.endRow} ${oInvoice.descripcionTipo} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Sub-Operación ${this.endRow} ${oInvoice.descripcionSubtipo} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Monetización ${this.endRow} ${oInvoice.idReglaMonetizacion} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Tipo de Comprobante ${this.endRow} ${oInvoice.tipoComprobante} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Tipo de Factura ${this.endRow} ${oInvoice.tipoFactura} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Método de Pago ${this.endRow} ${oInvoice.metodoPago} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Código de Pago  ${this.endRow} ${oInvoice.formaPago} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Clave de Servicio ${this.endRow} ${oInvoice.claveServicio} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Descripción de la Factura  ${this.endRow} ${oInvoice.descripcionFactura} </td></tr>`);
+    registro = registro.concat(`${this.startRow} CFDI ${this.endRow} ${cfdi} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Ultima Modificación ${this.endRow}</td></tr>`);
+    registro = registro.concat(`${this.startRow} Usuario ${this.endRow} ${oInvoice.usuario} </td></tr>`);
+    registro = registro.concat(`${this.startRow} Fecha  ${this.endRow} ${oInvoice.fecha} </td></tr>`);
+     Swal.fire({
       html:`<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;">
        Datos de la Factura </div><br/> <br/>${registro}`,
       showCancelButton: false,

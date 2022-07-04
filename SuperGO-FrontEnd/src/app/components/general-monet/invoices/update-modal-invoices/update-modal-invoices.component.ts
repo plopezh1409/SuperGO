@@ -39,9 +39,9 @@ export class UpdateModalInvoicesComponent implements OnInit {
   private loaderDuration: number;
   private objIds:any={};
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  
+
   constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
-      public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+      public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.formInvService = this.injector.get<FormInvoicesService>(FormInvoicesService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
@@ -89,12 +89,12 @@ export class UpdateModalInvoicesComponent implements OnInit {
     oInvoice.tipoFactura = parseInt(dataContainer.tipoFactura,10);
     oInvoice.idReglaMonetizacion = this.objIds.idReglaMonetizacion;
 
-    oInvoice.codigo = dataContainer.codigo;
+    oInvoice.formaPago = dataContainer.formaPago;
     oInvoice.usoCFDI = dataContainer.usoCFDI;
-    oInvoice.descripcionFactura = dataContainer.descripcionFactura;
+    oInvoice.descripcionFactura = dataContainer.descripcionFactura.trim();
     oInvoice.claveServicio = dataContainer.claveServicio;
-    oInvoice.metodo = dataContainer.metodo;
-    
+    oInvoice.metodoPago = dataContainer.metodoPago;
+
     this.showLoader(true);
     this.formInvService.updateInvoce(oInvoice).pipe(finalize(() => {
       this.showLoader(false);
@@ -125,7 +125,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
     const oResponse:ResponseTable= new ResponseTable();
     return(this.refData?.close(oResponse));
   }
-    
+
    ngAfterViewChecked(): void {
     this.changeDetectorRef.detectChanges();
   }
