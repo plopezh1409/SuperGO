@@ -27,17 +27,16 @@ import { OperationsResponse } from '@app/core/models/ServiceResponseData/operati
 @Injectable({providedIn: 'root'})
 
 export class UpdateModalOperationsComponent implements OnInit {
-
-  formCatService:FormOperationsService;
-  reactiveForm:ReactiveForm;
-  containers:Container[];
-  alignContent='horizontal';
-  public control:Control = new Control;
-  private idOperation:number;
-  public showLoad: boolean;
   private readonly loaderDuration: number;
-  messageError:MessageErrorModule;
+  private messageError:MessageErrorModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private idOperation:number;
+  public formCatService:FormOperationsService;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public alignContent='horizontal';
+  public control:Control = new Control;
+  public showLoad: boolean;
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
       public refData?:MatDialogRef<UpdateModalOperationsComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
@@ -63,12 +62,7 @@ export class UpdateModalOperationsComponent implements OnInit {
 
   update(){
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     const jsonResult = this.reactiveForm.getModifyContainers(this.containers);
@@ -100,12 +94,7 @@ export class UpdateModalOperationsComponent implements OnInit {
           this.messageError.showMessageError(response.message.toString() ,response.code);
         }
       }, (err) => {
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: 'Por el momento no podemos proporcionar tu Solicitud.',
-          heightAuto: false
-        });
+        this.messageError.showMessageErrorRequest();
       });
   }
 
@@ -132,36 +121,19 @@ export class UpdateModalOperationsComponent implements OnInit {
     this.formCatService.getInfoOperation().pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:IResponseData<OperationsResponse>) => {
-        switch (response.code) {
-          case this.codeResponse.RESPONSE_CODE_200:
-            oResponse.status = true;
-            oResponse.data = response.response.tipoOperacion;
-            return(
-              this.refData?.close(oResponse)
-            );
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            return(
-              this.refData?.close(oResponse),
-              swal.fire({
-                icon: 'error',
-                title:'Error',
-                text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-                heightAuto: false
-              })
-            );
-          default:
-            break;
-        }
-      }, (err) => {
-        return(swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-          heightAuto: false
-        })
+      if( response.code === this.codeResponse.RESPONSE_CODE_200){
+        oResponse.status = true;
+        oResponse.data = response.response.tipoOperacion;
+        return(
+          this.refData?.close(oResponse)
+        );
+      }
+      else{
+        this.messageError.showMessageErrorLoadData();
+      }
+    }, (err) => {
+        return(
+          this.messageError.showMessageErrorLoadData()
         );
       });
   }

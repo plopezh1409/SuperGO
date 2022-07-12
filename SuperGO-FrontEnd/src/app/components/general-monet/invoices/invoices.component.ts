@@ -18,6 +18,7 @@ import { InvoicesResponse } from '@app/core/models/ServiceResponseData/invoices-
 import { DropdownEvent } from '@app/core/models/capture/dropdown-event.model';
 import { MonetizationModule } from '../monetization/helper/monetization/monetization.module';
 import { AuthService } from '@app/core/services/sesion/auth.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-invoices',
@@ -26,17 +27,17 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 })
 
 export class InvoicesComponent implements OnInit {
-  formInvoicesService:FormInvoicesService;
-  reactiveForm:ReactiveForm;
-  messageError:MessageErrorModule;
-  private authService: AuthService;
-  containers:Container[];
-  maxNumControls:number;
-  alignContent='horizontal';
-  public dataInfo:Facturas[];
-  public idSolicitud : string |null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
+  private formInvoicesService:FormInvoicesService;
+  private messageError:MessageErrorModule;
+  private authService: AuthService;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public maxNumControls:number;
+  public alignContent='horizontal';
+  public dataInfo:Facturas[];
+  public idSolicitud : string |null;
 
   @ViewChild(InvoicesTableComponent) catalogsTable:InvoicesTableComponent;
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
@@ -102,12 +103,7 @@ export class InvoicesComponent implements OnInit {
   onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     let dataContainer;
@@ -151,7 +147,7 @@ export class InvoicesComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+      this.messageError.showMessageErrorRequest();
     });
 
   }
@@ -230,34 +226,17 @@ export class InvoicesComponent implements OnInit {
     this.formInvoicesService.getInfoInvoices().pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:IResponseData<InvoicesResponse>)=>{
-      switch (data.code) {
-        case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response.facturas;
-          this.catalogsTable.onLoadTable(this.dataInfo);
-        break;
-      case this.codeResponse.RESPONSE_CODE_400:
-      case this.codeResponse.RESPONSE_CODE_401:
-      case this.codeResponse.RESPONSE_CODE_404:
-      case this.codeResponse.RESPONSE_CODE_500:
-        swal.fire({
-          icon: 'error',
-          title: 'Error inesperado',
-          text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-          heightAuto: false
-        });
-      break;
-      default:
-      break;
-    }
-},(err) => {
-  swal.fire({
-    icon: 'error',
-    title: 'Error inesperado',
-    text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-    heightAuto: false
-  });
-});
-}
+      if(data.code === this.codeResponse.RESPONSE_CODE_200){
+        this.dataInfo = data.response.facturas;
+        this.catalogsTable.onLoadTable(this.dataInfo);
+      }
+      else{
+        this.messageError.showMessageErrorLoadData();
+      }
+    },(err) => {
+      this.messageError.showMessageErrorLoadData();
+    });
+  }
 
 onChangeDropDown($event: DropdownEvent){
   if($event.control.ky !== 'idTipo' && $event.control.ky !== 'idSociedad') {
@@ -299,7 +278,7 @@ onChangeDropDown($event: DropdownEvent){
       this.messageError.showMessageError(data.message.toString(), data.code);
     }
   },(err) => {
-    this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+    this.messageError.showMessageErrorRequest();
   });
 }
 }

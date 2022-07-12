@@ -30,22 +30,23 @@ import moment from 'moment';
 })
 
 export class UpdateModalMonetizationComponent implements OnInit {
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
-  monetService:FormMonetizationsService;
-  reactiveForm:ReactiveForm;
-  messageError: MessageErrorModule;
-  containers:Container[];
-  alignContent='horizontal';
-  public control:Control = new Control;
-  public showLoad: boolean;
-  private readonly loaderDuration: number;
-  public showButtonAdd: boolean;
-  private selectedValRequest: DropdownEvent;
-  public principalContainers: Container[];
+  private monetService:FormMonetizationsService;
   private readonly periodicity:PeriodicityModule;
   private readonly monetModule:MonetizationModule;
   private objIds:any;
-  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly loaderDuration: number;
+  private selectedValRequest: DropdownEvent;
+  private messageError: MessageErrorModule;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public alignContent='horizontal';
+  public control:Control = new Control;
+  public showLoad: boolean;
+  public showButtonAdd: boolean;
+  public principalContainers: Container[];
+
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
       public refData?:MatDialogRef<UpdateModalMonetizationComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
@@ -123,12 +124,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
           heightAuto: false
         });
       }else{
-        swal.fire({
-          icon: 'warning',
-          title: 'Campos requeridos',
-          text: 'Complete los campos faltantes',
-          heightAuto: false
-        });
+        this.messageError.showMessageErrorForm();
       }
       this.restoreFields();
       return;
@@ -183,12 +179,7 @@ export class UpdateModalMonetizationComponent implements OnInit {
       }
     }, (err) => {
       this.restoreFields();
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: 'Por el momento no podemos proporcionar tu Solicitud.',
-          heightAuto: false
-        });
+      this.messageError.showMessageErrorLoadData();
       });
   }
 
@@ -198,37 +189,19 @@ export class UpdateModalMonetizationComponent implements OnInit {
     this.monetService.getDataMonetization().pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:IResponseData<MonetizationResponse>) => {
-        switch (response.code) {
-          case this.codeResponse.RESPONSE_CODE_200:
-            oResponse.status = true;
-            oResponse.data = this.monetModule.orderDate(response.response.reglas);
-          return(
-            this.refData?.close(oResponse)
-          );
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            return(
-              this.refData?.close(oResponse),
-              swal.fire({
-                icon: 'error',
-                title:'Error',
-                text: 'Ocurrio un error inesperado, intente más tarde.',
-                heightAuto: false
-              })
-            );
-          default:
-            break;
-        }
-      }, () => {
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
+        oResponse.status = true;
+        oResponse.data = this.monetModule.orderDate(response.response.reglas);
         return(
-        swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrio un error inesperado, intente más tarde.',
-          heightAuto: false
-        })
+          this.refData?.close(oResponse)
+        );
+      }
+      else {
+        this.messageError.showMessageErrorLoadData();
+      }
+    }, () => {
+        return(
+          this.messageError.showMessageErrorLoadData()
         );
       });
   }

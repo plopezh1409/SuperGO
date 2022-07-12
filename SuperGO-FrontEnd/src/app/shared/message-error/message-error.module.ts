@@ -60,4 +60,22 @@ export class MessageErrorModule {
     }); 
   }
 
+  showMessageErrorRequest(){
+    swal.fire({
+      icon: 'error',
+      title: 'Lo sentimos',
+      text: 'Por el momento no podemos proporcionar tu Solicitud.',
+      heightAuto: false
+    });
+  }
+
+  showMessageErrorForm(){
+    swal.fire({
+      icon: 'warning',
+      title: 'Campos requeridos',
+      text: 'Complete los campos faltantes',
+      heightAuto: false
+    });
+  }
+
  }

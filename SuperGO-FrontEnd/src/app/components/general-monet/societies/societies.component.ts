@@ -30,15 +30,14 @@ export class SocietiesComponent implements OnInit {
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private authService: AuthService;
   private societyService:FormCatService;
+  private idSolicitud : string | null;
+  private messageError:MessageErrorModule;
+  private dataInfo:Sociedad[];
   public reactiveForm:ReactiveForm;
-  public messageError:MessageErrorModule;
   public containers:Container[];
   public maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   public alignContent='horizontal';
-  public control: Control = new Control;
-  public dataInfo:Sociedad[];
   public showLoad: boolean;
-  public idSolicitud : string | null;
 
   @ViewChild(SocietiesTableComponent) catalogsTable:SocietiesTableComponent;
 
@@ -68,12 +67,7 @@ export class SocietiesComponent implements OnInit {
   onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     let dataForm;
@@ -108,7 +102,7 @@ export class SocietiesComponent implements OnInit {
           this.messageError.showMessageError(response.message.toString(), response.code);
         }
       }, (err) => {
-          this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+          this.messageError.showMessageErrorRequest();
       });
   }
 
@@ -150,19 +144,18 @@ export class SocietiesComponent implements OnInit {
 
   updateTable(){
     this.appComponent.showLoader(true);
-    const message = 'Ocurrió un error al cargar los datos, intente mas tarde.';
     this.societyService.getInfoSocieties().pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((response:IResponseData<SocietiesResponse>)=>{
-      if( this.codeResponse.RESPONSE_CODE_200 === 200){
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
         this.dataInfo = response.response.sociedades;
         this.catalogsTable.onLoadTable(this.dataInfo);
       }
       else{
-        this.messageError.showMessageError(message ,response.code);
+        this.messageError.showMessageErrorLoadData();
       }
     },(err) => {
-      this.messageError.showMessageError(message ,500);
+      this.messageError.showMessageErrorLoadData();
     });
 }
 

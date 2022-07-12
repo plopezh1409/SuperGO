@@ -6,7 +6,7 @@ import { FormCatService } from '@app/core/services/catalogs/formCat.service';
 import { finalize } from 'rxjs/operators';
 import swal from 'sweetalert2';
 
-//MODELS 
+//MODELS
 import { Control } from '@app/core/models/capture/controls.model';
 import { Sociedad } from '@app/core/models/catalogos/sociedad.model';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
@@ -24,19 +24,19 @@ import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societie
 @Injectable({providedIn: 'root'})
 
 export class UpdateModalSocietiesComponent implements OnInit {
-  societyService:FormCatService;
-  reactiveForm:ReactiveForm;
-  messageError:MessageErrorModule;
-  containers:Container[];
-  alignContent='horizontal';
-  public control:Control = new Control;
-  public showLoad: boolean;
+  private societyService:FormCatService;
+  private messageError:MessageErrorModule;
   private readonly loaderDuration: number;
   private idSociety:number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public alignContent='horizontal';
+  public control:Control = new Control;
+  public showLoad: boolean;
 
   constructor(private readonly injector:Injector, public refData?:MatDialogRef<UpdateModalSocietiesComponent>,
-      @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+      @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.societyService = this.injector.get<FormCatService>(FormCatService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
@@ -45,7 +45,6 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.showLoad = false;
     this.idSociety = 0;
   }
-  
 
   ngOnInit(): void {
     this.containers = this.dataModal.auxForm;
@@ -55,15 +54,10 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.control.setDataToControls(this.containers, this.dataModal.dataModal);
     this.reactiveForm.setContainers(this.containers);
   }
-  
+
   modify(){
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     const dataForm = this.reactiveForm.getModifyContainers(this.containers);
@@ -80,7 +74,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           this.reactiveForm.setContainers(this.containers);
           swal.fire({
             icon: 'success',
-            title: 'Solicitud Correcta  ',
+            title: 'Solicitud Correcta',
             text: response.message.toString().toUpperCase(),
             heightAuto: false,
             allowOutsideClick: false,
@@ -95,7 +89,7 @@ export class UpdateModalSocietiesComponent implements OnInit {
           this.messageError.showMessageError(response.message.toString(), response.code);
         }
       }, (err) => {
-        this.messageError.showMessageError('Por el momento no podemos proporcionar tu Solicitud.', err.status);      
+        this.messageError.showMessageErrorRequest();
       });
   }
 
@@ -105,37 +99,22 @@ export class UpdateModalSocietiesComponent implements OnInit {
     this.societyService.getInfoSocieties().pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:IResponseData<SocietiesResponse>) => {
-        switch(response.code){
-          case this.codeResponse.RESPONSE_CODE_200:
+        if(response.code === this.codeResponse.RESPONSE_CODE_200){
             oResponse.status = true;
             oResponse.data = response.response.sociedades;
             return(
               this.refData?.close(oResponse)
             );
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            return(
-              this.refData?.close(oResponse),
-              swal.fire({
-                icon: 'error',
-                title:'Error',
-                text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-                heightAuto: false
-              })
-            );
-          default:
-          break;
+        }
+        else {
+          return(
+            this.refData?.close(oResponse),
+            this.messageError.showMessageErrorLoadData()
+          );
         }
       }, (err) => {
         return(
-        swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-          heightAuto: false
-        })
+          this.messageError.showMessageErrorLoadData()
         );
       });
   }

@@ -32,17 +32,17 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 
 export class OperationsComponent implements OnInit {
 
-  formCatService:FormOperationsService;
-  reactiveForm:ReactiveForm;
-  messageError:MessageErrorModule;
-  private authService: AuthService;
-  containers:Container[];
-  maxNumControls:number;
-  alignContent='horizontal';
-  public dataInfo:Operaciones[];
-  public idSolicitud: string | null;
+  private formCatService:FormOperationsService;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly dropDownFunc: DropdownFunctionality;
+  private messageError:MessageErrorModule;
+  private authService: AuthService;
+  private idSolicitud: string | null;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public maxNumControls:number;
+  public alignContent='horizontal';
+  public dataInfo:Operaciones[];
 
   @ViewChild(OperationsTableComponent) catalogsTable:OperationsTableComponent;
 
@@ -73,12 +73,7 @@ export class OperationsComponent implements OnInit {
   onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     let dataBody;
@@ -113,7 +108,7 @@ export class OperationsComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+      this.messageError.showMessageErrorRequest();
     });
   }
 
@@ -152,7 +147,7 @@ export class OperationsComponent implements OnInit {
       this.catalogsTable.onLoadTable(this.dataInfo);
     }
   }
-  
+
   addDataDropdown(dataForm:Container[], dataContent:any){
     let cpDataContent:any = Object.assign({},dataContent);
     delete cpDataContent.tipoOperacion;
@@ -175,32 +170,15 @@ export class OperationsComponent implements OnInit {
     this.formCatService.getInfoOperation().pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:IResponseData<OperationsResponse>)=>{
-      switch (data.code) {
-        case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = data.response.tipoOperacion;
-          this.catalogsTable.onLoadTable(this.dataInfo);
-        break;
-        case this.codeResponse.RESPONSE_CODE_400:
-        case this.codeResponse.RESPONSE_CODE_401:
-        case this.codeResponse.RESPONSE_CODE_404:
-        case this.codeResponse.RESPONSE_CODE_500:
-          swal.fire({
-            icon: 'error',
-            title: 'Error inesperado',
-            text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-            heightAuto: false
-          });
-        break;
-        default:
-        break;
+      if( data.code === this.codeResponse.RESPONSE_CODE_200){
+        this.dataInfo = data.response.tipoOperacion;
+        this.catalogsTable.onLoadTable(this.dataInfo);
+      }
+      else{
+        this.messageError.showMessageErrorLoadData();
       }
     },(err) => {
-      swal.fire({
-      icon: 'error',
-      title: 'Error inesperado',
-      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-      heightAuto: false
-    });      
+      this.messageError.showMessageErrorLoadData();
   });
   }
 }

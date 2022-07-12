@@ -39,21 +39,22 @@ import moment from 'moment';
 export class InvoicesTableComponent implements OnInit {
 
   @Input()dataInfo:Facturas[];
-  dataSource:MatTableDataSource<Facturas>;
-  formInvoicesService:FormInvoicesService;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipo','descripcionSubtipo', 'idReglaMonetizacion','tipoComprobante','tipoFactura', 'usuario', 'fecha','options', 'options2'];
-  totalRows:number;
-  pageEvent: PageEvent;
-  containers:Container[];
-  messageError:MessageErrorModule;
-  public showLoad: boolean;
-  public readonly loaderDuration: number;
   private readonly appComponent: AppComponent;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
   private readonly sortModule: SortModule;
   private startRow: string;
   private endRow: string;
+  private formInvoicesService:FormInvoicesService;
+  private messageError:MessageErrorModule;
+  public displayedColumns: string[] = ['razonSocial', 'descripcionTipo','descripcionSubtipo', 'idReglaMonetizacion','tipoComprobante','tipoFactura', 'usuario', 'fecha','options', 'options2'];
+  public totalRows:number;
+  public dataSource:MatTableDataSource<Facturas>;
+  public pageEvent: PageEvent;
+  public containers:Container[];
+  public showLoad: boolean;
+  public readonly loaderDuration: number;
+
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
@@ -158,8 +159,8 @@ export class InvoicesTableComponent implements OnInit {
       }
     },(err) => {
       return(
-      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status)
-      );
+        this.messageError.showMessageErrorLoadData()
+        );
     });
   }
 

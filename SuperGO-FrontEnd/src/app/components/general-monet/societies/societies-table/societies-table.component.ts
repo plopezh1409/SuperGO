@@ -21,16 +21,15 @@ import FileSaver from 'file-saver';
 })
 
 export class SocietiesTableComponent implements OnInit {
-  dataInfo:Sociedad[];
-  dataSource:MatTableDataSource<Sociedad>;
-  displayedColumns: string[] = ['idProveedorSAP', 'razonSocial', 'rfc', 'descripcionTipo', 'codigoPostal' ,'usuario' ,'fecha', 'options', 'options2'];
-  totalRows:number;
-  containers:Container[];
-  report: ReportsModule;
-  sortModule: SortModule;
+  private dataInfo:Sociedad[];
+  private containers:Container[];
+  private report: ReportsModule;
+  private sortModule: SortModule;
   private startRow: string;
   private endRow: string;
-
+  public dataSource:MatTableDataSource<Sociedad>;
+  public displayedColumns: string[] = ['idProveedorSAP', 'razonSocial', 'rfc', 'descripcionTipo', 'codigoPostal' ,'usuario' ,'fecha', 'options', 'options2'];
+  public totalRows:number;
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
 
@@ -43,7 +42,6 @@ export class SocietiesTableComponent implements OnInit {
     this.sortModule = new SortModule;
     this.endRow = '</b></td><td style="padding:5px">';
     this.startRow = '<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px"><b>';
-
    }
 
   ngOnInit(): void {

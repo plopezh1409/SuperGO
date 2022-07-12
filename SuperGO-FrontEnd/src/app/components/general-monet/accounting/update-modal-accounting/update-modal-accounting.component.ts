@@ -23,22 +23,20 @@ import { threadId } from 'worker_threads';
 })
 
 export class UpdateModalAccountingComponent implements OnInit {
-
-  accountingService:FormAccountingsService;
-  reactiveForm:ReactiveForm;
-  messageError: MessageErrorModule;
-  containers:Container[];
-  alignContent='horizontal';
-  public control:Control = new Control;
-  public showLoad: boolean;
-  private readonly loaderDuration: number;
-  private objIds:{};
-  idReglaMonetizacion:number;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private readonly loaderDuration: number;
+  private accountingService:FormAccountingsService;
+  private objIds:{};
+  private idReglaMonetizacion:number;
+  private messageError: MessageErrorModule;
+  public showLoad: boolean;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public alignContent='horizontal';
+  public control:Control = new Control;
 
-  
   constructor(private readonly changeDetectorRef: ChangeDetectorRef,private readonly injector:Injector,
-      public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) { 
+      public refData?:MatDialogRef<UpdateModalAccountingComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
     this.accountingService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.reactiveForm = new ReactiveForm();
     this.containers=[];
@@ -72,12 +70,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       this.disabledFields(true);
       this.reactiveForm.setContainers(this.containers);
       return;
@@ -123,12 +116,7 @@ export class UpdateModalAccountingComponent implements OnInit {
       }
     }, (err) => {
       this.restoreFields();
-        swal.fire({
-          icon: 'error',
-          title: 'Lo sentimos',
-          text: 'Por el momento no podemos proporcionar su Solicitud.',
-          heightAuto: false
-        });
+      this.messageError.showMessageErrorRequest();
       });
   }
 
@@ -138,36 +126,21 @@ export class UpdateModalAccountingComponent implements OnInit {
     this.accountingService.getInfoAccounting().pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:IResponseData<AccountingResponse>) => {
-        switch (response.code) {
-          case this.codeResponse.RESPONSE_CODE_200:
-            oResponse.status = true;
-            oResponse.data = this.orderDate(response.response.contabilidad);
-          return(
-            this.refData?.close(oResponse)
-            );
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            return(
-              this.refData?.close(oResponse),
-              swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-                heightAuto: false
-              })
-            );
-            default: break;
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
+        oResponse.status = true;
+        oResponse.data = this.orderDate(response.response.contabilidad);
+        return( this.refData?.close(oResponse) );
+      }
+      else{
+        return(
+          this.refData?.close(oResponse),
+          this.messageError.showMessageErrorLoadData()
+          );
         }
       },() => {
         return(
-        swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-          heightAuto: false
-        }));
+          this.messageError.showMessageErrorLoadData()
+          );
       });
   }
 
@@ -179,7 +152,7 @@ export class UpdateModalAccountingComponent implements OnInit {
     return contabilidad;
   }
 
-  
+
   close(): void | undefined{
     return(
       this.refData?.close());

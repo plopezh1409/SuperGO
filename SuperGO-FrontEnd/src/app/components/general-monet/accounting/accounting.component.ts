@@ -27,26 +27,23 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 })
 
 export class AccountingComponent implements OnInit {
-
-  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
-  accountService:FormAccountingsService;
-  reactiveForm:ReactiveForm;
-  messageError:MessageErrorModule;
-  private authService: AuthService;
-  containers:Container[];
-  maxNumControls:number;
-  alignContent='horizontal';
-  public dataInfo:Contabilidad[];
-  public idSolicitud: string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
   private readonly monetizationModule: MonetizationModule = new MonetizationModule();
-
+  private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
+  private accountService:FormAccountingsService;
+  private messageError:MessageErrorModule;
+  private authService: AuthService;
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public maxNumControls:number;
+  public alignContent='horizontal';
+  public dataInfo:Contabilidad[];
+  public idSolicitud: string | null;
 
   @ViewChild(AccountingTablesComponent) catalogsTable:AccountingTablesComponent;
 
-
   constructor( private readonly appComponent: AppComponent, private readonly injector:Injector,
-    private readonly _route: ActivatedRoute) { 
+    private readonly _route: ActivatedRoute) {
     this.accountService = this.injector.get<FormAccountingsService>(FormAccountingsService);
     this.authService = this.injector.get<AuthService>(AuthService);
     this.reactiveForm = new ReactiveForm();
@@ -71,15 +68,10 @@ export class AccountingComponent implements OnInit {
   onSubmit(value:{})
   {
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
-    
+
     let dataBody;
     for(const datas of Object.values(value)){
       dataBody = Object(datas);
@@ -122,7 +114,7 @@ export class AccountingComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+      this.messageError.showMessageErrorRequest();
     });
 
   }
@@ -187,7 +179,7 @@ export class AccountingComponent implements OnInit {
           }
         });
       }
-      
+
       dataForm.forEach((element:Container) => {
         element.controls.forEach((ctrl:Control) => {
           if(ctrl.controlType === 'dropdown' && ctrl.content){
@@ -213,32 +205,15 @@ export class AccountingComponent implements OnInit {
     this.accountService.getInfoAccounting().pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:IResponseData<AccountingResponse>)=>{
-      switch (data.code) {
-        case this.codeResponse.RESPONSE_CODE_200:
-            this.dataInfo = this.orderDate(data.response.contabilidad);
-            this.catalogsTable.onLoadTable(this.dataInfo);
-          break;
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            swal.fire({
-              icon: 'error',
-              title: 'Error inesperado',
-              text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-              heightAuto: false
-            });
-          break;
-        default:
-        break;
-        }
+      if(data.code === this.codeResponse.RESPONSE_CODE_200){
+        this.dataInfo = this.orderDate(data.response.contabilidad);
+        this.catalogsTable.onLoadTable(this.dataInfo);
+      }
+      else {
+        this.messageError.showMessageErrorLoadData();
+      }
     },() => {
-      swal.fire({
-        icon: 'error',
-        title: 'Error inesperado',
-        text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-        heightAuto: false
-      });      
+      this.messageError.showMessageErrorLoadData();
     });
   }
 
@@ -282,7 +257,7 @@ export class AccountingComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+      this.messageError.showMessageErrorRequest();
     });
   }
 }

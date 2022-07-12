@@ -29,14 +29,8 @@ import { SortModule } from '@app/shared/sort/sort.module';
 export class MonetizationTableComponent implements OnInit {
 
   @Input()dataInfo:Monetizacion[];
-  dataSource:MatTableDataSource<Monetizacion>;
-  displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion', 'fechaInicio','fechaFin',
-  'usuario','fecha','options', 'options2'];
-  totalRows:number;
-  pageEvent: PageEvent;
-  containers:Container[];
-  monetService:FormMonetizationsService;
-  messageError:MessageErrorModule;
+  private monetService:FormMonetizationsService;
+  private messageError:MessageErrorModule;
   private readonly controlDecimal: ControlDecimal;
   private readonly monetModule:MonetizationModule;
   private readonly periodicity: PeriodicityModule;
@@ -46,7 +40,12 @@ export class MonetizationTableComponent implements OnInit {
   private readonly sortModule: SortModule;
   private startRow: string;
   private endRow: string;
-
+  public dataSource:MatTableDataSource<Monetizacion>;
+  public displayedColumns: string[] = ['razonSocial', 'descripcionTipo', 'descripcionSubtipo', 'idReglaMonetizacion', 'fechaInicio','fechaFin',
+                                       'usuario','fecha','options', 'options2'];
+  public totalRows:number;
+  public pageEvent: PageEvent;
+  public containers:Container[];
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;

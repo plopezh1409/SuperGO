@@ -29,16 +29,16 @@ import { ResponseTable } from '@app/core/models/responseGetTable/responseGetTabl
 @Injectable({providedIn: 'root'})
 
 export class UpdateModalInvoicesComponent implements OnInit {
-  formInvService:FormInvoicesService;
-  reactiveForm:ReactiveForm;
-  messageError:MessageErrorModule;
-  containers:Container[];
-  alignContent='horizontal';
-  public control:Control = new Control;
-  public showLoad: boolean;
+  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private formInvService:FormInvoicesService;
+  private messageError:MessageErrorModule;
   private loaderDuration: number;
   private objIds:any={};
-  private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  public reactiveForm:ReactiveForm;
+  public containers:Container[];
+  public alignContent='horizontal';
+  public control:Control = new Control;
+  public showLoad: boolean;
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef, private readonly injector:Injector,
       public refData?:MatDialogRef<UpdateModalInvoicesComponent>, @Inject(MAT_DIALOG_DATA)public dataModal?:any) {
@@ -70,12 +70,7 @@ export class UpdateModalInvoicesComponent implements OnInit {
     this.control.setDataToControls(this.containers,cpyModal);
     this.reactiveForm.setContainers(this.containers);
     if(!this.reactiveForm.principalForm?.valid){
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       this.restoreFields();
       return;
     }
@@ -117,9 +112,9 @@ export class UpdateModalInvoicesComponent implements OnInit {
           this.messageError.showMessageError(response.message.toString() ,response.code);
         }
       }, (err) => {
-        this.messageError.showMessageError('Por el momento no podemos proporcionar su Solicitud.', err.status);
+        this.messageError.showMessageErrorLoadData();
       });
-  }
+    }
 
   close(){
     const oResponse:ResponseTable= new ResponseTable();
@@ -142,35 +137,21 @@ export class UpdateModalInvoicesComponent implements OnInit {
     this.formInvService.getInfoInvoices().pipe(finalize(() => {
       this.showLoader(false);
     })).subscribe((response:IResponseData<InvoicesResponse>) => {
-        switch (response.code) {
-          case this.codeResponse.RESPONSE_CODE_200:
-            oResponse.status = true;
-            oResponse.data = response.response.facturas;
-            return(this.refData?.close(oResponse));
-          case this.codeResponse.RESPONSE_CODE_400:
-          case this.codeResponse.RESPONSE_CODE_401:
-          case this.codeResponse.RESPONSE_CODE_404:
-          case this.codeResponse.RESPONSE_CODE_500:
-            return(
-              this.refData?.close(oResponse),
-              swal.fire({
-                icon: 'error',
-                title:'Error',
-                text: 'Ocurrio un error inesperado, intente más tarde.',
-                heightAuto: false
-              })
-            );
-          default:
-            break;
-        }
-      }, (err) => {
+      if(response.code === this.codeResponse.RESPONSE_CODE_200){
+        oResponse.status = true;
+        oResponse.data = response.response.facturas;
+        return(this.refData?.close(oResponse));
+      }
+      else{
         return(
-        swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrio un error inesperado, intente más tarde.',
-          heightAuto: false
-        }));
+          this.refData?.close(oResponse),
+          this.messageError.showMessageErrorLoadData()
+        );
+      }
+    }, (err) => {
+        return(
+          this.messageError.showMessageErrorLoadData()
+          );
       });
   }
 

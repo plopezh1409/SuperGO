@@ -26,13 +26,13 @@ import moment from 'moment';
 export class OperationsTableComponent implements OnInit {
 
   @Input()dataInfo:Operaciones[];
-  dataSource:MatTableDataSource<Operaciones>;
-  displayedColumns: string[] = ['descripcionTipo', 'descripcionCanal', 'topicoKafka', 'status',  'usuario' ,'fecha','options', 'options2'];
-  totalRows:number;
-  containers:Container[];
   private readonly sortModule: SortModule;
   private startRow: string;
   private endRow: string;
+  public dataSource:MatTableDataSource<Operaciones>;
+  public displayedColumns: string[] = ['descripcionTipo', 'descripcionCanal', 'topicoKafka', 'status',  'usuario' ,'fecha','options', 'options2'];
+  public totalRows:number;
+  public containers:Container[];
 
   @ViewChild(MatPaginator)  paginator!: MatPaginator;
 

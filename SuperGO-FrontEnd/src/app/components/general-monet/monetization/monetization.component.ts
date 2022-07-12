@@ -34,21 +34,21 @@ import { AuthService } from '@app/core/services/sesion/auth.service';
 
 export class MonetizationComponent implements OnInit {
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
-  monetService: FormMonetizationsService;
-  messageError: MessageErrorModule;
-  reactiveForm: ReactiveForm;
-  private authService: AuthService;
-  containers: Container[];
-  maxNumControls: number;
-  alignContent = 'horizontal';
-  public dataInfo: Monetizacion[];
-  public showButtonAdd: boolean;
-  private selectedValRequest: DropdownEvent;
-  public principalContainers: Container[];
-  public idSolicitud: string | null;
   private readonly periodicity: PeriodicityModule;
   private readonly monetModule: MonetizationModule;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
+  private monetService: FormMonetizationsService;
+  private messageError: MessageErrorModule;
+  private selectedValRequest: DropdownEvent;
+  private authService: AuthService;
+  public reactiveForm: ReactiveForm;
+  public containers: Container[];
+  public maxNumControls: number;
+  public alignContent = 'horizontal';
+  public dataInfo: Monetizacion[];
+  public showButtonAdd: boolean;
+  public principalContainers: Container[];
+  public idSolicitud: string | null;
 
   @ViewChild(MonetizationTableComponent) catalogsTable: MonetizationTableComponent;
 
@@ -87,12 +87,7 @@ export class MonetizationComponent implements OnInit {
     }
     let data = dataForm.montoMonetizacion.replace(/[$\s,]/g,'');
     if (!this.reactiveForm.principalForm?.valid || dataForm.codigoDivisa === '') {
-      swal.fire({
-        icon: 'warning',
-        title: 'Campos requeridos',
-        text: 'Complete los campos faltantes',
-        heightAuto: false
-      });
+      this.messageError.showMessageErrorForm();
       return;
     }
     if ((Date.parse(dataForm.fechaInicio) + 1) > Date.parse(dataForm.fechaFin)) {
@@ -151,7 +146,7 @@ export class MonetizationComponent implements OnInit {
         this.messageError.showMessageError(data.message.toString(), data.code);
       }
     },(err) => {
-      this.messageError.showMessageErrorLoadData();
+      this.messageError.showMessageErrorRequest();
   });
   }
 
@@ -252,28 +247,16 @@ export class MonetizationComponent implements OnInit {
     this.monetService.getDataMonetization().pipe(finalize(() => {
       this.appComponent.showLoader(false);
     })).subscribe((data:IResponseData<MonetizationResponse>)=>{
-      switch (data.code) {
-        case this.codeResponse.RESPONSE_CODE_200:
-          this.dataInfo = this.monetModule.orderDate(data.response.reglas);
-          this.catalogsTable.onLoadTable(this.dataInfo);
-        break;
-        case this.codeResponse.RESPONSE_CODE_400:
-        case this.codeResponse.RESPONSE_CODE_401:
-        case this.codeResponse.RESPONSE_CODE_404:
-        case this.codeResponse.RESPONSE_CODE_500:
-          this.messageError.showMessageErrorLoadData();
-        break;
-        default:
-        break;
+      if(data.code === this.codeResponse.RESPONSE_CODE_200){
+        this.dataInfo = this.monetModule.orderDate(data.response.reglas);
+        this.catalogsTable.onLoadTable(this.dataInfo);
+      }
+      else{
+        this.messageError.showMessageErrorLoadData();
       }
     },(err) => {
-      swal.fire({
-      icon: 'error',
-      title: 'Error inesperado',
-      text: 'Ocurrió un error al cargar los datos, intente mas tarde.',
-      heightAuto: false
+      this.messageError.showMessageErrorLoadData();
     });
-  });
   }
 
   // // metodos de visibility//
