@@ -15,7 +15,6 @@ import { ActivatedRoute } from '@angular/router';
 import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
 import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
 import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
-import { Control } from '@app/core/models/capture/controls.model';
 import { AuthService } from '@app/core/services/sesion/auth.service';
 
 

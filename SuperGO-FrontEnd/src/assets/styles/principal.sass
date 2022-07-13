@@ -3,6 +3,7 @@ $gray: #676666
 $purple: #6E18B8
 $white: white
 $blue: #4FA4DD
+$black: #000000
 .toastConfig
   color: $white
   margin-top: 70px !important
@@ -287,7 +288,7 @@ body
   margin-right: 10%
   margin-bottom: 10px
   margin-top: 10px
-  font-size: 17px
+  font-size: 14px
   cursor: pointer
   outline: none
   width: 100px
@@ -341,13 +342,13 @@ body
 
 .btnDownload
   border: none
-  background-color: $purple
+  background-color: $white
   border-radius: 3px
-  color: $white
+  color: $blue
   margin-right: 10%
   margin-bottom: 10px
   margin-top: 10px
-  font-size: 17px
+  font-size: 14px
   cursor: pointer
   outline: none
   height:40px
@@ -364,3 +365,9 @@ body
 .btns-update-style
   display: flex
   justify-content: space-evenly
+
+
+.btnDownload:hover
+  background-color: $white
+  color: $blue
+  transform: scale(1.05)
