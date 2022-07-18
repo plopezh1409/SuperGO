@@ -5,18 +5,15 @@ export const environment = {
 
 
    //urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRGjnfpLHl3gj1bTkC86zLDY=', //    4LF4 Piso 3
-  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK', //    4LF4 Piso 7
-  // urlSuperGo: '2OQaFccQZxyqX6RFqpIT05+rc/FerWl2mhQXGJDBc+w15dIwqRQb1daEAZ9sZa+L',      //Robert 
-  // urlSuperGo: '2OQaFccQZxyqX6RFqpIT0zbkV2gr34h3UbgbG1xMoMeejxo3xK4qa2+6/br4JRl/', //Ambiente de Desarrollo (10.82.56.245)
-  //  urluperGo: '2OQaFccQZxyqX6RFqpIT08pEZsTGK5sovUmeIudsW4v/l/XdtIbrxz2UIybrs/I8', //Ambiente de Desarrollo (10.82.56.245)
+  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+auCF0w6ZUWRlNP6VMGkEeoV95/aFyH0ukmsGkemD5mK',       //4LF4 Piso 7
   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+VoLmmMRyh3XY8hTT45PK0iWB5fyLVdvHXYgjTlrmxDM',
-  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy', //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
-  //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRKgHXsO0c05K0iVECT98PHw4n+bBp60ePqty2ycMeMXO', //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
-    // urlSuperGo: 'Po0YTHkz4baZgjBPPRLUIE2HnhsxY2Oby5+kLgKTLXBkEaUf5vLOIc8L7pf2b7P4', //LOCALHOST J0RG3
-  // urlSuperGo: '2OQaFccQZxyqX6RFqpIT0zbkV2gr34h3UbgbG1xMoMeejxo3xK4qa2+6/br4JRl/',//DESA http://10.82.56.245:8543/GestorOperaAPI/ 
-   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',          //4LF4 Piso 7 (GestorOperaAPI/)
-   urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRJLIsEnFNtJxDf/gE52VZSCZUDQ7Ci91xnD909NzOGd+',      //4LF4 Piso 3 (GestorOperaAPI/)
-   urlServices: '2OQaFccQZxyqX6RFqpIT01ZOtbjYQmsXI7fehUqAPNZMNRKjGmMyZn0Tt2YZiMGk',  //DESA http://10.82.56.245:9091/Monetizador-0.0.1/swagger-ui.html
+  // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+bXa/1YqZn3lsSwnGfo2m6tccpxIBemhxLwOiH0jEIuy',       //Alejandro Piso 7 10.112.69.172:8090/SUPERGO 
+  //  urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRKgHXsO0c05K0iVECT98PHw4n+bBp60ePqty2ycMeMXO',      //Alejandro Piso 10.112.53.80:8090/APIGO-0.0.1/ 
+    // urlSuperGo: 'Po0YTHkz4baZgjBPPRLUIE2HnhsxY2Oby5+kLgKTLXBkEaUf5vLOIc8L7pf2b7P4',     //LOCALHOST J0RG3
+   urlSuperGo: '2OQaFccQZxyqX6RFqpIT0zbkV2gr34h3UbgbG1xMoMeejxo3xK4qa2+6/br4JRl/',         //DESA http://10.82.56.245:8543/GestorOperaAPI/ 
+   // urlSuperGo: 'VSDb6LXNsz2SKU+aK/U/+QEwzMvteNMlC6hgneOwAP9s6mkNY69nizjuatoq2nGT',      //4LF4 Piso 7 (GestorOperaAPI/)
+   //urlSuperGo: 'CLJnt8qCx1oTLQMUjKeVRJLIsEnFNtJxDf/gE52VZSCZUDQ7Ci91xnD909NzOGd+',       //4LF4 Piso 3 (GestorOperaAPI/)
+   urlServices: '2OQaFccQZxyqX6RFqpIT01ZOtbjYQmsXI7fehUqAPNZMNRKjGmMyZn0Tt2YZiMGk',        //DESA http://10.82.56.245:9091/Monetizador-0.0.1/swagger-ui.html
   // K1L0
 
     // urlSuperGo: 'qnuLv7SMRPSjOanKK3t3lYPgkG7DLhZqcC3GwuEeMxo=',                          //8R4V0  (APIGO/)
