@@ -14,17 +14,16 @@ import { FORMATOS_FECHA } from '@app/components/reactive-form/controls/datepicke
 import moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { BoardService } from '@app/core/services/board/board.service';
+import { FigureService } from '@app/core/services/figure/figure.service';
 
-import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 @Component({
-  selector: 'app-board-table',
-  templateUrl: './board-table.component.html',
-  styleUrls: ['./board-table.component.sass'],
+  selector: 'app-operational-table',
+  templateUrl: './operational-table.component.html',
+  styleUrls: ['./operational-table.component.sass'],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -33,7 +32,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
   ]
 })
 
-export class BoardTableComponent implements OnInit {
+export class OperationalTableComponent implements OnInit {
 
   dateRange = new FormGroup({
     start: new FormControl(),
@@ -47,11 +46,11 @@ export class BoardTableComponent implements OnInit {
   dataSource: MatTableDataSource<DatosDeSalida>;
   dataSourceHeader: MatTableDataSource<Tablero>;
   // displayedColumnsHeader: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo'];
-  displayedColumns: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo','FECHA_DE_OPERACION', 'numeroOperaciones', 'montoOperaciones', 'numeroOperaciones2', 'montoOperaciones2', 'montoMonetizacion', 'iva', 'montoTotal', 'fechaCorte', 'semana', 'razonSocial', 'documentoContable', 'fechaContable', 'cuentaBalance', 'montoBalance', 'cuentaResultados', 'montoResultados', 'options'];
+  displayedColumns: string[] = ['suid','montoMonetizacion','descripcionTipo','razonSocial','montoOperaciones','documentoContable'];
   totalRows: number;
   containers: Container[];
   sortModule: SortModule;
-  boardService:BoardService;
+  boardService:FigureService;
   messageError:MessageErrorModule;
   
 
@@ -59,7 +58,7 @@ export class BoardTableComponent implements OnInit {
   currentProject: any;
 
   constructor(private readonly injector: Injector, public refData?: MatDialog,) {
-    this.boardService = this.injector.get<BoardService>(BoardService);
+    this.boardService = this.injector.get<FigureService>(FigureService);
     this.dataInfo = [];
     this.containers = [];
     this.totalRows = 0;
@@ -261,7 +260,7 @@ export class BoardTableComponent implements OnInit {
     if (this.dateRange.value.start && this.dateRange.value.end) {
       const dateStart = moment(this.dateRange.value.start).format('YYYY-MM-DD');
       const dateEnd = moment(this.dateRange.value.end).format('YYYY-MM-DD');
-      this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo.filter((x: any) => moment(x.fechaOperacion).format('YYYY-MM-DD') >= dateStart && moment(x.fechaOperacion).format('YYYY-MM-DD') <= dateEnd));
+      this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo.filter((x: any) => moment(x.fechaContable).format('YYYY-MM-DD') >= dateStart && moment(x.fechaContable).format('YYYY-MM-DD') <= dateEnd));
       this.dataSource.paginator = this.paginator;
     }
     this.showLoad = false;
@@ -283,7 +282,7 @@ export class BoardTableComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.dataInfo = dataOper.datosDeSalida.tableroOperativo;
+      this.dataInfo = dataOper.datosDeSalida.tableroCifras;
       this.dataHeader= [dataOper.datosDeSalida.operaciones];
       this.dateRange.reset();
       this.onLoadTable(this.dataInfo,this.dataHeader);

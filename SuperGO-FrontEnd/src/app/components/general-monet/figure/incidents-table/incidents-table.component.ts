@@ -14,17 +14,16 @@ import { FORMATOS_FECHA } from '@app/components/reactive-form/controls/datepicke
 import moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { BoardService } from '@app/core/services/board/board.service';
+import { FigureService } from '@app/core/services/figure/figure.service';
 
-import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 
 @Component({
-  selector: 'app-board-table',
-  templateUrl: './board-table.component.html',
-  styleUrls: ['./board-table.component.sass'],
+  selector: 'app-incidents-table',
+  templateUrl: './incidents-table.component.html',
+  styleUrls: ['./incidents-table.component.sass'],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -33,7 +32,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
   ]
 })
 
-export class BoardTableComponent implements OnInit {
+export class IncidentsTableComponent implements OnInit {
 
   dateRange = new FormGroup({
     start: new FormControl(),
@@ -42,16 +41,16 @@ export class BoardTableComponent implements OnInit {
   public showLoad = false;
   private tblArrayExcel: string[];
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
-  dataInfo: DatosDeSalida[];
+  public objlist: Array<Tablero> = [];
+  dataInfo: Tablero[];
   dataHeader: Tablero[];
-  dataSource: MatTableDataSource<DatosDeSalida>;
+  dataSource: MatTableDataSource<Tablero>;
   dataSourceHeader: MatTableDataSource<Tablero>;
-  // displayedColumnsHeader: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo'];
-  displayedColumns: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo','FECHA_DE_OPERACION', 'numeroOperaciones', 'montoOperaciones', 'numeroOperaciones2', 'montoOperaciones2', 'montoMonetizacion', 'iva', 'montoTotal', 'fechaCorte', 'semana', 'razonSocial', 'documentoContable', 'fechaContable', 'cuentaBalance', 'montoBalance', 'cuentaResultados', 'montoResultados', 'options'];
+  displayedColumns: string[] = ['fechaContable','fechaOperativa','idTipo','descripcionTipo','suid','montoMonetizacion','descripcionStatus','cuentaBalance','cuentaResultados'];
   totalRows: number;
   containers: Container[];
   sortModule: SortModule;
-  boardService:BoardService;
+  boardService:FigureService;
   messageError:MessageErrorModule;
   
 
@@ -59,11 +58,11 @@ export class BoardTableComponent implements OnInit {
   currentProject: any;
 
   constructor(private readonly injector: Injector, public refData?: MatDialog,) {
-    this.boardService = this.injector.get<BoardService>(BoardService);
+    this.boardService = this.injector.get<FigureService>(FigureService);
     this.dataInfo = [];
     this.containers = [];
     this.totalRows = 0;
-    this.dataSource = new MatTableDataSource<DatosDeSalida>();
+    this.dataSource = new MatTableDataSource<Tablero>();
     this.tblArrayExcel = [];
     this.dataHeader = [];
     this.dataSourceHeader = new MatTableDataSource<Tablero>();
@@ -78,13 +77,41 @@ export class BoardTableComponent implements OnInit {
       this.showLoad = false;
     }
   }
+  experiment(data: any) {
+    this.objlist = [];
+    data.forEach((tx: any) => {
+      let _objJson = `{`;
+      _objJson = this.creaJson(tx, '', _objJson);
+      debugger;
+      _objJson = _objJson.substring(0, _objJson.length - 1);
+      _objJson = `${_objJson} }`;
+      this.objlist.push(JSON.parse(_objJson) as Tablero);
+    });
+    console.log(this.objlist);
+  }
 
-  onLoadTable(dataInfo: DatosDeSalida[], dataHeader: Tablero[]) {
+  creaJson(tx: any, pattern: string, objJson: string) {
+    Object.keys(tx).forEach((ky) => {
+      debugger;
+      if (typeof tx[ky] === 'object') {
+        pattern = ky;
+        objJson = `${this.creaJson(tx[ky], pattern, objJson)}`;
+      } 
+      else {
+        const patt = pattern.trim().length > 0 ? `${pattern.trim()}_` : '';
+        objJson = `${objJson}"${patt}${ky}":"${tx[ky]}",`;        
+      }
+    });
+    return objJson;
+  }
+
+  onLoadTable(dataInfo: Tablero[], dataHeader: Tablero[]) {
     this.dataInfo = dataInfo;
-    this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo);
+    this.experiment(dataInfo);
+    this.dataSource = new MatTableDataSource<Tablero>(this.objlist);
     this.totalRows = this.dataInfo.length;
     this.dataSource.paginator = this.paginator;
-
+    console.log("dataSource",this.dataSource)
     this.dataHeader = dataHeader;
     this.dataSourceHeader = new MatTableDataSource<Tablero>(this.dataHeader);
   }
@@ -261,7 +288,7 @@ export class BoardTableComponent implements OnInit {
     if (this.dateRange.value.start && this.dateRange.value.end) {
       const dateStart = moment(this.dateRange.value.start).format('YYYY-MM-DD');
       const dateEnd = moment(this.dateRange.value.end).format('YYYY-MM-DD');
-      this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo.filter((x: any) => moment(x.fechaOperacion).format('YYYY-MM-DD') >= dateStart && moment(x.fechaOperacion).format('YYYY-MM-DD') <= dateEnd));
+      this.dataSource = new MatTableDataSource<Tablero>(this.dataInfo.filter((x: any) => moment(x.fechaContable).format('YYYY-MM-DD') >= dateStart && moment(x.fechaContable).format('YYYY-MM-DD') <= dateEnd));
       this.dataSource.paginator = this.paginator;
     }
     this.showLoad = false;
@@ -269,7 +296,7 @@ export class BoardTableComponent implements OnInit {
 
   clean() {
     this.showLoad = true;
-    this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo);
+    //this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo);
     this.dataSource.paginator = this.paginator;
     this.dateRange.reset();
     this.showLoad = false;
@@ -283,8 +310,8 @@ export class BoardTableComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.dataInfo = dataOper.datosDeSalida.tableroOperativo;
-      this.dataHeader= [dataOper.datosDeSalida.operaciones];
+      this.dataInfo = dataOper.datosDeSalida.tableroCifras;
+     // this.dataHeader= [dataOper.datosDeSalida.operaciones];
       this.dateRange.reset();
       this.onLoadTable(this.dataInfo,this.dataHeader);
     }

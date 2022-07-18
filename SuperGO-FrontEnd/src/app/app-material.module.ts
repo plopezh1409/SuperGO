@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MdePopoverModule } from '@material-extended/mde';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
     exports: [
@@ -95,7 +96,8 @@ import { MdePopoverModule } from '@material-extended/mde';
         OverlayModule,
         PortalModule,
         ScrollingModule,
-        MdePopoverModule
+        MdePopoverModule,
+        MatFormFieldModule
     ]
 })
 export class MaterialModule{}

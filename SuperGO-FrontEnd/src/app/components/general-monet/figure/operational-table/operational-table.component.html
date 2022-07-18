@@ -1,0 +1,69 @@
+<div id="Tabla" class="paginator scrollable" style="width: 70%;">
+
+  <div id="Encabezado" style="display:flex;margin-top:15px;margin-left:30%;margin-right:30%;">
+
+    <mat-form-field appearance="fill" style="margin-top:1.2%">
+      <mat-label>Ingrese rango de fechas:</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Fecha inicio">
+        <input matEndDate formControlName="end" placeholder="Fecha fin">
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error *ngIf="dateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="dateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+    <div style="margin-left: 2%"></div>
+    <button mat-raised-button type="submit" (click)="search()" style="margin-top:1.5%"> Consultar </button>
+    <div style="margin-left: 1%"></div>
+    <button mat-raised-button type="submit" (click)="clean()" style="margin-top:1.5%"> Limpiar </button>
+    <div style="margin-left: 10%"></div>
+
+    <div style="margin-left: 3%"></div>
+    <mat-icon class="myIcon" aria-hidden="true" aria-label="Actualizar" 
+    matTooltip="Actualizar pagina" matTooltipPosition="above" aria-placeholder="Actualizar pagina"
+    (click)="fillDataPage()" onKeyDown="fillDataPage()"> autorenew </mat-icon>
+
+   
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <caption></caption>
+    <ng-container matColumnDef="suid">
+      <th mat-header-cell *matHeaderCellDef id=""> SUPER ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.suid}} </td>
+    </ng-container>
+    <ng-container matColumnDef="montoMonetizacion">
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO A MONETIZAR </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoMonetizacion}} </td>
+    </ng-container>
+    <ng-container matColumnDef="descripcionTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION OPERACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="razonSocial">
+      <th mat-header-cell *matHeaderCellDef id=""> SOCIEDAD </th>
+      <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
+    </ng-container>
+    <ng-container matColumnDef="montoOperaciones">
+      <th mat-header-cell *matHeaderCellDef id=""> IMPORTE </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+    </ng-container>
+    <ng-container matColumnDef="documentoContable">
+      <th mat-header-cell *matHeaderCellDef id=""> NUMERO DOCUMENTO </th>
+      <td mat-cell *matCellDef="let element"> {{element.documentoContable}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+    </tr>
+
+  </table>
+</div>
+<div class="paginator">
+  <mat-paginator [length]="totalRows" [pageSize]="7" [pageSizeOptions]="[7, 14, 21, 28, 35]" showFirstLastButtons>
+  </mat-paginator>
+</div>

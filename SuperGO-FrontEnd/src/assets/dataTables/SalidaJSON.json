@@ -1,0 +1,251 @@
+
+{
+    "notificaciones": [
+        {
+            "notificacion": "AMTZ007",
+            "mensaje": "CONSULTA EFECTUADA EXITOSAMENTE"
+        }
+    ],
+    "datosDeSalida": {
+        "tableroCifras": [
+            {  
+                "idTipo": 1, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaContable": "2022-07-14",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Error",
+                "documentoContable": " ",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Error al generar el importe de la poliza",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Error al generar el importe de la poliza",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 2, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "razonSocial": "BANCO AZTECA",
+                "fechaContable": "2022-07-13",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Completa",
+                "documentoContable": "32821738921831",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 3, 
+                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "razonSocial": "TOTAL PLAY",
+                "fechaContable": "2022-07-14",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Error",
+                "documentoContable": " ",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Error al generar el importe de la poliza",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Error al generar el importe de la poliza",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 4, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaContable": "2022-07-13",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Completa",
+                "documentoContable": "32821738921831",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 5, 
+                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "razonSocial": "TOTAL PLAY",
+                "fechaContable": "2022-07-12",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Completa",
+                "documentoContable": "32821738921831",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 6, 
+                "descripcionTipo": "DEBITO - XXXXXXXXXXXXXXXXXXXXXXXXX",
+                "razonSocial": "BANCO AZTECA",
+                "fechaContable": "2022-07-11",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 1,
+                "montoOperaciones": 20,
+                "tipoStatus": "Error",
+                "documentoContable": " ",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Error al generar el importe de la poliza",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {  
+                "idTipo": 7, 
+                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
+                "fechaContable": "2022-07-11",
+                "fechaOperativa": "2022-07-03",
+                "numeroOperaciones": 2,
+                "montoOperaciones": 20,
+                "tipoStatus": "Completa",
+                "documentoContable": "32821738921832",
+                "cuentaBalance": "1008080013",
+                "cuentaResultados": "4000420000",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoDetalle": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "descripcionStatus": "Poliza efectuada correctamente",
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    }
+                ]
+            }
+        ],
+        "tiempoEjrn": 2,
+        "tiempoObdt": 8,
+        "tiempoDeMicro": 2532
+    }
+}

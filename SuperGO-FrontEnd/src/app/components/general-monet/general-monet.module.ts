@@ -38,6 +38,13 @@ import { HomeMonetizerComponent } from './home-monetizer/home-monetizer.componen
 import { AppComponent } from '@app/app.component';
 import { BoardComponent } from './board/board.component';
 import { BoardTableComponent } from './board/board-table/board-table.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FigureComponent } from './figure/figure.component';
+import { FigureTableComponent } from './figure/figure-table/figure-table.component';
+import { IncidentsTableComponent } from './figure/incidents-table/incidents-table.component';
+import { OperationalTableComponent } from './figure/operational-table/operational-table.component';
 
 
 
@@ -46,6 +53,7 @@ import { BoardTableComponent } from './board/board-table/board-table.component';
     GeneralmonetComponent,
     SocietiesComponent,
     BoardComponent,
+    FigureComponent,
     InvoicesComponent,    
     InvoicesTableComponent,
     OperationsComponent,
@@ -58,10 +66,12 @@ import { BoardTableComponent } from './board/board-table/board-table.component';
     UpdateModalMonetizationComponent,
     OperationsTableComponent,
     UpdateModalOperationsComponent,
-    SocietiesTableComponent,
+    SocietiesTableComponent, 
     BoardTableComponent,
+    FigureTableComponent,
+    IncidentsTableComponent,
+    OperationalTableComponent,
     UpdateModalSocietiesComponent,
-    
     HomeMonetizerComponent
   ],
   imports: [
@@ -76,6 +86,9 @@ import { BoardTableComponent } from './board/board-table/board-table.component';
     SharedModule,   
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
   providers:[
     AppComponent

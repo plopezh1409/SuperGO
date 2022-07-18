@@ -1,0 +1,99 @@
+<div id="Tabla" class="paginator scrollable" style="width: 70%;">
+
+  <div id="Encabezado" style="display:flex;margin-top:15px;margin-left:15%;margin-right:15%;">
+
+    <mat-form-field appearance="fill" style="margin-top:1.2%">
+      <mat-label>Ingrese rango de fechas:</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Fecha inicio">
+        <input matEndDate formControlName="end" placeholder="Fecha fin">
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error *ngIf="dateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="dateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+    <div style="margin-left: 2%"></div>
+    <button mat-raised-button type="submit" (click)="search()" style="margin-top:1.5%"> Consultar </button>
+    <div style="margin-left: 1%"></div>
+    <button mat-raised-button type="submit" (click)="clean()" style="margin-top:1.5%"> Limpiar </button>
+    <div style="margin-left: 10%"></div>
+    <mat-form-field appearance="standard">
+      <mat-label>Filtro de tablero operativo</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...." #input>
+    </mat-form-field>
+    <div style="margin-left: 2%"></div>
+    <mat-icon class="myIcon" aria-hidden="true" aria-label="downloadXLSX" 
+    matTooltip="Exportar CSV" matTooltipPosition="above" aria-placeholder="Descargar CSV"
+    (click)="DownloadExcel()" onKeyDown="DownloadExcel()"> downloading </mat-icon>
+    <div style="margin-left: 3%"></div>
+    <mat-icon class="myIcon" aria-hidden="true" aria-label="Actualizar" 
+    matTooltip="Actualizar pagina" matTooltipPosition="above" aria-placeholder="Actualizar pagina"
+    (click)="fillDataPage()" onKeyDown="fillDataPage()"> autorenew </mat-icon>
+
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <caption></caption>
+    <ng-container matColumnDef="fechaContable">
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA CONTABLE </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaContable}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fechaOperativa">
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA OPERATIVA </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaOperativa}} </td>
+    </ng-container>
+    <ng-container matColumnDef="descripcionTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION TIPO </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="numeroOperaciones">
+      <th mat-header-cell *matHeaderCellDef id=""> NUMERO OPERACIONES </th>
+      <td mat-cell *matCellDef="let element"> {{element.numeroOperaciones}} </td>
+    </ng-container>
+    <ng-container matColumnDef="montoOperaciones">
+      <th mat-header-cell *matHeaderCellDef id=""> IMPORTE TOTAL </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+    </ng-container>
+    <ng-container matColumnDef="cuentaBalance">
+      <th mat-header-cell *matHeaderCellDef id=""> CUENTA BALANCE </th>
+      <td mat-cell *matCellDef="let element"> {{element.cuentaBalance}} </td>
+    </ng-container>
+    <ng-container matColumnDef="cuentaResultados">
+      <th mat-header-cell *matHeaderCellDef id=""> CUENTA RESULTADOS </th>
+      <td mat-cell *matCellDef="let element"> {{element.cuentaResultados}} </td>
+    </ng-container>
+    <ng-container matColumnDef="tipoStatus">
+      <th mat-header-cell *matHeaderCellDef id=""> ESTATUS </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.tipoStatus==='Completa';else errorIcon" style="color:green;font-size:30px;">
+          check_circle</mat-icon>
+        <ng-template #errorIcon>
+          <mat-icon style="color:red;font-size:30px;">cancel</mat-icon>
+        </ng-template>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef scope="col"> VER DETALLE </th>
+      <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)" onKeyDown="show(element);"
+        style="cursor: pointer;">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">
+          visibility
+        </mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="displayedColumns.length">No se encontraron registros.</td>
+    </tr>
+
+  </table>
+</div>
+<div class="paginator">
+  <mat-paginator [length]="totalRows" [pageSize]="7" [pageSizeOptions]="[7, 14, 21, 28, 35]" showFirstLastButtons>
+  </mat-paginator>
+</div>

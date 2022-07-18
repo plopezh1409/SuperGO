@@ -9,6 +9,7 @@ import { OperationsComponent } from './operations/operations.component';
 import { MonetizationComponent } from './monetization/monetization.component';
 import { AccountingComponent } from './accounting/accounting.component';
 import { BoardComponent } from './board/board.component';
+import { FigureComponent } from './figure/figure.component';
 
 
 const principalMonetizaor = '/monetizador';
@@ -153,6 +154,27 @@ const routes: Routes = [
         },
         {
           label: 'Tablero Operativo',
+          url: ''
+        }
+      ]
+    } 
+  },
+  {
+    path: 'especifica/:idSolicitud/figure',
+    component: FigureComponent,   
+    data:{
+      title:'Solicitud',
+      breadcrumb:[
+        {
+          label: 'Inicio',
+          url: 'inicio'
+        },
+        {
+          label: 'Monetizador',
+          url: principalMonetizaor
+        },
+        {
+          label: 'Cifras Contables',
           url: ''
         }
       ]

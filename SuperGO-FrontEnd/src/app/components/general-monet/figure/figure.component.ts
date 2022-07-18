@@ -1,51 +1,57 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Container } from '@app/core/models/capture/container.model';
 import { ReactiveForm } from '@app/core/models/capture/reactiveForm.model';
-import { DatosDeSalida, Tablero } from '@app/core/models/board/board.model';
-import { BoardTableComponent } from './board-table/board-table.component';
-import { finalize } from 'rxjs/operators';
-import swal from 'sweetalert2';
+import { FigureTableComponent } from './figure-table/figure-table.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceNoMagicNumber, ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
 
 //COMPONENTS
 import { AppComponent } from '@app/app.component';
 import { ActivatedRoute } from '@angular/router';
-import { IResponseData } from '@app/core/models/ServiceResponseData/iresponse-data.model';
-import { GenericResponse } from '@app/core/models/ServiceResponseData/generic-response.model';
-import { SocietiesResponse } from '@app/core/models/ServiceResponseData/societies-response.model';
-import { BoardService } from '@app/core/services/board/board.service';
+import { FigureService } from '@app/core/services/figure/figure.service';
+import { IncidentsTableComponent } from './incidents-table/incidents-table.component';
+import { OperationalTableComponent } from './operational-table/operational-table.component';
+import { DatosDeSalida, Tablero } from '@app/core/models/figure/figure.model';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.sass']
+  selector: 'app-figure',
+  templateUrl: './figure.component.html',
+  styleUrls: ['./figure.component.sass']
 })
 
-export class BoardComponent implements OnInit {
+export class FigureComponent implements OnInit {
   private readonly codeResponseMagic: ServiceNoMagicNumber = new ServiceNoMagicNumber();
-  boardService:BoardService;
+  figureService:FigureService;
   reactiveForm:ReactiveForm;
   messageError:MessageErrorModule;
   containers:Container[];
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
   public dataInfo:DatosDeSalida[];
+  public dataInfo2:DatosDeSalida[];
+  public dataInfo3:Tablero[];
   public dataHeader:Tablero[];
   public showLoad: boolean;
   public idSolicitud : string | null;
   private readonly codeResponse: ServiceResponseCodes = new ServiceResponseCodes();
 
-  @ViewChild(BoardTableComponent) contentTable:BoardTableComponent;
+  @ViewChild(FigureTableComponent) contentTable:FigureTableComponent;
+  @ViewChild(IncidentsTableComponent) contentTable2:IncidentsTableComponent;
+  @ViewChild(OperationalTableComponent) contentTable3:OperationalTableComponent;
 
   constructor(private readonly injector:Injector, private readonly appComponent: AppComponent,
     private readonly _route: ActivatedRoute) { 
-    this.boardService = this.injector.get<BoardService>(BoardService);
+    this.figureService = this.injector.get<FigureService>(FigureService);
     this.reactiveForm = new ReactiveForm();
     this.messageError = new MessageErrorModule();
-    this.contentTable = new BoardTableComponent(this.injector,undefined);
+    this.contentTable = new FigureTableComponent(this.injector,undefined);
+    this.contentTable2 = new IncidentsTableComponent(this.injector,undefined);
+    this.contentTable3 = new OperationalTableComponent(this.injector,undefined);
+    
     this.containers=[];
     this.dataInfo=[];
+    this.dataInfo2=[];
+    this.dataInfo3=[];
     this.dataHeader=[];
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
@@ -113,7 +119,7 @@ export class BoardComponent implements OnInit {
     // const dataForm = await this.societyService.getForm({idRequest:this.idSolicitud}).toPromise().catch((err) =>{
     //   return err;
     // });
-    const dataOper = await this.boardService.getInfoTablero().toPromise().catch((err) =>{
+    const dataOper = await this.figureService.getInfoTablero().toPromise().catch((err) =>{
       return err;
     });
     this.appComponent.showLoader(false);
@@ -135,13 +141,14 @@ export class BoardComponent implements OnInit {
     }
     else{
       // this.containers = dataForm.response.reactiveForm; 
-      this.dataInfo = dataOper.datosDeSalida.tableroOperativo;
+      this.dataInfo = dataOper.datosDeSalida.tableroCifras;
+      this.dataInfo2 = dataOper.datosDeSalida.tableroCifras;
+      this.dataInfo3 = dataOper.datosDeSalida.tableroCifras;
       // this.dataHeader= [dataOper.datosDeSalida.operaciones];
       
       // this.reactiveForm.setContainers(this.containers);
       // localStorage.setItem('_auxForm',JSON.stringify(this.containers));
       this.contentTable.onLoadTable(this.dataInfo,this.dataHeader);
-
     }
   }
 

@@ -25,7 +25,8 @@ export class FormService {
     return this.httpClient.post<any>(`${this.urlEndPoint}reactiveForm`, request);
    }
 
-   getFormByModule(request:Object){     
+   getFormByModule(request:Object){    
+    
     return this.httpClient.post<any>(`${this.urlEndPoint}reactiveModule`, request);
    }  
 

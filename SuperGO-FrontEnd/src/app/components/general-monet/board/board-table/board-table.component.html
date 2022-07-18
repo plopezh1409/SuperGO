@@ -1,9 +1,10 @@
-<div style="width: 70%;" class="container paginator scrollable">
+<app-progress [overlay]="showLoad"></app-progress>
+<!-- <div style="width: 70%;" class="container paginator scrollable">
   <table mat-table [dataSource]="dataSourceHeader" matSort>
     <caption></caption>
     <ng-container matColumnDef="idTipo">
       <th mat-header-cell *matHeaderCellDef id=""> ID MONETIZACION </th>
-      <td mat-cell *matCellDef="let element"> {{element.idTipo}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.idTipo }} </td>
     </ng-container>
 
     <ng-container matColumnDef="idSubtipo">
@@ -12,7 +13,7 @@
     </ng-container>
 
     <ng-container matColumnDef="descripcionTipo">
-      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION TIPO </th>
+      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION TIPO REGLA DE MONETIZACION</th>
       <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
     </ng-container>
 
@@ -22,15 +23,65 @@
       <td class="mat-cell" colspan="displayedColumnsHeader.length">No se encontraron registros.</td>
     </tr>
   </table>
-</div>
+</div> -->
 
-<div style=" display: flex;flex-wrap: nowrap; justify-content: center;margin:2%">
-  <button mat-raised-button type="submit" (click)="DownloadExcel()">Descargar Excel</button>
-</div>
+<div id="Tablero" style="margin:1%"></div>
 
-<div class="paginator scrollable">
+<div id="Tabla" class="paginator scrollable">
+
+  <div id="Encabezado" style="display:flex;margin-top:15px;margin-left:10%;margin-right:10%;">
+
+    <mat-form-field appearance="fill" style="margin-top:1.2%">
+      <mat-label>Ingrese rango de fechas:</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Fecha inicio">
+        <input matEndDate formControlName="end" placeholder="Fecha fin">
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error *ngIf="dateRange.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="dateRange.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+    <div style="margin-left: 2%"></div>
+    <button mat-raised-button type="submit" (click)="search()" style="margin-top:1.5%">Filtrar</button>
+    <div style="margin-left: 1%"></div>
+    <button mat-raised-button type="submit" (click)="clean()" style="margin-top:1.5%">Limpiar</button>
+    <div style="margin-left: 10%"></div>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filtro de tablero operativo</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...." #input>
+    </mat-form-field>
+    <div style="margin-left: 2%"></div>
+    <mat-icon class="myIcon" aria-hidden="true" aria-label="downloadXLSX" 
+    matTooltip="Exportar CSV" matTooltipPosition="above" aria-placeholder="Descargar CSV"
+    (click)="DownloadExcel()" onKeyDown="DownloadExcel()"> downloading </mat-icon>
+    
+    <div style="margin-left: 3%"></div>
+    <mat-icon class="myIcon" aria-hidden="true" aria-label="Actualizar" 
+    matTooltip="Actualizar pagina" matTooltipPosition="above" aria-placeholder="Actualizar pagina"
+    (click)="fillDataPage()" onKeyDown="fillDataPage()"> autorenew </mat-icon>
+
+   
+  </div>
+
   <table mat-table [dataSource]="dataSource" matSort>
     <caption></caption>
+    <ng-container matColumnDef="idTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> ID MONETIZACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.idTipo }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="idSubtipo">
+      <th mat-header-cell *matHeaderCellDef class="te" id=""> TIPO OPERACION </th>
+      <td mat-cell *matCellDef="let element"> {{element.idSubtipo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionTipo">
+      <th mat-header-cell *matHeaderCellDef id=""> DESCRIPCION TIPO REGLA DE MONETIZACION</th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionTipo}} </td>
+    </ng-container>
 
     <ng-container matColumnDef="FECHA_DE_OPERACION">
       <th mat-header-cell *matHeaderCellDef id=""> FECHA OPERACION </th>
@@ -38,28 +89,28 @@
     </ng-container>
 
     <ng-container matColumnDef="numeroOperaciones">
-      <th mat-header-cell *matHeaderCellDef id=""> NUMERO DE OPERACIONES </th>
+      <th mat-header-cell *matHeaderCellDef id=""> # TX SAPP </th>
       <td mat-cell *matCellDef="let element"> {{element.numeroOperaciones}} </td>
     </ng-container>
 
     <ng-container matColumnDef="montoOperaciones">
-      <th mat-header-cell *matHeaderCellDef id=""> MONTO DE OPERACIONES </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO TX SAPP </th>
+      <td mat-cell *matCellDef="let element"> {{ element.montoOperaciones | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="numeroOperaciones2">
-      <th mat-header-cell *matHeaderCellDef id=""> NUMERO DE OPERACIONES </th>
+      <th mat-header-cell *matHeaderCellDef id=""> # TX MONETIZADAS </th>
       <td mat-cell *matCellDef="let element"> {{element.numeroOperaciones}} </td>
     </ng-container>
 
     <ng-container matColumnDef="montoOperaciones2">
-      <th mat-header-cell *matHeaderCellDef id=""> MONTO DE OPERACIONES </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones}} </td>
+      <th mat-header-cell *matHeaderCellDef id=""> MONTO TX MONETIZADAS </th>
+      <td mat-cell *matCellDef="let element"> {{element.montoOperaciones | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="montoMonetizacion">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO MONETIZACION </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoMonetizacion}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montoMonetizacion | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="iva">
@@ -69,11 +120,11 @@
 
     <ng-container matColumnDef="montoTotal">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO TOTAL </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoTotal}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montoTotal | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="fechaCorte">
-      <th mat-header-cell *matHeaderCellDef id=""> FECHA CORTE </th>
+      <th mat-header-cell *matHeaderCellDef id=""> FECHA CORTE FACTURACION</th>
       <td mat-cell *matCellDef="let element"> {{element.fechaCorte}} </td>
     </ng-container>
 
@@ -108,7 +159,7 @@
 
     <ng-container matColumnDef="montoBalance">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO BALANCE </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoBalance}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montoBalance | currency }} </td>
     </ng-container>
 
 
@@ -117,17 +168,13 @@
       <td mat-cell *matCellDef="let element"> {{element.cuentaResultados}} </td>
     </ng-container>
 
-
     <ng-container matColumnDef="montoResultados">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO RESULTADOS </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoResultados}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montoResultados | currency}} </td>
     </ng-container>
 
-
-
-
     <ng-container matColumnDef="options">
-      <th mat-header-cell *matHeaderCellDef scope="col"> VER </th>
+      <th mat-header-cell *matHeaderCellDef scope="col"> VER DETALLE </th>
       <td mat-cell *matCellDef="let element" id="icons" (click)="show(element)" onKeyDown="show(element);"
         style="cursor: pointer;">
         <mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Detalle" matTooltipPosition="below">

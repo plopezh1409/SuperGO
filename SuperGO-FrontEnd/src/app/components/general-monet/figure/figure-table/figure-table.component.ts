@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild, Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { DatosDeSalida, Tablero } from '@app/core/models/board/board.model';
 import Swal from 'sweetalert2';
 //SERVICES
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
@@ -14,17 +13,17 @@ import { FORMATOS_FECHA } from '@app/components/reactive-form/controls/datepicke
 import moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { BoardService } from '@app/core/services/board/board.service';
+import { FigureService } from '@app/core/services/figure/figure.service';
 
-import { AppComponent } from '@app/app.component';
 import { MessageErrorModule } from '@app/shared/message-error/message-error.module';
 import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/service-response-codes.model';
+import { DatosDeSalida, Tablero } from '@app/core/models/figure/figure.model';
 
 
 @Component({
-  selector: 'app-board-table',
-  templateUrl: './board-table.component.html',
-  styleUrls: ['./board-table.component.sass'],
+  selector: 'app-figure-table',
+  templateUrl: './figure-table.component.html',
+  styleUrls: ['./figure-table.component.sass'],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -33,7 +32,7 @@ import { ServiceResponseCodes } from '@app/core/models/ServiceResponseCodes/serv
   ]
 })
 
-export class BoardTableComponent implements OnInit {
+export class FigureTableComponent implements OnInit {
 
   dateRange = new FormGroup({
     start: new FormControl(),
@@ -47,11 +46,11 @@ export class BoardTableComponent implements OnInit {
   dataSource: MatTableDataSource<DatosDeSalida>;
   dataSourceHeader: MatTableDataSource<Tablero>;
   // displayedColumnsHeader: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo'];
-  displayedColumns: string[] = ['idTipo', 'idSubtipo', 'descripcionTipo','FECHA_DE_OPERACION', 'numeroOperaciones', 'montoOperaciones', 'numeroOperaciones2', 'montoOperaciones2', 'montoMonetizacion', 'iva', 'montoTotal', 'fechaCorte', 'semana', 'razonSocial', 'documentoContable', 'fechaContable', 'cuentaBalance', 'montoBalance', 'cuentaResultados', 'montoResultados', 'options'];
+  displayedColumns: string[] = ['fechaContable','fechaOperativa','descripcionTipo','numeroOperaciones','montoOperaciones','cuentaBalance','cuentaResultados','tipoStatus','options'];
   totalRows: number;
   containers: Container[];
   sortModule: SortModule;
-  boardService:BoardService;
+  boardService:FigureService;
   messageError:MessageErrorModule;
   
 
@@ -59,7 +58,7 @@ export class BoardTableComponent implements OnInit {
   currentProject: any;
 
   constructor(private readonly injector: Injector, public refData?: MatDialog,) {
-    this.boardService = this.injector.get<BoardService>(BoardService);
+    this.boardService = this.injector.get<FigureService>(FigureService);
     this.dataInfo = [];
     this.containers = [];
     this.totalRows = 0;
@@ -110,63 +109,47 @@ export class BoardTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  
     style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
     ID MONETIZACION </b></td><td style="padding:5px"> ${oTablero.idTipo} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
-    TIPO OPERACION </b></td><td style="padding:5px"> ${oTablero.idSubtipo} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
-    DESCRIPCION TIPO REGLA DE MONETIZACION </b></td><td style="padding:5px"> ${oTablero.descripcionTipo} </td></tr>`);
-
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
-    FECHA OPERACION </b></td><td style="padding:5px"> ${oTablero.fechaOperacion} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
-    # TX SAPP </b></td><td style="padding:5px"> ${oTablero.numeroOperaciones} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center> <b> 
-    MONTO TX SAPP </b></td><td style="padding:5px"> ${oTablero.montoOperaciones} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center> <b> 
-    # TX MONETIZADAS </b></td><td style="padding:5px"> ${oTablero.numeroOperaciones} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO TX MONETIZADAS </b></td><td style="padding:5px"> ${oTablero.montoOperaciones} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO MONETIZACION </b></td><td style="padding:5px"> ${oTablero.montoMonetizacion} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    IVA </b></td><td style="padding:5px"> ${oTablero.iva} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO TOTAL </b></td><td style="padding:5px"> ${oTablero.montoTotal} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    FECHA DE CORTE FACTURACION </b></td><td style="padding:5px"> ${oTablero.fechaContable} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    SEMANA </b></td><td style="padding:5px"> ${oTablero.semana} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    RAZON SOCIAL </b></td><td style="padding:5px"> ${oTablero.razonSocial} </td></tr>`);
-    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    DOCUMENTO CONTABLE </b></td><td style="padding:5px"> ${oTablero.documentoContable} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     FECHA CONTABLE </b></td><td style="padding:5px"> ${oTablero.fechaContable} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    CUENTA BALANCE </b></td><td style="padding:5px"> ${oTablero.cuentaBalance} </td></tr>`);
+    FECHA OPERATIVA </b></td><td style="padding:5px"> ${oTablero.fechaOperativa} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO BALANCE </b></td><td style="padding:5px"> ${oTablero.montoBalance} </td></tr>`);
+    DESCRIPCION TIPO </b></td><td style="padding:5px"> ${oTablero.descripcionTipo} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
+    NUMERO OPERACIONES </b></td><td style="padding:5px"> ${oTablero.numeroOperaciones} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center> <b> 
+    IMPORTE TOTAL </b></td><td style="padding:5px"> ${oTablero.montoOperaciones} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
+    CUENTA BALANCE </b></td><td style="padding:5px"> ${oTablero.cuentaBalance} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     CUENTA RESULTADOS </b></td><td style="padding:5px"> ${oTablero.cuentaResultados} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO RESULTADOS </b></td><td style="padding:5px"> ${oTablero.montoResultados} </td></tr></table>`);
+    RAZON SOCIAL </b></td><td style="padding:5px"> ${oTablero.razonSocial} </td></tr>`);
+    registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
+    DOCUMENTO CONTABLE </b></td><td style="padding:5px"> ${oTablero.documentoContable} </td></tr></table>`);
 
     detalleSuma = detalleSuma.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     detalleSuma = detalleSuma.concat('<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>NUMERO DE OPERACION</b></td>');
-    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>MONTO DE OPERACION</b></td>');
-    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>MONTO DE MONETIZACION</b></td>');
-    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>IVA</b></td>');
-    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>MONTO TOTAL</b></td></tr>');
+    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>SUPER ID</b></td>');
+    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>DESCRIPCION ESTATUS</b></td>');
+    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>MONTO MONETIZACION</b></td></tr>');
     oTablero.detallesOperaciones.map(row => {
-      detalleSuma = detalleSuma.concat(`<tr><td style=":20%; padding:5px; text-align:center;">${row.numeroOperacion}</td><td style="width:20%; padding:5px; text-align:center;">${row.montoOperacion}</td><td style="width:20%; padding:5px; text-align:center;">${row.montoMonetizacion}</td><td style="width:20%; padding:5px; text-align:center;">${row.iva}</td><td style="width:20%; padding:5px; text-align:center;">${row.montoTotal}</td></tr>`);
+      detalleSuma = detalleSuma.concat(`<tr><td style=":20%; padding:5px; text-align:center;">${row.numeroOperacion}</td><td style="width:20%; padding:5px; text-align:center;">${row.suid}</td>`);
+      if(oTablero.tipoStatus==='Completa'){
+        detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;color:green">${row.descripcionStatus}</td>`);
+      }
+      else{
+        detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;color:red">${row.descripcionStatus}</td>`);
+      }
+      detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;">${row.montoMonetizacion}</td></tr>`);
     })
     detalleSuma = detalleSuma.concat(`</table>`);
 
     Swal.fire({
       html: `<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
-      DATOS DEL TABLERO OPERATIVO ${encabezado} <br/> ${registro} <br/> ${detalleSuma} </div>`,
+      DATOS DEL TABLERO OPERATIVO <br/> ${registro} <br/> ${detalleSuma} </div>`,
       showCancelButton: false,
       width: '50%'
     });
@@ -206,7 +189,6 @@ export class BoardTableComponent implements OnInit {
   DownloadExcel() {
     this.tblArrayExcel = [];
     const objlist: string[] = [];
-    console.log("Descarga", this.dataSource.filteredData);
     this.dataSource.filteredData.forEach((tx: any) => {
       let _objJson = `{`;
       _objJson = this.getPlaneObject(tx, '', _objJson);
@@ -261,7 +243,7 @@ export class BoardTableComponent implements OnInit {
     if (this.dateRange.value.start && this.dateRange.value.end) {
       const dateStart = moment(this.dateRange.value.start).format('YYYY-MM-DD');
       const dateEnd = moment(this.dateRange.value.end).format('YYYY-MM-DD');
-      this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo.filter((x: any) => moment(x.fechaOperacion).format('YYYY-MM-DD') >= dateStart && moment(x.fechaOperacion).format('YYYY-MM-DD') <= dateEnd));
+      this.dataSource = new MatTableDataSource<DatosDeSalida>(this.dataInfo.filter((x: any) => moment(x.fechaContable).format('YYYY-MM-DD') >= dateStart && moment(x.fechaContable).format('YYYY-MM-DD') <= dateEnd));
       this.dataSource.paginator = this.paginator;
     }
     this.showLoad = false;
@@ -283,7 +265,7 @@ export class BoardTableComponent implements OnInit {
       this.messageError.showMessageError(dataOper.message, dataOper.code);
     }
     else{
-      this.dataInfo = dataOper.datosDeSalida.tableroOperativo;
+      this.dataInfo = dataOper.datosDeSalida.tableroCifras;
       this.dataHeader= [dataOper.datosDeSalida.operaciones];
       this.dateRange.reset();
       this.onLoadTable(this.dataInfo,this.dataHeader);
