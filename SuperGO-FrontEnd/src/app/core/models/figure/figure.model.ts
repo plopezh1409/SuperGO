@@ -7,6 +7,7 @@ export class Tablero {
     numeroOperaciones: number;
     montoOperaciones: number;
     tipoStatus: string;
+    descripcionStatus: string;
     documentoContable: string;
     cuentaBalance: string;
     cuentaResultados: string;
@@ -25,6 +26,7 @@ export class Tablero {
         this.documentoContable = '';
         this.cuentaBalance = '';
         this.cuentaResultados = '';
+        this.descripcionStatus = '';
         this.detallesOperaciones = [];
     }
 }
@@ -42,7 +44,6 @@ export interface DetallesOperacione {
     montoMonetizacion: number;
     iva: number;
     montoTotal: number;
-    descripcionStatus: string;
     suid: string;
     sicu: string;
 }
@@ -55,10 +56,11 @@ export interface TableroCifra {
     fechaOperativa: string;
     numeroOperaciones: number;
     montoOperaciones: number;
-    tipoStatus: string;
     documentoContable: string;
     cuentaBalance: string;
     cuentaResultados: string;
+    tipoStatus: string;
+    descripcionStatus: string;
     detallesOperaciones: DetallesOperacione[];
 }
 

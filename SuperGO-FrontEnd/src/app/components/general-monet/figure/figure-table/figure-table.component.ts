@@ -128,28 +128,27 @@ export class FigureTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     RAZON SOCIAL </b></td><td style="padding:5px"> ${oTablero.razonSocial} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    DOCUMENTO CONTABLE </b></td><td style="padding:5px"> ${oTablero.documentoContable} </td></tr></table>`);
-
+    DOCUMENTO CONTABLE </b></td><td style="padding:5px"> ${oTablero.documentoContable} </td></tr>`);
+    if(oTablero.tipoStatus==='Completa'){
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
+    DESCRIPCION ESTATUS </b></td><td style="padding:5px;color:green"> ${oTablero.descripcionStatus} </td></tr></table>`);
+    }else{
+      registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
+    DESCRIPCION ESTATUS </b></td><td style="padding:5px;color:red"> ${oTablero.descripcionStatus} </td></tr></table>`);
+    }
     detalleSuma = detalleSuma.concat('<table class="tableInfoDel" cellspacing="0" cellpadding="0">');
     detalleSuma = detalleSuma.concat('<tr><td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>NUMERO DE OPERACION</b></td>');
     detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>SUPER ID</b></td>');
-    detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>DESCRIPCION ESTATUS</b></td>');
     detalleSuma = detalleSuma.concat('<td style="border-right: 2px solid black!important;border-bottom: 2px solid black!important; width:20%; padding:5px; text-align:center;"><b>MONTO MONETIZACION</b></td></tr>');
     oTablero.detallesOperaciones.map(row => {
       detalleSuma = detalleSuma.concat(`<tr><td style=":20%; padding:5px; text-align:center;">${row.numeroOperacion}</td><td style="width:20%; padding:5px; text-align:center;">${row.suid}</td>`);
-      if(oTablero.tipoStatus==='Completa'){
-        detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;color:green">${row.descripcionStatus}</td>`);
-      }
-      else{
-        detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;color:red">${row.descripcionStatus}</td>`);
-      }
       detalleSuma = detalleSuma.concat(`<td style="width:20%; padding:5px; text-align:center;">${row.montoMonetizacion}</td></tr>`);
     })
     detalleSuma = detalleSuma.concat(`</table>`);
 
     Swal.fire({
       html: `<div class="titModal" style="font-weight: bold; text-align: center; font-size: 30px !important;"> 
-      DATOS DEL TABLERO OPERATIVO <br/> ${registro} <br/> ${detalleSuma} </div>`,
+      DATOS DEL TABLERO <br/> ${registro} <br/> ${detalleSuma} </div>`,
       showCancelButton: false,
       width: '50%'
     });
@@ -160,54 +159,50 @@ export class FigureTableComponent implements OnInit {
   }
 
   getPlaneObject(tx: any, pattern: string, objJson: string) {
-
-    Object.keys(tx).forEach((ky) => {
+    Object.keys(tx).forEach((ky) => {      
       if (typeof tx[ky] === 'object') {
-        if (Array.isArray(tx[ky])) {
-          tx[ky].forEach((x: any) => {
-            if (typeof x === 'object') {
-              this.tblArrayExcel.push(Object.assign({}, tx, x));
-            }
-          });
-        }
-        else {
+        if(Array.isArray(tx[ky]))
+        {           
+          tx[ky].forEach((x:any)=>{
+            if(typeof x === 'object'){
+              this.tblArrayExcel.push(Object.assign({},tx,x));
+            }                        
+          });                          
+        }else{
           pattern = ky;
           objJson = `${this.getPlaneObject(tx[ky], pattern, objJson)}`;
-        }
-      }
-      else {
-        if (ky != 'estatusContabilizacion') {
-          const patt = pattern.trim().length > 0 ? `${pattern.trim()}_` : '';
-          objJson = `${objJson}"${patt}${ky}":"${tx[ky]}",`;
-        }
-
+        }        
+      } else {        
+        const patt = pattern.trim().length > 0 ? `${pattern.trim()}_` : '';
+        objJson = `${objJson}"${patt}${ky}":"${tx[ky]}",`;        
       }
     });
     return objJson;
   }
 
   DownloadExcel() {
-    this.tblArrayExcel = [];
-    const objlist: string[] = [];
+    this.tblArrayExcel=[];
+    const objlist: string[] = [];    
     this.dataSource.filteredData.forEach((tx: any) => {
       let _objJson = `{`;
       _objJson = this.getPlaneObject(tx, '', _objJson);
       _objJson = _objJson.substring(0, _objJson.length - 1);
       _objJson = `${_objJson} }`;
-      objlist.push(JSON.parse(_objJson));
+      objlist.push(JSON.parse(_objJson));      
     });
 
     let ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(objlist);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Tablero Operativo');
-    if (this.tblArrayExcel && this.tblArrayExcel.length > 0) {
+    XLSX.utils.book_append_sheet(wb, ws, 'Detalle Genearal');
+    if(this.tblArrayExcel && this.tblArrayExcel.length>0)
+    {
       ws = XLSX.utils.json_to_sheet(this.tblArrayExcel);
-      XLSX.utils.book_append_sheet(wb, ws, 'Detalle Tablero Operativo');
+      XLSX.utils.book_append_sheet(wb, ws, 'Detalle Especifico');
     }
 
     XLSX.writeFile(
       wb,
-      `Tablero_Op.-${new Date().toDateString()} ${new Date().getTime()}.csv`
+      `Tablero_Cifras.-${new Date().toDateString()} ${new Date().getTime()}.xlsx`
     );
   }
 

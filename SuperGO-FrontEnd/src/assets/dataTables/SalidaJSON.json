@@ -16,30 +16,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
-                "tipoStatus": "Error",
                 "documentoContable": " ",
                 "cuentaBalance": "1008080013",
                 "cuentaResultados": "4000420000",
+                "tipoStatus": "Error",
+                "descripcionStatus": "Error al generar el importe de la poliza",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Error al generar el importe de la poliza",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Error al generar el importe de la poliza",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63"
                     }
                 ]
             },
@@ -51,30 +42,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
-                "tipoStatus": "Completa",
                 "documentoContable": "32821738921831",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "cuentaBalance": "1008080014",
+                "cuentaResultados": "4000420001",
+                "tipoStatus": "Completa",
+                "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee64"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee65"
                     }
                 ]
             },
@@ -86,30 +68,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
-                "tipoStatus": "Error",
                 "documentoContable": " ",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "cuentaBalance": "1008080015",
+                "cuentaResultados": "4000420002",
+                "tipoStatus": "Error",
+                "descripcionStatus": "Error al generar el importe de la poliza",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Error al generar el importe de la poliza",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee66"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Error al generar el importe de la poliza",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee67"
                     }
                 ]
             },
@@ -121,30 +94,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
+                "documentoContable": "32821738921832",
+                "cuentaBalance": "1008080016",
+                "cuentaResultados": "4000420003",
                 "tipoStatus": "Completa",
-                "documentoContable": "32821738921831",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee68"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee69"
                     }
                 ]
             },
@@ -156,30 +120,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
+                "documentoContable": "32821738921833",
+                "cuentaBalance": "1008080017",
+                "cuentaResultados": "4000420004",
                 "tipoStatus": "Completa",
-                "documentoContable": "32821738921831",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee70"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee71"
                     }
                 ]
             },
@@ -190,21 +145,17 @@
                 "fechaContable": "2022-07-11",
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 1,
-                "montoOperaciones": 20,
-                "tipoStatus": "Error",
+                "montoOperaciones": 10,
                 "documentoContable": " ",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "cuentaBalance": "1008080018",
+                "cuentaResultados": "4000420005",
+                "tipoStatus": "Error",
+                "descripcionStatus": "Error al generar el importe de la poliza",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Error al generar el importe de la poliza",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee72"
                     }
                 ]
             },
@@ -216,30 +167,21 @@
                 "fechaOperativa": "2022-07-03",
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
+                "documentoContable": "32821738921834",
+                "cuentaBalance": "1008080019",
+                "cuentaResultados": "4000420006",
                 "tipoStatus": "Completa",
-                "documentoContable": "32821738921832",
-                "cuentaBalance": "1008080013",
-                "cuentaResultados": "4000420000",
+                "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee73"
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoDetalle": 10,
-                        "montoMonetizacion": 100.09,
-                        "iva": 11.01,
-                        "montoTotal": 111.1,
-                        "descripcionStatus": "Poliza efectuada correctamente",
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
-                        "sicu": " "
+                        "montoMonetizacion": 10,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee74"
                     }
                 ]
             }
