@@ -110,14 +110,12 @@ export class BoardTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important;border-bottom: 
     2px solid black!important; width:20%; padding:5px; text-align:center;"><b><i>Datos<i></b></td><td  
     style="border-bottom: 2px solid black!important; padding:5px; text-align:center;"><b><i>Descripción</i></b></td></tr>`);
-
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
     ID MONETIZACION </b></td><td style="padding:5px"> ${oTablero.idTipo} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
     TIPO OPERACION </b></td><td style="padding:5px"> ${oTablero.idSubtipo} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
     DESCRIPCION TIPO REGLA DE MONETIZACION </b></td><td style="padding:5px"> ${oTablero.descripcionTipo} </td></tr>`);
-
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
     FECHA OPERACION </b></td><td style="padding:5px"> ${oTablero.fechaOperacion} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 
@@ -129,11 +127,11 @@ export class BoardTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     MONTO TX MONETIZADAS </b></td><td style="padding:5px"> ${oTablero.montoOperaciones} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO MONETIZACION </b></td><td style="padding:5px"> ${oTablero.montoMonetizacion} </td></tr>`);
+    MONTO MONETIZACION </b></td><td style="padding:5px"> ${oTablero.montoMonetizaciones} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    IVA </b></td><td style="padding:5px"> ${oTablero.iva} </td></tr>`);
+    IVA </b></td><td style="padding:5px"> ${oTablero.totalIVA} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    MONTO TOTAL </b></td><td style="padding:5px"> ${oTablero.montoTotal} </td></tr>`);
+    MONTO TOTAL </b></td><td style="padding:5px"> ${oTablero.montosTotales} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     FECHA DE CORTE FACTURACION </b></td><td style="padding:5px"> ${oTablero.fechaContable} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
@@ -291,4 +289,3 @@ export class BoardTableComponent implements OnInit {
   }
 
 }
-

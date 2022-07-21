@@ -114,7 +114,7 @@ export class FigureTableComponent implements OnInit {
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     FECHA CONTABLE </b></td><td style="padding:5px"> ${oTablero.fechaContable} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
-    FECHA OPERATIVA </b></td><td style="padding:5px"> ${oTablero.fechaOperativa} </td></tr>`);
+    FECHA OPERATIVA </b></td><td style="padding:5px"> ${oTablero.fechaOperacion} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px" text-align:center><b> 
     DESCRIPCION TIPO </b></td><td style="padding:5px"> ${oTablero.descripcionTipo} </td></tr>`);
     registro = registro.concat(`<tr><td style="border-right: 2px solid black!important; width:25%; padding:5px text-align:center"><b> 

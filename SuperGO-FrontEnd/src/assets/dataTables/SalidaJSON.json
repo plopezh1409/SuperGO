@@ -7,181 +7,312 @@
         }
     ],
     "datosDeSalida": {
-        "tableroCifras": [
+        "tableroOperativo": [
             {  
                 "idTipo": 1, 
                 "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
                 "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-                "fechaContable": "2022-07-14",
-                "fechaOperativa": "2022-07-03",
+                "fechaOperacion": "2022-07-12",
+                "fechaContable": "2022-07-03",
+                "fechaCorte": "2022-07-03",
+                "semana": 18,
                 "numeroOperaciones": 2,
                 "montoOperaciones": 20,
+                "montoMonetizaciones": 200.18,
+                "totalIVA": 22.02,
+                "montosTotales": 222.2,
                 "documentoContable": " ",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
                 "cuentaBalance": "1008080013",
+                "montoBalance": 200.18,
                 "cuentaResultados": "4000420000",
+                "montoResultados": 200.18,
                 "tipoStatus": "Error",
                 "descripcionStatus": "Error al generar el importe de la poliza",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62"
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63"
+                        "montoOperacion": 10,
+                        "montoMonetizacion": 100.09,
+                        "iva": 11.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
                     }
                 ]
             },
-            {  
+              {
                 "idTipo": 2, 
-                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-                "razonSocial": "BANCO AZTECA",
-                "fechaContable": "2022-07-13",
-                "fechaOperativa": "2022-07-03",
-                "numeroOperaciones": 2,
-                "montoOperaciones": 20,
-                "documentoContable": "32821738921831",
-                "cuentaBalance": "1008080014",
-                "cuentaResultados": "4000420001",
-                "tipoStatus": "Completa",
-                "descripcionStatus": "Poliza efectuada correctamente",
-                "detallesOperaciones": [
-                    {
-                        "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee64"
-                    },
-                    {
-                        "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee65"
-                    }
-                ]
-            },
-            {  
-                "idTipo": 3, 
-                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "descripcionTipo": "DEBITO - XXXXXXXX",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
                 "razonSocial": "TOTAL PLAY",
-                "fechaContable": "2022-07-14",
-                "fechaOperativa": "2022-07-03",
+                "fechaOperacion": "2022-07-06",
+                "fechaContable": "2022-06-07",
+                "fechaCorte": "2022-06-07",
+                "semana": 19,
                 "numeroOperaciones": 2,
-                "montoOperaciones": 20,
-                "documentoContable": " ",
-                "cuentaBalance": "1008080015",
-                "cuentaResultados": "4000420002",
-                "tipoStatus": "Error",
-                "descripcionStatus": "Error al generar el importe de la poliza",
-                "detallesOperaciones": [
-                    {
-                        "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee66"
-                    },
-                    {
-                        "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee67"
-                    }
-                ]
-            },
-            {  
-                "idTipo": 4, 
-                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
-                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-                "fechaContable": "2022-07-13",
-                "fechaOperativa": "2022-07-03",
-                "numeroOperaciones": 2,
-                "montoOperaciones": 20,
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
                 "documentoContable": "32821738921832",
-                "cuentaBalance": "1008080016",
-                "cuentaResultados": "4000420003",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
                 "tipoStatus": "Completa",
                 "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee68"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee69"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
                     }
                 ]
             },
-            {  
-                "idTipo": 5, 
-                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                "razonSocial": "TOTAL PLAY",
-                "fechaContable": "2022-07-12",
-                "fechaOperativa": "2022-07-03",
+            {
+                "idTipo": 3, 
+                "descripcionTipo": "POLIZAS - XXXXXXXXXX",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
+                "razonSocial": "ITALIKA",
+                "fechaOperacion": "2022-07-06",
+                "fechaContable": "2022-06-07",
+                "fechaCorte": "2022-06-07",
+                "semana": 20,
                 "numeroOperaciones": 2,
-                "montoOperaciones": 20,
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
                 "documentoContable": "32821738921833",
-                "cuentaBalance": "1008080017",
-                "cuentaResultados": "4000420004",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
                 "tipoStatus": "Completa",
                 "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee70"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee71"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
                     }
                 ]
             },
-            {  
-                "idTipo": 6, 
-                "descripcionTipo": "DEBITO - XXXXXXXXXXXXXXXXXXXXXXXXX",
-                "razonSocial": "BANCO AZTECA",
-                "fechaContable": "2022-07-11",
-                "fechaOperativa": "2022-07-03",
-                "numeroOperaciones": 1,
-                "montoOperaciones": 10,
+            {
+                "idTipo": 4, 
+                "descripcionTipo": "POLIZAS - XXXXXXXXXX",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
+                "razonSocial": "ITALIKA",
+                "fechaOperacion": "2022-07-08",
+                "fechaContable": "2022-06-08",
+                "fechaCorte": "2022-06-07",
+                "semana": 20,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
+                "documentoContable": "32821738921834",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
+                "tipoStatus": "Completa",
+                "descripcionStatus": "Poliza efectuada correctamente",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "idTipo": 5, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
+                "razonSocial": "PRESTA PRENDA",
+                "fechaOperacion": "2022-07-11",
+                "fechaContable": "2022-06-08",
+                "fechaCorte": "2022-06-07",
+                "semana": 20,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
                 "documentoContable": " ",
-                "cuentaBalance": "1008080018",
-                "cuentaResultados": "4000420005",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
                 "tipoStatus": "Error",
                 "descripcionStatus": "Error al generar el importe de la poliza",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee72"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
                     }
                 ]
             },
-            {  
-                "idTipo": 7, 
-                "descripcionTipo": "POLIZA - XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                "razonSocial": "BANCO AZTECA SA INSTITUCION DE BANCA MULTIPLE",
-                "fechaContable": "2022-07-11",
-                "fechaOperativa": "2022-07-03",
+            {
+                "idTipo": 6, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
+                "razonSocial": "GRUPO DRAGON",
+                "fechaOperacion": "2022-07-12",
+                "fechaContable": "2022-06-08",
+                "fechaCorte": "2022-06-07",
+                "semana": 20,
                 "numeroOperaciones": 2,
-                "montoOperaciones": 20,
-                "documentoContable": "32821738921834",
-                "cuentaBalance": "1008080019",
-                "cuentaResultados": "4000420006",
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
+                "documentoContable": "32821738921836",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
                 "tipoStatus": "Completa",
                 "descripcionStatus": "Poliza efectuada correctamente",
                 "detallesOperaciones": [
                     {
                         "numeroOperacion": 1,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee73"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
                     },
                     {
                         "numeroOperacion": 2,
-                        "montoMonetizacion": 10,
-                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee74"
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
+                    }
+                ]
+            },
+            {
+                "idTipo": 7, 
+                "descripcionTipo": "CREDITO - CLIENTES EXISTENTES Y RECOMPRAS",
+                "idSubtipo": 0, 
+                "descripcionSubtipoOperacion": "GENERICO",
+                "razonSocial": "GRUPO SALINAS",
+                "fechaOperacion": "2022-07-12",
+                "fechaContable": "2022-06-08",
+                "fechaCorte": "2022-06-07",
+                "semana": 20,
+                "numeroOperaciones": 2,
+                "montoOperaciones": 30,
+                "montoMonetizaciones": 400.18,
+                "totalIVA": 42.02,
+                "montosTotales": 422.2,
+                "documentoContable": "32821738921837",
+                "estatusContabilizacion": "PENDIENTE DE CONTABILIZACIÓN",
+                "cuentaBalance": "1008080014",
+                "montoBalance": 400.18,
+                "cuentaResultados": "4000420001",
+                "montoResultados": 400.18,
+                "tipoStatus": "Completa",
+                "descripcionStatus": "Poliza efectuada correctamente",
+                "detallesOperaciones": [
+                    {
+                        "numeroOperacion": 1,
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee62",
+                        "sicu": " "
+                    },
+                    {
+                        "numeroOperacion": 2,
+                        "montoOperacion": 15,
+                        "montoMonetizacion": 200.09,
+                        "iva": 21.01,
+                        "montoTotal": 111.1,
+                        "suid": "85ddef51c06745c89b1e4a1ffdd7ee63",
+                        "sicu": " "
                     }
                 ]
             }

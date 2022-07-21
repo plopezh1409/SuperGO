@@ -28,8 +28,6 @@ export class FigureComponent implements OnInit {
   maxNumControls= Number(this.codeResponseMagic.RESPONSE_CODE_10);
   alignContent='horizontal';
   public dataInfo:DatosDeSalida[];
-  public dataInfo2:DatosDeSalida[];
-  public dataInfo3:Tablero[];
   public dataHeader:Tablero[];
   public showLoad: boolean;
   public idSolicitud : string | null;
@@ -50,8 +48,6 @@ export class FigureComponent implements OnInit {
     
     this.containers=[];
     this.dataInfo=[];
-    this.dataInfo2=[];
-    this.dataInfo3=[];
     this.dataHeader=[];
     this.appComponent.showInpImage(false);
     this.appComponent.showBoolImg(false);
@@ -141,9 +137,7 @@ export class FigureComponent implements OnInit {
     }
     else{
       // this.containers = dataForm.response.reactiveForm; 
-      this.dataInfo = dataOper.datosDeSalida.tableroCifras;
-      this.dataInfo2 = dataOper.datosDeSalida.tableroCifras;
-      this.dataInfo3 = dataOper.datosDeSalida.tableroCifras;
+      this.dataInfo = dataOper.datosDeSalida.tableroOperativo;
       // this.dataHeader= [dataOper.datosDeSalida.operaciones];
       
       // this.reactiveForm.setContainers(this.containers);

@@ -25,11 +25,11 @@
   </table>
 </div> -->
 
-<div id="Tablero" style="margin:1%"></div>
+<div style="margin:1%"></div>
 
-<div id="Tabla" class="paginator scrollable">
+<div class="paginator scrollable">
 
-  <div id="Encabezado" style="display:flex;margin-top:15px;margin-left:10%;margin-right:10%;">
+  <div style="display:flex;margin-top:15px;margin-left:10%;margin-right:10%;">
 
     <mat-form-field appearance="fill" style="margin-top:1.2%">
       <mat-label>Ingrese rango de fechas:</mat-label>
@@ -110,17 +110,17 @@
 
     <ng-container matColumnDef="montoMonetizacion">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO MONETIZACION </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoMonetizacion | currency }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montoMonetizaciones | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="iva">
       <th mat-header-cell *matHeaderCellDef id=""> IVA </th>
-      <td mat-cell *matCellDef="let element"> {{element.iva}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.totaliva}} </td>
     </ng-container>
 
     <ng-container matColumnDef="montoTotal">
       <th mat-header-cell *matHeaderCellDef id=""> MONTO TOTAL </th>
-      <td mat-cell *matCellDef="let element"> {{element.montoTotal | currency }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.montosTotales | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="fechaCorte">

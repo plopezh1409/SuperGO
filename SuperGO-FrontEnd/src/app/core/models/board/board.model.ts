@@ -9,6 +9,9 @@ export class Tablero
     fechaCorte: string;
     semana: number;
     numeroOperaciones: number;
+    montoMonetizaciones: number;
+    totalIVA: number;
+    montosTotales :number;
     montoOperaciones: number;
     montoMonetizacion: number;
     iva: number;
@@ -33,6 +36,9 @@ export class Tablero
        this.semana=0;
        this.numeroOperaciones=0;
        this.montoOperaciones=0;
+       this.montoMonetizaciones =0;
+       this.totalIVA=0;
+       this.montosTotales=0;
        this.montoMonetizacion=0;
        this.iva=0;
        this.montoTotal=0;
@@ -80,9 +86,9 @@ export interface TableroOperativo {
     semana: number;
     numeroOperaciones: number;
     montoOperaciones: number;
-    montoMonetizacion: number;
-    iva: number;
-    montoTotal: number;
+    montoMonetizaciones: number;
+    totaliva: number;
+    montosTotales: number;
     documentoContable: string;
     estatusContabilizacion: string;
     cuentaBalance: string;
